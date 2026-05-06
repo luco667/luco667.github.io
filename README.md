@@ -1,2 +1,2 @@
 # snakepages
-luco667.github.io/snakepages/
+luco667.github.io
