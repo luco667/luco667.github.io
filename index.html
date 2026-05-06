@@ -1,79 +1,176 @@
 <!DOCTYPE html>
-<!-- Declaring the language -->
-<html lang="en">
-  <!-- HTML tag with language in EN -->
-  <!-- comment -->
-  <head>
-    <!-- HTML tag to declare page settings and header name -->
-    <meta charset="UTF-8" />
-    <!-- Web page encoding -->
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.00, maximum-scale=1.0, user-scalable=no"
-    />
-    <meta name="color-scheme" content="dark light" />
-    <!-- Preference for dark mode -->
-    <meta name="creator" content="lucas, jephte" />
-    <!-- Creator name -->
-    <meta
-      name="description"
-      content="online game of the snake that eats apples"
-    />
-    <!-- description of the site-->
-    <link rel="icon" href="/object/427533.ico" type="image/x-icon" />
-    <!-- change the page icon -->
-    <link rel="next" href="/note.html" />
-    <!-- Preload the game page -->
-    <link rel="stylesheet" href="jome.css" type="text/css" />
-    <!-- links the style page -->
-    <title>Snake</title>
-    <!-- title of the web page --></head
-  ><!-- HTML Tag to declare the end of the head section -->
-  <body>
-    <!-- declaration of the body of the page (what is displayed)-->
-    <div class="diskcontent">
-      <div>
-        <!-- content element -->
-        <center>
-          <!-- tag that centers the elements -->
-          <img
-            class="image"
-            src="/object/Couleurs_Cadre_transparents.png"
-            alt="CC Simone Veil High School"
-          /><!-- allows inserting an image -->
-          <!-- linked to CSS through the "class" attribute; "src" indicates the location of the image; "alt" provides a placeholder if the image disappears -->
-        </center>
-      </div>
-      <!-- To create a content grouping -->
-      <div>
-        <h1 class="titre">S N A K E</h1>
-        <!-- title of the page -->
-      </div>
-      <div>
-        <p>Created by Lucas, Jephte and Ilhem</p>
-        <!-- to create a paragraph -->
-      </div>
-      <label>--Sign up--</label
-      ><!-- Registration to be completed (querySelector in JS to be done) -->
-      <label for="pseudo">Your username:</label>
-      <input
-        id="pseudo"
-        type="text" placeholder="pseudo"
-        required
-      /><!-- creates an area to enter text -->
-      <label for="email">Your email:</label
-      ><!-- tag to display captions for choices -->
-      <input
-        id="email"
-        placeholder="email"
-        type="email"
-        required
-      /><!-- the type attribute serves as an obligation to only enter text or to be able to propose emails already entered when submitted with a form tag -->
-      <a href="/note.html"><input class="centre" value="Play" /></a>
-      <!-- the a tag serves as an anchor element to allow the button to open another page using href -->
-      <!-- the value attribute serves to give the value of the element-->
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucas Le Gueut - Portfolio</title>
+
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card: #161b22;
+            --accent: #58a6ff;
+            --text: #c9d1d9;
+            --muted: #8b949e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+        }
+
+        header p {
+            color: var(--muted);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .skills span {
+            display: inline-block;
+            background: #21262d;
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--muted);
+            border-top: 1px solid #222;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Lucas Le Gueut</h1>
+    <p>Étudiant en cybersécurité & électronique</p>
+</header>
+
+<nav>
+    <a href="#about">À propos</a>
+    <a href="#skills">Compétences</a>
+    <a href="#projects">Projets</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<section id="about">
+    <h2>À propos</h2>
+    <div class="card">
+        <p>
+            Étudiant spécialisé en cybersécurité et électronique. 
+            Intéressé par les systèmes embarqués, la sécurité des réseaux et 
+            l’optimisation énergétique des dispositifs.
+        </p>
     </div>
-  </body>
-  <!-- declaration of the end of the body tag -->
+</section>
+
+<section id="skills">
+    <h2>Compétences</h2>
+    <div class="card skills">
+        <span>C</span>
+        <span>C++</span>
+        <span>Python</span>
+        <span>Cybersécurité</span>
+        <span>Réseaux</span>
+        <span>Linux</span>
+        <span>RP2040</span>
+        <span>Électronique embarquée</span>
+        <span>KiCad</span>
+    </div>
+</section>
+
+<section id="projects">
+    <h2>Projets</h2>
+
+    <div class="card">
+        <h3>Système IoT basse consommation</h3>
+        <p>Développement d’un système basé sur RP2040 avec e-paper et RTC optimisé énergie.</p>
+    </div>
+
+    <div class="card">
+        <h3>Outils RFID</h3>
+        <p>Analyse, sniffing et clonage de tags RFID avec Proxmark.</p>
+    </div>
+
+    <div class="card">
+        <h3>Serveur VPN personnel</h3>
+        <p>Configuration d’un serveur WireGuard sur Linux pour sécurisation réseau.</p>
+    </div>
+
+</section>
+
+<section id="contact">
+    <h2>Contact</h2>
+    <div class="card">
+        <p>Email : contact@exemple.com</p>
+        <p>GitHub : github.com/lucas</p>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Lucas Le Gueut</p>
+</footer>
+
+</body>
 </html>
-<!-- declaration of the end of the body tag -->
