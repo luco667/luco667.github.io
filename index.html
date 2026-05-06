@@ -2,105 +2,88 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-
-    <!-- Responsive mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Lucas Le Gueut - Matrix Portfolio</title>
 
-    <!-- Lien vers le CSS externe -->
-    <link rel="stylesheet" href="style.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-    <!-- Canvas utilisé pour effet Matrix -->
-    <canvas id="matrix"></canvas>
+<!-- Canvas Matrix -->
+<canvas id="matrix"></canvas>
 
-    <!-- ===== HEADER ===== -->
-    <header>
-        <h1>Lucas Le Gueut</h1>
-        <p class="subtitle">Étudiant en cybersécurité & électronique</p>
-    </header>
+<header>
+    <h1>Lucas Le Gueut</h1>
+    <p class="subtitle">Étudiant en cybersécurité & électronique</p>
+</header>
 
-    <!-- ===== NAVIGATION ===== -->
-    <nav>
-        <!-- Liens vers sections (scroll interne) -->
-        <a href="#about">about</a>
-        <a href="#skills">skills</a>
-        <a href="#projects">projects</a>
-        <a href="#contact">contact</a>
-    </nav>
+<nav>
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#projects">projects</a>
+    <a href="#contact">contact</a>
+</nav>
 
-    <!-- ===== SECTION ABOUT ===== -->
-    <section id="about">
-        <h2>> about</h2>
+<section id="about">
+    <h2>> about</h2>
 
-        <!-- Simulation terminal -->
-        <div class="terminal">
-            <p>> booting profile...</p>
-            <p>> étudiant cybersécurité</p>
-            <p>> systèmes embarqués</p>
+    <!-- Terminal dynamique -->
+    <div class="terminal">
+        <div id="terminal-output"></div>
+    </div>
+</section>
 
-            <!-- Curseur animé -->
-            <p>> accès autorisé <span class="cursor"></span></p>
-        </div>
-    </section>
+<section id="skills">
+    <h2>> skills</h2>
 
-    <!-- ===== SECTION SKILLS ===== -->
-    <section id="skills">
-        <h2>> skills</h2>
+    <div class="card skills">
+        <span>C</span>
+        <span>C++</span>
+        <span>Python</span>
+        <span>Linux</span>
+        <span>RFID</span>
+        <span>RP2040</span>
+        <span>KiCad</span>
+        <span>Network Security</span>
+    </div>
+</section>
 
-        <div class="card skills">
-            <!-- Chaque compétence est un tag -->
-            <span>C</span>
-            <span>C++</span>
-            <span>Python</span>
-            <span>Linux</span>
-            <span>RFID</span>
-            <span>RP2040</span>
-            <span>KiCad</span>
-            <span>Network Security</span>
-        </div>
-    </section>
+<section id="projects">
+    <h2>> projects</h2>
 
-    <!-- ===== SECTION PROJECTS ===== -->
-    <section id="projects">
-        <h2>> projects</h2>
+    <div class="card">
+        <h3>IoT Low Power System</h3>
+        <p>RP2040 + e-paper + RTC basse consommation</p>
+    </div>
 
-        <div class="card">
-            <h3>IoT Low Power System</h3>
-            <p>RP2040 + e-paper + RTC basse conso</p>
-        </div>
+    <div class="card">
+        <h3>RFID Toolkit</h3>
+        <p>Sniffing / clonage RFID</p>
+    </div>
 
-        <div class="card">
-            <h3>RFID Toolkit</h3>
-            <p>Sniffing / clonage RFID</p>
-        </div>
+    <div class="card">
+        <h3>WireGuard VPN</h3>
+        <p>Serveur sécurisé auto-hébergé</p>
+    </div>
+</section>
 
-        <div class="card">
-            <h3>WireGuard VPN</h3>
-            <p>Serveur sécurisé auto-hébergé</p>
-        </div>
-    </section>
+<section id="contact">
+    <h2>> contact</h2>
 
-    <!-- ===== SECTION CONTACT ===== -->
-    <section id="contact">
-        <h2>> contact</h2>
+    <div class="card">
+        <p>> email: contact@exemple.com</p>
+        <p>> github: github.com/lucas</p>
+    </div>
+</section>
 
-        <div class="card">
-            <p>> email: contact@exemple.com</p>
-            <p>> github: github.com/lucas</p>
-        </div>
-    </section>
+<footer>
+    <p>© 2026 - matrix instance</p>
+</footer>
 
-    <!-- ===== FOOTER ===== -->
-    <footer>
-        <p>© 2026 - matrix instance</p>
-    </footer>
-
-    <!-- Lien vers JS -->
-    <script src="script.js"></script>
+<!-- JS -->
+<script src="./script.js"></script>
 
 </body>
 </html>
