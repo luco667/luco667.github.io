@@ -1,11 +1,17 @@
-window.onload = () => {
+document.addEventListener("DOMContentLoaded", () => {
+
+    console.log("JS OK");
 
     /* ===============================
        MATRIX EFFECT
     =============================== */
 
     const canvas = document.getElementById("matrix");
-    if (!canvas) return;
+
+    if (!canvas) {
+        console.error("canvas introuvable");
+        return;
+    }
 
     const ctx = canvas.getContext("2d");
 
@@ -44,10 +50,16 @@ window.onload = () => {
 
     setInterval(draw, 33);
 
-
     /* ===============================
-       TERMINAL TYPING EFFECT
+       TERMINAL EFFECT
     =============================== */
+
+    const terminal = document.getElementById("terminal-output");
+
+    if (!terminal) {
+        console.error("terminal-output introuvable");
+        return;
+    }
 
     const lines = [
         "> about",
@@ -60,30 +72,28 @@ window.onload = () => {
         "> accès autorisé"
     ];
 
-    const terminal = document.getElementById("terminal-output");
-
     const speed = 30;
-    const lineDelay = 400;
+    const delay = 400;
 
     function typeLine(text, callback) {
         let i = 0;
         const line = document.createElement("div");
         terminal.appendChild(line);
 
-        function typing() {
+        function type() {
             if (i < text.length) {
                 line.textContent += text[i];
                 i++;
-                setTimeout(typing, speed);
+                setTimeout(type, speed);
             } else {
-                setTimeout(callback, lineDelay);
+                setTimeout(callback, delay);
             }
         }
 
-        typing();
+        type();
     }
 
-    function startTerminal() {
+    function run() {
         let i = 0;
 
         function next() {
@@ -102,5 +112,5 @@ window.onload = () => {
         next();
     }
 
-    startTerminal();
-};
+    run();
+});
