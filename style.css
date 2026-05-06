@@ -1,0 +1,149 @@
+/* ===============================
+   VARIABLES GLOBALES (THEME MATRIX)
+================================= */
+:root {
+    --bg: #000;
+    --green: #00ff9c;
+}
+
+/* Reset CSS basique */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Courier New", monospace;
+}
+
+/* Corps de page */
+body {
+    background: var(--bg);
+    color: var(--green);
+    overflow-x: hidden;
+}
+
+/* Canvas en arrière-plan */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* ===============================
+   HEADER
+================================= */
+header {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+/* Nom principal */
+h1 {
+    font-size: 3rem;
+    text-shadow: 0 0 10px var(--green);
+}
+
+/* Sous-titre */
+.subtitle {
+    opacity: 0.7;
+}
+
+/* ===============================
+   NAVIGATION
+================================= */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+}
+
+/* Liens */
+nav a {
+    color: var(--green);
+    text-decoration: none;
+    position: relative;
+}
+
+/* Effet hover (ligne animée) */
+nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--green);
+    transition: 0.3s;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* ===============================
+   SECTIONS
+================================= */
+section {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 20px;
+}
+
+/* Titres */
+h2 {
+    margin-bottom: 20px;
+}
+
+/* ===============================
+   CARDS (blocs projets)
+================================= */
+.card {
+    border: 1px solid var(--green);
+    padding: 20px;
+    margin-bottom: 20px;
+    background: rgba(0,255,156,0.05);
+}
+
+/* ===============================
+   TERMINAL STYLE
+================================= */
+.terminal {
+    background: black;
+    padding: 15px;
+    border: 1px solid var(--green);
+}
+
+/* Curseur clignotant */
+.cursor {
+    display: inline-block;
+    width: 10px;
+    background: var(--green);
+    animation: blink 1s infinite;
+}
+
+/* Animation curseur */
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ===============================
+   SKILLS TAGS
+================================= */
+.skills span {
+    border: 1px solid var(--green);
+    padding: 5px 10px;
+    margin: 5px;
+    display: inline-block;
+}
+
+/* ===============================
+   FOOTER
+================================= */
+footer {
+    text-align: center;
+    padding: 40px;
+    opacity: 0.5;
+}
