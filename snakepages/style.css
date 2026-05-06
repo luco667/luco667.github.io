@@ -1,3 +1,19 @@
+@font-face {
+  font-family: 'Share Tech Mono';
+  src: url('snakepages/ShareTechMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* fallback VT323 (si police non fournie localement) */
+@font-face {
+  font-family: 'VT323';
+  src: local('Courier New'), local('monospace');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --green: #00ff41;
