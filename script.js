@@ -1,68 +1,55 @@
-/* ===============================
-   MATRIX RAIN EFFECT
-   Simulation style film Matrix
-================================= */
+window.onload = () => {
 
-// Récupération du canvas
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+    /* ===============================
+       MATRIX RAIN EFFECT
+    ================================= */
 
-// Taille écran
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-// Caractères affichés (ici binaire)
-const letters = "01";
-
-// Taille des caractères
-const fontSize = 14;
-
-// Nombre de colonnes
-const columns = canvas.width / fontSize;
-
-// Tableau contenant la position des gouttes
-const drops = [];
-
-/* Initialisation des colonnes */
-for (let i = 0; i < columns; i++) {
-    drops[i] = 1;
-}
-
-/* Fonction de dessin */
-function draw() {
-
-    // Effet de traînée (fade)
-    ctx.fillStyle = "rgba(0,0,0,0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Couleur du texte
-    ctx.fillStyle = "#00ff9c";
-    ctx.font = fontSize + "px monospace";
-
-    // Boucle sur chaque colonne
-    for (let i = 0; i < drops.length; i++) {
-
-        // Choix aléatoire du caractère
-        const text = letters[Math.floor(Math.random() * letters.length)];
-
-        // Affichage
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        // Reset aléatoire en haut
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-        }
-
-        // Descente de la goutte
-        drops[i]++;
+    // Récupération du canvas
+    const canvas = document.getElementById("matrix");
+    if (!canvas) {
+        console.error("Canvas introuvable");
+        return;
     }
-}
 
-/* Rafraîchissement (~30 FPS) */
-setInterval(draw, 33);
+    const ctx = canvas.getContext("2d");
 
-/* Resize dynamique */
-window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
+    // Fonction resize propre
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    // Caractères Matrix
+    const letters = "01";
+    const fontSize = 14;
+
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    function draw() {
+
+        // effet traînée
+        ctx.fillStyle = "rgba(0,0,0,0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#00ff9c";
+        ctx.font = fontSize + "px monospace";
+
+        for (let i = 0; i < drops.length; i++) {
+
+            const text = letters[Math.floor(Math.random() * letters.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            drops[i]++;
+        }
+    }
+
+    setInterval(draw, 33);
+};
