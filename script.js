@@ -1,28 +1,22 @@
 window.onload = () => {
 
     /* ===============================
-       MATRIX RAIN EFFECT
-    ================================= */
+       MATRIX EFFECT
+    =============================== */
 
-    // Récupération du canvas
     const canvas = document.getElementById("matrix");
-    if (!canvas) {
-        console.error("Canvas introuvable");
-        return;
-    }
+    if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
 
-    // Fonction resize propre
-    function resizeCanvas() {
+    function resize() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }
 
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+    resize();
+    window.addEventListener("resize", resize);
 
-    // Caractères Matrix
     const letters = "01";
     const fontSize = 14;
 
@@ -30,8 +24,6 @@ window.onload = () => {
     let drops = Array(columns).fill(1);
 
     function draw() {
-
-        // effet traînée
         ctx.fillStyle = "rgba(0,0,0,0.05)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -39,7 +31,6 @@ window.onload = () => {
         ctx.font = fontSize + "px monospace";
 
         for (let i = 0; i < drops.length; i++) {
-
             const text = letters[Math.floor(Math.random() * letters.length)];
             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
@@ -52,4 +43,64 @@ window.onload = () => {
     }
 
     setInterval(draw, 33);
+
+
+    /* ===============================
+       TERMINAL TYPING EFFECT
+    =============================== */
+
+    const lines = [
+        "> about",
+        "> booting profile...",
+        "",
+        "> étudiant cybersécurité",
+        "",
+        "> systèmes embarqués",
+        "",
+        "> accès autorisé"
+    ];
+
+    const terminal = document.getElementById("terminal-output");
+
+    const speed = 30;
+    const lineDelay = 400;
+
+    function typeLine(text, callback) {
+        let i = 0;
+        const line = document.createElement("div");
+        terminal.appendChild(line);
+
+        function typing() {
+            if (i < text.length) {
+                line.textContent += text[i];
+                i++;
+                setTimeout(typing, speed);
+            } else {
+                setTimeout(callback, lineDelay);
+            }
+        }
+
+        typing();
+    }
+
+    function startTerminal() {
+        let i = 0;
+
+        function next() {
+            if (i < lines.length) {
+                typeLine(lines[i], () => {
+                    i++;
+                    next();
+                });
+            } else {
+                const cursor = document.createElement("span");
+                cursor.className = "cursor";
+                terminal.appendChild(cursor);
+            }
+        }
+
+        next();
+    }
+
+    startTerminal();
 };
