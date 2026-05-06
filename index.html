@@ -1,176 +1,254 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucas Le Gueut - Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucas Le Gueut - Matrix Portfolio</title>
 
-    <style>
-        :root {
-            --bg: #0d1117;
-            --card: #161b22;
-            --accent: #58a6ff;
-            --text: #c9d1d9;
-            --muted: #8b949e;
-        }
+<style>
+:root {
+    --bg: #000;
+    --green: #00ff9c;
+    --darkgreen: #003b2a;
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", sans-serif;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Courier New", monospace;
+}
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
+body {
+    background: black;
+    color: var(--green);
+    overflow-x: hidden;
+}
 
-        header {
-            padding: 40px 20px;
-            text-align: center;
-        }
+/* MATRIX CANVAS */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
 
-        header h1 {
-            font-size: 2.5rem;
-        }
+/* HEADER */
+header {
+    text-align: center;
+    padding: 100px 20px;
+}
 
-        header p {
-            color: var(--muted);
-        }
+h1 {
+    font-size: 3rem;
+    text-shadow: 0 0 10px var(--green);
+}
 
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 15px;
-            border-top: 1px solid #222;
-            border-bottom: 1px solid #222;
-        }
+.subtitle {
+    opacity: 0.7;
+}
 
-        nav a {
-            color: var(--text);
-            text-decoration: none;
-        }
+/* NAV */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+}
 
-        nav a:hover {
-            color: var(--accent);
-        }
+nav a {
+    color: var(--green);
+    text-decoration: none;
+    position: relative;
+}
 
-        section {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--green);
+    transition: 0.3s;
+}
 
-        h2 {
-            margin-bottom: 15px;
-            color: var(--accent);
-        }
+nav a:hover::after {
+    width: 100%;
+}
 
-        .card {
-            background: var(--card);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
+/* SECTIONS */
+section {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 20px;
+}
 
-        .skills span {
-            display: inline-block;
-            background: #21262d;
-            padding: 8px 12px;
-            margin: 5px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-        }
+h2 {
+    margin-bottom: 20px;
+}
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--muted);
-            border-top: 1px solid #222;
-        }
+/* CARDS */
+.card {
+    border: 1px solid var(--green);
+    padding: 20px;
+    margin-bottom: 20px;
+    background: rgba(0,255,156,0.05);
+    backdrop-filter: blur(4px);
+}
 
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+/* TERMINAL EFFECT */
+.terminal {
+    background: black;
+    padding: 15px;
+    border: 1px solid var(--green);
+    font-size: 0.9rem;
+}
+
+.cursor {
+    display: inline-block;
+    width: 10px;
+    background: var(--green);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* SKILLS */
+.skills span {
+    border: 1px solid var(--green);
+    padding: 5px 10px;
+    margin: 5px;
+    display: inline-block;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 40px;
+    opacity: 0.5;
+}
+</style>
 </head>
 
 <body>
 
+<canvas id="matrix"></canvas>
+
 <header>
     <h1>Lucas Le Gueut</h1>
-    <p>Étudiant en cybersécurité & électronique</p>
+    <p class="subtitle">Étudiant en cybersécurité & électronique</p>
 </header>
 
 <nav>
-    <a href="#about">À propos</a>
-    <a href="#skills">Compétences</a>
-    <a href="#projects">Projets</a>
-    <a href="#contact">Contact</a>
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#projects">projects</a>
+    <a href="#contact">contact</a>
 </nav>
 
 <section id="about">
-    <h2>À propos</h2>
-    <div class="card">
-        <p>
-            Étudiant spécialisé en cybersécurité et électronique. 
-            Intéressé par les systèmes embarqués, la sécurité des réseaux et 
-            l’optimisation énergétique des dispositifs.
-        </p>
+    <h2>> about</h2>
+    <div class="terminal">
+        <p>> booting profile...</p>
+        <p>> étudiant spécialisé cybersécurité</p>
+        <p>> systèmes embarqués / low power</p>
+        <p>> accès autorisé<span class="cursor"></span></p>
     </div>
 </section>
 
 <section id="skills">
-    <h2>Compétences</h2>
+    <h2>> skills</h2>
     <div class="card skills">
         <span>C</span>
         <span>C++</span>
         <span>Python</span>
-        <span>Cybersécurité</span>
-        <span>Réseaux</span>
         <span>Linux</span>
+        <span>RFID</span>
         <span>RP2040</span>
-        <span>Électronique embarquée</span>
         <span>KiCad</span>
+        <span>Network Security</span>
     </div>
 </section>
 
 <section id="projects">
-    <h2>Projets</h2>
+    <h2>> projects</h2>
 
     <div class="card">
-        <h3>Système IoT basse consommation</h3>
-        <p>Développement d’un système basé sur RP2040 avec e-paper et RTC optimisé énergie.</p>
+        <h3>IoT Low Power System</h3>
+        <p>RP2040 + e-paper + RTC ultra basse consommation</p>
     </div>
 
     <div class="card">
-        <h3>Outils RFID</h3>
-        <p>Analyse, sniffing et clonage de tags RFID avec Proxmark.</p>
+        <h3>RFID Toolkit</h3>
+        <p>Sniffing / clone avec Proxmark</p>
     </div>
 
     <div class="card">
-        <h3>Serveur VPN personnel</h3>
-        <p>Configuration d’un serveur WireGuard sur Linux pour sécurisation réseau.</p>
+        <h3>WireGuard VPN</h3>
+        <p>Serveur sécurisé auto-hébergé</p>
     </div>
 
 </section>
 
 <section id="contact">
-    <h2>Contact</h2>
+    <h2>> contact</h2>
     <div class="card">
-        <p>Email : contact@exemple.com</p>
-        <p>GitHub : github.com/lucas</p>
+        <p>> email: contact@exemple.com</p>
+        <p>> github: github.com/lucas</p>
     </div>
 </section>
 
 <footer>
-    <p>© 2026 Lucas Le Gueut</p>
+    <p>© 2026 - matrix instance</p>
 </footer>
+
+<script>
+// MATRIX EFFECT
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const letters = "01";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+
+const drops = [];
+
+for (let i = 0; i < columns; i++) {
+    drops[i] = 1;
+}
+
+function draw() {
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#00ff9c";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+
+        drops[i]++;
+    }
+}
+
+setInterval(draw, 33);
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
 
 </body>
 </html>
