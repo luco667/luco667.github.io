@@ -65,11 +65,11 @@ document.addEventListener("DOMContentLoaded", () => {
         "> about",
         "> booting profile...",
         "",
-        "> étudiant cybersécurité",
+        "> scanning device",
         "",
-        "> systèmes embarqués",
+        "> Thank you for being here",
         "",
-        "> accès autorisé"
+        "> authorized access"
     ];
 
     const speed = 30;
