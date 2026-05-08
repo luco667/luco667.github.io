@@ -6,7 +6,7 @@
   font-display: swap;
 }
 
-/* fallback VT323 (si police non fournie localement) */
+/* fallback VT323 */
 @font-face {
   font-family: 'VT323';
   src: local('Courier New'), local('monospace');
@@ -15,15 +15,27 @@
   font-display: swap;
 }
 
+/* ─────────────────────────────────────────
+   ROOT
+───────────────────────────────────────── */
+
 :root {
   --green: #00ff41;
   --green-dim: #00cc33;
   --green-dark: #003b00;
+
   --green-glow: rgba(0, 255, 65, 0.15);
+
   --bg: #000000;
+
   --card-bg: rgba(0, 10, 0, 0.85);
+
   --border: rgba(0, 255, 65, 0.3);
 }
+
+/* ─────────────────────────────────────────
+   RESET
+───────────────────────────────────────── */
 
 * {
   margin: 0;
@@ -38,50 +50,80 @@ html {
 body {
   background: var(--bg);
   color: var(--green);
+
   font-family: 'Share Tech Mono', monospace;
+
   overflow-x: hidden;
+
   cursor: crosshair;
 }
 
-/* ── CANVAS MATRIX ── */
+/* ─────────────────────────────────────────
+   MATRIX BACKGROUND
+───────────────────────────────────────── */
+
 #matrix {
   position: fixed;
+
   top: 0;
   left: 0;
+
   width: 100%;
   height: 100%;
+
   z-index: 0;
+
   opacity: 0.55;
 }
 
-/* ── LAYOUT ── */
-header, nav, section, footer {
+/* ─────────────────────────────────────────
+   LAYOUT
+───────────────────────────────────────── */
+
+header,
+nav,
+section,
+footer {
   position: relative;
   z-index: 10;
 }
 
+/* ─────────────────────────────────────────
+   HEADER
+───────────────────────────────────────── */
+
 header {
   text-align: center;
+
   padding: 80px 20px 40px;
 }
 
 header h1 {
   font-family: 'VT323', monospace;
+
   font-size: clamp(2.5rem, 7vw, 5rem);
+
   color: var(--green);
+
+  letter-spacing: 0.08em;
+
   text-shadow:
     0 0 10px var(--green),
     0 0 30px var(--green),
     0 0 60px var(--green-dim);
-  letter-spacing: 0.08em;
+
   animation: flicker 6s infinite;
 }
 
 header .subtitle {
-  font-size: 0.9rem;
-  color: var(--green-dim);
   margin-top: 10px;
+
+  color: var(--green-dim);
+
+  font-size: 0.9rem;
+
   opacity: 0.8;
+
   letter-spacing: 0.15em;
 }
 
@@ -90,37 +132,91 @@ header .subtitle::before {
   opacity: 0.5;
 }
 
-/* ── NAV ── */
+/* ─────────────────────────────────────────
+   NAVBAR
+───────────────────────────────────────── */
+
 nav {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  padding: 20px;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(4px);
   position: sticky;
   top: 0;
   z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 14px;
+
+  width: 100%;
+
+  padding: 14px 18px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  white-space: nowrap;
+
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+
+  background: rgba(0, 0, 0, 0.72);
+
+  backdrop-filter: blur(10px);
+
+  scrollbar-width: none;
+}
+
+nav::-webkit-scrollbar {
+  display: none;
 }
 
 nav a {
-  color: var(--green-dim);
-  text-decoration: none;
-  font-size: 0.95rem;
-  letter-spacing: 0.2em;
-  text-transform: lowercase;
-  transition: all 0.2s;
   position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  padding: 10px 14px;
+
+  border: 1px solid transparent;
+
+  color: var(--green-dim);
+
+  text-decoration: none;
+  text-transform: lowercase;
+
+  font-size: 0.82rem;
+
+  letter-spacing: 0.12em;
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-nav a::before { content: '[ '; opacity: 0; transition: opacity 0.2s; }
-nav a::after  { content: ' ]'; opacity: 0; transition: opacity 0.2s; }
+nav a::before {
+  content: '[ ';
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+nav a::after {
+  content: ' ]';
+  opacity: 0;
+  transition: opacity 0.2s;
+}
 
 nav a:hover {
   color: var(--green);
-  text-shadow: 0 0 8px var(--green);
+
+  text-shadow:
+    0 0 6px var(--green),
+    0 0 12px var(--green);
 }
 
 nav a:hover::before,
@@ -128,152 +224,276 @@ nav a:hover::after {
   opacity: 1;
 }
 
-/* ── SECTIONS ── */
+/* ACTIVE LINK */
+
+nav a.active {
+  color: var(--green);
+
+  border-color: var(--green);
+
+  background: rgba(0,255,65,0.08);
+
+  text-shadow:
+    0 0 6px var(--green),
+    0 0 12px var(--green);
+
+  box-shadow:
+    0 0 10px rgba(0,255,65,0.15),
+    inset 0 0 10px rgba(0,255,65,0.04);
+}
+
+nav a.active::before,
+nav a.active::after {
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────
+   SECTIONS
+───────────────────────────────────────── */
+
 section {
   max-width: 860px;
+
   margin: 0 auto;
+
   padding: 70px 20px;
 }
 
 section h2 {
-  font-family: 'VT323', monospace;
-  font-size: 2rem;
-  color: var(--green);
-  text-shadow: 0 0 12px var(--green);
   margin-bottom: 30px;
+
+  font-family: 'VT323', monospace;
+
+  font-size: 2rem;
+
+  color: var(--green);
+
   letter-spacing: 0.1em;
+
+  text-shadow: 0 0 12px var(--green);
 }
 
-/* ── CARDS ── */
+/* ─────────────────────────────────────────
+   CARDS
+───────────────────────────────────────── */
+
 .card {
   background: var(--card-bg);
+
   border: 1px solid var(--border);
+
   border-radius: 2px;
+
   padding: 28px 32px;
+
+  backdrop-filter: blur(6px);
+
   box-shadow:
     0 0 20px rgba(0,255,65,0.05),
     inset 0 0 40px rgba(0,255,65,0.02);
-  backdrop-filter: blur(6px);
 }
 
 .card p {
-  line-height: 1.9;
-  font-size: 0.92rem;
   color: var(--green-dim);
+
+  font-size: 0.92rem;
+
+  line-height: 1.9;
 }
 
 .card p:hover {
   color: var(--green);
+
   text-shadow: 0 0 6px var(--green);
+
   transition: all 0.2s;
 }
 
-/* ── TERMINAL ── */
+/* ─────────────────────────────────────────
+   TERMINAL
+───────────────────────────────────────── */
+
 .terminal {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  padding: 28px 32px;
-  box-shadow: 0 0 20px rgba(0,255,65,0.05);
-  backdrop-filter: blur(6px);
   min-height: 120px;
+
+  padding: 28px 32px;
+
+  border: 1px solid var(--border);
+
+  background: var(--card-bg);
+
+  backdrop-filter: blur(6px);
+
+  box-shadow: 0 0 20px rgba(0,255,65,0.05);
 }
 
 #terminal-output {
-  font-size: 0.92rem;
-  line-height: 1.9;
   color: var(--green-dim);
+
+  font-size: 0.92rem;
+
+  line-height: 1.9;
+
   white-space: pre-wrap;
 }
 
 #terminal-output .cursor {
   display: inline-block;
+
   width: 8px;
   height: 1em;
-  background: var(--green);
-  animation: blink 1s step-end infinite;
-  vertical-align: text-bottom;
+
   margin-left: 2px;
+
+  background: var(--green);
+
+  vertical-align: text-bottom;
+
+  animation: blink 1s step-end infinite;
 }
 
-/* ── SKILLS ── */
+/* ─────────────────────────────────────────
+   SKILLS
+───────────────────────────────────────── */
+
 .skills {
   display: flex;
   flex-wrap: wrap;
+
   gap: 12px;
+
   padding: 24px;
 }
 
 .skills span {
   padding: 6px 18px;
+
   border: 1px solid var(--border);
-  font-size: 0.85rem;
-  color: var(--green-dim);
-  letter-spacing: 0.12em;
-  transition: all 0.2s;
-  cursor: default;
+
   background: rgba(0,255,65,0.03);
+
+  color: var(--green-dim);
+
+  font-size: 0.85rem;
+
+  letter-spacing: 0.12em;
+
+  cursor: default;
+
+  transition: all 0.2s;
 }
 
 .skills span:hover {
   color: var(--green);
+
   border-color: var(--green);
-  text-shadow: 0 0 8px var(--green);
-  box-shadow: 0 0 12px rgba(0,255,65,0.15);
+
   background: rgba(0,255,65,0.07);
+
+  text-shadow: 0 0 8px var(--green);
+
+  box-shadow: 0 0 12px rgba(0,255,65,0.15);
 }
 
-/* ── PROJECTS ── */
+/* ─────────────────────────────────────────
+   PROJECTS
+───────────────────────────────────────── */
+
 #projects .card {
   margin-bottom: 16px;
 }
 
-/* ── FOOTER ── */
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+
 footer {
-  text-align: center;
   padding: 30px;
+
   border-top: 1px solid var(--border);
+
+  text-align: center;
+
   color: var(--green-dark);
+
   font-size: 0.8rem;
+
   letter-spacing: 0.15em;
 }
 
-/* ── ANIMATIONS ── */
+/* ─────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────── */
+
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 @keyframes flicker {
-  0%, 95%, 100% { opacity: 1; }
-  96% { opacity: 0.7; }
-  97% { opacity: 1; }
-  98% { opacity: 0.6; }
-  99% { opacity: 1; }
+  0%, 95%, 100% {
+    opacity: 1;
+  }
+
+  96% {
+    opacity: 0.7;
+  }
+
+  97% {
+    opacity: 1;
+  }
+
+  98% {
+    opacity: 0.6;
+  }
+
+  99% {
+    opacity: 1;
+  }
 }
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: var(--green-dark); }
-::-webkit-scrollbar-thumb:hover { background: var(--green-dim); }
+/* ─────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────── */
 
-/* ── SELECTION ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--green-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--green-dim);
+}
+
+/* ─────────────────────────────────────────
+   SELECTION
+───────────────────────────────────────── */
+
 ::selection {
   background: var(--green);
   color: #000;
 }
 
-/* =========================================
-   RESPONSIVE TABLETTE
-========================================= */
+/* ─────────────────────────────────────────
+   TABLET
+───────────────────────────────────────── */
 
 @media screen and (max-width: 900px) {
 
-  nav {
-    gap: 20px;
-    padding: 16px;
-    flex-wrap: wrap;
+  header {
+    padding: 60px 20px 30px;
   }
 
   section {
@@ -285,15 +505,11 @@ footer {
     padding: 22px;
   }
 
-  header {
-    padding: 60px 20px 30px;
-  }
-
 }
 
-/* =========================================
-   RESPONSIVE MOBILE
-========================================= */
+/* ─────────────────────────────────────────
+   MOBILE
+───────────────────────────────────────── */
 
 @media screen and (max-width: 768px) {
 
@@ -307,27 +523,36 @@ footer {
 
   header h1 {
     font-size: clamp(2rem, 12vw, 3.5rem);
+
     line-height: 1;
+
     word-break: break-word;
   }
 
   header .subtitle {
-    font-size: 0.75rem;
-    line-height: 1.6;
     padding: 0 10px;
+
+    font-size: 0.75rem;
+
+    line-height: 1.6;
+
     letter-spacing: 0.08em;
   }
 
   nav {
-    gap: 12px;
-    padding: 14px 10px;
-    flex-wrap: wrap;
+    gap: 10px;
+
+    padding: 12px;
+
+    scroll-padding-left: 12px;
   }
 
   nav a {
-    font-size: 0.78rem;
+    padding: 9px 12px;
+
+    font-size: 0.74rem;
+
     letter-spacing: 0.08em;
-    padding: 6px 10px;
   }
 
   section {
@@ -335,8 +560,9 @@ footer {
   }
 
   section h2 {
-    font-size: 1.6rem;
     margin-bottom: 20px;
+
+    font-size: 1.6rem;
   }
 
   .card,
@@ -347,23 +573,28 @@ footer {
   .card p,
   #terminal-output {
     font-size: 0.82rem;
+
     line-height: 1.7;
   }
 
   .skills {
     justify-content: center;
+
     gap: 10px;
+
     padding: 18px;
   }
 
   .skills span {
-    font-size: 0.75rem;
     padding: 6px 12px;
+
+    font-size: 0.75rem;
   }
 
   footer {
-    font-size: 0.7rem;
     padding: 20px 10px;
+
+    font-size: 0.7rem;
   }
 
   #matrix {
@@ -372,9 +603,9 @@ footer {
 
 }
 
-/* =========================================
-   PETITS SMARTPHONES
-========================================= */
+/* ─────────────────────────────────────────
+   SMALL PHONES
+───────────────────────────────────────── */
 
 @media screen and (max-width: 480px) {
 
@@ -387,23 +618,9 @@ footer {
   }
 
   header .subtitle {
-    font-size: 0.68rem;
     margin-top: 8px;
-  }
 
-  nav {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  nav a {
-    width: 100%;
-    max-width: 240px;
-    text-align: center;
-    border: 1px solid var(--border);
-    background: rgba(0, 0, 0, 0.4);
-    padding: 10px;
+    font-size: 0.68rem;
   }
 
   section {
@@ -422,16 +639,19 @@ footer {
   .card p,
   #terminal-output {
     font-size: 0.76rem;
+
     line-height: 1.6;
   }
 
   .skills {
     flex-direction: column;
+
     align-items: stretch;
   }
 
   .skills span {
     width: 100%;
+
     text-align: center;
   }
 
@@ -441,9 +661,9 @@ footer {
 
 }
 
-/* =========================================
-   TRES PETITS ECRANS
-========================================= */
+/* ─────────────────────────────────────────
+   VERY SMALL DEVICES
+───────────────────────────────────────── */
 
 @media screen and (max-width: 340px) {
 
