@@ -13,21 +13,42 @@
   style.textContent = `
     /* ── CATEGORY GRID ── */
     .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
+      display: flex;
+      gap: 14px;
+
+      overflow-x: auto;
+      overflow-y: hidden;
+
+      padding-bottom: 8px;
       margin-top: 10px;
+
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+
+    .projects-grid::-webkit-scrollbar {
+      display: none;
     }
 
     .cat-card {
+      min-width: 240px;
+      max-width: 240px;
+
       border: 1px solid rgba(0,255,65,0.2);
       background: rgba(0,10,0,0.75);
-      padding: 24px 20px;
+
+      padding: 20px;
+
       cursor: pointer;
+
       transition: all 0.2s;
+
       position: relative;
       overflow: hidden;
+
       backdrop-filter: blur(6px);
+
+      flex-shrink: 0;
     }
 
     .cat-card::before {
@@ -45,6 +66,15 @@
       border-color: var(--cat-color, #00ff41);
       box-shadow: 0 0 20px color-mix(in srgb, var(--cat-color, #00ff41) 20%, transparent);
       transform: translateY(-2px);
+    }
+    .cat-card.active {
+      border-color: var(--cat-color, #00ff41);
+
+      box-shadow:
+        0 0 20px color-mix(in srgb, var(--cat-color, #00ff41) 30%, transparent),
+        inset 0 0 20px rgba(255,255,255,0.02);
+
+      background: rgba(0,255,65,0.06);
     }
 
     .cat-icon {
@@ -265,6 +295,7 @@
     const card = document.createElement('div');
     card.className = 'cat-card';
     card.style.setProperty('--cat-color', cat.color);
+    card.dataset.category = cat.category;
 
     const count = cat.projects.length;
     card.innerHTML = `
@@ -274,12 +305,56 @@
         ${count > 0 ? `${count} project${count > 1 ? 's' : ''}` : 'empty'}
       </div>
     `;
-    card.addEventListener('click', () => openModal(cat));
+    card.addEventListener('click', () => {
+
+      document.querySelectorAll('.cat-card').forEach(c => {
+        c.classList.remove('active');
+      });
+
+      card.classList.add('active');
+
+      openModal(cat);
+
+    });
+    section.appendChild(grid);
     grid.appendChild(card);
   });
 
   section.appendChild(grid);
 
+  // ── ACTIVE CATEGORY ON SCROLL ─────────────────────────
+
+  const catCards = document.querySelectorAll('.cat-card');
+
+  const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+      if (entry.isIntersecting) {
+
+        const id = entry.target.dataset.category;
+
+        catCards.forEach(card => {
+          card.classList.remove('active');
+
+          if (card.dataset.category === id) {
+            card.classList.add('active');
+
+            card.scrollIntoView({
+              behavior: 'smooth',
+              inline: 'center',
+              block: 'nearest'
+            });
+          }
+        });
+
+      }
+
+    });
+
+  }, {
+    threshold: 0.4
+  });
   // ── Modal ─────────────────────────────────────────────────
   const overlay = document.createElement('div');
   overlay.id = 'proj-overlay';
