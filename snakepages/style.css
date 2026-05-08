@@ -263,3 +263,201 @@ footer {
   background: var(--green);
   color: #000;
 }
+
+/* =========================================
+   RESPONSIVE TABLETTE
+========================================= */
+
+@media screen and (max-width: 900px) {
+
+  nav {
+    gap: 20px;
+    padding: 16px;
+    flex-wrap: wrap;
+  }
+
+  section {
+    padding: 60px 18px;
+  }
+
+  .card,
+  .terminal {
+    padding: 22px;
+  }
+
+  header {
+    padding: 60px 20px 30px;
+  }
+
+}
+
+/* =========================================
+   RESPONSIVE MOBILE
+========================================= */
+
+@media screen and (max-width: 768px) {
+
+  body {
+    cursor: default;
+  }
+
+  header {
+    padding: 50px 15px 25px;
+  }
+
+  header h1 {
+    font-size: clamp(2rem, 12vw, 3.5rem);
+    line-height: 1;
+    word-break: break-word;
+  }
+
+  header .subtitle {
+    font-size: 0.75rem;
+    line-height: 1.6;
+    padding: 0 10px;
+    letter-spacing: 0.08em;
+  }
+
+  nav {
+    gap: 12px;
+    padding: 14px 10px;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    padding: 6px 10px;
+  }
+
+  section {
+    padding: 45px 14px;
+  }
+
+  section h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+  }
+
+  .card,
+  .terminal {
+    padding: 18px;
+  }
+
+  .card p,
+  #terminal-output {
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+
+  .skills {
+    justify-content: center;
+    gap: 10px;
+    padding: 18px;
+  }
+
+  .skills span {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+
+  footer {
+    font-size: 0.7rem;
+    padding: 20px 10px;
+  }
+
+  #matrix {
+    opacity: 0.3;
+  }
+
+}
+
+/* =========================================
+   PETITS SMARTPHONES
+========================================= */
+
+@media screen and (max-width: 480px) {
+
+  header {
+    padding-top: 40px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  header .subtitle {
+    font-size: 0.68rem;
+    margin-top: 8px;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav a {
+    width: 100%;
+    max-width: 240px;
+    text-align: center;
+    border: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px;
+  }
+
+  section {
+    padding: 38px 12px;
+  }
+
+  section h2 {
+    font-size: 1.4rem;
+  }
+
+  .card,
+  .terminal {
+    padding: 16px;
+  }
+
+  .card p,
+  #terminal-output {
+    font-size: 0.76rem;
+    line-height: 1.6;
+  }
+
+  .skills {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .skills span {
+    width: 100%;
+    text-align: center;
+  }
+
+  footer {
+    letter-spacing: 0.08em;
+  }
+
+}
+
+/* =========================================
+   TRES PETITS ECRANS
+========================================= */
+
+@media screen and (max-width: 340px) {
+
+  header h1 {
+    font-size: 1.6rem;
+  }
+
+  nav a {
+    font-size: 0.7rem;
+  }
+
+  .card p,
+  #terminal-output {
+    font-size: 0.72rem;
+  }
+
+}
