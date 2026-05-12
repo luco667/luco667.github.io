@@ -137,13 +137,13 @@ header .subtitle::before {
 ───────────────────────────────────────── */
 
 nav {
-  text-align: center;
+  position: sticky;
   top: 0;
   z-index: 100;
 
   display: flex;
+  justify-content: center;   /* centre horizontalement */
   align-items: center;
-  justify-content: flex-start;
 
   gap: 14px;
 
@@ -160,7 +160,6 @@ nav {
   border-bottom: 1px solid var(--border);
 
   background: rgba(0, 0, 0, 0.72);
-
   backdrop-filter: blur(10px);
 
   scrollbar-width: none;
@@ -680,4 +679,10 @@ footer {
     font-size: 0.72rem;
   }
 
+}
+
+body::after {
+  content: "";
+  display: block;
+  height: 220px; /* espace scroll pour atteindre contact facilement */
 }
