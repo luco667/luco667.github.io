@@ -133,7 +133,7 @@ header .subtitle::before {
 }
 
 /* ─────────────────────────────────────────
-   NAVBAR
+   NAVBAR (CENTERED + RESPONSIVE)
 ───────────────────────────────────────── */
 
 nav {
@@ -142,41 +142,30 @@ nav {
   z-index: 100;
 
   display: flex;
-  justify-content: center;   /* centre horizontalement */
+  justify-content: center;   /* CENTRAGE OK */
   align-items: center;
 
+  flex-wrap: wrap;           /* IMPORTANT pour mobile */
   gap: 14px;
 
   width: 100%;
 
   padding: 14px 18px;
 
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  white-space: nowrap;
-
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 
   background: rgba(0, 0, 0, 0.72);
   backdrop-filter: blur(10px);
-
-  scrollbar-width: none;
 }
 
-nav::-webkit-scrollbar {
-  display: none;
-}
-
+/* liens */
 nav a {
   position: relative;
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  flex-shrink: 0;
 
   padding: 10px 14px;
 
@@ -188,34 +177,29 @@ nav a {
   text-transform: lowercase;
 
   font-size: 0.82rem;
-
   letter-spacing: 0.12em;
 
-  transition:
-    color 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: all 0.2s ease;
+
+  flex-shrink: 0;
 }
 
+/* hover brackets */
 nav a::before {
-  content: '[ ';
+  content: "[ ";
   opacity: 0;
   transition: opacity 0.2s;
 }
 
 nav a::after {
-  content: ' ]';
+  content: " ]";
   opacity: 0;
   transition: opacity 0.2s;
 }
 
 nav a:hover {
   color: var(--green);
-
-  text-shadow:
-    0 0 6px var(--green),
-    0 0 12px var(--green);
+  text-shadow: 0 0 10px var(--green);
 }
 
 nav a:hover::before,
@@ -223,89 +207,17 @@ nav a:hover::after {
   opacity: 1;
 }
 
-/* ACTIVE LINK */
-
+/* active */
 nav a.active {
   color: var(--green);
-
   border-color: var(--green);
-
   background: rgba(0,255,65,0.08);
-
-  text-shadow:
-    0 0 6px var(--green),
-    0 0 12px var(--green);
-
-  box-shadow:
-    0 0 10px rgba(0,255,65,0.15),
-    inset 0 0 10px rgba(0,255,65,0.04);
+  box-shadow: 0 0 10px rgba(0,255,65,0.15);
 }
 
 nav a.active::before,
 nav a.active::after {
   opacity: 1;
-}
-
-/* ─────────────────────────────────────────
-   SECTIONS
-───────────────────────────────────────── */
-
-section {
-  max-width: 860px;
-
-  margin: 0 auto;
-
-  padding: 70px 20px;
-}
-
-section h2 {
-  margin-bottom: 30px;
-
-  font-family: 'VT323', monospace;
-
-  font-size: 2rem;
-
-  color: var(--green);
-
-  letter-spacing: 0.1em;
-
-  text-shadow: 0 0 12px var(--green);
-}
-
-/* ─────────────────────────────────────────
-   CARDS
-───────────────────────────────────────── */
-
-.card {
-  background: var(--card-bg);
-
-  border: 1px solid var(--border);
-
-  border-radius: 2px;
-
-  padding: 28px 32px;
-
-  backdrop-filter: blur(6px);
-
-  box-shadow:
-    0 0 20px rgba(0,255,65,0.05),
-    inset 0 0 40px rgba(0,255,65,0.02);
-}
-
-.card p {
-  color: var(--green-dim);
-
-  font-size: 0.92rem;
-
-  line-height: 1.9;
-}
-
-.card p:hover {
-  color: var(--green);
-
-  text-shadow: 0 0 6px var(--green);
-
-  transition: all 0.2s;
 }
 
 /* ─────────────────────────────────────────
@@ -681,8 +593,11 @@ footer {
 
 }
 
-body::after {
-  content: "";
-  display: block;
-  height: 220px; /* espace scroll pour atteindre contact facilement */
+/* ─────────────────────────────────────────
+   SPACE FOR BOTTOM NAV TARGET (CONTACT)
+───────────────────────────────────────── */
+
+#contact {
+  scroll-margin-bottom: 200px; /* permet d'être visible même sticky nav */
+  padding-bottom: 200px;       /* vrai espace physique */
 }
