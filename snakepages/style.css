@@ -137,7 +137,7 @@ header .subtitle::before {
 ───────────────────────────────────────── */
 
 nav {
-  position: sticky;
+  position: center;
   top: 0;
   z-index: 100;
 
