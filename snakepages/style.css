@@ -148,8 +148,6 @@ nav {
   flex-wrap: wrap;           /* IMPORTANT pour mobile */
   gap: 14px;
 
-  width: 100%;
-
   padding: 14px 18px;
 
   border-top: 1px solid var(--border);
