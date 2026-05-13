@@ -262,7 +262,8 @@ const PROJECTS = [
       display: flex;
       gap: 14px;
       overflow-x: auto;
-      padding-bottom: 8px;
+      padding: 6px 2px 10px 2px; /* padding top/sides pour absorber shadow + border hover */
+      margin-top: -6px;           /* compense le padding-top visuellement */
       scroll-behavior: smooth;
       scrollbar-width: none;
     }
