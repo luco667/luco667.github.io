@@ -145,6 +145,9 @@ nav {
   justify-content: center;   /* CENTRAGE OK */
   align-items: center;
 
+  overflow-x: auto;
+  overflow-y: hidden;
+
   flex-wrap: wrap;           /* IMPORTANT pour mobile */
   gap: 14px;
 
