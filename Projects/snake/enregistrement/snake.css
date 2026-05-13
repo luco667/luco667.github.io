@@ -10,7 +10,7 @@ body {
   margin: 0;
 }
 .diskcontent {
-  background-image: url(/object/gameboydisk.png); /*  page background image  */
+  background-image: url(../object/gameboydisk.png); /*  page background image  */
   background-repeat: no-repeat;/*  display the image only once  */
   background-position: center;/*  center the image  */
   background-size: cover;/*  cover the entire page with the image  */
