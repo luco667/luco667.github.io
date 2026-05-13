@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lucas Le Gueut — Portfolio</title>
-  <link rel="stylesheet" href="snakepages/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -339,7 +339,9 @@ const PROJECTS = [
       box-shadow: 0 0 50px color-mix(in srgb, var(--modal-color,#00ff41) 18%, transparent);
       width: min(700px, 92vw);
       max-height: 80vh;
-      overflow-y: auto;
+      overflow: hidden;        /* le scroll est sur modal-body, pas le modal entier */
+      display: flex;
+      flex-direction: column;
       transform: translateY(14px);
       transition: transform 0.25s;
     }
@@ -351,10 +353,8 @@ const PROJECTS = [
       justify-content: space-between;
       padding: 20px 28px;
       border-bottom: 1px solid rgba(255,255,255,0.06);
-      position: sticky;
-      top: 0;
+      flex-shrink: 0;          /* ne rétrécit jamais, toujours visible */
       background: #020d02;
-      z-index: 1;
     }
     .modal-title {
       font-family: 'VT323', monospace;
@@ -376,7 +376,7 @@ const PROJECTS = [
     }
     .modal-close:hover { border-color: var(--modal-color,#00ff41); color: var(--modal-color,#00ff41); }
 
-    .modal-body { padding: 24px 28px; display: flex; flex-direction: column; gap: 14px; }
+    .modal-body { padding: 24px 28px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; }
 
     .proj-item {
       border: 1px solid rgba(255,255,255,0.06);
@@ -400,9 +400,9 @@ const PROJECTS = [
     .proj-tag { font-size: 0.7rem; color: #445544; border: 1px solid #1a2e1a; padding: 2px 8px; letter-spacing: 0.08em; }
     .empty-state { text-align: center; padding: 40px; color: #333; font-size: 0.85rem; letter-spacing: 0.1em; }
 
-    #proj-modal::-webkit-scrollbar { width: 4px; }
-    #proj-modal::-webkit-scrollbar-track { background: transparent; }
-    #proj-modal::-webkit-scrollbar-thumb { background: #1a3a1a; }
+    .modal-body::-webkit-scrollbar { width: 4px; }
+    .modal-body::-webkit-scrollbar-track { background: transparent; }
+    .modal-body::-webkit-scrollbar-thumb { background: #1a3a1a; }
 
     @media (max-width: 500px) { #proj-modal { max-height: 90vh; } }
   `;
@@ -462,8 +462,8 @@ const PROJECTS = [
   document.getElementById('modal-close').addEventListener('click', closeModal);
   overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-  // CORRIGÉ : empêche le scroll du modal de remonter la page
-  modal.addEventListener('wheel', e => e.stopPropagation(), { passive: true });
+  // scroll sur modal-body, pas le modal entier
+  modalBody.addEventListener('wheel', e => e.stopPropagation(), { passive: true });
 
   function openModal(cat) {
     overlay.style.setProperty('--modal-color', cat.color);
