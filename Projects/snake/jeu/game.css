@@ -11,7 +11,7 @@ br {
 }
 
 .fondgameboy {
-  background-image: url(../object/portable-retro-game-console-90s-260nw-2155515871.jpg); /* set image on background*/
+  background-image: url(/object/portable-retro-game-console-90s-260nw-2155515871.jpg); /* set image on background*/
   background-repeat: no-repeat; /* only display the image once */
   background-position: center; /* center the background image*/
   background-size: cover; /* cover everything with the image*/
