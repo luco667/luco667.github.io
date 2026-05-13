@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -24,15 +24,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
   }
 
   /* ─────────────────────────────────────────
-     Wrapper : gère le scale sur mobile
+     Wrapper centré — s'adapte à la taille écran
      ───────────────────────────────────────── */
   .scale-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100vw;
+    height: 100vh;
   }
 
   /* ─────────────────────────────────────────
@@ -47,13 +50,14 @@
     width: 1000px;
     height: 600px;
     position: relative;
+    flex-shrink: 0;
+
+    /* Centrage via transform — origin au centre */
+    transform-origin: center center;
   }
 
   /* ─────────────────────────────────────────
      Zone de contenu calée sur le carré gris
-     de la cartouche.
-     Ajuste top/left/width/height si ton image
-     a des marges différentes.
      ───────────────────────────────────────── */
   .inner {
     position: absolute;
@@ -152,31 +156,28 @@
 
   /* ══════════════════════════════════════════
      RESPONSIVE MOBILE
-     transform:scale() sur toute la cartouche
-     → l'image de fond ET le contenu scalent
-       ensemble, le cadre gris reste intact.
+     On scale depuis le centre → reste centré
      ══════════════════════════════════════════ */
   @media (max-width: 1020px) {
-
     html, body {
-      align-items: flex-start;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    /* Le wrapper prend la bonne hauteur après scale */
     .scale-wrapper {
       width: 100vw;
-      height: calc(100vw * 0.6);   /* ratio 1000:600 = 0.6 */
-      overflow: hidden;
-      align-items: flex-start;
-      justify-content: flex-start;
+      height: 100vh;
     }
 
-    /* On scale toute la cartouche depuis le coin haut-gauche */
     .diskcontent {
-      transform-origin: top left;
-      transform: scale(calc(100vw / 1000));
-      flex-shrink: 0;
+      /*
+        Calcule le scale selon la dimension limitante :
+        - en largeur  : 100vw / 1000
+        - en hauteur  : 100vh / 600
+        On prend le plus petit pour que tout rentre.
+        JavaScript injecte la bonne valeur via --s.
+      */
+      transform: scale(var(--s, 0.37));
+      transform-origin: center center;
     }
   }
 </style>
@@ -186,7 +187,7 @@
 
   <body>
     <div class="scale-wrapper">
-      <div class="diskcontent">
+      <div class="diskcontent" id="disk">
         <div class="inner">
 
 ```
@@ -220,6 +221,18 @@
     </div>
   </div>
 </div>
+
+<script>
+  function fitDisk() {
+    const W = 1000, H = 600;
+    const scaleX = window.innerWidth  / W;
+    const scaleY = window.innerHeight / H;
+    const s = Math.min(scaleX, scaleY);
+    document.getElementById('disk').style.setProperty('--s', s);
+  }
+  fitDisk();
+  window.addEventListener('resize', fitDisk);
+</script>
 ```
 
   </body>
