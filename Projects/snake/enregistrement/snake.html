@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="fr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -8,118 +8,125 @@
     <meta name="creator" content="lucas, jephte" />
     <meta name="description" content="online game of the snake that eats apples" />
     <link rel="icon" href="../object/427533.ico" type="image/x-icon" />
-    <link rel="next" href="../jeu/index.html" />
+    <link rel="next" href="../jeu/snakegame.html" />
     <title>Snake</title>
 
 ```
 <style>
-  /* ── Reset & base ── */
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
+  *, *::before, *::after { box-sizing: border-box; }
 
-  html {
+  html, body {
+    margin: 0;
+    padding: 0;
     background: black;
     color: white;
-    margin: 0;
-    padding: 0;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
   }
 
-  /* ── Game card (the Gameboy disk frame) ── */
+  /* ─────────────────────────────────────────
+     Wrapper : gère le scale sur mobile
+     ───────────────────────────────────────── */
+  .scale-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* ─────────────────────────────────────────
+     La cartouche Gameboy — taille fixe desktop
+     ───────────────────────────────────────── */
   .diskcontent {
     background-image: url(../object/gameboydisk.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    background-attachment: relative;
 
-    /* Fixed size on desktop */
     width: 1000px;
     height: 600px;
+    position: relative;
+  }
 
-    /* Centred with breathing room */
-    margin: 20px auto;
+  /* ─────────────────────────────────────────
+     Zone de contenu calée sur le carré gris
+     de la cartouche.
+     Ajuste top/left/width/height si ton image
+     a des marges différentes.
+     ───────────────────────────────────────── */
+  .inner {
+    position: absolute;
+    top: 28px;
+    left: 310px;
+    width: 380px;
+    height: 350px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 5px;
   }
 
-  /* ── Title ── */
+  /* ── Titre ── */
   .titre {
-    border: 0 solid #ccc;
     background: rgba(172, 255, 47, 0.692);
-    width: 400px;
-    margin: 0 auto;
+    width: 320px;
     border-radius: 20px;
     text-align: center;
     padding: 4px 0;
-    /* On desktop keep the original top margin via the flex gap above */
+    margin: 0;
+    font-size: 1.4rem;
   }
 
-  h1 {
+  h1 { margin: 0; }
+
+  /* ── Logo école ── */
+  .image {
+    height: 80px;
+    display: block;
+  }
+
+  /* ── Textes ── */
+  p {
     text-align: center;
     margin: 0;
-  }
-
-  /* ── School logo ── */
-  .image {
-    height: 100px;
-    display: block;
-    margin: 0 auto;
-  }
-
-  /* ── Text & labels ── */
-  p {
-    display: block;
-    text-align: center;
-    margin: 4px 0;
+    font-size: 0.85rem;
   }
 
   label {
     display: block;
     text-align: center;
-    margin: 2px 0;
+    margin: 0;
+    font-size: 0.85rem;
   }
 
   /* ── Inputs ── */
   input[type="text"],
   input[type="email"] {
     display: block;
-    margin: 4px auto;
-    padding: 4px 10px;
+    margin: 2px auto;
+    padding: 3px 10px;
     border-radius: 6px;
     border: 1px solid #888;
     background: rgba(0, 0, 0, 0.55);
     color: white;
-    font-size: 0.95rem;
-    width: min(260px, 80vw);
+    font-size: 0.85rem;
+    width: 220px;
   }
 
   input[type="text"]::placeholder,
-  input[type="email"]::placeholder {
-    color: #aaa;
-  }
+  input[type="email"]::placeholder { color: #aaa; }
 
-  /* ── Play button ── */
+  /* ── Bouton Play ── */
   .centre {
     display: block;
-    margin: 8px auto 0;
+    margin: 4px auto 0;
     border: 0;
-    line-height: 2.5;
+    line-height: 2.2;
     padding: 0 20px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     text-align: center;
     color: #fff;
     text-shadow: 1px 1px 1px #000;
@@ -136,11 +143,7 @@
       inset -2px -2px 3px rgba(0, 0, 0, 0.6);
     cursor: pointer;
   }
-
-  .centre:hover {
-    background-color: rgba(255, 0, 0, 1);
-  }
-
+  .centre:hover { background-color: rgba(255, 0, 0, 1); }
   .centre:active {
     box-shadow:
       inset -2px -2px 3px rgba(255, 255, 255, 0.6),
@@ -148,69 +151,32 @@
   }
 
   /* ══════════════════════════════════════════
-     RESPONSIVE – phone / small screen
-     The card scales down so the Gameboy image
-     stays visible from "far away".
+     RESPONSIVE MOBILE
+     transform:scale() sur toute la cartouche
+     → l'image de fond ET le contenu scalent
+       ensemble, le cadre gris reste intact.
      ══════════════════════════════════════════ */
-  @media (max-width: 700px) {
-    body {
+  @media (max-width: 1020px) {
+
+    html, body {
       align-items: flex-start;
+      overflow-x: hidden;
     }
 
-    .diskcontent {
-      /* Scale the whole card proportionally so the
-         background image is always fully visible */
+    /* Le wrapper prend la bonne hauteur après scale */
+    .scale-wrapper {
       width: 100vw;
-      height: 60vw;          /* keeps the ~1000:600 ≈ 5:3 ratio */
-      min-height: 220px;
-      margin: 10px auto;
-      gap: 2px;
-
-      /* Shrink everything inside proportionally */
-      transform-origin: top center;
+      height: calc(100vw * 0.6);   /* ratio 1000:600 = 0.6 */
+      overflow: hidden;
+      align-items: flex-start;
+      justify-content: flex-start;
     }
 
-    .titre {
-      width: min(220px, 55vw);
-      font-size: clamp(0.6rem, 3.5vw, 1rem);
-      border-radius: 12px;
-    }
-
-    h1 {
-      font-size: clamp(0.8rem, 4vw, 1.3rem);
-    }
-
-    .image {
-      height: clamp(40px, 10vw, 70px);
-    }
-
-    p,
-    label {
-      font-size: clamp(0.55rem, 2.8vw, 0.85rem);
-      margin: 1px 0;
-    }
-
-    input[type="text"],
-    input[type="email"] {
-      font-size: clamp(0.55rem, 2.8vw, 0.85rem);
-      padding: 2px 8px;
-      width: min(180px, 55vw);
-      margin: 2px auto;
-    }
-
-    .centre {
-      font-size: clamp(0.6rem, 3vw, 0.9rem);
-      line-height: 2;
-      padding: 0 14px;
-      border-radius: 7px;
-      margin-top: 4px;
-    }
-  }
-
-  /* Extra-small phones (≤ 360 px) */
-  @media (max-width: 360px) {
+    /* On scale toute la cartouche depuis le coin haut-gauche */
     .diskcontent {
-      height: 65vw;
+      transform-origin: top left;
+      transform: scale(calc(100vw / 1000));
+      flex-shrink: 0;
     }
   }
 </style>
@@ -219,44 +185,40 @@
   </head>
 
   <body>
-    <div class="diskcontent">
+    <div class="scale-wrapper">
+      <div class="diskcontent">
+        <div class="inner">
 
 ```
-  <!-- Title -->
-  <div>
-    <h1 class="titre">S N A K E</h1>
-  </div>
+      <!-- Titre -->
+      <h1 class="titre">S N A K E</h1>
 
-  <!-- School logo -->
-  <div>
-    <center>
+      <!-- Logo école -->
       <img
         class="image"
         src="../object/Couleurs_Cadre_transparents.png"
         alt="CC Simone Veil High School"
       />
-    </center>
+
+      <!-- Crédits -->
+      <p>Created by Lucas, Jephte and Ilhem</p>
+
+      <!-- Inscription -->
+      <label>--Sign up--</label>
+
+      <label for="pseudo">Your username:</label>
+      <input id="pseudo" type="text" required placeholder="username" />
+
+      <label for="email">Your email:</label>
+      <input id="email" type="email" required placeholder="email@example.com" />
+
+      <!-- Bouton Play -->
+      <a href="../jeu/snakegame.html">
+        <input class="centre" type="button" value="Play" />
+      </a>
+
+    </div>
   </div>
-
-  <!-- Credits -->
-  <div>
-    <p>Created by Lucas, Jephte and Ilhem</p>
-  </div>
-
-  <!-- Sign-up -->
-  <label>--Sign up--</label>
-
-  <label for="pseudo">Your username:</label>
-  <input id="pseudo" type="text" required placeholder="username" />
-
-  <label for="email">Your email:</label>
-  <input id="email" type="email" required placeholder="email@example.com" />
-
-  <!-- Play button -->
-  <a href="../jeu/snakegame.html">
-    <input class="centre" type="button" value="Play" />
-  </a>
-
 </div>
 ```
 
