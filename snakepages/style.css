@@ -1,7 +1,7 @@
 /* ── FONTS ── */
 @font-face {
   font-family: 'Share Tech Mono';
-  src: url('snakepages/ShareTechMono-Regular.ttf') format('truetype');
+  src: url('ShareTechMono-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -54,6 +54,7 @@ section {
   max-width: 860px;
   margin: 0 auto;
   padding: 80px 24px;
+  overflow: visible; /* la grille projets peut dépasser */
 }
 
 section h2 {
@@ -117,14 +118,20 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;        /* jamais d'empilement */
+  overflow-x: auto;         /* glissement horizontal */
+  overflow-y: hidden;
   gap: 14px;
   padding: 14px 18px;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   background: rgba(0,0,0,0.78);
   backdrop-filter: blur(12px);
+  scrollbar-width: none;    /* cache la scrollbar */
+  -ms-overflow-style: none;
 }
+
+nav::-webkit-scrollbar { display: none; }
 
 nav a {
   position: relative;
@@ -265,6 +272,9 @@ footer {
 /* ── SELECTION ── */
 ::selection { background: var(--green); color: #000; }
 
+/* ── SCROLL MARGIN — compense la sticky nav (~52px) ── */
+section { scroll-margin-top: 56px; }
+
 /* ── CONTACT — espace physique pour scroll sticky nav ── */
 #contact {
   scroll-margin-bottom: 400px;
@@ -296,7 +306,7 @@ footer {
     letter-spacing: 0.08em;
   }
 
-  nav { gap: 10px; padding: 12px; }
+  nav { gap: 10px; padding: 10px 14px; justify-content: flex-start; }
   nav a { padding: 9px 12px; font-size: 0.74rem; letter-spacing: 0.08em; }
 
   section { padding: 45px 14px; }
