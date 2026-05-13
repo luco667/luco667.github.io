@@ -163,9 +163,9 @@ padding-left: 42.5px;
   margin-left: 10px;
 }/*place the A button*/
 
-/*td {
-  /*TABLEAU TOUCHE*/
- /* border: 2px solid white;*/
+td {
+  border: 2px solid white;
+}
 
 
 .SelectBut {/*stylize and place select and start menu*/
