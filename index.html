@@ -1,11 +1,601 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
   <title>Lucas Le Gueut — Portfolio</title>
 
-  <link rel="stylesheet" href="style.css">
+  <style>
+
+/* ─────────────────────────────────────────
+   FONTS
+───────────────────────────────────────── */
+
+@font-face {
+  font-family: 'Share Tech Mono';
+  src: url('ShareTechMono-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* ─────────────────────────────────────────
+   ROOT
+───────────────────────────────────────── */
+
+:root{
+  --green:#00ff41;
+  --green-dim:#00cc33;
+  --green-dark:#003b00;
+
+  --bg:#000;
+
+  --border:rgba(0,255,65,.22);
+
+  --card-bg:rgba(0,10,0,.78);
+}
+
+/* ─────────────────────────────────────────
+   RESET
+───────────────────────────────────────── */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  overflow-x:hidden;
+
+  background:#000;
+
+  color:var(--green);
+
+  font-family:'Share Tech Mono', monospace;
+}
+
+/* ─────────────────────────────────────────
+   MATRIX
+───────────────────────────────────────── */
+
+#matrix{
+  position:fixed;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  z-index:0;
+
+  pointer-events:none;
+
+  opacity:.45;
+}
+
+/* ─────────────────────────────────────────
+   GLOBAL
+───────────────────────────────────────── */
+
+header,
+nav,
+section,
+footer{
+  position:relative;
+  z-index:10;
+}
+
+section{
+  width:min(950px, calc(100% - 30px));
+
+  margin:auto;
+
+  padding:80px 0;
+}
+
+section h2{
+  margin-bottom:25px;
+
+  font-size:2rem;
+
+  letter-spacing:.12em;
+
+  text-shadow:0 0 10px var(--green);
+}
+
+/* ─────────────────────────────────────────
+   HEADER
+───────────────────────────────────────── */
+
+header{
+  padding:90px 20px 50px;
+
+  text-align:center;
+}
+
+header h1{
+  font-size:clamp(2.8rem, 9vw, 6rem);
+
+  letter-spacing:.08em;
+
+  text-shadow:
+    0 0 10px var(--green),
+    0 0 25px var(--green),
+    0 0 60px rgba(0,255,65,.45);
+
+  animation:flicker 6s infinite;
+}
+
+.subtitle{
+  margin-top:14px;
+
+  color:var(--green-dim);
+
+  letter-spacing:.14em;
+
+  opacity:.85;
+}
+
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
+
+nav{
+  position:sticky;
+  top:0;
+
+  z-index:100;
+
+  display:flex;
+  justify-content:center;
+  gap:14px;
+
+  padding:14px;
+
+  background:rgba(0,0,0,.84);
+
+  backdrop-filter:blur(12px);
+
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+
+  overflow-x:auto;
+
+  scrollbar-width:none;
+}
+
+nav::-webkit-scrollbar{
+  display:none;
+}
+
+nav a{
+  flex-shrink:0;
+
+  padding:10px 14px;
+
+  text-decoration:none;
+
+  color:var(--green-dim);
+
+  border:1px solid transparent;
+
+  transition:.2s;
+
+  letter-spacing:.1em;
+}
+
+nav a:hover,
+nav a.active{
+  color:var(--green);
+
+  border-color:var(--green);
+
+  background:rgba(0,255,65,.06);
+
+  box-shadow:0 0 12px rgba(0,255,65,.14);
+}
+
+/* ─────────────────────────────────────────
+   CARD
+───────────────────────────────────────── */
+
+.card,
+.terminal{
+  border:1px solid var(--border);
+
+  background:var(--card-bg);
+
+  backdrop-filter:blur(8px);
+
+  padding:24px;
+
+  box-shadow:0 0 20px rgba(0,255,65,.04);
+}
+
+/* ─────────────────────────────────────────
+   TERMINAL
+───────────────────────────────────────── */
+
+.terminal{
+  position:relative;
+
+  overflow:hidden;
+}
+
+.terminal::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 3px,
+      rgba(0,0,0,.09) 3px,
+      rgba(0,0,0,.09) 4px
+    );
+
+  pointer-events:none;
+}
+
+#terminal-output{
+  position:relative;
+
+  z-index:2;
+
+  min-height:180px;
+
+  color:var(--green-dim);
+
+  line-height:1.9;
+
+  white-space:pre-wrap;
+}
+
+.cursor{
+  display:inline-block;
+
+  width:8px;
+  height:1em;
+
+  margin-left:3px;
+
+  background:var(--green);
+
+  animation:blink 1s infinite;
+}
+
+/* ─────────────────────────────────────────
+   SKILLS
+───────────────────────────────────────── */
+
+.skills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.skills span{
+  padding:8px 16px;
+
+  border:1px solid var(--border);
+
+  background:rgba(0,255,65,.03);
+
+  transition:.2s;
+}
+
+.skills span:hover{
+  border-color:var(--green);
+
+  box-shadow:0 0 12px rgba(0,255,65,.18);
+
+  transform:translateY(-2px);
+}
+
+.skills a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* ─────────────────────────────────────────
+   PROJECTS GRID
+───────────────────────────────────────── */
+
+.projects-grid{
+  display:flex;
+  gap:18px;
+
+  overflow-x:auto;
+
+  padding-bottom:10px;
+
+  scrollbar-width:none;
+}
+
+.projects-grid::-webkit-scrollbar{
+  display:none;
+}
+
+.project-card{
+  flex-shrink:0;
+
+  width:230px;
+
+  padding:20px;
+
+  border:1px solid var(--border);
+
+  background:rgba(0,10,0,.8);
+
+  cursor:pointer;
+
+  transition:.22s;
+}
+
+.project-card:hover{
+  transform:translateY(-4px);
+
+  border-color:var(--green);
+
+  box-shadow:0 0 22px rgba(0,255,65,.2);
+}
+
+.project-icon{
+  font-size:2rem;
+
+  margin-bottom:12px;
+}
+
+.project-name{
+  font-size:1rem;
+
+  margin-bottom:8px;
+
+  letter-spacing:.08em;
+}
+
+.project-count{
+  color:#666;
+
+  font-size:.78rem;
+}
+
+/* ─────────────────────────────────────────
+   MODAL
+───────────────────────────────────────── */
+
+#overlay{
+  position:fixed;
+  inset:0;
+
+  z-index:1000;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  background:rgba(0,0,0,.84);
+
+  backdrop-filter:blur(10px);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.25s;
+}
+
+#overlay.open{
+  opacity:1;
+  pointer-events:all;
+}
+
+.modal{
+  width:min(760px, 92vw);
+
+  max-height:84vh;
+
+  overflow-y:auto;
+
+  background:#020d02;
+
+  border:1px solid var(--green);
+
+  padding:28px;
+
+  box-shadow:0 0 40px rgba(0,255,65,.18);
+
+  transform:translateY(14px);
+
+  transition:.25s;
+}
+
+#overlay.open .modal{
+  transform:translateY(0);
+}
+
+.modal-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:22px;
+}
+
+.modal-title{
+  font-size:1.4rem;
+
+  letter-spacing:.1em;
+
+  text-shadow:0 0 10px var(--green);
+}
+
+.close{
+  width:34px;
+  height:34px;
+
+  border:1px solid var(--border);
+
+  background:none;
+
+  color:var(--green);
+
+  cursor:pointer;
+
+  font-size:1rem;
+}
+
+.close:hover{
+  border-color:var(--green);
+}
+
+.project-item{
+  margin-bottom:16px;
+
+  padding:18px;
+
+  border:1px solid rgba(255,255,255,.06);
+
+  background:rgba(255,255,255,.02);
+}
+
+.project-item:hover{
+  border-color:rgba(0,255,65,.3);
+}
+
+.project-item-top{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+
+  margin-bottom:10px;
+}
+
+.project-item-name a{
+  color:var(--green);
+
+  text-decoration:none;
+}
+
+.project-item-name a:hover{
+  text-decoration:underline;
+}
+
+.project-desc{
+  color:#6e8f6e;
+
+  line-height:1.7;
+
+  margin-bottom:12px;
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.tag{
+  padding:4px 8px;
+
+  border:1px solid #173617;
+
+  color:#5d815d;
+
+  font-size:.72rem;
+}
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+
+footer{
+  padding:30px;
+
+  text-align:center;
+
+  border-top:1px solid var(--border);
+
+  color:#005500;
+}
+
+/* ─────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────── */
+
+@keyframes blink{
+  50%{
+    opacity:0;
+  }
+}
+
+@keyframes flicker{
+  0%,95%,100%{
+    opacity:1;
+  }
+
+  96%{
+    opacity:.7;
+  }
+
+  97%{
+    opacity:1;
+  }
+
+  98%{
+    opacity:.6;
+  }
+
+  99%{
+    opacity:1;
+  }
+}
+
+/* ─────────────────────────────────────────
+   MOBILE
+───────────────────────────────────────── */
+
+@media(max-width:768px){
+
+  section{
+    width:calc(100% - 22px);
+
+    padding:55px 0;
+  }
+
+  header{
+    padding-top:60px;
+  }
+
+  .card,
+  .terminal{
+    padding:18px;
+  }
+
+  #terminal-output{
+    font-size:.84rem;
+  }
+
+  .skills{
+    justify-content:center;
+  }
+
+  .skills span{
+    width:100%;
+    text-align:center;
+  }
+}
+
+  </style>
 </head>
 
 <body>
@@ -14,7 +604,10 @@
 
 <header>
   <h1>Lucas Le Gueut</h1>
-  <p class="subtitle">Étudiant en cybersécurité & électronique</p>
+
+  <p class="subtitle">
+    Étudiant en cybersécurité & électronique
+  </p>
 </header>
 
 <nav>
@@ -25,17 +618,21 @@
 </nav>
 
 <section id="about">
+
   <h2>&gt; about</h2>
 
   <div class="terminal">
     <div id="terminal-output"></div>
   </div>
+
 </section>
 
 <section id="skills">
+
   <h2>&gt; skills</h2>
 
   <div class="card skills">
+
     <span>
       <a
         href="https://en.wikipedia.org/wiki/C_(programming_language)"
@@ -54,63 +651,99 @@
     <span>Linux</span>
     <span>KiCad</span>
     <span>Network Security</span>
+
   </div>
+
 </section>
 
 <section id="projects">
+
   <h2>&gt; projects</h2>
+
 </section>
 
 <section id="contact">
+
   <h2>&gt; contact</h2>
 
   <div class="card">
+
     <p>&gt; email: 777lucaslg@gmail.com</p>
-    <p>&gt; github: github.com/luco667</p>
+
+    <p style="margin-top:10px;">
+      &gt; github: github.com/luco667
+    </p>
+
   </div>
+
 </section>
 
 <footer>
   <p>© 2026 — Starboost instance</p>
 </footer>
 
+<div id="overlay">
+
+  <div class="modal">
+
+    <div class="modal-top">
+
+      <div class="modal-title" id="modal-title"></div>
+
+      <button class="close" id="close">
+        ✕
+      </button>
+
+    </div>
+
+    <div id="modal-content"></div>
+
+  </div>
+
+</div>
+
 <script>
-/* ════════════════════════════════════════
+
+/* ─────────────────────────────────────────
    MATRIX
-════════════════════════════════════════ */
+───────────────────────────────────────── */
+
 const canvas = document.getElementById('matrix');
+
 const ctx = canvas.getContext('2d');
 
-const CHARS =
-'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEF';
+const chars =
+'アイウエオカキクケコサシスセソタチツテト0123456789ABCDEF';
 
 let fontSize = 14;
-let cols = 0;
+let columns;
 let drops = [];
 
-function initMatrix() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+function initMatrix(){
 
-  cols = Math.floor(canvas.width / fontSize);
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+
+  columns = Math.floor(canvas.width / fontSize);
 
   drops = [];
 
-  for (let i = 0; i < cols; i++) {
+  for(let i=0;i<columns;i++){
     drops[i] = Math.random() * -100;
   }
 }
 
-function drawMatrix() {
-  ctx.fillStyle = 'rgba(0,0,0,0.05)';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+function drawMatrix(){
 
-  ctx.font = `${fontSize}px "Share Tech Mono", monospace`;
+  ctx.fillStyle = 'rgba(0,0,0,.05)';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  for (let i = 0; i < drops.length; i++) {
+  ctx.font = `${fontSize}px Share Tech Mono`;
+
+  for(let i=0;i<drops.length;i++){
 
     const text =
-      CHARS[Math.floor(Math.random() * CHARS.length)];
+      chars[Math.floor(Math.random()*chars.length)];
 
     const y = drops[i] * fontSize;
 
@@ -118,47 +751,64 @@ function drawMatrix() {
 
     ctx.fillText(text, i * fontSize, y);
 
-    if (y > canvas.height && Math.random() > 0.975) {
+    if(y > canvas.height && Math.random() > .975){
       drops[i] = 0;
     }
 
-    drops[i] += 0.5;
+    drops[i] += .5;
   }
 }
 
 initMatrix();
 
-window.addEventListener('resize', initMatrix);
+addEventListener('resize', initMatrix);
 
 setInterval(drawMatrix, 40);
 
-
-/* ════════════════════════════════════════
+/* ─────────────────────────────────────────
    TERMINAL
-════════════════════════════════════════ */
-const LINES = [
+───────────────────────────────────────── */
+
+const lines = [
   '> initializing profile...',
   '> first name : Lucas',
   '> surname    : Le Gueut',
   '> status     : cybersecurity & electronics student',
   '> location   : France',
-  '> interests  : design, networks, offensive security, embedded systems',
-  '> education  : French National Brevet · STI2D Graduate',
+  '> interests  : design, networks, offensive security',
+  '> education  : STI2D Graduate · BTS CIEL Option B',
   '> activities : PCB design · programming · networking',
   ' ',
   '> system ready_'
 ];
 
-const output = document.getElementById('terminal-output');
+const output =
+  document.getElementById('terminal-output');
 
 let lineIndex = 0;
 let charIndex = 0;
 
-function typeLine() {
+function renderTerminal(){
 
-  if (lineIndex >= LINES.length) {
+  let html = '';
+
+  for(let i=0;i<lineIndex;i++){
+    html += lines[i] + '<br>';
+  }
+
+  if(lineIndex < lines.length){
+    html += lines[lineIndex].slice(0, charIndex);
+  }
+
+  output.innerHTML = html;
+}
+
+function typeTerminal(){
+
+  if(lineIndex >= lines.length){
 
     const cursor = document.createElement('span');
+
     cursor.className = 'cursor';
 
     output.appendChild(cursor);
@@ -166,132 +816,262 @@ function typeLine() {
     return;
   }
 
-  const currentLine = LINES[lineIndex];
+  const currentLine = lines[lineIndex];
 
-  if (charIndex < currentLine.length) {
-
-    output.innerHTML =
-      LINES.slice(0, lineIndex).join('<br>') +
-      '<br>' +
-      currentLine.substring(0, charIndex + 1);
+  if(charIndex < currentLine.length){
 
     charIndex++;
 
-    setTimeout(typeLine, 20);
+    renderTerminal();
 
-  } else {
+    setTimeout(
+      typeTerminal,
+      Math.random()*35 + 18
+    );
+
+  }else{
 
     lineIndex++;
     charIndex = 0;
 
-    setTimeout(typeLine, 100);
+    renderTerminal();
+
+    setTimeout(typeTerminal, 110);
   }
 }
 
-setTimeout(typeLine, 500);
+setTimeout(typeTerminal, 600);
 
-
-/* ════════════════════════════════════════
+/* ─────────────────────────────────────────
    ACTIVE NAV
-════════════════════════════════════════ */
-const sections = document.querySelectorAll('section');
-const navLinks = document.querySelectorAll('nav a');
+───────────────────────────────────────── */
 
-window.addEventListener('scroll', () => {
+const sections =
+  document.querySelectorAll('section');
+
+const navLinks =
+  document.querySelectorAll('nav a');
+
+addEventListener('scroll', ()=>{
 
   let current = '';
 
-  sections.forEach(section => {
+  sections.forEach(section=>{
 
-    if (window.scrollY >= section.offsetTop - 140) {
+    if(scrollY >= section.offsetTop - 140){
       current = section.id;
     }
   });
 
-  navLinks.forEach(link => {
+  navLinks.forEach(link=>{
 
     link.classList.toggle(
       'active',
-      link.getAttribute('href') === '#' + current
+      link.getAttribute('href') === `#${current}`
     );
   });
-});
 
+}, { passive:true });
 
-/* ════════════════════════════════════════
+/* ─────────────────────────────────────────
    PROJECTS
-════════════════════════════════════════ */
-const PROJECTS = [
-  {
-    category: 'development',
-    icon: '▸',
-    color: '#00ff41',
+───────────────────────────────────────── */
 
-    projects: [
+const PROJECTS = [
+
+  {
+    category:'development',
+    icon:'▸',
+
+    projects:[
       {
-        name: 'Snake game',
-        desc: 'Page web avec jeu en javascript.',
-        tags: ['javascript', 'html', 'css'],
-        link: 'Projects/snake/enregistrement/snake.html',
-        status: 'wip',
-        date: '2025'
+        name:'Snake game',
+
+        desc:'Jeu Snake en Javascript.',
+
+        tags:['javascript','html','css'],
+
+        link:'Projects/snake/enregistrement/snake.html'
       },
 
       {
-        name: 'Notepad',
-        desc: 'Bloc-notes programmé en C.',
-        tags: ['C', 'SDL3'],
-        link: 'https://github.com/luco667/LANGUAGEC',
-        status: 'wip',
-        date: '2025'
+        name:'Notepad',
+
+        desc:'Bloc-notes développé en C.',
+
+        tags:['C','SDL3'],
+
+        link:'https://github.com/luco667/LANGUAGEC'
       }
     ]
   },
 
   {
-    category: 'electronics',
-    icon: '◈',
-    color: '#00ccff',
+    category:'electronics',
+    icon:'◈',
 
-    projects: [
+    projects:[
       {
-        name: 'PCB KiCad',
-        desc: 'Conception PCB.',
-        tags: ['KiCad', 'PCB'],
-        status: 'wip',
-        date: '2025'
+        name:'PCB KiCad',
+
+        desc:'Conception PCB sous KiCad.',
+
+        tags:['KiCad','PCB']
+      }
+    ]
+  },
+
+  {
+    category:'network',
+    icon:'⬢',
+
+    projects:[
+      {
+        name:'Proxy',
+
+        desc:'Routeur proxy anti-pub.',
+
+        tags:['network','proxy']
       }
     ]
   }
 ];
 
-(function renderProjects() {
+const projectsSection =
+  document.querySelector('#projects');
 
-  const section = document.querySelector('#projects');
+const grid =
+  document.createElement('div');
 
-  const wrapper = document.createElement('div');
-  wrapper.className = 'projects-grid';
+grid.className = 'projects-grid';
 
-  PROJECTS.forEach(category => {
+PROJECTS.forEach(category=>{
 
-    const card = document.createElement('div');
+  const card =
+    document.createElement('div');
 
-    card.className = 'project-card';
+  card.className = 'project-card';
 
-    card.innerHTML = `
-      <div class="project-icon">${category.icon}</div>
-      <div class="project-name">${category.category}</div>
-      <div class="project-count">
-        ${category.projects.length} projects
+  card.innerHTML = `
+    <div class="project-icon">
+      ${category.icon}
+    </div>
+
+    <div class="project-name">
+      ./${category.category}/
+    </div>
+
+    <div class="project-count">
+      ${category.projects.length} projects
+    </div>
+  `;
+
+  card.addEventListener('click', ()=>{
+
+    openCategory(category);
+  });
+
+  grid.appendChild(card);
+});
+
+projectsSection.appendChild(grid);
+
+/* ─────────────────────────────────────────
+   MODAL
+───────────────────────────────────────── */
+
+const overlay =
+  document.getElementById('overlay');
+
+const modalTitle =
+  document.getElementById('modal-title');
+
+const modalContent =
+  document.getElementById('modal-content');
+
+document
+  .getElementById('close')
+  .addEventListener('click', closeModal);
+
+overlay.addEventListener('click', e=>{
+
+  if(e.target === overlay){
+    closeModal();
+  }
+});
+
+addEventListener('keydown', e=>{
+
+  if(e.key === 'Escape'){
+    closeModal();
+  }
+});
+
+function openCategory(category){
+
+  modalTitle.textContent =
+    `> ${category.category}/`;
+
+  modalContent.innerHTML = '';
+
+  category.projects.forEach(project=>{
+
+    const item =
+      document.createElement('div');
+
+    item.className = 'project-item';
+
+    const tags =
+      project.tags
+        .map(tag=>`<span class="tag">#${tag}</span>`)
+        .join('');
+
+    const title =
+      project.link
+        ? `
+          <a
+            href="${project.link}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ${project.name}
+          </a>
+        `
+        : project.name;
+
+    item.innerHTML = `
+      <div class="project-item-top">
+
+        <div class="project-item-name">
+          ${title}
+        </div>
+
+      </div>
+
+      <div class="project-desc">
+        ${project.desc}
+      </div>
+
+      <div class="tags">
+        ${tags}
       </div>
     `;
 
-    wrapper.appendChild(card);
+    modalContent.appendChild(item);
   });
 
-  section.appendChild(wrapper);
+  overlay.classList.add('open');
 
-})();
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+
+  overlay.classList.remove('open');
+
+  document.body.style.overflow = '';
+}
+
 </script>
 
 </body>
