@@ -179,58 +179,45 @@
    RESPONSIVE MOBILE + CENTRAGE GAMEBOY
    ══════════════════════════════════════════ */
 
-@media (min-width: 641px) {
-  body {
-    padding: 20px 0;
-  }
-}
-
 @media (max-width: 640px) {
 
   html,
   body {
+    margin: 0;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     overflow-x: hidden;
-    overflow-y: auto;
+    background: black;
   }
 
   body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 0;
-    margin: 0;
-    background: black;
   }
 
   .fondgameboy {
 
-    /* taille originale */
     width: 600px;
     height: 1000px;
 
-    /* scale automatique selon écran */
-    --scaleX: calc(100vw / 600);
-    --scaleY: calc(100vh / 1000);
+    /* scale responsive */
+    --scale: min(calc(100vw / 600), calc(100vh / 1000));
 
-    /* prend la plus petite valeur */
-    transform:
-      scale(
-        min(
-          var(--scaleX),
-          var(--scaleY)
-        )
-      );
+    transform: scale(var(--scale));
 
+    /* IMPORTANT */
     transform-origin: top center;
 
-    margin-top: 0;
-    margin-left: auto;
-    margin-right: auto;
+    /* centre réel */
+    position: relative;
+    left: 50%;
+    translate: -50% 0;
 
-    /* évite que le bas soit coupé */
-    margin-bottom: -350px;
+    margin: 0;
+
+    /* évite le vide en bas */
+    margin-bottom: calc(-1000px + (1000px * var(--scale)));
   }
 
   .game-canvas {
