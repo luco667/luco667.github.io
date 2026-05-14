@@ -1,909 +1,298 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lucas Le Gueut — Portfolio</title>
 
-  <style>
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html,
-    body {
-      width: 100%;
-      min-height: 100%;
-      overflow-x: hidden;
-      background: #000;
-      color: #00ff41;
-      font-family: monospace;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      position: relative;
-    }
-
-    canvas#matrix {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-    }
-
-    header {
-      padding: 80px 20px 40px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: clamp(2rem, 5vw, 4rem);
-      margin-bottom: 10px;
-    }
-
-    .subtitle {
-      color: #88aa88;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: #00ff41;
-      text-decoration: none;
-      border: 1px solid #00ff4120;
-      padding: 8px 14px;
-      transition: 0.2s;
-    }
-
-    nav a:hover,
-    nav a.active {
-      background: #00ff4110;
-      border-color: #00ff41;
-    }
-
-    section {
-      width: min(1000px, 92vw);
-      margin: 40px auto;
-    }
-
-    h2 {
-      margin-bottom: 20px;
-      color: #00ff41;
-    }
-
-    .terminal,
-    .card {
-      border: 1px solid #00ff4120;
-      background: rgba(0, 10, 0, 0.7);
-      padding: 20px;
-      backdrop-filter: blur(4px);
-    }
-
-    .skills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .skills span {
-      border: 1px solid #00ff4120;
-      padding: 8px 12px;
-      background: rgba(0, 255, 65, 0.05);
-    }
-
-    .skills a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      color: #446644;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 10px;
-      height: 18px;
-      background: #00ff41;
-      margin-left: 4px;
-      animation: blink 0.8s infinite;
-    }
-
-    @keyframes blink {
-      50% {
-        opacity: 0;
-      }
-    }
-
-    /* =========================================
-       PROJECTS
-    ========================================= */
-
-    .projects-scroll {
-      overflow-x: auto;
-      overflow-y: hidden;
-      scrollbar-width: none;
-    }
-
-    .projects-scroll::-webkit-scrollbar {
-      display: none;
-    }
-
-    .projects-grid {
-      display: flex;
-      gap: 14px;
-      padding-bottom: 10px;
-      min-width: max-content;
-    }
-
-    .cat-card {
-
-      width: 220px;
-      min-height: 130px;
-
-      border: 1px solid rgba(0, 255, 65, 0.2);
-
-      background: rgba(0, 10, 0, 0.75);
-
-      padding: 20px;
-
-      cursor: pointer;
-
-      transition: 0.25s;
-
-      flex-shrink: 0;
-    }
-
-    .cat-card:hover {
-
-      transform: translateY(-3px);
-
-      border-color: var(--cat-color);
-
-      box-shadow: 0 0 20px #00ff4120;
-    }
-
-    .cat-icon {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .cat-name {
-      font-size: 1rem;
-      margin-bottom: 8px;
-      color: var(--cat-color);
-    }
-
-    .cat-count {
-      color: #668866;
-      font-size: 0.8rem;
-    }
-
-    /* =========================================
-       MODAL
-    ========================================= */
-
-    #proj-overlay {
-
-      position: fixed;
-      inset: 0;
-
-      background: rgba(0, 0, 0, 0.9);
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      opacity: 0;
-      pointer-events: none;
-
-      transition: 0.2s;
-
-      z-index: 999;
-    }
-
-    #proj-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    #proj-modal {
-
-      width: min(700px, 92vw);
-      max-height: 80vh;
-
-      overflow: hidden;
-
-      background: #020d02;
-
-      border: 1px solid var(--modal-color);
-
-      display: flex;
-      flex-direction: column;
-    }
-
-    .modal-header {
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      padding: 20px;
-
-      border-bottom: 1px solid #ffffff10;
-    }
-
-    .modal-title {
-      color: var(--modal-color);
-      font-size: 1.4rem;
-    }
-
-    .modal-close {
-
-      background: none;
-      border: 1px solid #ffffff20;
-
-      color: #888;
-
-      width: 32px;
-      height: 32px;
-
-      cursor: pointer;
-    }
-
-    .modal-body {
-
-      padding: 20px;
-
-      overflow-y: auto;
-
-      display: flex;
-      flex-direction: column;
-
-      gap: 14px;
-    }
-
-    .proj-item {
-
-      border: 1px solid #ffffff10;
-
-      padding: 18px;
-
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .proj-top {
-
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-
-      margin-bottom: 10px;
-    }
-
-    .proj-name a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .proj-name a:hover {
-      text-decoration: underline;
-    }
-
-    .proj-status {
-
-      padding: 2px 8px;
-
-      border: 1px solid;
-
-      font-size: 0.7rem;
-    }
-
-    .proj-tags {
-
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-
-      margin-top: 12px;
-    }
-
-    .proj-tag {
-
-      border: 1px solid #1a2e1a;
-
-      padding: 2px 8px;
-
-      color: #668866;
-
-      font-size: 0.7rem;
-    }
-
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <canvas id="matrix"></canvas>
+<canvas id="matrix"></canvas>
 
-  <header>
-    <h1>Lucas Le Gueut</h1>
-    <p class="subtitle">Étudiant en cybersécurité & électronique</p>
-  </header>
+<header>
+  <h1>Lucas Le Gueut</h1>
+  <p class="subtitle">Étudiant en cybersécurité & électronique</p>
+</header>
 
-  <nav>
-    <a href="#about">about</a>
-    <a href="#skills">skills</a>
-    <a href="#projects">projects</a>
-    <a href="#contact">contact</a>
-  </nav>
+<nav>
+  <a href="#about">about</a>
+  <a href="#skills">skills</a>
+  <a href="#projects">projects</a>
+  <a href="#contact">contact</a>
+</nav>
 
-  <section id="about">
+<section id="about">
+  <h2>&gt; about</h2>
 
-    <h2>&gt; about</h2>
+  <div class="terminal">
+    <div id="terminal-output"></div>
+  </div>
+</section>
 
-    <div class="terminal">
-      <div id="terminal-output"></div>
-    </div>
+<section id="skills">
+  <h2>&gt; skills</h2>
 
-  </section>
+  <div class="card skills">
+    <span>
+      <a
+        href="https://en.wikipedia.org/wiki/C_(programming_language)"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        C
+      </a>
+    </span>
 
-  <section id="skills">
+    <span>C++</span>
+    <span>HTML</span>
+    <span>CSS</span>
+    <span>Javascript</span>
+    <span>Python</span>
+    <span>Linux</span>
+    <span>KiCad</span>
+    <span>Network Security</span>
+  </div>
+</section>
 
-    <h2>&gt; skills</h2>
+<section id="projects">
+  <h2>&gt; projects</h2>
+</section>
 
-    <div class="card skills">
+<section id="contact">
+  <h2>&gt; contact</h2>
 
-      <span>
-        <a
-          href="https://en.wikipedia.org/wiki/C_(programming_language)"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          C
-        </a>
-      </span>
+  <div class="card">
+    <p>&gt; email: 777lucaslg@gmail.com</p>
+    <p>&gt; github: github.com/luco667</p>
+  </div>
+</section>
 
-      <span>C++</span>
-      <span>HTML</span>
-      <span>CSS</span>
-      <span>Javascript</span>
-      <span>Python</span>
-      <span>Linux</span>
-      <span>KiCad</span>
-      <span>Network Security</span>
+<footer>
+  <p>© 2026 — Starboost instance</p>
+</footer>
 
-    </div>
+<script>
+/* ════════════════════════════════════════
+   MATRIX
+════════════════════════════════════════ */
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
 
-  </section>
+const CHARS =
+'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEF';
 
-  <section id="projects">
+let fontSize = 14;
+let cols = 0;
+let drops = [];
 
-    <h2>&gt; projects</h2>
+function initMatrix() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-  </section>
+  cols = Math.floor(canvas.width / fontSize);
 
-  <section id="contact">
+  drops = [];
 
-    <h2>&gt; contact</h2>
+  for (let i = 0; i < cols; i++) {
+    drops[i] = Math.random() * -100;
+  }
+}
 
-    <div class="card">
-      <p>&gt; email: 777lucaslg@gmail.com</p>
-      <p>&gt; github: github.com/luco667</p>
-    </div>
+function drawMatrix() {
+  ctx.fillStyle = 'rgba(0,0,0,0.05)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  </section>
+  ctx.font = `${fontSize}px "Share Tech Mono", monospace`;
 
-  <footer>
-    <p>© 2026 — Starboost instance</p>
-  </footer>
+  for (let i = 0; i < drops.length; i++) {
 
-  <script>
+    const text =
+      CHARS[Math.floor(Math.random() * CHARS.length)];
 
-    /* DEBUG */
-    window.onerror = (msg, src, line, col, err) => {
-      console.error(msg, line, col, err);
-    };
+    const y = drops[i] * fontSize;
 
-    /* =========================================
-       MATRIX
-    ========================================= */
+    ctx.fillStyle = '#00ff41';
 
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
+    ctx.fillText(text, i * fontSize, y);
 
-    const CHARS =
-      'アイウエオカキクケコ0123456789ABCDEF';
-
-    let cols;
-    let drops;
-    let fontSize;
-
-    function initMatrix() {
-
-      fontSize = 14;
-
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      cols = Math.floor(canvas.width / fontSize);
-
-      drops = Array.from(
-        { length: cols },
-        () => Math.random() * -100
-      );
+    if (y > canvas.height && Math.random() > 0.975) {
+      drops[i] = 0;
     }
 
-    function drawMatrix() {
+    drops[i] += 0.5;
+  }
+}
 
-      ctx.fillStyle = 'rgba(0,0,0,0.05)';
+initMatrix();
 
-      ctx.fillRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
+window.addEventListener('resize', initMatrix);
 
-      ctx.font = `${fontSize}px monospace`;
+setInterval(drawMatrix, 40);
 
-      for (let i = 0; i < drops.length; i++) {
 
-        const char =
-          CHARS[Math.floor(Math.random() * CHARS.length)];
+/* ════════════════════════════════════════
+   TERMINAL
+════════════════════════════════════════ */
+const LINES = [
+  '> initializing profile...',
+  '> first name : Lucas',
+  '> surname    : Le Gueut',
+  '> status     : cybersecurity & electronics student',
+  '> location   : France',
+  '> interests  : design, networks, offensive security, embedded systems',
+  '> education  : French National Brevet · STI2D Graduate',
+  '> activities : PCB design · programming · networking',
+  ' ',
+  '> system ready_'
+];
 
-        const y = drops[i] * fontSize;
+const output = document.getElementById('terminal-output');
 
-        ctx.fillStyle = '#00ff41';
+let lineIndex = 0;
+let charIndex = 0;
 
-        ctx.fillText(
-          char,
-          i * fontSize,
-          y
-        );
+function typeLine() {
 
-        if (
-          y > canvas.height &&
-          Math.random() > 0.975
-        ) {
-          drops[i] = 0;
-        }
+  if (lineIndex >= LINES.length) {
 
-        drops[i] += 0.5;
-      }
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+
+    output.appendChild(cursor);
+
+    return;
+  }
+
+  const currentLine = LINES[lineIndex];
+
+  if (charIndex < currentLine.length) {
+
+    output.innerHTML =
+      LINES.slice(0, lineIndex).join('<br>') +
+      '<br>' +
+      currentLine.substring(0, charIndex + 1);
+
+    charIndex++;
+
+    setTimeout(typeLine, 20);
+
+  } else {
+
+    lineIndex++;
+    charIndex = 0;
+
+    setTimeout(typeLine, 100);
+  }
+}
+
+setTimeout(typeLine, 500);
+
+
+/* ════════════════════════════════════════
+   ACTIVE NAV
+════════════════════════════════════════ */
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('nav a');
+
+window.addEventListener('scroll', () => {
+
+  let current = '';
+
+  sections.forEach(section => {
+
+    if (window.scrollY >= section.offsetTop - 140) {
+      current = section.id;
     }
+  });
 
-    initMatrix();
+  navLinks.forEach(link => {
 
-    window.addEventListener(
-      'resize',
-      initMatrix
+    link.classList.toggle(
+      'active',
+      link.getAttribute('href') === '#' + current
     );
+  });
+});
 
-    setInterval(drawMatrix, 40);
 
-    /* =========================================
-       TERMINAL
-    ========================================= */
+/* ════════════════════════════════════════
+   PROJECTS
+════════════════════════════════════════ */
+const PROJECTS = [
+  {
+    category: 'development',
+    icon: '▸',
+    color: '#00ff41',
 
-    const LINES = [
-
-      '> initializing profile...',
-      '> first name : Lucas',
-      '> surname    : Le Gueut',
-      '> status     : cybersecurity & electronics student',
-      '> location   : France',
-      '> interests  : design, networks, offensive security',
-      '> education  : BTS CIEL Option B Student',
-      '> system ready_'
-
-    ];
-
-    const output =
-      document.getElementById('terminal-output');
-
-    let lineIdx = 0;
-    let charIdx = 0;
-
-    function buildText(partial) {
-
-      let text = '';
-
-      for (let i = 0; i < lineIdx; i++) {
-        text += LINES[i] + '\n';
-      }
-
-      text += partial;
-
-      return text;
-    }
-
-    function type() {
-
-      if (lineIdx >= LINES.length) {
-
-        const span = document.createElement('span');
-
-        span.className = 'cursor';
-
-        output.appendChild(span);
-
-        return;
-      }
-
-      const target = LINES[lineIdx];
-
-      if (charIdx < target.length) {
-
-        output.textContent =
-          buildText(target.slice(0, charIdx + 1));
-
-        charIdx++;
-
-        setTimeout(
-          type,
-          Math.random() * 35 + 18
-        );
-
-      } else {
-
-        output.textContent =
-          buildText(target);
-
-        lineIdx++;
-
-        charIdx = 0;
-
-        setTimeout(type, 100);
-      }
-    }
-
-    setTimeout(type, 500);
-
-    /* =========================================
-       ACTIVE NAV
-    ========================================= */
-
-    const sections =
-      document.querySelectorAll('section');
-
-    const navLinks =
-      document.querySelectorAll('nav a');
-
-    window.addEventListener(
-      'scroll',
-      () => {
-
-        let current = '';
-
-        sections.forEach(sec => {
-
-          if (
-            scrollY >= sec.offsetTop - 140
-          ) {
-            current = sec.id;
-          }
-        });
-
-        navLinks.forEach(link => {
-
-          link.classList.toggle(
-            'active',
-            link.getAttribute('href') === `#${current}`
-          );
-        });
-
-      },
-      { passive: true }
-    );
-
-    /* =========================================
-       PROJECTS DATA
-    ========================================= */
-
-    const PROJECTS = [
-
+    projects: [
       {
-        category: 'development',
-        icon: '▸',
-        color: '#00ff41',
-
-        projects: [
-
-          {
-            name: 'Snake game',
-            desc: 'Page web avec jeu en javascript.',
-            tags: [
-              'javascript',
-              'web',
-              'html',
-              'css'
-            ],
-            link: 'Projects/snake/enregistrement/snake.html',
-            status: 'wip',
-            date: '2025',
-          },
-
-          {
-            name: 'Notepad',
-            desc: 'Bloc-notes programmé en C.',
-            tags: [
-              'C',
-              'SDL3',
-              'MinGW'
-            ],
-            link: 'https://github.com/luco667/LANGUAGEC',
-            status: 'wip',
-            date: '2025',
-          },
-
-        ],
+        name: 'Snake game',
+        desc: 'Page web avec jeu en javascript.',
+        tags: ['javascript', 'html', 'css'],
+        link: 'Projects/snake/enregistrement/snake.html',
+        status: 'wip',
+        date: '2025'
       },
 
       {
-        category: 'electronics',
-        icon: '◈',
-        color: '#00ccff',
+        name: 'Notepad',
+        desc: 'Bloc-notes programmé en C.',
+        tags: ['C', 'SDL3'],
+        link: 'https://github.com/luco667/LANGUAGEC',
+        status: 'wip',
+        date: '2025'
+      }
+    ]
+  },
 
-        projects: [
+  {
+    category: 'electronics',
+    icon: '◈',
+    color: '#00ccff',
 
-          {
-            name: 'PCB KiCad',
-            desc: 'Conception de PCB sous KiCad.',
-            tags: [
-              'KiCad',
-              'PCB',
-              'STM32'
-            ],
-            status: 'wip',
-            date: '2025',
-          },
-
-        ],
-      },
-
+    projects: [
       {
-        category: 'network',
-        icon: '⬢',
-        color: '#ff4466',
-
-        projects: [
-
-          {
-            name: 'Proxy',
-            desc: 'Routeur proxy anti-pub.',
-            tags: ['OSI'],
-            status: 'done',
-            date: '2026',
-          },
-
-        ],
-      },
-
-    ];
-
-    /* =========================================
-       PROJECTS RENDER
-    ========================================= */
-
-    (function renderProjects() {
-
-      const STATUS = {
-
-        done: {
-          text: 'done',
-          color: '#00ff41'
-        },
-
-        wip: {
-          text: 'in progress',
-          color: '#ffcc00'
-        },
-
-      };
-
-      const section =
-        document.querySelector('#projects');
-
-      const wrapper =
-        document.createElement('div');
-
-      wrapper.className = 'projects-scroll';
-
-      const grid =
-        document.createElement('div');
-
-      grid.className = 'projects-grid';
-
-      PROJECTS.forEach(cat => {
-
-        const card =
-          document.createElement('div');
-
-        card.className = 'cat-card';
-
-        card.style.setProperty(
-          '--cat-color',
-          cat.color
-        );
-
-        card.innerHTML = `
-          <span class="cat-icon">${cat.icon}</span>
-
-          <div class="cat-name">
-            ./${cat.category}/
-          </div>
-
-          <div class="cat-count">
-            ${cat.projects.length} project${cat.projects.length > 1 ? 's' : ''}
-          </div>
-        `;
-
-        card.addEventListener(
-          'click',
-          () => openModal(cat)
-        );
-
-        grid.appendChild(card);
-      });
-
-      wrapper.appendChild(grid);
-
-      section.appendChild(wrapper);
-
-      /* MODAL */
-
-      const overlay =
-        document.createElement('div');
-
-      overlay.id = 'proj-overlay';
-
-      overlay.innerHTML = `
-        <div id="proj-modal">
-
-          <div class="modal-header">
-
-            <div
-              class="modal-title"
-              id="modal-title"
-            ></div>
-
-            <button
-              class="modal-close"
-              id="modal-close"
-            >
-              ✕
-            </button>
-
-          </div>
-
-          <div
-            class="modal-body"
-            id="modal-body"
-          ></div>
-
-        </div>
-      `;
-
-      document.body.appendChild(overlay);
-
-      const modalTitle =
-        document.getElementById('modal-title');
-
-      const modalBody =
-        document.getElementById('modal-body');
-
-      document
-        .getElementById('modal-close')
-        .addEventListener(
-          'click',
-          closeModal
-        );
-
-      overlay.addEventListener(
-        'click',
-        e => {
-          if (e.target === overlay) {
-            closeModal();
-          }
-        }
-      );
-
-      function openModal(cat) {
-
-        overlay.style.setProperty(
-          '--modal-color',
-          cat.color
-        );
-
-        modalTitle.textContent =
-          `> ${cat.category}/`;
-
-        modalBody.innerHTML = '';
-
-        cat.projects.forEach(p => {
-
-          const item =
-            document.createElement('div');
-
-          item.className = 'proj-item';
-
-          const s = STATUS[p.status];
-
-          item.innerHTML = `
-
-            <div class="proj-top">
-
-              <div class="proj-name">
-
-                ${
-                  p.link
-                    ? `<a href="${p.link}" target="_blank">${p.name}</a>`
-                    : p.name
-                }
-
-              </div>
-
-              <div class="proj-status"
-                style="
-                  color:${s.color};
-                  border-color:${s.color};
-                "
-              >
-                ${s.text}
-              </div>
-
-            </div>
-
-            <div class="proj-desc">
-              ${p.desc}
-            </div>
-
-            <div class="proj-tags">
-
-              ${
-                p.tags
-                  .map(
-                    t => `<span class="proj-tag">#${t}</span>`
-                  )
-                  .join('')
-              }
-
-            </div>
-          `;
-
-          modalBody.appendChild(item);
-        });
-
-        overlay.classList.add('open');
-
-        document.body.style.overflow = 'hidden';
+        name: 'PCB KiCad',
+        desc: 'Conception PCB.',
+        tags: ['KiCad', 'PCB'],
+        status: 'wip',
+        date: '2025'
       }
+    ]
+  }
+];
 
-      function closeModal() {
+(function renderProjects() {
 
-        overlay.classList.remove('open');
+  const section = document.querySelector('#projects');
 
-        document.body.style.overflow = '';
-      }
+  const wrapper = document.createElement('div');
+  wrapper.className = 'projects-grid';
 
-    })();
+  PROJECTS.forEach(category => {
 
-  </script>
+    const card = document.createElement('div');
+
+    card.className = 'project-card';
+
+    card.innerHTML = `
+      <div class="project-icon">${category.icon}</div>
+      <div class="project-name">${category.category}</div>
+      <div class="project-count">
+        ${category.projects.length} projects
+      </div>
+    `;
+
+    wrapper.appendChild(card);
+  });
+
+  section.appendChild(wrapper);
+
+})();
+</script>
 
 </body>
 </html>
