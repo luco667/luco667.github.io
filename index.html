@@ -1,554 +1,909 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Lucas Le Gueut — Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
 
-<canvas id="matrix"></canvas>
+  <style>
 
-<header>
-  <h1>Lucas Le Gueut</h1>
-  <p class="subtitle">Étudiant en cybersécurité &amp; électronique</p>
-</header>
-
-<nav>
-  <a href="#about">about</a>
-  <a href="#skills">skills</a>
-  <a href="#projects">projects</a>
-  <a href="#contact">contact</a>
-</nav>
-
-<section id="about">
-  <h2>&gt; about</h2>
-  <div class="terminal">
-    <div id="terminal-output"></div>
-  </div>
-</section>
-
-<section id="skills">
-  <h2>&gt; skills</h2>
-  <div class="card skills">
-    <span><a href="https://en.wikipedia.org/wiki/C_(programming_language)" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">C</a></span>
-    <span>C++</span>
-    <span>HTML</span>
-    <span>CSS</span>
-    <span>Javascript</span>
-    <span>Python</span>
-    <span>Linux</span>
-    <span>KiCad</span>
-    <span>Network Security</span>
-  </div>
-</section>
-
-<section id="projects">
-  <h2>&gt; projects</h2>
-</section>
-
-<section id="contact">
-  <h2>&gt; contact</h2>
-  <div class="card">
-    <p>&gt; email: 777lucaslg@gmail.com</p>
-    <p>&gt; github: github.com/luco667</p>
-  </div>
-</section>
-
-<footer>
-  <p>© 2026 — Starboost instance</p>
-</footer>
-
-<script>
-/* ══════════════════════════════════════════
-   MATRIX RAIN
-══════════════════════════════════════════ */
-const canvas = document.getElementById('matrix');
-const ctx    = canvas.getContext('2d');
-
-const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF><{}[]|/\\';
-
-let cols, drops, fontSize;
-
-function initMatrix() {
-  fontSize      = 14;
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-  cols          = Math.floor(canvas.width / fontSize);
-  drops         = Array.from({ length: cols }, () => Math.random() * -100);
-}
-
-function drawMatrix() {
-  ctx.fillStyle = 'rgba(0,0,0,0.05)';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.font = `${fontSize}px "Share Tech Mono", monospace`;
-
-  for (let i = 0; i < drops.length; i++) {
-    const char = CHARS[Math.floor(Math.random() * CHARS.length)];
-    const y    = drops[i] * fontSize;
-
-    if (y > 0 && y < canvas.height) {
-      ctx.fillStyle   = '#ccffcc';
-      ctx.shadowColor = '#00ff41';
-      ctx.shadowBlur  = 8;
-    } else {
-      ctx.fillStyle   = '#00ff41';
-      ctx.shadowColor = '#00ff41';
-      ctx.shadowBlur  = 4;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    ctx.fillText(char, i * fontSize, y);
-    ctx.shadowBlur = 0;
-
-    if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
-    drops[i] += 0.5;
-  }
-}
-
-initMatrix();
-window.addEventListener('resize', initMatrix);
-setInterval(drawMatrix, 40);
-
-
-/* ══════════════════════════════════════════
-   TERMINAL TYPEWRITER
-   BUG CORRIGÉ : textContent écrasait le DOM
-   → on utilise un tableau de lignes validées
-══════════════════════════════════════════ */
-const LINES = [
-  '> initializing profile...',
-  '> first name : Lucas',
-  '> surname    : Le Gueut',
-  '> status     : cybersecurity & electronics student',
-  '> location   : France',
-  '> interests  : design, networks, offensive security, embedded systems, reverse engineering',
-  '> education  : French National Brevet · STI2D Graduate · BTS CIEL Option B Student · Cisco Student',
-  '> activities : PCB design · programming · web development · networking · electronics studies · CTF player',
-  ' ',
-  '> system ready_',
-];
-
-const output = document.getElementById('terminal-output');
-let lineIdx = 0, charIdx = 0;
-
-function buildText(partial) {
-  let text = '';
-  for (let i = 0; i < lineIdx; i++) text += LINES[i] + '\n';
-  text += partial;
-  return text;
-}
-
-function type() {
-  if (lineIdx >= LINES.length) {
-    const span = document.createElement('span');
-    span.className = 'cursor';
-    output.appendChild(span);
-    return;
-  }
-
-  const target = LINES[lineIdx];
-
-  if (charIdx < target.length) {
-    output.textContent = buildText(target.slice(0, charIdx + 1));
-    charIdx++;
-    setTimeout(type, Math.random() * 35 + 18);
-  } else {
-    output.textContent = buildText(target);
-    lineIdx++;
-    charIdx = 0;
-    setTimeout(type, 110);
-  }
-}
-
-setTimeout(type, 600);
-
-
-/* ══════════════════════════════════════════
-   ACTIVE NAV ON SCROLL
-══════════════════════════════════════════ */
-const sections = document.querySelectorAll('section');
-const navLinks = document.querySelectorAll('nav a');
-
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(sec => {
-    if (scrollY >= sec.offsetTop - 140) current = sec.id;
-  });
-  navLinks.forEach(link => {
-    link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-  });
-}, { passive: true });
-
-
-/* ══════════════════════════════════════════
-   PROJECTS DATABASE
-   → Pour ajouter un projet : copie un bloc {}
-   → Champs : name*, desc*, tags[], link, status, date
-   → status : 'done' | 'wip' | 'archived'
-══════════════════════════════════════════ */
-const PROJECTS = [
-  {
-    category: 'developpemt',
-    icon: '▸',
-    color: '#00ff41',
-    projects: [
-      {
-        name: 'Snake game',
-        desc: 'Page web avec jeu en javascript.',
-        tags: ['javascript', 'web', 'html', 'css'],
-        link: 'Projects/snake/enregistrement/snake.html',
-        status: 'wip',
-        date: '2025',
-      },
-      {
-        name: 'Notepad',
-        desc: 'Bloc-notes programmé en C.',
-        tags: ['C', 'C++', 'SDL3', 'MinGW'],
-        link: 'https://github.com/luco667/LANGUAGEC',
-        status: 'wip',
-        date: '2025',
-      },
-      // ↓ ajoute tes projets ici
-    ],
-  },
-  {
-    category: 'electronics',
-    icon: '◈',
-    color: '#00ccff',
-    projects: [
-      {
-        name: 'PCB KiCad',
-        desc: "Conception d'une carte électronique sous KiCad.",
-        tags: ['KiCad', 'PCB', 'STM32'],
-        status: 'wip',
-        date: '2025',
-      },
-      // ↓ ajoute tes projets ici
-    ],
-  },
-  {
-    category: 'information',
-    icon: '⬡',
-    color: '#ffcc00',
-    projects: [
-      {
-        name: 'Portfolio',
-        desc: 'Ce site — portfolio matrix en HTML/CSS/JS pur.',
-        tags: ['html', 'css', 'js', 'canvas'],
-        link: 'https://github.com/luco667',
-        status: 'done',
-        date: '2026',
-      },
-      // ↓ ajoute tes projets ici
-    ],
-  },
-  {
-    category: 'network',
-    icon: '⬢',
-    color: '#ff4466',
-    projects: [
-       {
-        name: 'Proxy',
-        desc: 'Paramétrage d'un routeur en Proxy anti-pub.',
-        tags: ['OSI'],
-        link: 'https://github.com/luco667',
-        status: 'done',
-        date: '2026',
-      },
-      // ↓ ajoute tes projets ici
-    ],
-  },
-];
-
-
-/* ══════════════════════════════════════════
-   PROJECTS RENDERER
-   BUGS CORRIGÉS :
-   - grid.appendChild dans la boucle → dupliquait les cartes
-   - IntersectionObserver orphelin supprimé
-   - scroll modal ne remonte plus la page
-══════════════════════════════════════════ */
-(function renderProjects() {
-  const STATUS_LABEL = {
-    done:     { text: 'done',        color: '#00ff41' },
-    wip:      { text: 'in progress', color: '#ffcc00' },
-    archived: { text: 'archived',    color: '#888'    },
-  };
-
-  /* ── Styles injectés ── */
-  const style = document.createElement('style');
-  style.textContent = `
-    /* wrapper qui porte le scroll horizontal */
-    .projects-scroll {
-      overflow-x: auto;
-      overflow-y: visible;
-      scrollbar-width: none;
-      /* marge négative pour que le padding interne ne décale pas visuellement */
-      margin-left: -4px;
-      margin-right: -4px;
-    }
-    .projects-scroll::-webkit-scrollbar { display: none; }
-
-    /* la grille elle-même n'a PAS overflow, donc pas de clip implicite */
-    .projects-grid {
-      display: inline-flex;   /* inline-flex pour que le wrapper sache la vraie largeur */
-      min-width: 100%;
-      gap: 14px;
-      padding: 8px 4px 12px 4px; /* padding top absorbe border + box-shadow du hover */
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+      background: #000;
+      color: #00ff41;
+      font-family: monospace;
       scroll-behavior: smooth;
     }
 
-    .cat-card {
-      min-width: 210px;
-      max-width: 210px;
-      border: 1px solid rgba(0,255,65,0.2);
-      background: rgba(0,10,0,0.75);
-      padding: 20px;
-      cursor: pointer;
-      transition: all 0.22s;
+    body {
       position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(6px);
-      flex-shrink: 0;
     }
-    .cat-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--cat-color,#00ff41) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .cat-card:hover::before { opacity: 0.07; }
-    .cat-card:hover {
-      border-color: var(--cat-color,#00ff41);
-      box-shadow: 0 0 20px color-mix(in srgb, var(--cat-color,#00ff41) 20%, transparent);
-      transform: translateY(-2px);
-    }
-    .cat-card.active {
-      border-color: var(--cat-color,#00ff41);
-      box-shadow: 0 0 24px color-mix(in srgb, var(--cat-color,#00ff41) 30%, transparent),
-                  inset 0 0 20px rgba(255,255,255,0.02);
-      background: rgba(0,255,65,0.05);
-    }
-    .cat-icon {
-      font-size: 1.8rem;
-      display: block;
-      margin-bottom: 10px;
-      color: var(--cat-color,#00ff41);
-      text-shadow: 0 0 10px var(--cat-color,#00ff41);
-    }
-    .cat-name {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.88rem;
-      letter-spacing: 0.14em;
-      color: var(--cat-color,#00ff41);
-    }
-    .cat-count { font-size: 0.72rem; color: #444; margin-top: 6px; letter-spacing: 0.1em; }
-    .cat-count.has-projects { color: #666; }
 
-    /* ── Modal ── */
-    #proj-overlay {
+    canvas#matrix {
       position: fixed;
       inset: 0;
-      z-index: 1000;
+      z-index: -1;
+    }
+
+    header {
+      padding: 80px 20px 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #88aa88;
+    }
+
+    nav {
       display: flex;
-      align-items: center;
       justify-content: center;
-      background: rgba(0,0,0,0.88);
-      backdrop-filter: blur(8px);
+      gap: 20px;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #00ff41;
+      text-decoration: none;
+      border: 1px solid #00ff4120;
+      padding: 8px 14px;
+      transition: 0.2s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: #00ff4110;
+      border-color: #00ff41;
+    }
+
+    section {
+      width: min(1000px, 92vw);
+      margin: 40px auto;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #00ff41;
+    }
+
+    .terminal,
+    .card {
+      border: 1px solid #00ff4120;
+      background: rgba(0, 10, 0, 0.7);
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skills span {
+      border: 1px solid #00ff4120;
+      padding: 8px 12px;
+      background: rgba(0, 255, 65, 0.05);
+    }
+
+    .skills a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #446644;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 18px;
+      background: #00ff41;
+      margin-left: 4px;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* =========================================
+       PROJECTS
+    ========================================= */
+
+    .projects-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+    }
+
+    .projects-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .projects-grid {
+      display: flex;
+      gap: 14px;
+      padding-bottom: 10px;
+      min-width: max-content;
+    }
+
+    .cat-card {
+
+      width: 220px;
+      min-height: 130px;
+
+      border: 1px solid rgba(0, 255, 65, 0.2);
+
+      background: rgba(0, 10, 0, 0.75);
+
+      padding: 20px;
+
+      cursor: pointer;
+
+      transition: 0.25s;
+
+      flex-shrink: 0;
+    }
+
+    .cat-card:hover {
+
+      transform: translateY(-3px);
+
+      border-color: var(--cat-color);
+
+      box-shadow: 0 0 20px #00ff4120;
+    }
+
+    .cat-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .cat-name {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: var(--cat-color);
+    }
+
+    .cat-count {
+      color: #668866;
+      font-size: 0.8rem;
+    }
+
+    /* =========================================
+       MODAL
+    ========================================= */
+
+    #proj-overlay {
+
+      position: fixed;
+      inset: 0;
+
+      background: rgba(0, 0, 0, 0.9);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s;
+
+      transition: 0.2s;
+
+      z-index: 999;
     }
-    #proj-overlay.open { opacity: 1; pointer-events: all; }
+
+    #proj-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
 
     #proj-modal {
-      background: #020d02;
-      border: 1px solid var(--modal-color,#00ff41);
-      box-shadow: 0 0 50px color-mix(in srgb, var(--modal-color,#00ff41) 18%, transparent);
+
       width: min(700px, 92vw);
       max-height: 80vh;
-      overflow: hidden;        /* le scroll est sur modal-body, pas le modal entier */
+
+      overflow: hidden;
+
+      background: #020d02;
+
+      border: 1px solid var(--modal-color);
+
       display: flex;
       flex-direction: column;
-      transform: translateY(14px);
-      transition: transform 0.25s;
     }
-    #proj-overlay.open #proj-modal { transform: translateY(0); }
 
     .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 28px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      flex-shrink: 0;          /* ne rétrécit jamais, toujours visible */
-      background: #020d02;
-    }
-    .modal-title {
-      font-family: 'VT323', monospace;
-      font-size: 1.6rem;
-      color: var(--modal-color,#00ff41);
-      text-shadow: 0 0 12px var(--modal-color,#00ff41);
-      letter-spacing: 0.1em;
-    }
-    .modal-close {
-      background: none;
-      border: 1px solid rgba(255,255,255,0.15);
-      color: #666;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 1rem;
-      width: 32px; height: 32px;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .modal-close:hover { border-color: var(--modal-color,#00ff41); color: var(--modal-color,#00ff41); }
 
-    .modal-body { padding: 24px 28px; display: flex; flex-direction: column; gap: 14px; overflow-y: auto; }
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 20px;
+
+      border-bottom: 1px solid #ffffff10;
+    }
+
+    .modal-title {
+      color: var(--modal-color);
+      font-size: 1.4rem;
+    }
+
+    .modal-close {
+
+      background: none;
+      border: 1px solid #ffffff20;
+
+      color: #888;
+
+      width: 32px;
+      height: 32px;
+
+      cursor: pointer;
+    }
+
+    .modal-body {
+
+      padding: 20px;
+
+      overflow-y: auto;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 14px;
+    }
 
     .proj-item {
-      border: 1px solid rgba(255,255,255,0.06);
-      background: rgba(255,255,255,0.02);
-      padding: 18px 20px;
-      transition: all 0.2s;
+
+      border: 1px solid #ffffff10;
+
+      padding: 18px;
+
+      background: rgba(255, 255, 255, 0.02);
     }
-    .proj-item:hover {
-      border-color: color-mix(in srgb, var(--modal-color,#00ff41) 35%, transparent);
-      background: rgba(255,255,255,0.03);
+
+    .proj-top {
+
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+
+      margin-bottom: 10px;
     }
-    .proj-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
-    .proj-name { font-family: 'Share Tech Mono', monospace; font-size: 0.95rem; color: var(--modal-color,#00ff41); letter-spacing: 0.05em; }
-    .proj-name a { color: inherit; text-decoration: none; }
-    .proj-name a:hover { text-decoration: underline; }
-    .proj-meta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-    .proj-date { font-size: 0.72rem; color: #444; letter-spacing: 0.1em; }
-    .proj-status { font-size: 0.7rem; letter-spacing: 0.12em; padding: 2px 8px; border: 1px solid; }
-    .proj-desc { font-size: 0.83rem; color: #556655; line-height: 1.7; margin-bottom: 10px; }
-    .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .proj-tag { font-size: 0.7rem; color: #445544; border: 1px solid #1a2e1a; padding: 2px 8px; letter-spacing: 0.08em; }
-    .empty-state { text-align: center; padding: 40px; color: #333; font-size: 0.85rem; letter-spacing: 0.1em; }
 
-    .modal-body::-webkit-scrollbar { width: 4px; }
-    .modal-body::-webkit-scrollbar-track { background: transparent; }
-    .modal-body::-webkit-scrollbar-thumb { background: #1a3a1a; }
+    .proj-name a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    @media (max-width: 500px) { #proj-modal { max-height: 90vh; } }
-  `;
-  document.head.appendChild(style);
+    .proj-name a:hover {
+      text-decoration: underline;
+    }
 
-  /* ── Grille ── */
-  const section = document.querySelector('#projects');
-  if (!section) return;
+    .proj-status {
 
-  const wrapper = document.createElement('div');
-  wrapper.className = 'projects-scroll';
+      padding: 2px 8px;
 
-  const grid = document.createElement('div');
-  grid.className = 'projects-grid';
+      border: 1px solid;
 
-  PROJECTS.forEach(cat => {
-    const card = document.createElement('div');
-    card.className = 'cat-card';
-    card.style.setProperty('--cat-color', cat.color);
-    card.dataset.category = cat.category;
+      font-size: 0.7rem;
+    }
 
-    const count = cat.projects.length;
-    card.innerHTML = `
-      <span class="cat-icon">${cat.icon}</span>
-      <div class="cat-name">./${cat.category}/</div>
-      <div class="cat-count ${count > 0 ? 'has-projects' : ''}">
-        ${count > 0 ? `${count} project${count > 1 ? 's' : ''}` : 'empty'}
-      </div>
-    `;
+    .proj-tags {
 
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      openModal(cat);
-    });
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
 
-    grid.appendChild(card);
-  });
+      margin-top: 12px;
+    }
 
-  wrapper.appendChild(grid);
-  section.appendChild(wrapper);
+    .proj-tag {
 
-  /* ── Modal ── */
-  const overlay = document.createElement('div');
-  overlay.id = 'proj-overlay';
-  overlay.innerHTML = `
-    <div id="proj-modal">
-      <div class="modal-header">
-        <div class="modal-title" id="modal-title"></div>
-        <button class="modal-close" id="modal-close" aria-label="Fermer">✕</button>
-      </div>
-      <div class="modal-body" id="modal-body"></div>
+      border: 1px solid #1a2e1a;
+
+      padding: 2px 8px;
+
+      color: #668866;
+
+      font-size: 0.7rem;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <canvas id="matrix"></canvas>
+
+  <header>
+    <h1>Lucas Le Gueut</h1>
+    <p class="subtitle">Étudiant en cybersécurité & électronique</p>
+  </header>
+
+  <nav>
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#projects">projects</a>
+    <a href="#contact">contact</a>
+  </nav>
+
+  <section id="about">
+
+    <h2>&gt; about</h2>
+
+    <div class="terminal">
+      <div id="terminal-output"></div>
     </div>
-  `;
-  document.body.appendChild(overlay);
 
-  const modalTitle = document.getElementById('modal-title');
-  const modalBody  = document.getElementById('modal-body');
-  const modal      = document.getElementById('proj-modal');
+  </section>
 
-  document.getElementById('modal-close').addEventListener('click', closeModal);
-  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-  // scroll sur modal-body, pas le modal entier
-  modalBody.addEventListener('wheel', e => e.stopPropagation(), { passive: true });
+  <section id="skills">
 
-  function openModal(cat) {
-    overlay.style.setProperty('--modal-color', cat.color);
-    modalTitle.textContent = `> ${cat.icon} ${cat.category}/`;
-    modalBody.innerHTML = '';
+    <h2>&gt; skills</h2>
 
-    if (cat.projects.length === 0) {
-      modalBody.innerHTML = `<div class="empty-state">> no projects yet_</div>`;
-    } else {
-      cat.projects.forEach(p => {
-        const s    = p.status ? STATUS_LABEL[p.status] : null;
-        const item = document.createElement('div');
-        item.className = 'proj-item';
+    <div class="card skills">
 
-        const nameHtml   = p.link
-          ? `<a href="${p.link}" target="_blank" rel="noopener noreferrer">${p.name}</a>`
-          : p.name;
-        const statusHtml = s
-          ? `<span class="proj-status" style="color:${s.color};border-color:${s.color}33">${s.text}</span>`
-          : '';
-        const tagsHtml   = p.tags
-          ? p.tags.map(t => `<span class="proj-tag">#${t}</span>`).join('')
-          : '';
+      <span>
+        <a
+          href="https://en.wikipedia.org/wiki/C_(programming_language)"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          C
+        </a>
+      </span>
 
-        item.innerHTML = `
-          <div class="proj-top">
-            <div class="proj-name">&gt; ${nameHtml}</div>
-            <div class="proj-meta">
-              ${p.date ? `<span class="proj-date">${p.date}</span>` : ''}
-              ${statusHtml}
-            </div>
-          </div>
-          <div class="proj-desc">${p.desc}</div>
-          ${tagsHtml ? `<div class="proj-tags">${tagsHtml}</div>` : ''}
-        `;
-        modalBody.appendChild(item);
-      });
+      <span>C++</span>
+      <span>HTML</span>
+      <span>CSS</span>
+      <span>Javascript</span>
+      <span>Python</span>
+      <span>Linux</span>
+      <span>KiCad</span>
+      <span>Network Security</span>
+
+    </div>
+
+  </section>
+
+  <section id="projects">
+
+    <h2>&gt; projects</h2>
+
+  </section>
+
+  <section id="contact">
+
+    <h2>&gt; contact</h2>
+
+    <div class="card">
+      <p>&gt; email: 777lucaslg@gmail.com</p>
+      <p>&gt; github: github.com/luco667</p>
+    </div>
+
+  </section>
+
+  <footer>
+    <p>© 2026 — Starboost instance</p>
+  </footer>
+
+  <script>
+
+    /* DEBUG */
+    window.onerror = (msg, src, line, col, err) => {
+      console.error(msg, line, col, err);
+    };
+
+    /* =========================================
+       MATRIX
+    ========================================= */
+
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    const CHARS =
+      'アイウエオカキクケコ0123456789ABCDEF';
+
+    let cols;
+    let drops;
+    let fontSize;
+
+    function initMatrix() {
+
+      fontSize = 14;
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      cols = Math.floor(canvas.width / fontSize);
+
+      drops = Array.from(
+        { length: cols },
+        () => Math.random() * -100
+      );
     }
 
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
+    function drawMatrix() {
 
-  function closeModal() {
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-    document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-  }
-})();
-</script>
+      ctx.fillStyle = 'rgba(0,0,0,0.05)';
+
+      ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      ctx.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+
+        const char =
+          CHARS[Math.floor(Math.random() * CHARS.length)];
+
+        const y = drops[i] * fontSize;
+
+        ctx.fillStyle = '#00ff41';
+
+        ctx.fillText(
+          char,
+          i * fontSize,
+          y
+        );
+
+        if (
+          y > canvas.height &&
+          Math.random() > 0.975
+        ) {
+          drops[i] = 0;
+        }
+
+        drops[i] += 0.5;
+      }
+    }
+
+    initMatrix();
+
+    window.addEventListener(
+      'resize',
+      initMatrix
+    );
+
+    setInterval(drawMatrix, 40);
+
+    /* =========================================
+       TERMINAL
+    ========================================= */
+
+    const LINES = [
+
+      '> initializing profile...',
+      '> first name : Lucas',
+      '> surname    : Le Gueut',
+      '> status     : cybersecurity & electronics student',
+      '> location   : France',
+      '> interests  : design, networks, offensive security',
+      '> education  : BTS CIEL Option B Student',
+      '> system ready_'
+
+    ];
+
+    const output =
+      document.getElementById('terminal-output');
+
+    let lineIdx = 0;
+    let charIdx = 0;
+
+    function buildText(partial) {
+
+      let text = '';
+
+      for (let i = 0; i < lineIdx; i++) {
+        text += LINES[i] + '\n';
+      }
+
+      text += partial;
+
+      return text;
+    }
+
+    function type() {
+
+      if (lineIdx >= LINES.length) {
+
+        const span = document.createElement('span');
+
+        span.className = 'cursor';
+
+        output.appendChild(span);
+
+        return;
+      }
+
+      const target = LINES[lineIdx];
+
+      if (charIdx < target.length) {
+
+        output.textContent =
+          buildText(target.slice(0, charIdx + 1));
+
+        charIdx++;
+
+        setTimeout(
+          type,
+          Math.random() * 35 + 18
+        );
+
+      } else {
+
+        output.textContent =
+          buildText(target);
+
+        lineIdx++;
+
+        charIdx = 0;
+
+        setTimeout(type, 100);
+      }
+    }
+
+    setTimeout(type, 500);
+
+    /* =========================================
+       ACTIVE NAV
+    ========================================= */
+
+    const sections =
+      document.querySelectorAll('section');
+
+    const navLinks =
+      document.querySelectorAll('nav a');
+
+    window.addEventListener(
+      'scroll',
+      () => {
+
+        let current = '';
+
+        sections.forEach(sec => {
+
+          if (
+            scrollY >= sec.offsetTop - 140
+          ) {
+            current = sec.id;
+          }
+        });
+
+        navLinks.forEach(link => {
+
+          link.classList.toggle(
+            'active',
+            link.getAttribute('href') === `#${current}`
+          );
+        });
+
+      },
+      { passive: true }
+    );
+
+    /* =========================================
+       PROJECTS DATA
+    ========================================= */
+
+    const PROJECTS = [
+
+      {
+        category: 'development',
+        icon: '▸',
+        color: '#00ff41',
+
+        projects: [
+
+          {
+            name: 'Snake game',
+            desc: 'Page web avec jeu en javascript.',
+            tags: [
+              'javascript',
+              'web',
+              'html',
+              'css'
+            ],
+            link: 'Projects/snake/enregistrement/snake.html',
+            status: 'wip',
+            date: '2025',
+          },
+
+          {
+            name: 'Notepad',
+            desc: 'Bloc-notes programmé en C.',
+            tags: [
+              'C',
+              'SDL3',
+              'MinGW'
+            ],
+            link: 'https://github.com/luco667/LANGUAGEC',
+            status: 'wip',
+            date: '2025',
+          },
+
+        ],
+      },
+
+      {
+        category: 'electronics',
+        icon: '◈',
+        color: '#00ccff',
+
+        projects: [
+
+          {
+            name: 'PCB KiCad',
+            desc: 'Conception de PCB sous KiCad.',
+            tags: [
+              'KiCad',
+              'PCB',
+              'STM32'
+            ],
+            status: 'wip',
+            date: '2025',
+          },
+
+        ],
+      },
+
+      {
+        category: 'network',
+        icon: '⬢',
+        color: '#ff4466',
+
+        projects: [
+
+          {
+            name: 'Proxy',
+            desc: 'Routeur proxy anti-pub.',
+            tags: ['OSI'],
+            status: 'done',
+            date: '2026',
+          },
+
+        ],
+      },
+
+    ];
+
+    /* =========================================
+       PROJECTS RENDER
+    ========================================= */
+
+    (function renderProjects() {
+
+      const STATUS = {
+
+        done: {
+          text: 'done',
+          color: '#00ff41'
+        },
+
+        wip: {
+          text: 'in progress',
+          color: '#ffcc00'
+        },
+
+      };
+
+      const section =
+        document.querySelector('#projects');
+
+      const wrapper =
+        document.createElement('div');
+
+      wrapper.className = 'projects-scroll';
+
+      const grid =
+        document.createElement('div');
+
+      grid.className = 'projects-grid';
+
+      PROJECTS.forEach(cat => {
+
+        const card =
+          document.createElement('div');
+
+        card.className = 'cat-card';
+
+        card.style.setProperty(
+          '--cat-color',
+          cat.color
+        );
+
+        card.innerHTML = `
+          <span class="cat-icon">${cat.icon}</span>
+
+          <div class="cat-name">
+            ./${cat.category}/
+          </div>
+
+          <div class="cat-count">
+            ${cat.projects.length} project${cat.projects.length > 1 ? 's' : ''}
+          </div>
+        `;
+
+        card.addEventListener(
+          'click',
+          () => openModal(cat)
+        );
+
+        grid.appendChild(card);
+      });
+
+      wrapper.appendChild(grid);
+
+      section.appendChild(wrapper);
+
+      /* MODAL */
+
+      const overlay =
+        document.createElement('div');
+
+      overlay.id = 'proj-overlay';
+
+      overlay.innerHTML = `
+        <div id="proj-modal">
+
+          <div class="modal-header">
+
+            <div
+              class="modal-title"
+              id="modal-title"
+            ></div>
+
+            <button
+              class="modal-close"
+              id="modal-close"
+            >
+              ✕
+            </button>
+
+          </div>
+
+          <div
+            class="modal-body"
+            id="modal-body"
+          ></div>
+
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+
+      const modalTitle =
+        document.getElementById('modal-title');
+
+      const modalBody =
+        document.getElementById('modal-body');
+
+      document
+        .getElementById('modal-close')
+        .addEventListener(
+          'click',
+          closeModal
+        );
+
+      overlay.addEventListener(
+        'click',
+        e => {
+          if (e.target === overlay) {
+            closeModal();
+          }
+        }
+      );
+
+      function openModal(cat) {
+
+        overlay.style.setProperty(
+          '--modal-color',
+          cat.color
+        );
+
+        modalTitle.textContent =
+          `> ${cat.category}/`;
+
+        modalBody.innerHTML = '';
+
+        cat.projects.forEach(p => {
+
+          const item =
+            document.createElement('div');
+
+          item.className = 'proj-item';
+
+          const s = STATUS[p.status];
+
+          item.innerHTML = `
+
+            <div class="proj-top">
+
+              <div class="proj-name">
+
+                ${
+                  p.link
+                    ? `<a href="${p.link}" target="_blank">${p.name}</a>`
+                    : p.name
+                }
+
+              </div>
+
+              <div class="proj-status"
+                style="
+                  color:${s.color};
+                  border-color:${s.color};
+                "
+              >
+                ${s.text}
+              </div>
+
+            </div>
+
+            <div class="proj-desc">
+              ${p.desc}
+            </div>
+
+            <div class="proj-tags">
+
+              ${
+                p.tags
+                  .map(
+                    t => `<span class="proj-tag">#${t}</span>`
+                  )
+                  .join('')
+              }
+
+            </div>
+          `;
+
+          modalBody.appendChild(item);
+        });
+
+        overlay.classList.add('open');
+
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+
+        overlay.classList.remove('open');
+
+        document.body.style.overflow = '';
+      }
+
+    })();
+
+  </script>
 
 </body>
 </html>
