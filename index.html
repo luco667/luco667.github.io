@@ -16,12 +16,13 @@
    FONTS
 ───────────────────────────────────────── */
 
+
 @font-face {
   font-family: 'Share Tech Mono';
-  src: url('snakepages/ShareTechMono-Regular.ttf') format('truetype');
+  src: url('ShareTechMono-Regular.ttf') format('truetype');
+  font-display: swap;
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
 }
 
 /* fallback VT323 */
@@ -72,27 +73,91 @@ body {
   font-family: 'Share Tech Mono', monospace;
 
   overflow-x: hidden;
-
+  background:#000;
   cursor: crosshair;
 }
 
 /* ─────────────────────────────────────────
-   MATRIX BACKGROUND
+   MATRIX
 ───────────────────────────────────────── */
 
-#matrix {
-  position: fixed;
+#matrix{
+  position:fixed;
+  inset:0;
 
+  width:100%;
+  height:100%;
   top: 0;
   left: 0;
+  z-index:0;
 
-  width: 100%;
-  height: 100%;
+  pointer-events:none;
 
-  z-index: 0;
-
-  opacity: 0.55;
+  opacity:.45;
 }
+/* ─────────────────────────────────────────
+   PROJECTS GRID
+───────────────────────────────────────── */
+
+.projects-grid{
+  display:flex;
+  gap:18px;
+
+  overflow-x:auto;
+
+  padding-bottom:10px;
+
+  scrollbar-width:none;
+}
+
+.projects-grid::-webkit-scrollbar{
+  display:none;
+}
+
+.project-card{
+  flex-shrink:0;
+
+  width:230px;
+
+  padding:20px;
+
+  border:1px solid var(--border);
+
+  background:rgba(0,10,0,.8);
+
+  cursor:pointer;
+
+  transition:.22s;
+}
+
+.project-card:hover{
+  transform:translateY(-4px);
+
+  border-color:var(--green);
+
+  box-shadow:0 0 22px rgba(0,255,65,.2);
+}
+
+.project-icon{
+  font-size:2rem;
+
+  margin-bottom:12px;
+}
+
+.project-name{
+  font-size:1rem;
+
+  margin-bottom:8px;
+
+  letter-spacing:.08em;
+}
+
+.project-count{
+  color:#666;
+
+  font-size:.78rem;
+}
+
 
 /* ─────────────────────────────────────────
    LAYOUT
@@ -113,7 +178,7 @@ footer {
 header {
   text-align: center;
 
-  padding: 80px 20px 40px;
+  padding:90px 20px 50px;
 }
 
 header h1 {
@@ -291,6 +356,7 @@ section h2 {
   text-shadow: 0 0 12px var(--green);
 }
 
+
 /* ─────────────────────────────────────────
    CARDS
 ───────────────────────────────────────── */
@@ -326,48 +392,59 @@ section h2 {
 
   transition: all 0.2s;
 }
-
 /* ─────────────────────────────────────────
    TERMINAL
 ───────────────────────────────────────── */
 
-.terminal {
-  min-height: 120px;
+.terminal{
+  position:relative;
 
-  padding: 28px 32px;
-
-  border: 1px solid var(--border);
-
-  background: var(--card-bg);
-
-  backdrop-filter: blur(6px);
-
-  box-shadow: 0 0 20px rgba(0,255,65,0.05);
+  overflow:hidden;
 }
 
-#terminal-output {
-  color: var(--green-dim);
+.terminal::after{
+  content:"";
 
-  font-size: 0.92rem;
+  position:absolute;
+  inset:0;
 
-  line-height: 1.9;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 3px,
+      rgba(0,0,0,.09) 3px,
+      rgba(0,0,0,.09) 4px
+    );
 
-  white-space: pre-wrap;
+  pointer-events:none;
 }
 
-#terminal-output .cursor {
-  display: inline-block;
+#terminal-output{
+  position:relative;
 
-  width: 8px;
-  height: 1em;
+  z-index:2;
 
-  margin-left: 2px;
+  min-height:180px;
 
-  background: var(--green);
+  color:var(--green-dim);
 
-  vertical-align: text-bottom;
+  line-height:1.9;
 
-  animation: blink 1s step-end infinite;
+  white-space:pre-wrap;
+}
+
+.cursor{
+  display:inline-block;
+
+  width:8px;
+  height:1em;
+
+  margin-left:3px;
+
+  background:var(--green);
+
+  animation:blink 1s infinite;
 }
 
 /* ─────────────────────────────────────────
@@ -411,6 +488,13 @@ section h2 {
   text-shadow: 0 0 8px var(--green);
 
   box-shadow: 0 0 12px rgba(0,255,65,0.15);
+
+  transform:translateY(-2px);
+}
+
+.skills a{
+  color:inherit;
+  text-decoration:none;
 }
 
 /* ─────────────────────────────────────────
@@ -503,6 +587,180 @@ footer {
   background: var(--green);
   color: #000;
 }
+/* ─────────────────────────────────────────
+   GLOBAL
+───────────────────────────────────────── */
+
+header,
+nav,
+section,
+footer{
+  position:relative;
+  z-index:10;
+}
+
+section{
+  width:min(950px, calc(100% - 30px));
+
+  margin:auto;
+
+  padding:80px 0;
+}
+
+section h2{
+  margin-bottom:25px;
+
+  font-size:2rem;
+
+  letter-spacing:.12em;
+
+  text-shadow:0 0 10px var(--green);
+}
+/* ─────────────────────────────────────────
+   MODAL
+───────────────────────────────────────── */
+
+#overlay{
+  position:fixed;
+  inset:0;
+
+  z-index:1000;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  background:rgba(0,0,0,.84);
+
+  backdrop-filter:blur(10px);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.25s;
+}
+
+#overlay.open{
+  opacity:1;
+  pointer-events:all;
+}
+
+.modal{
+  width:min(760px, 92vw);
+
+  max-height:84vh;
+
+  overflow-y:auto;
+
+  background:#020d02;
+
+  border:1px solid var(--green);
+
+  padding:28px;
+
+  box-shadow:0 0 40px rgba(0,255,65,.18);
+
+  transform:translateY(14px);
+
+  transition:.25s;
+}
+
+#overlay.open .modal{
+  transform:translateY(0);
+}
+
+.modal-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:22px;
+}
+
+.modal-title{
+  font-size:1.4rem;
+
+  letter-spacing:.1em;
+
+  text-shadow:0 0 10px var(--green);
+}
+
+.close{
+  width:34px;
+  height:34px;
+
+  border:1px solid var(--border);
+
+  background:none;
+
+  color:var(--green);
+
+  cursor:pointer;
+
+  font-size:1rem;
+}
+
+.close:hover{
+  border-color:var(--green);
+}
+
+.project-item{
+  margin-bottom:16px;
+
+  padding:18px;
+
+  border:1px solid rgba(255,255,255,.06);
+
+  background:rgba(255,255,255,.02);
+}
+
+.project-item:hover{
+  border-color:rgba(0,255,65,.3);
+}
+
+.project-item-top{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+
+  margin-bottom:10px;
+}
+
+.project-item-name a{
+  color:var(--green);
+
+  text-decoration:none;
+}
+
+.project-item-name a:hover{
+  text-decoration:underline;
+}
+
+.project-desc{
+  color:#6e8f6e;
+
+  line-height:1.7;
+
+  margin-bottom:12px;
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.tag{
+  padding:4px 8px;
+
+  border:1px solid #173617;
+
+  color:#5d815d;
+
+  font-size:.72rem;
+}
+
+
 
 /* ─────────────────────────────────────────
    TABLET
@@ -525,6 +783,9 @@ footer {
 
 }
 
+/* ─────────────────────────────────────────
+   MOBILE
+───────────────────────────────────────── */
 /* ─────────────────────────────────────────
    MOBILE
 ───────────────────────────────────────── */
