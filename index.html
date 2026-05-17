@@ -25,7 +25,7 @@
   font-style: normal;
 }
 
-/* fallback VT323 */
+/* fallback VT323
 @font-face {
   font-family: 'VT323';
   src: local('Courier New'), local('monospace');
@@ -33,7 +33,7 @@
   font-style: normal;
   font-display: swap;
 }
-
+*/
 /* ─────────────────────────────────────────
    ROOT
 ───────────────────────────────────────── */
@@ -616,151 +616,6 @@ section h2{
 
   text-shadow:0 0 10px var(--green);
 }
-/* ─────────────────────────────────────────
-   MODAL
-───────────────────────────────────────── */
-
-#overlay{
-  position:fixed;
-  inset:0;
-
-  z-index:1000;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  background:rgba(0,0,0,.84);
-
-  backdrop-filter:blur(10px);
-
-  opacity:0;
-  pointer-events:none;
-
-  transition:.25s;
-}
-
-#overlay.open{
-  opacity:1;
-  pointer-events:all;
-}
-
-.modal{
-  width:min(760px, 92vw);
-
-  max-height:84vh;
-
-  overflow-y:auto;
-
-  background:#020d02;
-
-  border:1px solid var(--green);
-
-  padding:28px;
-
-  box-shadow:0 0 40px rgba(0,255,65,.18);
-
-  transform:translateY(14px);
-
-  transition:.25s;
-}
-
-#overlay.open .modal{
-  transform:translateY(0);
-}
-
-.modal-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-
-  margin-bottom:22px;
-}
-
-.modal-title{
-  font-size:1.4rem;
-
-  letter-spacing:.1em;
-
-  text-shadow:0 0 10px var(--green);
-}
-
-.close{
-  width:34px;
-  height:34px;
-
-  border:1px solid var(--border);
-
-  background:none;
-
-  color:var(--green);
-
-  cursor:pointer;
-
-  font-size:1rem;
-}
-
-.close:hover{
-  border-color:var(--green);
-}
-
-.project-item{
-  margin-bottom:16px;
-
-  padding:18px;
-
-  border:1px solid rgba(255,255,255,.06);
-
-  background:rgba(255,255,255,.02);
-}
-
-.project-item:hover{
-  border-color:rgba(0,255,65,.3);
-}
-
-.project-item-top{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-
-  margin-bottom:10px;
-}
-
-.project-item-name a{
-  color:var(--green);
-
-  text-decoration:none;
-}
-
-.project-item-name a:hover{
-  text-decoration:underline;
-}
-
-.project-desc{
-  color:#6e8f6e;
-
-  line-height:1.7;
-
-  margin-bottom:12px;
-}
-
-.tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-
-.tag{
-  padding:4px 8px;
-
-  border:1px solid #173617;
-
-  color:#5d815d;
-
-  font-size:.72rem;
-}
-
-
 
 /* ─────────────────────────────────────────
    TABLET
@@ -783,9 +638,6 @@ section h2{
 
 }
 
-/* ─────────────────────────────────────────
-   MOBILE
-───────────────────────────────────────── */
 /* ─────────────────────────────────────────
    MOBILE
 ───────────────────────────────────────── */
