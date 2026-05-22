@@ -1,1296 +1,239 @@
 <!DOCTYPE html>
+
 <html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-
-  <title>Lucas Le Gueut — Portfolio</title>
-
-  <style>
-
-/* ─────────────────────────────────────────
-   FONTS
-───────────────────────────────────────── */
-
-
-@font-face {
-  font-family: 'Share Tech Mono';
-  src: url('ShareTechMono-Regular.ttf') format('truetype');
-  font-display: swap;
-  font-weight: 400;
-  font-style: normal;
-}
-
-/* fallback VT323
-@font-face {
-  font-family: 'VT323';
-  src: local('Courier New'), local('monospace');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-*/
-/* ─────────────────────────────────────────
-   ROOT
-───────────────────────────────────────── */
-
-:root {
-  --green: #00ff41;
-  --green-dim: #00cc33;
-  --green-dark: #003b00;
-
-  --green-glow: rgba(0, 255, 65, 0.15);
-
-  --bg: #000000;
-
-  --card-bg: rgba(0, 10, 0, 0.85);
-
-  --border: rgba(0, 255, 65, 0.3);
-}
-
-/* ─────────────────────────────────────────
-   RESET
-───────────────────────────────────────── */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--bg);
-  color: var(--green);
-
-  font-family: 'Share Tech Mono', monospace;
-
-  overflow-x: hidden;
-  background:#000;
-  cursor: crosshair;
-}
-
-/* ─────────────────────────────────────────
-   MATRIX
-───────────────────────────────────────── */
-
-#matrix{
-  position:fixed;
-  inset:0;
-
-  width:100%;
-  height:100%;
-  top: 0;
-  left: 0;
-  z-index:0;
-
-  pointer-events:none;
-
-  opacity:.45;
-}
-/* ─────────────────────────────────────────
-   PROJECTS GRID
-───────────────────────────────────────── */
-
-.projects-grid{
-  display:flex;
-  gap:18px;
-
-  overflow-x:auto;
-
-  padding-bottom:10px;
-
-  scrollbar-width:none;
-}
-
-.projects-grid::-webkit-scrollbar{
-  display:none;
-}
-
-.project-card{
-  flex-shrink:0;
-
-  width:230px;
-
-  padding:20px;
-
-  border:1px solid var(--border);
-
-  background:rgba(0,10,0,.8);
-
-  cursor:pointer;
-
-  transition:.22s;
-}
-
-.project-card:hover{
-  transform:translateY(-4px);
-
-  border-color:var(--green);
-
-  box-shadow:0 0 22px rgba(0,255,65,.2);
-}
-
-.project-icon{
-  font-size:2rem;
-
-  margin-bottom:12px;
-}
-
-.project-name{
-  font-size:1rem;
-
-  margin-bottom:8px;
-
-  letter-spacing:.08em;
-}
-
-.project-count{
-  color:#666;
-
-  font-size:.78rem;
-}
-
-
-/* ─────────────────────────────────────────
-   LAYOUT
-───────────────────────────────────────── */
-
-header,
-nav,
-section,
-footer {
-  position: relative;
-  z-index: 10;
-}
-
-/* ─────────────────────────────────────────
-   HEADER
-───────────────────────────────────────── */
-
-header {
-  text-align: center;
-
-  padding:90px 20px 50px;
-}
-
-header h1 {
-  font-family: 'VT323', monospace;
-
-  font-size: clamp(2.5rem, 7vw, 5rem);
-
-  color: var(--green);
-
-  letter-spacing: 0.08em;
-
-  text-shadow:
-    0 0 10px var(--green),
-    0 0 30px var(--green),
-    0 0 60px var(--green-dim);
-
-  animation: flicker 6s infinite;
-}
-
-header .subtitle {
-  margin-top: 10px;
-
-  color: var(--green-dim);
-
-  font-size: 0.9rem;
-
-  opacity: 0.8;
-
-  letter-spacing: 0.15em;
-}
-
-header .subtitle::before {
-  content: '> ';
-  opacity: 0.5;
-}
-
-/* ─────────────────────────────────────────
-   NAVBAR
-───────────────────────────────────────── */
-
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  gap: 14px;
-
-  width: 100%;
-
-  padding: 14px 18px;
-
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  white-space: nowrap;
-
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-
-  background: rgba(0, 0, 0, 0.72);
-
-  backdrop-filter: blur(10px);
-
-  scrollbar-width: none;
-}
-
-nav::-webkit-scrollbar {
-  display: none;
-}
-
-nav a {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
-  padding: 10px 14px;
-
-  border: 1px solid transparent;
-
-  color: var(--green-dim);
-
-  text-decoration: none;
-  text-transform: lowercase;
-
-  font-size: 0.82rem;
-
-  letter-spacing: 0.12em;
-
-  transition:
-    color 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-nav a::before {
-  content: '[ ';
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-nav a::after {
-  content: ' ]';
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-nav a:hover {
-  color: var(--green);
-
-  text-shadow:
-    0 0 6px var(--green),
-    0 0 12px var(--green);
-}
-
-nav a:hover::before,
-nav a:hover::after {
-  opacity: 1;
-}
-
-/* ACTIVE LINK */
-
-nav a.active {
-  color: var(--green);
-
-  border-color: var(--green);
-
-  background: rgba(0,255,65,0.08);
-
-  text-shadow:
-    0 0 6px var(--green),
-    0 0 12px var(--green);
-
-  box-shadow:
-    0 0 10px rgba(0,255,65,0.15),
-    inset 0 0 10px rgba(0,255,65,0.04);
-}
-
-nav a.active::before,
-nav a.active::after {
-  opacity: 1;
-}
-
-/* ─────────────────────────────────────────
-   SECTIONS
-───────────────────────────────────────── */
-
-section {
-  max-width: 860px;
-
-  margin: 0 auto;
-
-  padding: 70px 20px;
-}
-
-section h2 {
-  margin-bottom: 30px;
-
-  font-family: 'VT323', monospace;
-
-  font-size: 2rem;
-
-  color: var(--green);
-
-  letter-spacing: 0.1em;
-
-  text-shadow: 0 0 12px var(--green);
-}
-
-
-/* ─────────────────────────────────────────
-   CARDS
-───────────────────────────────────────── */
-
-.card {
-  background: var(--card-bg);
-
-  border: 1px solid var(--border);
-
-  border-radius: 2px;
-
-  padding: 28px 32px;
-
-  backdrop-filter: blur(6px);
-
-  box-shadow:
-    0 0 20px rgba(0,255,65,0.05),
-    inset 0 0 40px rgba(0,255,65,0.02);
-}
-
-.card p {
-  color: var(--green-dim);
-
-  font-size: 0.92rem;
-
-  line-height: 1.9;
-}
-
-.card p:hover {
-  color: var(--green);
-
-  text-shadow: 0 0 6px var(--green);
-
-  transition: all 0.2s;
-}
-/* ─────────────────────────────────────────
-   TERMINAL
-───────────────────────────────────────── */
-
-.terminal{
-  position:relative;
-
-  overflow:hidden;
-}
-
-.terminal::after{
-  content:"";
-
-  position:absolute;
-  inset:0;
-
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0px,
-      transparent 3px,
-      rgba(0,0,0,.09) 3px,
-      rgba(0,0,0,.09) 4px
-    );
-
-  pointer-events:none;
-}
-
-#terminal-output{
-  position:relative;
-
-  z-index:2;
-
-  min-height:180px;
-
-  color:var(--green-dim);
-
-  line-height:1.9;
-
-  white-space:pre-wrap;
-}
-
-.cursor{
-  display:inline-block;
-
-  width:8px;
-  height:1em;
-
-  margin-left:3px;
-
-  background:var(--green);
-
-  animation:blink 1s infinite;
-}
-
-/* ─────────────────────────────────────────
-   SKILLS
-───────────────────────────────────────── */
-
-.skills {
-  display: flex;
-  flex-wrap: wrap;
-
-  gap: 12px;
-
-  padding: 24px;
-}
-
-.skills span {
-  padding: 6px 18px;
-
-  border: 1px solid var(--border);
-
-  background: rgba(0,255,65,0.03);
-
-  color: var(--green-dim);
-
-  font-size: 0.85rem;
-
-  letter-spacing: 0.12em;
-
-  cursor: default;
-
-  transition: all 0.2s;
-}
-
-.skills span:hover {
-  color: var(--green);
-
-  border-color: var(--green);
-
-  background: rgba(0,255,65,0.07);
-
-  text-shadow: 0 0 8px var(--green);
-
-  box-shadow: 0 0 12px rgba(0,255,65,0.15);
-
-  transform:translateY(-2px);
-}
-
-.skills a{
-  color:inherit;
-  text-decoration:none;
-}
-
-/* ─────────────────────────────────────────
-   PROJECTS
-───────────────────────────────────────── */
-
-#projects .card {
-  margin-bottom: 16px;
-}
-
-/* ─────────────────────────────────────────
-   FOOTER
-───────────────────────────────────────── */
-
-footer {
-  padding: 30px;
-
-  border-top: 1px solid var(--border);
-
-  text-align: center;
-
-  color: var(--green-dark);
-
-  font-size: 0.8rem;
-
-  letter-spacing: 0.15em;
-}
-
-/* ─────────────────────────────────────────
-   ANIMATIONS
-───────────────────────────────────────── */
-
-@keyframes blink {
-  0%, 100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-}
-
-@keyframes flicker {
-  0%, 95%, 100% {
-    opacity: 1;
-  }
-
-  96% {
-    opacity: 0.7;
-  }
-
-  97% {
-    opacity: 1;
-  }
-
-  98% {
-    opacity: 0.6;
-  }
-
-  99% {
-    opacity: 1;
-  }
-}
-
-/* ─────────────────────────────────────────
-   SCROLLBAR
-───────────────────────────────────────── */
-
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #000;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--green-dark);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--green-dim);
-}
-
-/* ─────────────────────────────────────────
-   SELECTION
-───────────────────────────────────────── */
-
-::selection {
-  background: var(--green);
-  color: #000;
-}
-/* ─────────────────────────────────────────
-   GLOBAL
-───────────────────────────────────────── */
-
-header,
-nav,
-section,
-footer{
-  position:relative;
-  z-index:10;
-}
-
-section{
-  width:min(950px, calc(100% - 30px));
-
-  margin:auto;
-
-  padding:80px 0;
-}
-
-section h2{
-  margin-bottom:25px;
-
-  font-size:2rem;
-
-  letter-spacing:.12em;
-
-  text-shadow:0 0 10px var(--green);
-}
-
-/* ─────────────────────────────────────────
-   TABLET
-───────────────────────────────────────── */
-
-@media screen and (max-width: 900px) {
-
-  header {
-    padding: 60px 20px 30px;
-  }
-
-  section {
-    padding: 60px 18px;
-  }
-
-  .card,
-  .terminal {
-    padding: 22px;
-  }
-
-}
-
-/* ─────────────────────────────────────────
-   MOBILE
-───────────────────────────────────────── */
-
-@media screen and (max-width: 768px) {
-
-  body {
-    cursor: default;
-  }
-
-  header {
-    padding: 50px 15px 25px;
-  }
-
-  header h1 {
-    font-size: clamp(2rem, 12vw, 3.5rem);
-
-    line-height: 1;
-
-    word-break: break-word;
-  }
-
-  header .subtitle {
-    padding: 0 10px;
-
-    font-size: 0.75rem;
-
-    line-height: 1.6;
-
-    letter-spacing: 0.08em;
-  }
-
-  nav {
-    gap: 5px;
-
-    padding: 12px;
-
-    scroll-padding-left: 6px;
-  }
-
-  nav a {
-    padding: 9px 12px;
-
-    font-size: 0.74rem;
-
-    letter-spacing: 0.08em;
-  }
-
-  section {
-    padding: 45px 14px;
-  }
-
-  section h2 {
-    margin-bottom: 20px;
-
-    font-size: 1.6rem;
-  }
-
-  .card,
-  .terminal {
-    padding: 18px;
-  }
-
-  .card p,
-  #terminal-output {
-    font-size: 0.82rem;
-
-    line-height: 1.7;
-  }
-
-  .skills {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="creator" content="lucas, jephte" />
+    <meta name="description" content="online game of the snake that eats apples" />
+    <link rel="icon" href="../object/427533.ico" type="image/x-icon" />
+    <link rel="next" href="../jeu/snakegame.html" />
+    <title>Snake</title>
+
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    color: white;
+    min-height: 100vh;
+    display: flex;
     justify-content: center;
-
-    gap: 10px;
-
-    padding: 18px;
+    align-items: center;
+    overflow: hidden;
   }
 
-  .skills span {
-    padding: 6px 12px;
-
-    font-size: 0.75rem;
+  /* ─────────────────────────────────────────
+     Wrapper centré — s'adapte à la taille écran
+     ───────────────────────────────────────── */
+  .scale-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: 50vh;
   }
 
-  footer {
-    padding: 20px 10px;
+  /* ─────────────────────────────────────────
+     La cartouche Gameboy — taille fixe desktop
+     ───────────────────────────────────────── */
+  .diskcontent {
+    background-image: url(../object/gameboydisk.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 
-    font-size: 0.7rem;
+    width: 1000px;
+    height: 600px;
+    position: relative;
+    flex-shrink: 0;
+
+    /* Centrage via transform — origin au centre */
+    transform-origin: center center;
   }
 
-  #matrix {
-    opacity: 0.3;
+  /* ─────────────────────────────────────────
+     Zone de contenu calée sur le carré gris
+     ───────────────────────────────────────── */
+  .inner {
+    position: absolute;
+    top: 28px;
+    left: 310px;
+    width: 380px;
+    height: 350px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 130px;
   }
 
-}
-
-/* ─────────────────────────────────────────
-   SMALL PHONES
-───────────────────────────────────────── */
-
-@media screen and (max-width: 480px) {
-
-  header {
-    padding-top: 40px;
-  }
-
-  header h1 {
-    font-size: 2rem;
-  }
-
-  header .subtitle {
-    margin-top: 8px;
-
-    font-size: 0.68rem;
-  }
-
-  section {
-    padding: 38px 12px;
-  }
-
-  section h2 {
+  /* ── Titre ── */
+  .titre {
+    background: rgba(172, 255, 47, 0.692);
+    width: 320px;
+    border-radius: 20px;
+    text-align: center;
+    padding: 4px 0;
+    margin: 0;
     font-size: 1.4rem;
   }
 
-  .card,
-  .terminal {
-    padding: 16px;
+  h1 { margin: 0;
+    margin-top: 200px; }
+
+  /* ── Logo école ── */
+  .image {
+    height: 80px;
+    display: block;
   }
 
-  .card p,
-  #terminal-output {
-    font-size: 0.76rem;
-
-    line-height: 1.6;
-  }
-
-  .skills {
-    flex-direction: row;
-
-    align-items: stretch;
-  }
-
-  .skills span {
-    width: 100%;
-
+  /* ── Textes ── */
+  p {
     text-align: center;
+    margin: 0;
+    font-size: 0.85rem;
   }
 
-  footer {
-    letter-spacing: 0.08em;
+  label {
+    display: block;
+    text-align: center;
+    margin: 0;
+    font-size: 0.85rem;
   }
 
-}
-
-/* ─────────────────────────────────────────
-   VERY SMALL DEVICES
-───────────────────────────────────────── */
-
-@media screen and (max-width: 340px) {
-
-  header h1 {
-    font-size: 1.6rem;
+  /* ── Inputs ── */
+  input[type="text"],
+  input[type="email"] {
+    display: block;
+    margin: 2px auto;
+    padding: 3px 10px;
+    border-radius: 6px;
+    border: 1px solid #888;
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    font-size: 0.85rem;
+    width: 220px;
   }
 
-  nav a {
-    font-size: 0.7rem;
+  input[type="text"]::placeholder,
+  input[type="email"]::placeholder { color: #aaa; }
+
+  /* ── Bouton Play ── */
+  .centre {
+    display: block;
+    margin: 4px auto 0;
+    border: 0;
+    line-height: 2.2;
+    padding: 0 20px;
+    font-size: 0.95rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 10px;
+    background-color: rgba(220, 0, 0, 1);
+    background-image: linear-gradient(
+      to top left,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2) 30%,
+      rgba(0, 0, 0, 0)
+    );
+    box-shadow:
+      inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+      inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+  }
+  .centre:hover { background-color: rgba(255, 0, 0, 1); }
+  .centre:active {
+    box-shadow:
+      inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+      inset 2px 2px 3px rgba(0, 0, 0, 0.6);
   }
 
-  .card p,
-  #terminal-output {
-    font-size: 0.72rem;
+  /* ══════════════════════════════════════════
+     RESPONSIVE MOBILE
+     On scale depuis le centre → reste centré
+     ══════════════════════════════════════════ */
+  @media (max-width: 1020px) {
+    html, body {
+      overflow: hidden;
+    }
+
+    .scale-wrapper {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .diskcontent {
+      /*
+        Calcule le scale selon la dimension limitante :
+        - en largeur  : 100vw / 1000
+        - en hauteur  : 100vh / 600
+        On prend le plus petit pour que tout rentre.
+        JavaScript injecte la bonne valeur via --s.
+      */
+      transform: scale(var(--s, 0.37));
+      transform-origin: center center;
+    }
   }
+</style>
 
-}
-  
-  </style>
-</head>
+  </head>
 
-<body>
+  <body>
+    <div class="scale-wrapper">
+      <div class="diskcontent" id="disk">
+        <div class="inner">
 
-<canvas id="matrix"></canvas>
 
-<header>
-  <h1>Lucas Le Gueut</h1>
+      <!-- Titre -->
+      <h1 class="titre">S N A K E</h1>
 
-  <p class="subtitle">
-    Étudiant en cybersécurité & électronique
-  </p>
-</header>
+      <!-- Logo école -->
+      <img
+        class="image"
+        src="../object/Couleurs_Cadre_transparents.png"
+        alt="CC Simone Veil High School"
+      />
 
-<nav>
-  <a href="#about">about</a>
-  <a href="#skills">skills</a>
-  <a href="#projects">projects</a>
-  <a href="#contact">contact</a>
-</nav>
+      <!-- Crédits -->
+      <p>Created by Lucas, Jephte and Ilhem</p>
 
-<section id="about">
+      <!-- Inscription -->
+      <label>--Sign up--</label>
 
-  <h2>&gt; about</h2>
+      <label for="pseudo">Your username:</label>
+      <input id="pseudo" type="text" required placeholder="username" />
 
-  <div class="terminal">
-    <div id="terminal-output"></div>
-  </div>
+      <label for="email">Your email:</label>
+      <input id="email" type="email" required placeholder="email@example.com" />
 
-</section>
-
-<section id="skills">
-
-  <h2>&gt; skills</h2>
-
-  <div class="card skills">
-
-    <span>
-      <a
-        href="https://en.wikipedia.org/wiki/C_(programming_language)"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        C
+      <!-- Bouton Play -->
+      <a href="../jeu/snakegame.html">
+        <input class="centre" type="button" value="Play" />
       </a>
-    </span>
-
-    <span>C++</span>
-    <span>HTML</span>
-    <span>CSS</span>
-    <span>Javascript</span>
-    <span>Python</span>
-    <span>Linux</span>
-    <span>KiCad</span>
-    <span>Network Security</span>
-
-  </div>
-
-</section>
-
-<section id="projects">
-
-  <h2>&gt; projects</h2>
-
-</section>
-
-<section id="contact">
-
-  <h2>&gt; contact</h2>
-
-  <div class="card">
-
-    <p>&gt; email: 777lucaslg@gmail.com</p>
-
-    <p style="margin-top:10px;">
-      &gt; github: github.com/luco667
-    </p>
-
-  </div>
-
-</section>
-
-<footer>
-  <p>© 2026 — Starboost instance</p>
-</footer>
-
-<div id="overlay">
-
-  <div class="modal">
-
-    <div class="modal-top">
-
-      <div class="modal-title" id="modal-title"></div>
-
-      <button class="close" id="close">
-        ✕
-      </button>
 
     </div>
-
-    <div id="modal-content"></div>
-
   </div>
-
 </div>
 
 <script>
-
-/* ─────────────────────────────────────────
-   MATRIX
-───────────────────────────────────────── */
-
-const canvas = document.getElementById('matrix');
-
-const ctx = canvas.getContext('2d');
-
-const chars =
-'アイウエオカキクケコサシスセソタチツテト0123456789ABCDEF';
-
-let fontSize = 14;
-let columns;
-let drops = [];
-
-function initMatrix(){
-
-  canvas.width = innerWidth;
-  canvas.height = innerHeight;
-
-  columns = Math.floor(canvas.width / fontSize);
-
-  drops = [];
-
-  for(let i=0;i<columns;i++){
-    drops[i] = Math.random() * -100;
+  function fitDisk() {
+    const W = 1000, H = 600;
+    const scaleX = window.innerWidth  / W;
+    const scaleY = window.innerHeight / H;
+    const s = Math.min(scaleX, scaleY);
+    document.getElementById('disk').style.setProperty('--s', s);
   }
-}
-
-function drawMatrix(){
-
-  ctx.fillStyle = 'rgba(0,0,0,.05)';
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-
-  ctx.font = `${fontSize}px Share Tech Mono`;
-
-  for(let i=0;i<drops.length;i++){
-
-    const text =
-      chars[Math.floor(Math.random()*chars.length)];
-
-    const y = drops[i] * fontSize;
-
-    ctx.fillStyle = '#00ff41';
-
-    ctx.fillText(text, i * fontSize, y);
-
-    if(y > canvas.height && Math.random() > .975){
-      drops[i] = 0;
-    }
-
-    drops[i] += .5;
-  }
-}
-
-initMatrix();
-
-addEventListener('resize', initMatrix);
-
-setInterval(drawMatrix, 40);
-
-/* ─────────────────────────────────────────
-   TERMINAL
-───────────────────────────────────────── */
-
-const lines = [
-  '> initializing profile...',
-  '> first name : Lucas',
-  '> surname    : Le Gueut',
-  '> status     : cybersecurity & electronics student',
-  '> location   : France',
-  '> interests  : design, networks, offensive security',
-  '> education  : STI2D Graduate · BTS CIEL Option B',
-  '> activities : PCB design · programming · networking',
-  ' ',
-  '> system ready_'
-];
-
-const output =
-  document.getElementById('terminal-output');
-
-let lineIndex = 0;
-let charIndex = 0;
-
-function renderTerminal(){
-
-  let html = '';
-
-  for(let i=0;i<lineIndex;i++){
-    html += lines[i] + '<br>';
-  }
-
-  if(lineIndex < lines.length){
-    html += lines[lineIndex].slice(0, charIndex);
-  }
-
-  output.innerHTML = html;
-}
-
-function typeTerminal(){
-
-  if(lineIndex >= lines.length){
-
-    const cursor = document.createElement('span');
-
-    cursor.className = 'cursor';
-
-    output.appendChild(cursor);
-
-    return;
-  }
-
-  const currentLine = lines[lineIndex];
-
-  if(charIndex < currentLine.length){
-
-    charIndex++;
-
-    renderTerminal();
-
-    setTimeout(
-      typeTerminal,
-      Math.random()*35 + 18
-    );
-
-  }else{
-
-    lineIndex++;
-    charIndex = 0;
-
-    renderTerminal();
-
-    setTimeout(typeTerminal, 110);
-  }
-}
-
-setTimeout(typeTerminal, 600);
-
-/* ─────────────────────────────────────────
-   ACTIVE NAV
-───────────────────────────────────────── */
-
-const sections =
-  document.querySelectorAll('section');
-
-const navLinks =
-  document.querySelectorAll('nav a');
-
-addEventListener('scroll', ()=>{
-
-  let current = '';
-
-  sections.forEach(section=>{
-
-    if(scrollY >= section.offsetTop - 140){
-      current = section.id;
-    }
-  });
-
-  navLinks.forEach(link=>{
-
-    link.classList.toggle(
-      'active',
-      link.getAttribute('href') === `#${current}`
-    );
-  });
-
-}, { passive:true });
-
-/* ─────────────────────────────────────────
-   PROJECTS
-───────────────────────────────────────── */
-
-const PROJECTS = [
-
-  {
-    category:'development',
-    icon:'▸',
-
-    projects:[
-      {
-        name:'Snake game',
-
-        desc:'Jeu Snake en Javascript.',
-
-        tags:['javascript','html','css'],
-
-        link:'Projects/snake/enregistrement/snake.html'
-      },
-
-      {
-        name:'Notepad',
-
-        desc:'Bloc-notes développé en C.',
-
-        tags:['C','SDL3'],
-
-        link:'https://github.com/luco667/LANGUAGEC'
-      }
-    ]
-  },
-
-  {
-    category:'electronics',
-    icon:'◈',
-
-    projects:[
-      {
-        name:'PCB KiCad',
-
-        desc:'Conception PCB sous KiCad.',
-
-        tags:['KiCad','PCB']
-      }
-    ]
-  },
-
-  {
-    category:'network',
-    icon:'⬢',
-
-    projects:[
-      {
-        name:'Proxy',
-
-        desc:'Routeur proxy anti-pub.',
-
-        tags:['network','proxy']
-      }
-    ]
-  }
-];
-
-const projectsSection =
-  document.querySelector('#projects');
-
-const grid =
-  document.createElement('div');
-
-grid.className = 'projects-grid';
-
-PROJECTS.forEach(category=>{
-
-  const card =
-    document.createElement('div');
-
-  card.className = 'project-card';
-
-  card.innerHTML = `
-    <div class="project-icon">
-      ${category.icon}
-    </div>
-
-    <div class="project-name">
-      ./${category.category}/
-    </div>
-
-    <div class="project-count">
-      ${category.projects.length} projects
-    </div>
-  `;
-
-  card.addEventListener('click', ()=>{
-
-    openCategory(category);
-  });
-
-  grid.appendChild(card);
-});
-
-projectsSection.appendChild(grid);
-
-/* ─────────────────────────────────────────
-   MODAL
-───────────────────────────────────────── */
-
-const overlay =
-  document.getElementById('overlay');
-
-const modalTitle =
-  document.getElementById('modal-title');
-
-const modalContent =
-  document.getElementById('modal-content');
-
-document
-  .getElementById('close')
-  .addEventListener('click', closeModal);
-
-overlay.addEventListener('click', e=>{
-
-  if(e.target === overlay){
-    closeModal();
-  }
-});
-
-addEventListener('keydown', e=>{
-
-  if(e.key === 'Escape'){
-    closeModal();
-  }
-});
-
-function openCategory(category){
-
-  modalTitle.textContent =
-    `> ${category.category}/`;
-
-  modalContent.innerHTML = '';
-
-  category.projects.forEach(project=>{
-
-    const item =
-      document.createElement('div');
-
-    item.className = 'project-item';
-
-    const tags =
-      project.tags
-        .map(tag=>`<span class="tag">#${tag}</span>`)
-        .join('');
-
-    const title =
-      project.link
-        ? `
-          <a
-            href="${project.link}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            ${project.name}
-          </a>
-        `
-        : project.name;
-
-    item.innerHTML = `
-      <div class="project-item-top">
-
-        <div class="project-item-name">
-          ${title}
-        </div>
-
-      </div>
-
-      <div class="project-desc">
-        ${project.desc}
-      </div>
-
-      <div class="tags">
-        ${tags}
-      </div>
-    `;
-
-    modalContent.appendChild(item);
-  });
-
-  overlay.classList.add('open');
-
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal(){
-
-  overlay.classList.remove('open');
-
-  document.body.style.overflow = '';
-}
-
+  fitDisk();
+  window.addEventListener('resize', fitDisk);
 </script>
 
-</body>
+  </body>
 </html>
