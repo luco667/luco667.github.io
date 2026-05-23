@@ -493,10 +493,13 @@ section h2 {
 
 .work-track{
   display:flex;
-
   width:max-content;
-
+  will-change: transform;
   animation: work-scroll 28s linear infinite;
+}
+
+.work-track:active{
+  cursor: grabbing;
 }
 
 .work-exp:hover .work-track{
@@ -505,7 +508,7 @@ section h2 {
 
 .work-item{
   flex-shrink:0;
-
+  user-select: none;
   display:flex;
   align-items:center;
   gap:12px;
