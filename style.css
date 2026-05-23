@@ -274,20 +274,7 @@ section {
 
 section h2 {
   margin-bottom: 30px;
-
-  font-family: 'VT323', monospace;
-
-  font-size: 2rem;
-
-  color: var(--green);
-
-  letter-spacing: 0.1em;
-
-  text-shadow: 0 0 12px var(--green);
-}
-
-section h3 {
-  margin-bottom: 30px;
+ margin-top: 30px;
 
   font-family: 'VT323', monospace;
 
