@@ -430,6 +430,156 @@ section h2 {
 }
 
 /* ─────────────────────────────────────────
+   WORK EXPERIENCE MARQUEE
+───────────────────────────────────────── */
+
+.work-exp{
+  position: relative;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  border: 1px solid var(--border);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,255,65,.03),
+      rgba(0,0,0,.35)
+    );
+
+  padding: 18px 0;
+
+  box-shadow:
+    0 0 20px rgba(0,255,65,.05),
+    inset 0 0 25px rgba(0,255,65,.03);
+}
+
+/* fade gauche/droite */
+.work-exp::before,
+.work-exp::after{
+  content:'';
+
+  position:absolute;
+  top:0;
+
+  width:80px;
+  height:100%;
+
+  z-index:2;
+
+  pointer-events:none;
+}
+
+.work-exp::before{
+  left:0;
+
+  background:linear-gradient(
+    to right,
+    #000 0%,
+    transparent 100%
+  );
+}
+
+.work-exp::after{
+  right:0;
+
+  background:linear-gradient(
+    to left,
+    #000 0%,
+    transparent 100%
+  );
+}
+
+.work-track{
+  display:flex;
+
+  width:max-content;
+
+  animation: work-scroll 28s linear infinite;
+}
+
+.work-exp:hover .work-track{
+  animation-play-state: paused;
+}
+
+.work-item{
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  margin-right:18px;
+
+  padding:12px 18px;
+
+  border:1px solid rgba(0,255,65,.15);
+
+  background:rgba(0,255,65,.03);
+
+  color:var(--green-dim);
+
+  font-size:.82rem;
+
+  letter-spacing:.08em;
+
+  transition:
+    transform .2s,
+    border-color .2s,
+    box-shadow .2s;
+}
+
+.work-item:hover{
+  transform:translateY(-2px);
+
+  border-color:var(--green);
+
+  color:var(--green);
+
+  box-shadow:0 0 14px rgba(0,255,65,.15);
+}
+
+.work-role{
+  color:var(--green);
+
+  text-shadow:0 0 8px rgba(0,255,65,.4);
+}
+
+.work-sep{
+  opacity:.3;
+}
+
+.work-date{
+  color:#4d704d;
+}
+
+@keyframes work-scroll{
+  from{
+    transform:translateX(0);
+  }
+
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+/* mobile */
+@media (max-width:768px){
+
+  .work-item{
+    font-size:.72rem;
+
+    padding:10px 14px;
+  }
+
+  .work-exp::before,
+  .work-exp::after{
+    width:40px;
+  }
+}
+/* ─────────────────────────────────────────
    FOOTER
 ───────────────────────────────────────── */
 
