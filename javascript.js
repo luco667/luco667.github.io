@@ -243,15 +243,6 @@ const PROJECTS = [
     }
     .projects-scroll::-webkit-scrollbar { display: none; }
 
-    /* la grille elle-même n'a PAS overflow, donc pas de clip implicite */
-    .projects-grid {
-      display: inline-flex;   /* inline-flex pour que le wrapper sache la vraie largeur */
-      min-width: 100%;
-      gap: 14px;
-      padding: 8px 4px 12px 4px; /* padding top absorbe border + box-shadow du hover */
-      scroll-behavior: smooth;
-    }
-
     .cat-card {
       min-width: 210px;
       max-width: 210px;
