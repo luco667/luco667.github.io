@@ -392,42 +392,39 @@ const PROJECTS = [
   `;
   document.head.appendChild(style);
 
-  /* ── Grille ── */
-  const section = document.querySelector('#projects');
-  if (!section) return;
-
-  const wrapper = document.createElement('div');
-  wrapper.className = 'projects-scroll';
-
-  const grid = document.createElement('div');
-  grid.className = 'projects-grid';
-
-  PROJECTS.forEach(cat => {
-    const card = document.createElement('div');
-    card.className = 'cat-card';
-    card.style.setProperty('--cat-color', cat.color);
-    card.dataset.category = cat.category;
-
-    const count = cat.projects.length;
-    card.innerHTML = `
-      <span class="cat-icon">${cat.icon}</span>
-      <div class="cat-name">./${cat.category}/</div>
-      <div class="cat-count ${count > 0 ? 'has-projects' : ''}">
-        ${count > 0 ? `${count} project${count > 1 ? 's' : ''}` : 'empty'}
-      </div>
-    `;
-
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      openModal(cat);
-    });
-
-    grid.appendChild(card);
-  });
-
-  wrapper.appendChild(grid);
-  section.appendChild(wrapper);
+   /* ── Grille ── */
+   const section = document.querySelector('#projects');
+   if (!section) return;
+   
+   const grid = document.createElement('div');
+   grid.className = 'projects-grid';
+   
+   PROJECTS.forEach(cat => {
+     const card = document.createElement('div');
+     card.className = 'cat-card';
+     card.style.setProperty('--cat-color', cat.color);
+     card.dataset.category = cat.category;
+   
+     const count = cat.projects.length;
+   
+     card.innerHTML = `
+       <span class="cat-icon">${cat.icon}</span>
+       <div class="cat-name">./${cat.category}/</div>
+       <div class="cat-count ${count > 0 ? 'has-projects' : ''}">
+         ${count > 0 ? `${count} project${count > 1 ? 's' : ''}` : 'empty'}
+       </div>
+     `;
+   
+     card.addEventListener('click', () => {
+       document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+       card.classList.add('active');
+       openModal(cat);
+     });
+   
+     grid.appendChild(card);
+   });
+   
+   section.appendChild(grid);
 
   /* ── Modal ── */
   const overlay = document.createElement('div');
