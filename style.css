@@ -620,6 +620,7 @@ section h2{
 @media (max-width:600px){
   .projects-grid{
     grid-template-columns:1fr;
+    margin:0 auto;
   }
 }
 
