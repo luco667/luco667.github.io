@@ -96,19 +96,6 @@ body {
   box-sizing:border-box;
 }
 
-/* tablette */
-@media (max-width:900px){
-  .projects-grid{
-    grid-template-columns:repeat(2, 1fr);
-  }
-}
-
-/* mobile */
-@media (max-width:600px){
-  .projects-grid{
-    grid-template-columns:1fr;
-  }
-}
 
 .project-card{
   width:100%;
@@ -622,3 +609,17 @@ section h2{
   nav a { font-size: 0.7rem; }
   .card p, #terminal-output { font-size: 0.72rem; }
 }
+/* tablette */
+@media (max-width:900px){
+  .projects-grid{
+    grid-template-columns:repeat(2, 1fr);
+  }
+}
+
+/* mobile */
+@media (max-width:600px){
+  .projects-grid{
+    grid-template-columns:1fr;
+  }
+}
+
