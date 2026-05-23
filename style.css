@@ -559,23 +559,12 @@ section h2 {
   align-items:center;
   justify-content:center;
 
-  width:34px;
-  height:34px;
+  width:16px;
+  height:16px;
 
-  padding:6px;
-
-  border:1px solid rgba(0,255,65,.2);
-
-  background:rgba(0,255,65,.04);
+  margin-right:4px;
 
   flex-shrink:0;
-
-  overflow:hidden;
-
-  transition:
-    border-color .2s,
-    box-shadow .2s,
-    transform .2s;
 }
 
 .work-icon img{
@@ -583,8 +572,6 @@ section h2 {
   height:100%;
 
   object-fit:contain;
-
-  image-rendering:auto;
 
   filter:
     brightness(0)
@@ -595,10 +582,7 @@ section h2 {
     hue-rotate(77deg)
     brightness(108%)
     contrast(125%);
-
-  opacity:.9;
 }
-
 .work-item:hover .work-icon{
   border-color:var(--green);
 
