@@ -138,6 +138,14 @@ const PROJECTS = [
         status: 'wip',
         date: '2025',
       },
+      {
+        name: 'Notepad',
+        desc: 'Bloc-notes programmé en C.',
+        tags: ['C','SDL3','MinGW'],
+        link: 'https://github.com/luco667/LANGUAGEC',
+        status: 'wip',
+        date: '2025',
+      },
       // ↓ ajoute tes projets ici
     ],
   },
@@ -173,6 +181,23 @@ const PROJECTS = [
     ],
   },
   {
+  category: 'network',
+  icon: '⬢',
+  color: '#ff4466',
+
+  projects: [
+
+    {
+      name: 'Proxy',
+      desc: 'Routeur proxy anti-pub.',
+      tags: ['OSI'],
+      status: 'done',
+      date: '2026',
+    },
+
+  ],
+  },
+  {
     category: 'network',
     icon: '⬢',
     color: '#ff4466',
@@ -189,7 +214,6 @@ const PROJECTS = [
     ],
   },
 ];
-
 
 /* ══════════════════════════════════════════
    PROJECTS RENDERER
