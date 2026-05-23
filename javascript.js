@@ -1,3 +1,27 @@
+const track = document.querySelector('.work-track');
+
+let isDown = false;
+let startX;
+let currentX = 0;
+
+track.addEventListener('mousedown', (e) => {
+  isDown = true;
+  track.style.transition = 'none';
+  startX = e.clientX - currentX;
+});
+
+window.addEventListener('mouseup', () => {
+  isDown = false;
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (!isDown) return;
+
+  currentX = e.clientX - startX;
+  track.style.transform = `translateX(${currentX}px)`;
+});
+
+
 /* ══════════════════════════════════════════
    MATRIX RAIN
 ══════════════════════════════════════════ */
