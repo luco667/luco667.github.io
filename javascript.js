@@ -1,59 +1,88 @@
 const track = document.querySelector('.work-track');
 
-let x = 0;
-let isDown = false;
-let startX = 0;
+if (track) {
 
-let speed = 0.6; // vitesse auto scroll
-let lastMove = Date.now();
-let auto = true;
+  let x = 0;
+  let isDown = false;
+  let startX = 0;
 
-/* ───────── DRAG ───────── */
+  let speed = 0.6;
+  let lastMove = Date.now();
+  let auto = true;
 
-track.addEventListener('mousedown', (e) => {
-  isDown = true;
-  startX = e.clientX - x;
-  auto = false;
-});
+  /* ───────── DESKTOP ───────── */
 
-window.addEventListener('mouseup', () => {
-  isDown = false;
-  lastMove = Date.now();
+  track.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.clientX - x;
+    auto = false;
+  });
 
-  // reprise après 5s sans interaction
-  setTimeout(() => {
-    if (Date.now() - lastMove >= 5000) {
-      auto = true;
-    }
-  }, 5000);
-});
+  window.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
 
-window.addEventListener('mousemove', (e) => {
-  if (!isDown) return;
-
-  x = e.clientX - startX;
-  track.style.transform = `translateX(${x}px)`;
-
-  lastMove = Date.now();
-});
-
-/* ───────── AUTO LOOP ───────── */
-
-function animate(){
-  if (auto && !isDown){
-    x -= speed;
-
-    /* reset boucle infinie */
-    const width = track.scrollWidth / 2;
-    if (Math.abs(x) >= width) x = 0;
-
+    x = e.clientX - startX;
     track.style.transform = `translateX(${x}px)`;
+
+    lastMove = Date.now();
+  });
+
+  window.addEventListener('mouseup', stopDrag);
+
+  /* ───────── MOBILE ───────── */
+
+  track.addEventListener('touchstart', (e) => {
+    isDown = true;
+    startX = e.touches[0].clientX - x;
+    auto = false;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (!isDown) return;
+
+    x = e.touches[0].clientX - startX;
+    track.style.transform = `translateX(${x}px)`;
+
+    lastMove = Date.now();
+  }, { passive: true });
+
+  window.addEventListener('touchend', stopDrag);
+
+  /* ───────── STOP DRAG ───────── */
+
+  function stopDrag() {
+    isDown = false;
+    lastMove = Date.now();
+
+    setTimeout(() => {
+      if (Date.now() - lastMove >= 5000) {
+        auto = true;
+      }
+    }, 5000);
   }
 
-  requestAnimationFrame(animate);
-}
+  /* ───────── AUTO SCROLL ───────── */
 
-animate();
+  function animate() {
+
+    if (auto && !isDown) {
+
+      x -= speed;
+
+      const width = track.scrollWidth / 2;
+
+      if (Math.abs(x) >= width) {
+        x = 0;
+      }
+
+      track.style.transform = `translateX(${x}px)`;
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+}
 
 /* ══════════════════════════════════════════
    MATRIX RAIN
