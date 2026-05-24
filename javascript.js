@@ -185,7 +185,7 @@ window.addEventListener('scroll', () => {
 const PROJECTS = [
   {
     category: 'developpement',
-    icon: '▸',
+    icon: '◈',
     color: '#00ff41',
     projects: [
       {
@@ -209,7 +209,7 @@ const PROJECTS = [
   },
   {
     category: 'electronics',
-    icon: '◈',
+    icon: '◆',
     color: '#00ccff',
     projects: [
       {
@@ -224,7 +224,7 @@ const PROJECTS = [
   },
   {
     category: 'cybersecurity',
-    icon: '🌐',
+    icon: '⬢',
     color: '#ffcc00',
     projects: [
       {
@@ -240,7 +240,7 @@ const PROJECTS = [
   },
   {
   category: 'network',
-  icon: '⬢',
+  icon: '▣',
   color: '#ff4466',
 
   projects: [
@@ -257,7 +257,7 @@ const PROJECTS = [
   },
   {
     category: 'miscaleneous',
-    icon: '⬡',
+    icon: '⧉',
     color: '#812bd5',
     projects: [
        {
