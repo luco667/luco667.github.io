@@ -185,7 +185,7 @@ window.addEventListener('scroll', () => {
 const PROJECTS = [
   {
     category: 'developpement',
-    icon: '⬡',
+    icon: '▸',
     color: '#00ff41',
     projects: [
       {
@@ -224,7 +224,7 @@ const PROJECTS = [
   },
   {
     category: 'cybersecurity',
-    icon: '▸',
+    icon: '🌐',
     color: '#ffcc00',
     projects: [
       {
@@ -257,7 +257,7 @@ const PROJECTS = [
   },
   {
     category: 'miscaleneous',
-    icon: '⬢',
+    icon: '⬡',
     color: '#812bd5',
     projects: [
        {
