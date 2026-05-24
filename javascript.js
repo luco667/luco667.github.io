@@ -223,7 +223,7 @@ const PROJECTS = [
     ],
   },
   {
-    category: 'software',
+    category: 'cybersecurity',
     icon: '▸',
     color: '#ffcc00',
     projects: [
@@ -256,9 +256,9 @@ const PROJECTS = [
   ],
   },
   {
-    category: 'network',
+    category: 'miscaleneous',
     icon: '⬢',
-    color: '#ff4466',
+    color: '#812bd5',
     projects: [
        {
         name: 'Portfolio',
