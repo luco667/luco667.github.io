@@ -208,7 +208,7 @@ const PROJECTS = [
         name: 'Portfolio',
         desc: 'Ce site — portfolio matrix en HTML/CSS/JS pur.',
         tags: ['html', 'css', 'js', 'canvas'],
-        link: '',
+        link: 'https://luco667.github.io/',
         status: 'wip',
         date: '2026',
       },
@@ -244,7 +244,7 @@ const PROJECTS = [
     color: '#ffcc00',
     projects: [
       {
-        name: 'Programme d'attaque',
+        name: 'Programme d\'attaque',
         desc: 'Ce site — portfolio matrix en HTML/CSS/JS pur.',
         tags: ['html', 'css', 'js', 'canvas'],
         link: 'https://github.com/luco667',
