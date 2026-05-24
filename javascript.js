@@ -244,10 +244,10 @@ const PROJECTS = [
     color: '#ffcc00',
     projects: [
       {
-        name: 'Programme d\'attaque',
+        name: 'Programme dattaque',
         desc: 'Ce site — portfolio matrix en HTML/CSS/JS pur.',
         tags: ['html', 'css', 'js', 'canvas'],
-        link: 'https://github.com/luco667',
+        link: '',
         status: 'done',
         date: '2026',
       },
