@@ -119,7 +119,7 @@ const LINES = [
   '> interests  : design, networks, offensive security, embedded systems, reverse engineering',
   '> education  : French National Brevet · STI2D Graduate · BTS CIEL Option B Student · Cisco Student',
   '> activities : PCB design · programming · web development · networking · electronics studies · CTF player',
-  '> hobbies: art · literature · cinema · music · animation · 3D · internet · science · nature ',
+  '> hobbies: art · literature · cinema · music · internet · 3D · science · nature ',
   ' ',
   '> system ready_',
 ];
@@ -193,7 +193,7 @@ const PROJECTS = [
         desc: 'Page web avec jeu en javascript',
         tags: ['javascript', 'web', 'html', 'css'],
         link: 'Projects/snake/enregistrement/snake.html',
-        status: 'wip',
+        status: 'done',
         date: '2025',
       },
       {
@@ -201,8 +201,16 @@ const PROJECTS = [
         desc: 'Bloc-notes programmé en C.',
         tags: ['C','SDL3','MinGW'],
         link: 'https://github.com/luco667/LANGUAGEC',
-        status: 'wip',
+        status: 'done',
         date: '2025',
+      },
+      {
+        name: 'Portfolio',
+        desc: 'Ce site — portfolio matrix en HTML/CSS/JS pur.',
+        tags: ['html', 'css', 'js', 'canvas'],
+        link: 'https://github.com/luco667/luco667.github.io',
+        status: 'wip',
+        date: '2026',
       },
       // ↓ ajoute tes projets ici
     ],
@@ -213,11 +221,19 @@ const PROJECTS = [
     color: '#00ccff',
     projects: [
       {
-        name: 'PCB KiCad',
+        name: 'Arroseur PCB',
         desc: "Conception d'une carte électronique sous KiCad.",
         tags: ['KiCad', 'PCB', 'STM32'],
         status: 'wip',
         date: '2025',
+      },
+      {
+        name: 'Etiquette PCB',
+        desc: 'Conception d'une carte électronique sous KiCad.',
+        tags: ['Kicad', 'CODE39'],
+        link: 'https://github.com/luco667',
+        status: 'done',
+        date: '2026',
       },
       // ↓ ajoute tes projets ici
     ],
@@ -228,7 +244,7 @@ const PROJECTS = [
     color: '#ffcc00',
     projects: [
       {
-        name: 'Portfolio',
+        name: 'Programme d'attaque',
         desc: 'Ce site — portfolio matrix en HTML/CSS/JS pur.',
         tags: ['html', 'css', 'js', 'canvas'],
         link: 'https://github.com/luco667',
@@ -261,7 +277,7 @@ const PROJECTS = [
     color: '#812bd5',
     projects: [
        {
-        name: 'Portfolio',
+        name: 'Watch list',
         desc: 'Ce site — portfolio matrix en HTML/CSS/JS pur.',
         tags: ['html', 'css', 'js', 'canvas'],
         link: 'https://github.com/luco667',
