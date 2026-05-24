@@ -502,10 +502,6 @@ section h2 {
   cursor: grabbing;
 }
 
-.work-exp:hover .work-track{
-  animation-play-state: paused;
-}
-
 .work-item{
   flex-shrink:0;
   user-select: none;
@@ -622,10 +618,34 @@ section h2 {
 /* mobile */
 @media (max-width:768px){
 
+  .work-exp{
+    overflow:hidden;
+    touch-action:pan-y;
+  }
+
+  .work-track{
+    display:flex;
+    width:max-content;
+
+    touch-action:pan-y;
+
+    will-change:transform;
+
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+
+    cursor:grab;
+  }
+
   .work-item{
+    flex-shrink:0;
+
     font-size:.72rem;
 
     padding:10px 14px;
+
+    min-width:max-content;
   }
 
   .work-exp::before,
