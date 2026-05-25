@@ -383,7 +383,8 @@ const PROJECTS = [
     .projects-scroll::-webkit-scrollbar { display: none; }
 
     .cat-card {
-      width: auto;
+      right-width: 240px;
+      left-width: 240px;
       border: 1px solid rgba(0,255,65,0.2);
       background: rgba(0,10,0,0.75);
       padding: 20px;
@@ -414,18 +415,34 @@ const PROJECTS = [
                   inset 0 0 20px rgba(255,255,255,0.02);
       background: rgba(0,255,65,0.05);
     }
-    .cat-icon {
-      font-size: 1.8rem;
-      display: block;
-      margin-bottom: 10px;
-      color: var(--cat-color,#00ff41);
-      text-shadow: 0 0 10px var(--cat-color,#00ff41);
+    .cat-header{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    
+      margin-bottom:10px;
     }
-    .cat-name {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.88rem;
-      letter-spacing: 0.14em;
-      color: var(--cat-color,#00ff41);
+    
+    .cat-icon{
+      font-size:1.4rem;
+    
+      color:var(--cat-color,#00ff41);
+    
+      text-shadow:0 0 10px var(--cat-color,#00ff41);
+    
+      line-height:1;
+    }
+    
+    .cat-name{
+      font-family:'Share Tech Mono', monospace;
+    
+      font-size:.88rem;
+    
+      letter-spacing:.14em;
+    
+      color:var(--cat-color,#00ff41);
+    
+      line-height:1;
     }
     .cat-count { font-size: 0.72rem; color: #444; margin-top: 6px; letter-spacing: 0.1em; }
     .cat-count.has-projects { color: #666; }
