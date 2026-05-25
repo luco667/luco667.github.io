@@ -153,7 +153,7 @@ body {
 header {
   text-align: center;
 
-  padding:90px 20px 50px;
+  padding:60px 30px;
 }
 
 header h1 {
@@ -795,8 +795,8 @@ section { scroll-margin-top: 56px; }
 
 /* ── CONTACT — espace physique pour scroll sticky nav ── */
 #contact {
-  scroll-margin-bottom: 800px;
-  padding-bottom: 800px;
+  scroll-margin-bottom: 500px;
+  padding-bottom: 500px;
 }
 
 header,
