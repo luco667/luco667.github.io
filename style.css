@@ -82,51 +82,70 @@ body {
 .projects-grid{
   display:grid;
 
-  grid-template-columns:
-    repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns:repeat(3, minmax(240px, 1fr));
 
   gap:20px;
 
   width:100%;
+  max-width:1100px;
 
   margin:0 auto;
 
   padding:12px 8px 20px;
+
+  box-sizing:border-box;
 }
 
-.cat-card{
+
+.project-card{
   width:100%;
+
+  min-height:180px;
 
   padding:20px;
 
-  border:1px solid rgba(0,255,65,.2);
+  border:1px solid var(--border);
 
-  background:rgba(0,10,0,.75);
-
-  backdrop-filter:blur(6px);
+  background:rgba(0,10,0,.8);
 
   cursor:pointer;
 
-  transition:.22s;
+  transition:
+    transform .22s,
+    border-color .22s,
+    box-shadow .22s;
 
-  position:relative;
-
-  overflow:hidden;
+  box-sizing:border-box;
 }
 
-@media (max-width:900px){
+.project-card:hover{
+  transform:translateY(-4px);
 
-  .projects-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+  border-color:var(--green);
+
+  box-shadow:0 0 22px rgba(0,255,65,.2);
 }
 
-@media (max-width:600px){
+.project-icon{
+  font-size:2rem;
 
-  .projects-grid{
-    grid-template-columns:1fr;
-  }
+  margin-bottom:12px;
 }
+
+.project-name{
+  font-size:1rem;
+
+  margin-bottom:8px;
+
+  letter-spacing:.08em;
+}
+
+.project-count{
+  color:#666;
+
+  font-size:.78rem;
+}
+
 /* ─────────────────────────────────────────
    HEADER
 ───────────────────────────────────────── */
@@ -483,6 +502,10 @@ section h2 {
   cursor: grabbing;
 }
 
+.work-exp:hover .work-track{
+  animation-play-state: paused;
+}
+
 .work-item{
   flex-shrink:0;
   user-select: none;
@@ -599,34 +622,10 @@ section h2 {
 /* mobile */
 @media (max-width:768px){
 
-  .work-exp{
-    overflow:hidden;
-    touch-action:pan-y;
-  }
-
-  .work-track{
-    display:flex;
-    width:max-content;
-
-    touch-action:pan-y;
-
-    will-change:transform;
-
-    user-select:none;
-    -webkit-user-select:none;
-    -webkit-touch-callout:none;
-
-    cursor:grab;
-  }
-
   .work-item{
-    flex-shrink:0;
-
     font-size:.72rem;
 
     padding:10px 14px;
-
-    min-width:max-content;
   }
 
   .work-exp::before,
