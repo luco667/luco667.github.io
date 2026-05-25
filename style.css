@@ -194,70 +194,156 @@ header .subtitle::before {
    NAVBAR
 ───────────────────────────────────────── */
 
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+nav{
+  position:sticky;
+  top:0;
+  z-index:1000;
 
-  gap: 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-  width: 100%;
+  gap:14px;
 
-  padding: 14px 18px;
+  width:100%;
 
-  flex-wrap: nowrap;        /* jamais d'empilement */
-  overflow-x: auto;
-  overflow-y: hidden;
+  padding:14px 18px;
 
-  white-space: nowrap;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
 
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  background:rgba(0,0,0,.78);
 
-  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter:blur(10px);
 
-  backdrop-filter: blur(10px);
+  overflow-x:auto;
+  overflow-y:hidden;
 
-  scrollbar-width: none;
+  white-space:nowrap;
+
+  scrollbar-width:none;
+
+  -webkit-overflow-scrolling:touch;
 }
 
-nav::-webkit-scrollbar { display: none; }
-
-nav a {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 14px;
-  border: 1px solid transparent;
-  color: var(--green-dim);
-  text-decoration: none;
-  text-transform: lowercase;
-  font-size: 0.82rem;
-  letter-spacing: 0.12em;
-  transition: all 0.2s;
-  flex-shrink: 0;
+nav::-webkit-scrollbar{
+  display:none;
 }
 
-nav a::before { content: "[ "; opacity: 0; transition: opacity 0.2s; }
-nav a::after  { content: " ]"; opacity: 0; transition: opacity 0.2s; }
+nav a{
+  position:relative;
 
-nav a:hover { color: var(--green); text-shadow: 0 0 10px var(--green); }
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  flex-shrink:0;
+
+  padding:10px 16px;
+
+  border:1px solid transparent;
+
+  color:var(--green-dim);
+
+  text-decoration:none;
+  text-transform:lowercase;
+
+  font-size:.82rem;
+  letter-spacing:.12em;
+
+  transition:
+    color .2s,
+    border-color .2s,
+    background .2s,
+    box-shadow .2s,
+    transform .2s;
+}
+
+nav a::before{
+  content:"[ ";
+  opacity:0;
+  transition:opacity .2s;
+}
+
+nav a::after{
+  content:" ]";
+  opacity:0;
+  transition:opacity .2s;
+}
+
+nav a:hover{
+  color:var(--green);
+
+  text-shadow:0 0 10px var(--green);
+
+  transform:translateY(-1px);
+}
+
 nav a:hover::before,
-nav a:hover::after  { opacity: 1; }
+nav a:hover::after{
+  opacity:1;
+}
 
-nav a.active {
-  color: var(--green);
-  border-color: var(--green);
-  background: rgba(0,255,65,0.08);
-  box-shadow: 0 0 10px rgba(0,255,65,0.15);
+nav a.active{
+  color:var(--green);
+
+  border-color:var(--green);
+
+  background:rgba(0,255,65,.08);
+
+  box-shadow:0 0 12px rgba(0,255,65,.15);
 }
 
 nav a.active::before,
-nav a.active::after { opacity: 1; }
+nav a.active::after{
+  opacity:1;
+}
 
+/* ─────────────────────────────────────────
+   TABLET
+───────────────────────────────────────── */
+
+@media screen and (max-width:768px){
+
+  nav{
+    justify-content:flex-start;
+
+    gap:10px;
+
+    padding:10px 12px;
+
+    scroll-padding-inline:12px;
+  }
+
+  nav a{
+    padding:8px 12px;
+
+    font-size:.72rem;
+
+    letter-spacing:.08em;
+  }
+}
+
+/* ─────────────────────────────────────────
+   SMALL PHONES
+───────────────────────────────────────── */
+
+@media screen and (max-width:480px){
+
+  nav{
+    gap:8px;
+
+    padding:8px 10px;
+  }
+
+  nav a{
+    padding:7px 10px;
+
+    font-size:.68rem;
+
+    border-radius:2px;
+  }
+}
 
 /* ─────────────────────────────────────────
    SECTIONS
@@ -777,9 +863,6 @@ section h2{
     letter-spacing: 0.08em;
   }
 
-  nav { gap: 10px; padding: 10px 14px; justify-content: flex-start; }
-  nav a { padding: 9px 12px; font-size: 0.74rem; letter-spacing: 0.08em; }
-
   section { padding: 45px 14px; }
   section h2 { margin-bottom: 20px; font-size: 1.6rem; }
 
@@ -810,7 +893,6 @@ section h2{
 /* ── VERY SMALL ── */
 @media screen and (max-width: 340px) {
   header h1 { font-size: 1.6rem; }
-  nav a { font-size: 0.7rem; }
   .card p, #terminal-output { font-size: 0.72rem; }
 }
 /* tablette */
