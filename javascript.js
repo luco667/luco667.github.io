@@ -383,8 +383,8 @@ const PROJECTS = [
     .projects-scroll::-webkit-scrollbar { display: none; }
 
     .cat-card {
-      min-width: 210px;
-      max-width: 210px;
+      min-width: 250px;
+      max-width: 250px;
       border: 1px solid rgba(0,255,65,0.2);
       background: rgba(0,10,0,0.75);
       padding: 20px;
