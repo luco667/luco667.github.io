@@ -299,49 +299,33 @@ nav a.active::after{
   opacity:1;
 }
 
-/* ─────────────────────────────────────────
-   TABLET
-───────────────────────────────────────── */
-
+/* ── MOBILE ── */
 @media screen and (max-width:768px){
 
   nav{
-    justify-content:flex-start;
-
-    gap:10px;
-
-    padding:10px 12px;
-
-    scroll-padding-inline:12px;
-  }
-
-  nav a{
-    padding:8px 12px;
-
-    font-size:.72rem;
-
-    letter-spacing:.08em;
-  }
-}
-
-/* ─────────────────────────────────────────
-   SMALL PHONES
-───────────────────────────────────────── */
-
-@media screen and (max-width:480px){
-
-  nav{
-    gap:8px;
-
-    padding:8px 10px;
+    gap:6px;
+    padding:8px 8px;
   }
 
   nav a{
     padding:7px 10px;
+  }
+}
 
-    font-size:.68rem;
+/* ── SMALL PHONES ── */
+@media screen and (max-width:480px){
 
-    border-radius:2px;
+  nav{
+    gap:4px;
+    padding:6px 6px;
+  }
+
+  nav a{
+    padding:6px 8px;
+
+    font-size:.66rem;
+
+    letter-spacing:.05em;
   }
 }
 
