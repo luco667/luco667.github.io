@@ -553,13 +553,16 @@ const PROJECTS = [
    
      const count = cat.projects.length;
    
-     card.innerHTML = `
-       <span class="cat-icon">${cat.icon}</span>
-       <div class="cat-name">./${cat.category}/</div>
-       <div class="cat-count ${count > 0 ? 'has-projects' : ''}">
-         ${count > 0 ? `${count} project${count > 1 ? 's' : ''}` : 'empty'}
-       </div>
-     `;
+    card.innerHTML = `
+      <div class="cat-header">
+        <span class="cat-icon">${cat.icon}</span>
+        <div class="cat-name">./${cat.category}/</div>
+      </div>
+    
+      <div class="cat-count ${count > 0 ? 'has-projects' : ''}">
+        ${count > 0 ? `${count} project${count > 1 ? 's' : ''}` : 'empty'}
+      </div>
+    `;
    
      card.addEventListener('click', () => {
        document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
