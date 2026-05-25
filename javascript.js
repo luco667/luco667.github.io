@@ -258,7 +258,7 @@ const PROJECTS = [
       },
       {
         name: 'Etiquette PCB',
-        desc: 'Conception d'une carte électronique sous KiCad.',
+        desc: 'Conception dune carte électronique sous KiCad.',
         tags: ['Kicad', 'CODE39'],
         link: 'https://github.com/luco667',
         status: 'done',
