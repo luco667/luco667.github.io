@@ -9,6 +9,9 @@ if (track) {
 
   const speed = 0.6;
 
+  /* largeur d'une moitié */
+  let loopWidth = track.scrollWidth / 2;
+
   /* ─────────────────────────
      DESKTOP
   ───────────────────────── */
@@ -28,6 +31,8 @@ if (track) {
 
     x = e.clientX - startX;
 
+    normalizeLoop();
+
     track.style.transform = `translateX(${x}px)`;
   });
 
@@ -43,20 +48,21 @@ if (track) {
 
     startX = e.touches[0].clientX - x;
 
-  }, { passive: false });
+  }, { passive:false });
 
   window.addEventListener('touchmove', (e) => {
 
     if (!isDown) return;
 
-    /* empêche le scroll vertical de la page */
     e.preventDefault();
 
     x = e.touches[0].clientX - startX;
 
+    normalizeLoop();
+
     track.style.transform = `translateX(${x}px)`;
 
-  }, { passive: false });
+  }, { passive:false });
 
   window.addEventListener('touchend', stopDrag);
 
@@ -72,27 +78,44 @@ if (track) {
   }
 
   /* ─────────────────────────
+     LOOP INFINIE
+  ───────────────────────── */
+
+  function normalizeLoop() {
+
+    /* trop à gauche */
+    if (x <= -loopWidth) {
+      x += loopWidth;
+    }
+
+    /* trop à droite */
+    if (x >= 0) {
+      x -= loopWidth;
+    }
+  }
+
+  /* ─────────────────────────
      AUTO SCROLL
   ───────────────────────── */
 
   function animate() {
 
-    /* continue TOUJOURS même après touch */
     if (!isDown) {
 
       x -= speed;
 
-      const width = track.scrollWidth / 2;
-
-      if (Math.abs(x) >= width) {
-        x = 0;
-      }
+      normalizeLoop();
 
       track.style.transform = `translateX(${x}px)`;
     }
 
     requestAnimationFrame(animate);
   }
+
+  /* resize responsive */
+  window.addEventListener('resize', () => {
+    loopWidth = track.scrollWidth / 2;
+  });
 
   animate();
 }
