@@ -504,7 +504,7 @@ section h2 {
 
 .work-exp{
   position: relative;
-  touch-action:pan-x;
+  touch-action:pan-y;
 
   width: 100%;
 
@@ -564,7 +564,7 @@ section h2 {
 
 .work-track{
   display:flex;
-  touch-action:pan-x;
+  touch-action:pan-y;
   width:max-content;
   will-change: transform;
   cursor: grab;
