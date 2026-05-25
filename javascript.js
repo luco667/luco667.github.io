@@ -3,69 +3,82 @@ const track = document.querySelector('.work-track');
 if (track) {
 
   let x = 0;
+
   let isDown = false;
   let startX = 0;
 
-  let speed = 0.6;
-  let lastMove = Date.now();
-  let auto = true;
+  const speed = 0.6;
 
-  /* ───────── DESKTOP ───────── */
+  /* ─────────────────────────
+     DESKTOP
+  ───────────────────────── */
 
   track.addEventListener('mousedown', (e) => {
+
     isDown = true;
+
     startX = e.clientX - x;
-    auto = false;
+
+    track.style.cursor = 'grabbing';
   });
 
   window.addEventListener('mousemove', (e) => {
+
     if (!isDown) return;
 
     x = e.clientX - startX;
-    track.style.transform = `translateX(${x}px)`;
 
-    lastMove = Date.now();
+    track.style.transform = `translateX(${x}px)`;
   });
 
   window.addEventListener('mouseup', stopDrag);
 
-  /* ───────── MOBILE ───────── */
+  /* ─────────────────────────
+     MOBILE
+  ───────────────────────── */
 
   track.addEventListener('touchstart', (e) => {
+
     isDown = true;
+
     startX = e.touches[0].clientX - x;
-    auto = false;
-  }, { passive: true });
+
+  }, { passive: false });
 
   window.addEventListener('touchmove', (e) => {
+
     if (!isDown) return;
 
+    /* empêche le scroll vertical de la page */
+    e.preventDefault();
+
     x = e.touches[0].clientX - startX;
+
     track.style.transform = `translateX(${x}px)`;
 
-    lastMove = Date.now();
-  }, { passive: true });
+  }, { passive: false });
 
   window.addEventListener('touchend', stopDrag);
 
-  /* ───────── STOP DRAG ───────── */
+  /* ─────────────────────────
+     STOP DRAG
+  ───────────────────────── */
 
   function stopDrag() {
-    isDown = false;
-    lastMove = Date.now();
 
-    setTimeout(() => {
-      if (Date.now() - lastMove >= 5000) {
-        auto = true;
-      }
-    }, 5000);
+    isDown = false;
+
+    track.style.cursor = 'grab';
   }
 
-  /* ───────── AUTO SCROLL ───────── */
+  /* ─────────────────────────
+     AUTO SCROLL
+  ───────────────────────── */
 
   function animate() {
 
-    if (auto && !isDown) {
+    /* continue TOUJOURS même après touch */
+    if (!isDown) {
 
       x -= speed;
 
