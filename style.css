@@ -428,18 +428,30 @@ section h2 {
   font-size: 0.92rem;
   line-height: 1.9;
   white-space: pre-wrap;
+  contain: content;
+}
+
+#terminal-output .line {
+  display: flex;
+  align-items: center;
+  min-height: 1.9em;
 }
 
 #terminal-output .cursor {
+  flex-shrink: 0;
   display: inline-block;
   width: 8px;
   height: 1em;
   margin-left: 2px;
   background: var(--green);
-  vertical-align: text-bottom;
   animation: blink 1s step-end infinite;
 }
 
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
 /* ─────────────────────────────────────────
    SKILLS
 ───────────────────────────────────────── */
