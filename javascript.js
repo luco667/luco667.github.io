@@ -176,8 +176,7 @@ setInterval(drawMatrix, 40);
 ══════════════════════════════════════════ */
 const LINES = [
   '> initializing profile...',
-  '> first name : Lucas',
-  '> surname    : Le Gueut',
+  ' ',
   '> status     : cybersecurity & electronics student',
   '> interests  : design, networks, offensive security, embedded systems, reverse engineering',
   '> education  : French National Brevet · STI2D Graduate · BTS CIEL Option B Student · Cisco Student',
