@@ -393,7 +393,9 @@ section h2 {
 }
 
 
-/* ── TERMINAL ── */
+/* ────────────────────
+TERMINAL 
+────────────────────────── */
 .terminal {
   position: relative;
   min-height: 140px;
@@ -432,18 +434,17 @@ section h2 {
 }
 
 #terminal-output .line {
-  display: flex;
-  align-items: center;
+  display: block;
   min-height: 1.9em;
 }
 
 #terminal-output .cursor {
-  flex-shrink: 0;
   display: inline-block;
   width: 8px;
   height: 1em;
   margin-left: 2px;
   background: var(--green);
+  vertical-align: middle;
   animation: blink 1s step-end infinite;
 }
 
