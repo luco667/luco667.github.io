@@ -181,7 +181,7 @@ const LINES = [
   '> status     : cybersecurity & electronics student',
   '> interests  : design, networks, offensive security, embedded systems, reverse engineering',
   '> education  : French National Brevet · STI2D Graduate · BTS CIEL Option B Student · Cisco Student',
-  '> activities : PCB · programming · web development · networking · electronics studies · CTF player',
+  '> activities : PCB · programming · web development · networking · electronics studies · CTF',
   '> hobbies: art · literature · cinema · music · animation · 3D · internet · science · nature ',
   ' ',
   '> system ready_',
