@@ -342,7 +342,7 @@ const PROJECTS = [
   ],
   },
   {
-    category: 'miscaleneous',
+    category: 'miscellaneous',
     icon: '⧉',
     color: '#812bd5',
     projects: [
