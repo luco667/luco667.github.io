@@ -181,45 +181,53 @@ const LINES = [
   '> interests  : design, networks, offensive security, embedded systems, reverse engineering',
   '> education  : French National Brevet · STI2D Graduate · BTS CIEL Option B Student · Cisco Student',
   '> activities : PCB · programming · web development · networking · electronics studies · CTF',
-  '> hobbies: art · literature · cinema · music · animation · 3D · internet · science · nature ',
+  '> hobbies    : art · literature · cinema · music · animation · 3D · internet · science · nature',
   ' ',
   '> system ready_',
 ];
 
 const output = document.getElementById('terminal-output');
-let lineIdx = 0, charIdx = 0;
 
-function buildText(partial) {
-  let text = '';
-  for (let i = 0; i < lineIdx; i++) text += LINES[i] + '\n';
-  text += partial;
-  return text;
-}
+let lineIdx = 0;
+let charIdx = 0;
 
-function type() {
-  if (lineIdx >= LINES.length) {
-    const span = document.createElement('span');
-    span.className = 'cursor';
-    output.appendChild(span);
-    return;
+function typeLine() {
+  if (lineIdx >= LINES.length) return;
+
+  const line = document.createElement('div');
+  line.className = 'line';
+
+  const text = document.createElement('span');
+  line.appendChild(text);
+
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor';
+  line.appendChild(cursor);
+
+  output.appendChild(line);
+
+  const current = LINES[lineIdx];
+
+  function typeChar() {
+    if (charIdx < current.length) {
+      text.textContent += current.charAt(charIdx);
+      charIdx++;
+
+      setTimeout(typeChar, Math.random() * 35 + 18);
+    } else {
+      cursor.remove();
+
+      lineIdx++;
+      charIdx = 0;
+
+      setTimeout(typeLine, 110);
+    }
   }
 
-  const target = LINES[lineIdx];
-
-  if (charIdx < target.length) {
-    output.textContent = buildText(target.slice(0, charIdx + 1));
-    charIdx++;
-    setTimeout(type, Math.random() * 35 + 18);
-  } else {
-    output.textContent = buildText(target);
-    lineIdx++;
-    charIdx = 0;
-    setTimeout(type, 110);
-  }
+  typeChar();
 }
 
-setTimeout(type, 600);
-
+setTimeout(typeLine, 600);
 
 /* ══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
