@@ -930,6 +930,17 @@ section h2{
 @media screen and (max-width: 340px) {
   header h1 { font-size: 1.6rem; }
   .card p, #terminal-output { font-size: 0.72rem; }
+  .skills{
+    display:grid;
+
+    grid-template-columns:repeat(2, 1fr);
+
+    gap:10px;
+
+    padding:18px;
+    
+    align-items:center;
+  }
 }
 /* tablette */
 @media (max-width:900px){
