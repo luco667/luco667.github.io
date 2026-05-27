@@ -882,9 +882,31 @@ section h2{
   .card, .terminal { padding: 18px; }
   .card p, #terminal-output { font-size: 0.82rem; line-height: 1.7; }
 
-  .skills { justify-content: center; gap: 10px; padding: 18px; }
-  .skills span { padding: 6px 12px; font-size: 0.75rem; }
+  .skills{
+    display:grid;
 
+    grid-template-columns:repeat(3, 1fr);
+
+    gap:10px;
+
+    padding:18px;
+    
+    align-items:center;
+  }
+
+  .skills span{
+    width:100%;
+
+    text-align:center;
+
+    padding:8px 4px;
+
+    font-size:.7rem;
+
+    align-items:center;
+
+    justify-content:center;
+  }
   footer { padding: 20px 10px; font-size: 0.7rem; }
   #matrix { opacity: 0.3; }
 }
@@ -901,7 +923,7 @@ section h2{
   .skills{
     display:grid;
 
-    grid-template-columns:repeat(3, 1fr);
+    grid-template-columns:repeat(2, 1fr);
 
     gap:10px;
 
@@ -933,7 +955,7 @@ section h2{
   .skills{
     display:grid;
 
-    grid-template-columns:repeat(2, 1fr);
+    grid-template-columns:repeat(1, 1fr);
 
     gap:10px;
 
