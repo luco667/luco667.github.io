@@ -843,7 +843,27 @@ section h2{
   section { padding: 60px 18px; }
   .card, .terminal { padding: 22px; }
 }
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
 
+.skill-box {
+    padding: 10px 16px;
+    border: 1px solid var(--green);
+    background: rgba(0, 255, 65, 0.08);
+    color: var(--green);
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* VERSION MOBILE */
+@media screen and (max-width: 480px) {
+
+
+}
 /* ── MOBILE ── */
 @media screen and (max-width: 768px) {
   body { cursor: default; }
@@ -884,8 +904,25 @@ section h2{
   section h2 { font-size: 1.4rem; }
   .card, .terminal { padding: 16px; }
   .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6; }
-  .skills { flex-direction: row; align-items: stretch; }
-  .skills span { width: 100%; text-align: center; }
+  .skills{
+    display:grid;
+
+    grid-template-columns:repeat(3, 1fr);
+
+    gap:10px;
+
+    padding:18px;
+  }
+
+  .skills span{
+    width:100%;
+
+    text-align:center;
+
+    padding:8px 4px;
+
+    font-size:.7rem;
+  }
   footer { letter-spacing: 0.08em; }
 }
 
