@@ -297,35 +297,7 @@ nav a.active::after{
   opacity:1;
 }
 
-/* ── MOBILE ── */
-@media screen and (max-width:768px){
 
-  nav{
-    gap:6px;
-    padding:8px 8px;
-  }
-
-  nav a{
-    padding:7px 10px;
-  }
-}
-
-/* ── SMALL PHONES ── */
-@media screen and (max-width:480px){
-
-  nav{
-    gap:4px;
-    padding:6px 6px;
-  }
-
-  nav a{
-    padding:6px 8px;
-
-    font-size:.66rem;
-
-    letter-spacing:.05em;
-  }
-}
 
 /* ─────────────────────────────────────────
    SECTIONS
@@ -517,6 +489,7 @@ TERMINAL
 .work-exp{
   position: relative;
   touch-action:pan-y;
+  margin-bottom:30px;
 
   width: 100%;
 
@@ -703,20 +676,7 @@ TERMINAL
   }
 }
 
-/* mobile */
-@media (max-width:768px){
 
-  .work-item{
-    font-size:.72rem;
-
-    padding:10px 14px;
-  }
-
-  .work-exp::before,
-  .work-exp::after{
-    width:40px;
-  }
-}
 /* ─────────────────────────────────────────
    FOOTER
 ───────────────────────────────────────── */
@@ -962,3 +922,47 @@ footer{
   }
 }
 
+/* ── MOBILE ── */
+@media screen and (max-width:768px){
+
+  nav{
+    gap:6px;
+    padding:8px 8px;
+  }
+
+  nav a{
+    padding:7px 10px;
+  }
+}
+
+/* ── SMALL PHONES ── */
+@media screen and (max-width:480px){
+
+  nav{
+    gap:4px;
+    padding:6px 6px;
+  }
+
+  nav a{
+    padding:6px 8px;
+
+    font-size:.66rem;
+
+    letter-spacing:.05em;
+  }
+}
+
+/* mobile */
+@media (max-width:768px){
+
+  .work-item{
+    font-size:.72rem;
+
+    padding:10px 14px;
+  }
+
+  .work-exp::before,
+  .work-exp::after{
+    width:40px;
+  }
+}
