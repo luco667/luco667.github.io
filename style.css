@@ -808,8 +808,8 @@ section { scroll-margin-top: 56px; }
 
 /* ── CONTACT — espace physique pour scroll sticky nav ── */
 #contact {
-  scroll-margin-bottom: 500px;
-  padding-bottom: 500px;
+  scroll-margin-bottom: 200px;
+  padding-bottom: 200px;
 }
 
 header,
@@ -858,10 +858,6 @@ section h2{
     border-radius: 8px;
     font-size: 14px;
 }
-
-/* VERSION MOBILE */
-@media screen and (max-width: 480px) {
-
 
 }
 /* ── MOBILE ── */
