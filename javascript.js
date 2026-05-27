@@ -179,7 +179,7 @@ const LINES = [
   ' ',
   '> status     : cybersecurity & electronics student',
   '> interests  : design, web security, embedded systems, reverse engineering',
-  '> education  : STI2D, BTS CIEL Option B',
+  '> education  : Baccalaureate in Science and Technology of Industry and Sustainable Development, and studies in Optical Eyewear BTS and BTS CIEL Option B (Electronics and Networks).',
   '> activities : PCB, development, networking, electronics',
   '> hobbies    : nature, art, literature, cinema ,music, animation, science',
   ' ',
