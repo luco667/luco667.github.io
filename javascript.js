@@ -260,7 +260,7 @@ const PROJECTS = [
     projects: [
       {
         name: 'Snake game',
-        desc: 'Page web avec jeu en javascript',
+        desc: 'Web page with game in javascript',
         tags: ['javascript', 'web', 'html', 'css'],
         link: 'Projects/snake/enregistrement/snake.html',
         status: 'wip',
@@ -268,7 +268,7 @@ const PROJECTS = [
       },
       {
         name: 'Notepad',
-        desc: 'Bloc-notes programmé en C.',
+        desc: 'Note-blocks in C.',
         tags: ['C','SDL3','MinGW'],
         link: 'https://github.com/luco667/LANGUAGEC',
         status: 'wip',
@@ -276,7 +276,7 @@ const PROJECTS = [
       },
       {
         name: 'Portfolio',
-        desc: 'Ce site — portfolio matrix en HTML/CSS/JS pur.',
+        desc: 'This page — matrix portfolio in pur HTML/CSS/JS.',
         tags: ['html', 'css', 'js', 'canvas'],
         link: 'https://luco667.github.io/',
         status: 'wip',
@@ -292,14 +292,14 @@ const PROJECTS = [
     projects: [
       {
         name: 'Arroseur PCB',
-        desc: "Conception d'\une carte électronique sous KiCad.",
+        desc: "",
         tags: ['KiCad', 'PCB', 'STM32'],
         status: 'wip',
         date: '2025',
       },
       {
         name: 'Etiquette PCB',
-        desc: 'Conception d'\une carte électronique sous KiCad.',
+        desc: '',
         tags: ['Kicad', 'CODE39'],
         link: 'https://github.com/luco667',
         status: 'wip',
