@@ -179,7 +179,7 @@ const LINES = [
   ' ',
   '> status     : cybersecurity & electronics student',
   '> interests  : design, web security, embedded systems, reverse engineering',
-  '> education  : French National Brevet, STI2D, BTS CIEL Option B',
+  '> education  : STI2D, BTS CIEL Option B',
   '> activities : PCB, development, networking, electronics',
   '> hobbies    : nature, art, literature, cinema ,music, animation, science',
   ' ',
