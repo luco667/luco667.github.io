@@ -178,7 +178,7 @@ const LINES = [
   '> initializing profile...',
   ' ',
   '> status     : cybersecurity & electronics student',
-  '> interests  : design, networks, offensive security, embedded systems, reverse engineering',
+  '> interests  : design, web security, embedded systems, reverse engineering',
   '> education  : French National Brevet, STI2D, BTS CIEL Option B',
   '> activities : PCB, development, networking, electronics',
   '> hobbies    : nature, art, literature, cinema ,music, animation, science',
@@ -263,7 +263,7 @@ const PROJECTS = [
         desc: 'Page web avec jeu en javascript',
         tags: ['javascript', 'web', 'html', 'css'],
         link: 'Projects/snake/enregistrement/snake.html',
-        status: 'done',
+        status: 'wip',
         date: '2025',
       },
       {
@@ -271,7 +271,7 @@ const PROJECTS = [
         desc: 'Bloc-notes programmé en C.',
         tags: ['C','SDL3','MinGW'],
         link: 'https://github.com/luco667/LANGUAGEC',
-        status: 'done',
+        status: 'wip',
         date: '2025',
       },
       {
@@ -292,17 +292,17 @@ const PROJECTS = [
     projects: [
       {
         name: 'Arroseur PCB',
-        desc: "Conception d'une carte électronique sous KiCad.",
+        desc: "Conception d'\une carte électronique sous KiCad.",
         tags: ['KiCad', 'PCB', 'STM32'],
         status: 'wip',
         date: '2025',
       },
       {
         name: 'Etiquette PCB',
-        desc: 'Conception dune carte électronique sous KiCad.',
+        desc: 'Conception d'\une carte électronique sous KiCad.',
         tags: ['Kicad', 'CODE39'],
         link: 'https://github.com/luco667',
-        status: 'done',
+        status: 'wip',
         date: '2026',
       },
       // ↓ ajoute tes projets ici
@@ -314,11 +314,11 @@ const PROJECTS = [
     color: '#ffcc00',
     projects: [
       {
-        name: 'Programme dattaque',
-        desc: 'Ce site — portfolio matrix en HTML/CSS/JS pur.',
-        tags: ['html', 'css', 'js', 'canvas'],
+        name: 'Empty',
+        desc: '',
+        tags: ['',],
         link: '',
-        status: 'done',
+        status: 'wip',
         date: '2026',
       },
       // ↓ ajoute tes projets ici
@@ -335,7 +335,7 @@ const PROJECTS = [
       name: 'Proxy',
       desc: 'Routeur proxy anti-pub.',
       tags: ['OSI'],
-      status: 'done',
+      status: 'wip',
       date: '2026',
     },
 
@@ -347,11 +347,11 @@ const PROJECTS = [
     color: '#812bd5',
     projects: [
        {
-        name: 'Watch list',
-        desc: 'Ce site — portfolio matrix en HTML/CSS/JS pur.',
-        tags: ['html', 'css', 'js', 'canvas'],
+        name: 'Empty',
+        desc: '',
+        tags: ['',],
         link: 'https://github.com/luco667',
-        status: 'done',
+        status: 'wip',
         date: '2026',
       },
       // ↓ ajoute tes projets ici
