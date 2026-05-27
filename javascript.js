@@ -188,8 +188,14 @@ const LINES = [
 
 const output = document.getElementById('terminal-output');
 
-let lineIdx = 0;
-let charIdx = 0;
+let lineIdx = 0, charIdx = 0;
+
+function buildText(partial) {
+  let text = '';
+  for (let i = 0; i < lineIdx; i++) text += LINES[i] + '\n';
+  text += partial;
+  return text;
+}
 
 function typeLine() {
   if (lineIdx >= LINES.length) return;
