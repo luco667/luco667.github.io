@@ -364,18 +364,45 @@ section h2 {
 }
 
 
-/* ────────────────────
-TERMINAL 
-────────────────────────── */
-.terminal {
-  position: relative;
-  min-height: 140px;
-  padding: 28px 32px;
-  border: 1px solid var(--border);
-  background: var(--card-bg);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 0 20px rgba(0,255,65,0.05);
-  overflow: hidden;
+
+/* ─────────────────────────────────────────
+   TERMINAL
+───────────────────────────────────────── */
+.terminal{
+  min-height:320px;
+
+  overflow:hidden;
+}
+
+@media (max-width:768px){
+
+  .terminal{
+    min-height:220px;
+  }
+
+}
+
+@media (max-width:480px){
+
+  .terminal{
+    min-height:320px;
+  }
+
+}
+.terminal{
+  position:relative;
+
+  z-index:1;
+
+  padding:28px 32px;
+
+  border:1px solid var(--border);
+
+  background:var(--card-bg);
+
+  backdrop-filter:blur(6px);
+
+  box-shadow:0 0 20px rgba(0,255,65,0.05);
 }
 
 /* scanlines */
