@@ -598,10 +598,9 @@ var Snake /*create the snake game function*/ = (function () {
 
   return {
     start: function (fps = 15) {
-      window.onload = setup;
+      setup();
       intervalID = setInterval(game.loop, 1000 / fps);
     },
-
     loop: game.loop,
 
     reset: game.reset,
