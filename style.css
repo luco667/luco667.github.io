@@ -489,7 +489,8 @@ TERMINAL
 .work-exp{
   position: relative;
   touch-action:pan-y;
-  margin-bottom:30px;
+  margin-top:30px;
+  margin-bottom:15px;
 
   width: 100%;
 
@@ -799,7 +800,7 @@ footer{
     font-size: 14px;
 }
 
-}
+
 /* ── MOBILE ── */
 @media screen and (max-width: 768px) {
   body { cursor: default; }
@@ -858,7 +859,7 @@ footer{
   header { padding-top: 40px; }
   header h1 { font-size: 2rem; }
   header .subtitle { margin-top: 8px; font-size: 0.68rem; }
-  section { padding: 38px 12px; }
+  section { padding: 15px 12px; }
   section h2 { font-size: 1.4rem; }
   .card, .terminal { padding: 16px; }
   .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6; }
