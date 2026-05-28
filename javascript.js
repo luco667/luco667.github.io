@@ -20,7 +20,7 @@ function initMatrix() {
 function drawMatrix() {
   ctx.fillStyle = 'rgba(0,0,0,0.05)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.font = `${fontSize}px "Share Tech Mono", monospace`;
+  ctx.font = `${fontSize}px "Minecraft", monospace`;
 
   for (let i = 0; i < drops.length; i++) {
     const char = CHARS[Math.floor(Math.random() * CHARS.length)];
