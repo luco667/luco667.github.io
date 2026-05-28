@@ -289,7 +289,7 @@ const PROJECTS = [
       {
         name: 'Portfolio',
         desc: 'This page — matrix portfolio in pur HTML/CSS/JS.',
-        tags: ['html', 'css', 'js', 'canvas'],
+        tags: ['html', 'css', 'js', 'canvas', 'static'],
         link: 'https://luco667.github.io/',
         status: 'wip',
         date: '2026',
