@@ -12,322 +12,212 @@
   <title>Snake Game</title>
 
   <style>
-
-    /* =========================================
-       RESET
-    ========================================= */
-
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      min-height: 100%;
-      overflow-x: hidden;
-      background: black;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
-    /* =========================================
-       GAMEBOY
-    ========================================= */
-
-    .fondgameboy {
-
-      position: relative;
-
-      width: min(600px, 100vw);
-      aspect-ratio: 600 / 1000;
-
-      margin-top: 20px;
-
-      border: 10px solid grey;
-      border-radius: 40px;
-
-      background-image: url("../object/portable-retro-game-console-90s-260nw-2155515871.jpg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-
-      overflow: hidden;
-    }
-
-    /* =========================================
-       SCREEN
-    ========================================= */
-
-    #game-container {
-      display: flex;
-      justify-content: center;
-    }
-
-    .game-canvas {
-
-      display: block;
-
-      width: 60%;
-      aspect-ratio: 1 / 1;
-
-      margin-top: 20%;
-      margin-bottom: 26%;
-
-      border-radius: 5px;
-    }
-
-    /* =========================================
-       BUTTONS
-    ========================================= */
-
-    .redbut {
-
-      width: 75px;
-      height: 75px;
-
-      background: rgb(197, 0, 0);
-
-      border-radius: 50%;
-      border: 4px solid #2c2b2b75;
-
-      display: block;
-
-      cursor: pointer;
-    }
-
-    .redbut:active {
-
-      background: #492222;
-
-      border-color: #966969;
-
-      box-shadow:
-        rgba(0, 0, 218, 0.25) 0px 30px 60px -12px inset,
-        rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-    }
-
-    /* =========================================
-       DPAD
-    ========================================= */
-
-    .keys {
-
-      width: 235px;
-      height: 200px;
-
-      text-align: center;
-    }
-
-    .keysplace {
-
-      display: block;
-
-      padding-top: 29px;
-      padding-left: 42px;
-    }
-
-    .box {
-
-      cursor: pointer;
-
-      width: 30px;
-      height: 30px;
-
-      text-align: center;
-      line-height: 25px;
-
-      background: rgb(24, 23, 23);
-
-      border-right: 5px solid #181616;
-      border-bottom: 5px solid #131212;
-      border-left: 5px solid #161515;
-      border-top: 5px solid #161515;
-
-      display: inline-table;
-
-      transition: 0.1s linear;
-
-      user-select: none;
-    }
-
-    .box:active {
-      background: #555;
-    }
-
-    /* =========================================
-       ARROWS
-    ========================================= */
-
-    .chevron::before {
-
-      border-style: solid;
-      border-width: 4px 4px 0 0;
-
-      content: "";
-
-      display: inline-table;
-
-      height: 10px;
-      width: 10px;
-
-      position: relative;
-
-      transform: rotate(-45deg);
-
-      margin-bottom: 5px;
-    }
-
-    .chevron.down::before {
-      transform: rotate(135deg);
-      top: -1px;
-    }
-
-    .chevron.right::before {
-      transform: rotate(45deg);
-      top: 1px;
-      left: -1px;
-    }
-
-    .chevron.left::before {
-      transform: rotate(225deg);
-      top: 1px;
-      left: 1px;
-    }
-
-    .chevron.up::before {
-      top: 3px;
-    }
-
-    /* =========================================
-       CENTER BUTTON
-    ========================================= */
-
-    .color.middle::before {
-      content: "";
-      position: relative;
-    }
-
-    .color::before {
-
-      display: inline-table;
-
-      height: 10px;
-      width: 10px;
-
-      background: rgb(77, 70, 70);
-
-      transform: rotate(45deg);
-    }
-
-    /* =========================================
-       ACTION BUTTONS
-    ========================================= */
-
-    .Bbutton {
-      margin-top: 10px;
-      margin-left: 127px;
-    }
-
-    .Abutton {
-      margin-bottom: 100px;
-      margin-left: 10px;
-    }
-
-    /* =========================================
-       START / SELECT
-    ========================================= */
-
-    .SelectBut,
-    .Startbut {
-
-      background-color: rgb(99, 99, 99);
-
-      height: 25px;
-      width: 75px;
-
-      border-radius: 13em / 3em;
-
-      border: 2px solid grey;
-
-      cursor: pointer;
-
-      display: block;
-    }
-
-    .SelectBut {
-
-      margin-left: 175px;
-      margin-top: 15px;
-
-      transform: rotate(335deg);
-    }
-
-    .Startbut {
-
-      transform: rotate(330deg);
-
-      margin-top: 10px;
-      margin-left: 29px;
-    }
-
-    .SelectBut:hover {
-      background-color: rgb(20, 20, 31);
-    }
-
-    .Startbut:hover {
-      background-color: rgb(43, 39, 39);
-    }
-
-    /* =========================================
-       MOBILE
-    ========================================= */
-
-    @media (max-width: 640px) {
-
-      .fondgameboy {
-
-        width: 100vw;
-
-        border-width: 6px;
-
-        border-radius: 30px;
-
-        margin-top: 0;
-      }
-
-      .redbut {
-
-        width: 60px;
-        height: 60px;
-      }
-
-      .keys {
-        width: 160px;
-      }
-
-      .Bbutton {
-        margin-left: 70px;
-      }
-
-      .Abutton {
-        margin-left: 0;
-      }
-
-      .SelectBut {
-        margin-left: 120px;
-      }
-    }
-
+html {
+  background: black;
+} /* stylize html tag*/
+
+body {
+  margin: 0;
+} /* stylize and place body html tag*/
+
+br {
+  border: 2px solid white;
+}
+
+.fondgameboy {
+  background-image: url(/object/portable-retro-game-console-90s-260nw-2155515871.jpg); /* set image on background*/
+  background-repeat: no-repeat; /* only display the image once */
+  background-position: center; /* center the background image*/
+  background-size: cover; /* cover everything with the image*/
+  background-attachment: relative; /*you can scrolls the background*/
+  border: 10px solid grey;
+  width: 600px;
+  height: 1000px;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto; /*place the image in the web page*/
+  border-radius: 150px; /*rounded the edges*/
+} /* stylize and place .fondgameboy class*/
+
+.game-canvas {
+  /* this is the box contain the game*/
+  width: 100%;
+  height: 100vw;
+  max-width: 360px;
+  max-height: 330px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 120px;
+  margin-bottom: 155px;
+  border-radius: 5px;
+} /* stylize and place .game-canvas class*/
+
+.redbut {
+  border-style: solid;
+  width: 75px;
+  content: "";
+  height: 75px;
+  background: rgb(197, 0, 0);
+  border-radius: 70px;
+  border-style: solid;
+  display: block;
+  border-color: #2c2b2b75;
+  margin-top: 20px;
+  cursor: pointer;
+} /* stylize and place .game-canvas class*/
+
+.redbut:active {
+  background: #492222;
+  border-color: #966969;
+  box-shadow: rgba(0, 0, 218, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+} /*give a texture to redbutton when they're clicked*/
+
+.keys {
+  /* this is the box contains the arrow button*/
+  font-family: "Lato", sans-serif;
+  text-align: center;
+  width: 235px;
+  box-sizing: border-box;
+  height: 200px;
+} /* stylize and place .keys class*/
+
+.keysplace {/*replace keys in box*/
+display: block;
+padding: 29.5px;
+padding-left: 42.5px;
+}
+
+
+.box {
+  /* this box contains the outlines of the keys*/
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 25px;
+  background: rgb(24, 23, 23);
+  color: rgb(78, 78, 78);
+  border-right: 5px solid #181616;
+  border-bottom: 5px solid #131212;
+  border-left: 5px solid #161515;
+  border-top: 5px solid #161515;
+  display: inline-table;
+  transition: all 0.1s linear;
+  user-select: none;
+  background-position: relative;
+}
+
+.box:active {
+  background: #555;
+} /*give a texture to box button when they're clicked*/
+
+.chevron::before {/* give a texture of arrows to border*/
+  border-style: solid;
+  border-width: 4px 4px 0 0;
+  content: "";
+  display: table inline;
+  height: 10px;
+  width: 10px;
+  top: 40px;
+  position: relative;
+  transform: rotate(-45deg);
+  margin-bottom: 5px;
+}
+
+.chevron.down::before {
+  transform: rotate(135deg);
+  top: -1px;
+}/* link the arrow with the button box*/
+
+.chevron.right::before {
+  transform: rotate(45deg);
+  top: 1.5px;
+  left: -1px;
+}/* link the arrow with the button box*/
+
+.chevron.left::before {
+  transform: rotate(225deg);
+  top: 1.5px;
+  left: 1px;
+}/* link the arrow with the button box*/
+
+.chevron.up::before {
+ top: 3px;
+}/* link the arrow with the button box*/
+
+.color.middle::before {
+  content: "";
+  position: relative;
+}/* link the square with the button box*/
+
+.color::before {
+  display: inline-table;
+  cursor: pointer;
+  text-align: center;
+  height: 10px;
+  line-height: 10px;
+  width: 10px;
+  background: rgb(77, 70, 70);
+  transform: rotate(45deg); /* Internet Explorer */
+}/*make a square*/
+
+#game-container {
+  display: flex;
+  flex-direction: column;
+}/* place the display of game*/
+
+.Bbutton {
+  margin-top: 10px;
+  margin-left: 127px;
+}/*place the B button*/
+
+.Abutton {
+  margin-bottom: 100px;
+  margin-left: 10px;
+}/*place the A button*/
+
+/*td {
+  /*TABLEAU TOUCHE*/
+ /* border: 2px solid white;*/
+
+
+.SelectBut {/*stylize and place select and start menu*/
+  background-color: rgb(99, 99, 99);
+  height: 25px;
+  width: 75px;
+  border-radius: 13em/3em;
+  margin-left: 175px;
+  margin-top: 15px;
+  transform: rotate(335deg);
+  border: 2px solid grey;
+  border-style: solid;
+  cursor: pointer;
+  display: block;
+}
+.SelectBut:hover {
+  background-color: rgb(20, 20, 31);
+}/*give a texture when clicked*/
+
+
+.Startbut {
+  background-color: rgb(99, 99, 99);
+  height: 25px;
+  width: 75px;
+  border-radius: 13em/3em;
+  transform: rotate(330deg);
+  border: 2px solid grey;
+  border-style: solid;
+  cursor: pointer;
+  display: block;
+  margin-top: 10px;
+  margin-left: 29px;
+}
+
+.Startbut:hover {
+  background-color: rgb(43, 39, 39);
+}/*give a texture when clicked*/
+    
   </style>
 </head>
 
@@ -444,271 +334,355 @@
 
   </div>
 
-  <script>
+<script>
+  function getRandomColor() {
+  return (
+    "#" + ("00000" + ((Math.random() * 16777216) << 0).toString(16)).substr(-6)
+  );
+} /*create random color*/
 
-    function getRandomColor() {
+var Snake /*create the snake game function*/ = (function () {
+  const INITIAL_TAIL = 2; /*initializes the size of the start of the game for the snake*/
+  var fixedTail = true; /*
+  fix the tail to the head*/
+  var intervalID; /*set up the time*/
+  var tileCount = 10;/*set up the size of cases*/
+  var gridSize = 400 / tileCount;/*set up the grid*/
+  const INITIAL_PLAYER = {
+    x: Math.floor(tileCount / 2),
+    y: Math.floor(tileCount / 2),
+  };/* set up the physique of players*/
 
-      return (
-        "#" +
-        ("00000" + ((Math.random() * 16777216) << 0).toString(16)).substr(-6)
-      );
-    }
+  var velocity = { x: 0, y: 0 };/* set up the speed*/
+  var player = { x: INITIAL_PLAYER.x, y: INITIAL_PLAYER.y };/*place the player*/
 
-    var Snake = (function () {
+  var walls = false;/*make walls not solid*/
+  var fruit = { x: 1, y: 1 };/*place the fruit on grid*/
 
-      const INITIAL_TAIL = 2;
+  var trail = [];/* set up the trail*/
+  var tail = INITIAL_TAIL;/* set up the first tail*/
 
-      var fixedTail = true;
+  var reward = 0;
+  var points = 0;
+  var pointsMax = 0;
 
-      var tileCount = 10;
+  var ActionEnum = { none: 0, up: 1, down: 2, left: 3, right: 4 };
+  Object.freeze(ActionEnum);
+  var lastAction = ActionEnum.none;
+  let color = getRandomColor();
+  let color2 = getRandomColor();
 
-      var gridSize = 400 / tileCount;
+  function setup() {
+    canv = document.getElementById("gc");
+    ctx = canv.getContext("2d");
 
-      const INITIAL_PLAYER = {
-        x: Math.floor(tileCount / 2),
-        y: Math.floor(tileCount / 2),
-      };
+    game.reset();
+  }
 
-      var velocity = { x: 0, y: 0 };
+  var game = {
+    reset: function () {
+      ctx.fillStyle = "grey";
+      ctx.fillRect(0, 0, canv.width, canv.height);
 
-      var player = {
-        x: INITIAL_PLAYER.x,
-        y: INITIAL_PLAYER.y,
-      };
+      tail = INITIAL_TAIL;
+      points = 0;
+      velocity.x = 0;
+      velocity.y = 0;
+      player.x = INITIAL_PLAYER.x;
+      player.y = INITIAL_PLAYER.y;
+      // this.RandomFruit();
+      reward = -1;
 
-      var fruit = { x: 1, y: 1 };
+      lastAction = ActionEnum.none;
 
-      var trail = [];
+      trail = [];
+      trail.push({ x: player.x, y: player.y });
+      // for(var i=0; i<tail; i++) trail.push({ x: player.x, y: player.y });
+    },
 
-      var tail = INITIAL_TAIL;
-
-      var points = 0;
-
-      var pointsMax = 0;
-
-      var color = getRandomColor();
-
-      var color2 = getRandomColor();
-
-      var canv;
-      var ctx;
-
-      function setup() {
-
-        canv = document.getElementById("gc");
-
-        ctx = canv.getContext("2d");
-
-        game.reset();
-      }
-
-      var game = {
-
-        reset: function () {
-
-          ctx.fillStyle = "grey";
-
-          ctx.fillRect(0, 0, canv.width, canv.height);
-
-          tail = INITIAL_TAIL;
-
-          points = 0;
-
+    action: {
+      up: function () {
+        if (lastAction != ActionEnum.down) {
           velocity.x = 0;
-          velocity.y = 0;
-
-          player.x = INITIAL_PLAYER.x;
-          player.y = INITIAL_PLAYER.y;
-
-          trail = [];
-
-          trail.push({
-            x: player.x,
-            y: player.y,
-          });
-        },
-
-        action: {
-
-          up: function () {
-            velocity.x = 0;
-            velocity.y = -1;
-          },
-
-          down: function () {
-            velocity.x = 0;
-            velocity.y = 1;
-          },
-
-          left: function () {
-            velocity.x = -1;
-            velocity.y = 0;
-          },
-
-          right: function () {
-            velocity.x = 1;
-            velocity.y = 0;
-          },
-        },
-
-        RandomFruit: function () {
-
-          fruit.x = Math.floor(Math.random() * tileCount);
-
-          fruit.y = Math.floor(Math.random() * tileCount);
-        },
-
-        loop: function () {
-
-          player.x += velocity.x;
-          player.y += velocity.y;
-
-          if (player.x < 0) player.x = tileCount - 1;
-          if (player.x >= tileCount) player.x = 0;
-
-          if (player.y < 0) player.y = tileCount - 1;
-          if (player.y >= tileCount) player.y = 0;
-
-          ctx.fillStyle = "rgba(107,167,101,0.51)";
-
-          ctx.fillRect(0, 0, canv.width, canv.height);
-
-          trail.push({
-            x: player.x,
-            y: player.y,
-          });
-
-          while (trail.length > tail) {
-            trail.shift();
-          }
-
-          ctx.fillStyle = color;
-
-          for (let i = 0; i < trail.length; i++) {
-
-            ctx.fillRect(
-              trail[i].x * gridSize + 1,
-              trail[i].y * gridSize + 1,
-              gridSize - 2,
-              gridSize - 2
-            );
-          }
-
-          if (player.x === fruit.x && player.y === fruit.y) {
-
-            tail++;
-
-            points++;
-
-            if (points > pointsMax) {
-              pointsMax = points;
-            }
-
-            game.RandomFruit();
-          }
-
-          ctx.fillStyle = color2;
-
-          ctx.fillRect(
-            fruit.x * gridSize + 1,
-            fruit.y * gridSize + 1,
-            gridSize - 2,
-            gridSize - 2
-          );
-
-          ctx.fillStyle = "white";
-
-          ctx.font = "bold 16px Arial";
-
-          ctx.fillText("points: " + points, 260, 40);
-
-          ctx.fillText("top: " + pointsMax, 280, 60);
-        },
-      };
-
-      function keyPush(evt) {
-
-        switch (evt.keyCode) {
-
-          case 37:
-            game.action.left();
-            evt.preventDefault();
-            break;
-
-          case 38:
-            game.action.up();
-            evt.preventDefault();
-            break;
-
-          case 39:
-            game.action.right();
-            evt.preventDefault();
-            break;
-
-          case 40:
-            game.action.down();
-            evt.preventDefault();
-            break;
-
-          case 32:
-            Snake.pause();
-            evt.preventDefault();
-            break;
-
-          case 27:
-            game.reset();
-            evt.preventDefault();
-            break;
+          velocity.y = -1;
         }
+      },
+      down: function () {
+        if (lastAction != ActionEnum.up) {
+          velocity.x = 0;
+          velocity.y = 1;
+        }
+      },
+      left: function () {
+        if (lastAction != ActionEnum.right) {
+          velocity.x = -1;
+          velocity.y = 0;
+        }
+      },
+      right: function () {
+        if (lastAction != ActionEnum.left) {
+          velocity.x = 1;
+          velocity.y = 0;
+        }
+      },
+    },
+
+    RandomFruit: function () {
+      if (walls) {
+        fruit.x = 1 + Math.floor(Math.random() * (tileCount - 2));
+        fruit.y = 1 + Math.floor(Math.random() * (tileCount - 2));
+      } else {
+        fruit.x = Math.floor(Math.random() * tileCount);
+        fruit.y = Math.floor(Math.random() * tileCount);
+      }
+    },
+
+    log: function () {
+      console.log("====================");
+      console.log("x:" + player.x + ", y:" + player.y);
+      console.log("tail:" + tail + ", trail.length:" + trail.length);
+    },
+
+    loop: function () {
+      reward = -0.1;
+
+      function DontHitWall() {
+        if (player.x < 0) player.x = tileCount - 1;
+        if (player.x >= tileCount) player.x = 0;
+        if (player.y < 0) player.y = tileCount - 1;
+        if (player.y >= tileCount) player.y = 0;
+      }
+      function HitWall() {
+        if (player.x < 1) game.reset();
+        if (player.x > tileCount - 2) game.reset();
+        if (player.y < 1) game.reset();
+        if (player.y > tileCount - 2) game.reset();
+
+        ctx.fillStyle = "green";
+        ctx.fillRect(0, 0, gridSize - 1, canv.height);
+        ctx.fillRect(0, 0, canv.width, gridSize - 1);
+        ctx.fillRect(canv.width - gridSize + 1, 0, gridSize, canv.height);
+        ctx.fillRect(0, canv.height - gridSize + 1, canv.width, gridSize);
       }
 
-      return {
+      var stopped = velocity.x == 0 && velocity.y == 0;
 
-        start: function (fps = 8) {
+      player.x += velocity.x;
+      player.y += velocity.y;
 
-          window.onload = setup;
+      if (velocity.x == 0 && velocity.y == -1) lastAction = ActionEnum.up;
+      if (velocity.x == 0 && velocity.y == 1) lastAction = ActionEnum.down;
+      if (velocity.x == -1 && velocity.y == 0) lastAction = ActionEnum.left;
+      if (velocity.x == 1 && velocity.y == 0) lastAction = ActionEnum.right;
 
-          setInterval(game.loop, 1000 / fps);
-        },
+      ctx.fillStyle = "rgba(107, 167, 101, 0.51)";
+      ctx.fillRect(0, 0, canv.width, canv.height);
 
-        reset: game.reset,
+      if (walls) HitWall();
+      else DontHitWall();
 
-        action: function (act) {
-          game.action[act]();
-        },
+      // game.log();
 
-        pause: function () {
+      if (!stopped) {
+        trail.push({ x: player.x, y: player.y });
+        while (trail.length > tail) trail.shift();
+      }
 
-          velocity.x = 0;
-          velocity.y = 0;
-        },
+      if (!stopped) {
+        ctx.fillStyle = "rgba(165, 203, 104, 1)";
+        ctx.font = "small-caps 14px Helvetica";
+        ctx.fillText("(esc) reset", 24, 356);
+        ctx.fillText("(space) pause", 24, 374);
+      }
 
-        setup: {
+      ctx.fillStyle = color; /* snake color */
+      for (var i = 0; i < trail.length - 1; i++) {
+        ctx.fillRect(
+          trail[i].x * gridSize + 1,
+          trail[i].y * gridSize + 1,
+          gridSize - 2,
+          gridSize - 2
+        );
 
-          keyboard: function (state) {
+        // console.debug(i + ' => player:' + player.x, player.y + ', trail:' + trail[i].x, trail[i].y);
+        if (!stopped && trail[i].x == player.x && trail[i].y == player.y) {
+          game.reset();
+        }
+        ctx.fillStyle = color; /* snake color queue */
+      }
+      ctx.fillRect(
+        trail[trail.length - 1].x * gridSize + 1,
+        trail[trail.length - 1].y * gridSize + 1,
+        gridSize - 2,
+        gridSize - 2
+      );
 
-            if (state) {
-              document.addEventListener("keydown", keyPush);
+      if (player.x == fruit.x && player.y == fruit.y) {
+        if (!fixedTail) tail++;
+        points++;
+        if (points > pointsMax) pointsMax = points;
+        reward = 1;
+        game.RandomFruit();
+        // make sure new fruit didn't spawn in snake tail
+        while (
+          (function () {
+            for (var i = 0; i < trail.length; i++) {
+              if (trail[i].x == fruit.x && trail[i].y == fruit.y) {
+                game.RandomFruit();
+                return true;
+              }
             }
-          },
-        },
+            return false;
+          })()
+        );
+      }
 
-        startbut: function () {
-          color = getRandomColor();
-        },
+      ctx.fillStyle = color2; /*faire une pomme*/
+      ctx.fillRect(
+        fruit.x * gridSize + 1,
+        fruit.y * gridSize + 1,
+        gridSize - 2,
+        gridSize - 2
+      );
 
-        middlebut: function () {
-          color2 = getRandomColor();
-        },
-      };
+      if (stopped) {
+        ctx.fillStyle = "rgba(165, 203, 104, 1)";
+        ctx.font = "small-caps bold 14px Helvetica";
+        ctx.fillText("press ARROW KEYS to START...", 24, 374);
+      }
 
-    })();
+      ctx.fillStyle = "white";
+      ctx.font = "bold small-caps 16px Helvetica";
+      ctx.fillText("points: " + points, 288, 40);
+      ctx.fillText("top: " + pointsMax, 292, 60);
 
-    Snake.start(8);
+      return reward;
+    },
+  };
 
-    Snake.setup.keyboard(true);
+  function keyPush(evt) {
+    switch (evt.keyCode) {
+      case 37: //left
+        game.action.left();
+        evt.preventDefault();
+        break;
 
-  </script>
+      case 38: //up
+        game.action.up();
+        evt.preventDefault();
+        break;
+
+      case 39: //right
+        game.action.right();
+        evt.preventDefault();
+        break;
+
+      case 40: //down
+        game.action.down();
+        evt.preventDefault();
+        break;
+
+      case 32: //space
+        Snake.pause();
+        evt.preventDefault();
+        break;
+
+      case 27: //esc
+        game.reset();
+        evt.preventDefault();
+        break;
+    }
+  }
+
+  return {
+    start: function (fps = 15) {
+      window.onload = setup;
+      intervalID = setInterval(game.loop, 1000 / fps);
+    },
+
+    loop: game.loop,
+
+    reset: game.reset,
+
+    stop: function () {
+      //clearInterval(intervalID);
+    },
+
+    setup: {
+      keyboard: function (state) {
+        if (state) {
+          document.addEventListener("keydown", keyPush);
+        } else {
+          document.removeEventListener("keydown", keyPush);
+        }
+      },
+      wall: function (state) {
+        walls = state;
+      },
+      tileCount: function (size) {
+        tileCount = size;
+        gridSize = 400 / tileCount;
+      },
+      fixedTail: function (state) {
+        fixedTail = state;
+      },
+    },
+
+    action: function (act) {
+      switch (act) {
+        case "left":
+          game.action.left();
+          break;
+
+        case "up":
+          game.action.up();
+          break;
+
+        case "right":
+          game.action.right();
+          break;
+
+        case "down":
+          game.action.down();
+          break;
+      }
+    },
+
+    pause: function pause() {
+      velocity.x = 0;
+      velocity.y = 0;
+    },
+
+    clearTopScore: function () {
+      pointsMax = 0;
+    },
+
+    data: {
+      player: player,
+      fruit: fruit,
+      trail: function () {
+        return trail;
+      },
+    },
+
+    info: {
+      tileCount: tileCount,
+    },
+    startbut: function () {
+      //ajout
+      color = getRandomColor();
+    },
+    middlebut: function () {
+      color2 = getRandomColor();
+    },
+  };
+})();
+
+Snake.start(8);
+Snake.setup.keyboard(true);
+Snake.setup.fixedTail(false);
+//rajout
+</script>
 
 </body>
 </html>
