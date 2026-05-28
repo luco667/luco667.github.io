@@ -797,7 +797,7 @@ footer{
   section { padding: 45px 14px; }
   section h2 { margin-bottom: 20px; font-size: 1.6rem; }
   .card, .terminal { padding: 18px; overflow: hidden; }
-  .card p, #terminal-output { font-size: 0.82rem; line-height: 1.7; }
+  .card p, #terminal-output { font-size: 0.82rem; line-height: 1.7;overflow: hidden }
   .skills{display:grid; grid-template-columns:repeat(3, 1fr);gap:16px; padding:26px;align-items:center; }
   .skills span{ width:100%;text-align:center;padding:8px 4px;font-size:.7rem;align-items:center;justify-content:center;}
   .work-item{font-size:.72rem;padding:10px 14px;}
@@ -817,7 +817,7 @@ footer{
   section { padding: 15px 12px; }
   section h2 { font-size: 1.4rem; }
   .card, .terminal { padding: 16px; overflow: hidden; }
-  .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6; }
+  .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6;overflow: hidden }
   .skills{ display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;padding:18px; align-items:center; }
   .skills span{width:100%;text-align:center;padding:8px 4px;font-size:.7rem;align-items:center;justify-content:center; }
   nav{gap:4px;padding:6px 6px;}
@@ -828,7 +828,7 @@ footer{
 /* ── VERY SMALL ── */
 @media screen and (max-width: 340px) {
   header h1 { font-size: 1.6rem; }
-  .card p, #terminal-output { font-size: 0.72rem; }
+  .card p, #terminal-output { font-size: 0.72rem;overflow: hidden }
   .skills{display:grid;grid-template-columns:repeat(1, 1fr);gap:10px;padding:18px;align-items:center;
   }
 }
