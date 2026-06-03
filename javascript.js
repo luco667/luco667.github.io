@@ -10,8 +10,26 @@ import {
   onDisconnect
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
-/* ───────── VISITS ───────── */
+
+
+/* ───────── FIREBASE ONLINE ───────── */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBRj2MmECUYqeISLB-y4nR8Y0k3bv5q5g8",
+  authDomain: "portfolio-60614.firebaseapp.com",
+  databaseURL: "https://portfolio-60614-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "portfolio-60614",
+  storageBucket: "portfolio-60614.firebasestorage.app",
+  messagingSenderId: "296651632810",
+  appId: "1:296651632810:web:bcbb692921ee27497ce0d3",
+  measurementId: "G-1X06XFM7L1"
+};
+
+const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+
+/* ───────── VISITS ───────── */
+
 const visitsRef = ref(db, "stats/visits");
 
 const VISITOR_KEY = "portfolio_visited";
@@ -31,22 +49,6 @@ get(visitsRef).then((snapshot) => {
     snapshot.val() || 0;
 
 });
-
-/* ───────── FIREBASE ONLINE ───────── */
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBRj2MmECUYqeISLB-y4nR8Y0k3bv5q5g8",
-  authDomain: "portfolio-60614.firebaseapp.com",
-  databaseURL: "https://portfolio-60614-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "portfolio-60614",
-  storageBucket: "portfolio-60614.firebasestorage.app",
-  messagingSenderId: "296651632810",
-  appId: "1:296651632810:web:bcbb692921ee27497ce0d3",
-  measurementId: "G-1X06XFM7L1"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
 const userId = crypto.randomUUID();
 
