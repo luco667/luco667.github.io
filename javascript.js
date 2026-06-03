@@ -1,3 +1,62 @@
+fetch("https://api.countapi.xyz/hit/luco667.github.io/visits")
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById("visits").textContent = data.value;
+  })
+  .catch(() => {
+    document.getElementById("visits").textContent = "N/A";
+  });
+
+const userRef = ref(db, "online/" + userId);
+
+set(userRef, true);
+onDisconnect(userRef).remove();
+
+onValue(ref(db, "online"), (snapshot) => {
+  const users = snapshot.val() || {};
+  document.getElementById("online-count").textContent =
+    Object.keys(users).length;
+});
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getDatabase,
+  ref,
+  set,
+  onValue,
+  onDisconnect
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBRj2MmECUYqeISLB-y4nR8Y0k3bv5q5g8",
+  authDomain: "portfolio-60614.firebaseapp.com",
+  databaseURL: "https://portfolio-60614-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "portfolio-60614",
+  storageBucket: "portfolio-60614.firebasestorage.app",
+  messagingSenderId: "296651632810",
+  appId: "1:296651632810:web:bcbb692921ee27497ce0d3",
+  measurementId: "G-1X06XFM7L1"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const userId =
+  crypto.randomUUID?.() ||
+  Math.random().toString(36).slice(2);
+
+const userRef = ref(db, "online/" + userId);
+
+set(userRef, true);
+onDisconnect(userRef).remove();
+
+onValue(ref(db, "online"), (snapshot) => {
+  const users = snapshot.val() || {};
+  document.getElementById("online-count").textContent =
+    Object.keys(users).length;
+});
+
 
 /* ══════════════════════════════════════════
    MATRIX RAIN
