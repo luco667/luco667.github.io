@@ -53,25 +53,27 @@ gtag('config', 'G-1X06XFM7L1');
 /* ───────── VISITS ───────── */
 
 const visitsRef = ref(db, "stats/visits");
-
 const VISITOR_KEY = "portfolio_visited";
 
-if (!localStorage.getItem(VISITOR_KEY)) {
-  runTransaction(visitsRef, (current) => {
-    return (current || 0) + 1;
-  }).then(() => {
-    get(visitsRef).then((snapshot) => {
-      document.getElementById("visits").textContent = snapshot.val() || 0;
-    });
-  });
-  localStorage.setItem(VISITOR_KEY, "true");
-} else {
-  // visiteur déjà compté → lit directement
-  get(visitsRef).then((snapshot) => {
+async function updateVisits() {
+  const snapshot = await get(visitsRef);
+
+  // si déjà vu → juste affichage
+  if (localStorage.getItem(VISITOR_KEY)) {
     document.getElementById("visits").textContent = snapshot.val() || 0;
-  });
+    return;
+  }
+
+  // premier passage → incrément atomique
+  await runTransaction(visitsRef, (current) => (current || 0) + 1);
+
+  localStorage.setItem(VISITOR_KEY, "1");
+
+  const updated = await get(visitsRef);
+  document.getElementById("visits").textContent = updated.val() || 0;
 }
 
+updateVisits();
 
 get(visitsRef).then((snapshot) => {
 
