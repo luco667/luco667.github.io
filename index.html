@@ -2,14 +2,27 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy"
-content="
+<meta http-equiv="Content-Security-Policy" content="
 default-src 'self';
 img-src 'self' data:;
 style-src 'self' 'unsafe-inline';
-script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googletagmanager.com;
+script-src 'self' 'unsafe-inline'
+https://www.gstatic.com
+https://www.googletagmanager.com
+https://*.googleapis.com
+https://*.firebaseio.com
+https://*.firebasedatabase.app;
+script-src-elem 'self' 'unsafe-inline'
+https://www.gstatic.com
+https://www.googletagmanager.com
+https://*.googleapis.com
+https://*.firebasedatabase.app;
+connect-src 'self'
+https://*.firebaseio.com
+https://*.firebasedatabase.app
+https://*.googleapis.com
+wss://*.firebasedatabase.app;
 font-src 'self';
-connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.firebasedatabase.app https://www.gstatic.com wss://*.firebasedatabase.app;
 base-uri 'self';
 form-action 'self';
 ">
