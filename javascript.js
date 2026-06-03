@@ -26,6 +26,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+db._repoInternal?.repoInfo_.webSocketOnly = true;
+
 const userId = crypto.randomUUID();
 
 const userRef = ref(db, `online/${userId}`);
