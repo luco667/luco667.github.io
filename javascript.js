@@ -1,5 +1,4 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
 import {
   getDatabase,
   ref,
@@ -10,7 +9,7 @@ import {
   onDisconnect
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
-/* ───────── FIREBASE ONLINE ───────── */
+/* ───────── FIREBASE INIT ───────── */
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRj2MmECUYqeISLB-y4nR8Y0k3bv5q5g8",
@@ -26,61 +25,45 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const userId = crypto.randomUUID();
+/* ───────── ONLINE SYSTEM FIX ───────── */
 
+const userId = crypto.randomUUID();
 const userRef = ref(db, `online/${userId}`);
 
 set(userRef, {
-  connected: true,
   timestamp: Date.now()
 });
 
-onValue(ref(db, "online"), snapshot => {
+/* IMPORTANT : suppression auto si onglet fermé */
+onDisconnect(userRef).remove();
+
+/* affichage temps réel */
+onValue(ref(db, "online"), (snapshot) => {
   const users = snapshot.val() || {};
-  const onlineCount = document.getElementById("online-count");
-  if (onlineCount) {
-    onlineCount.textContent = Object.keys(users).length;
-  }
+  document.getElementById("online-count").textContent =
+    Object.keys(users).length;
 });
 
-
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-
-gtag('config', 'G-1X06XFM7L1');
-
-/* ───────── VISITS ───────── */
+/* ───────── VISITS FIX ───────── */
 
 const visitsRef = ref(db, "stats/visits");
 const VISITOR_KEY = "portfolio_visited";
 
 async function updateVisits() {
-  const snapshot = await get(visitsRef);
+  const alreadyVisited = localStorage.getItem(VISITOR_KEY);
 
-  // si déjà vu → juste affichage
-  if (localStorage.getItem(VISITOR_KEY)) {
-    document.getElementById("visits").textContent = snapshot.val() || 0;
-    return;
+  if (!alreadyVisited) {
+    await runTransaction(visitsRef, (current) => (current || 0) + 1);
+    localStorage.setItem(VISITOR_KEY, "1");
   }
 
-  // premier passage → incrément atomique
-  await runTransaction(visitsRef, (current) => (current || 0) + 1);
-
-  localStorage.setItem(VISITOR_KEY, "1");
-
-  const updated = await get(visitsRef);
-  document.getElementById("visits").textContent = updated.val() || 0;
-}
-
-updateVisits();
-
-get(visitsRef).then((snapshot) => {
+  const snapshot = await get(visitsRef);
 
   document.getElementById("visits").textContent =
     snapshot.val() || 0;
+}
 
-});
+updateVisits();
 /* ══════════════════════════════════════════
    MATRIX RAIN
 ══════════════════════════════════════════ */
