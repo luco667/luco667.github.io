@@ -11,21 +11,25 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
 /* ───────── VISITS ───────── */
+const db = getDatabase(app);
+const visitsRef = ref(db, "stats/visits");
 
 const VISITOR_KEY = "portfolio_visited";
 
 if (!localStorage.getItem(VISITOR_KEY)) {
 
-  runTransaction(ref(db, "stats/visits"), (current) => {
+  runTransaction(visitsRef, (current) => {
     return (current || 0) + 1;
   });
 
   localStorage.setItem(VISITOR_KEY, "true");
 }
 
-get(ref(db, "stats/visits")).then((snapshot) => {
+get(visitsRef).then((snapshot) => {
+
   document.getElementById("visits").textContent =
     snapshot.val() || 0;
+
 });
 
 /* ───────── FIREBASE ONLINE ───────── */
