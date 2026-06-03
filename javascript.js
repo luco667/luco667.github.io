@@ -10,7 +10,14 @@ import {
   onDisconnect
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
+import {
+  getDatabase,
+  connectDatabaseEmulator
+} from "firebase/database";
 
+const db = getDatabase();
+
+db._repoInternal?.repoInfo_.webSocketOnly = true;
 
 /* ───────── FIREBASE ONLINE ───────── */
 
