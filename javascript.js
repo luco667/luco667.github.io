@@ -13,14 +13,13 @@ import {
 fetch("https://api.countapi.xyz/hit/luco667.github.io/visits")
   .then(response => response.json())
   .then(data => {
-    const visits = document.getElementById("visits");
-    if (visits) visits.textContent = data.value;
+    console.log(data);
+    document.getElementById("visits").textContent = data.value;
   })
-  .catch(() => {
-    const visits = document.getElementById("visits");
-    if (visits) visits.textContent = "N/A";
+  .catch(error => {
+    console.error(error);
+    document.getElementById("visits").textContent = "N/A";
   });
-
 /* ───────── FIREBASE ONLINE ───────── */
 
 const firebaseConfig = {
