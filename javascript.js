@@ -35,17 +35,14 @@ set(userRef, {
   timestamp: Date.now()
 });
 
-onDisconnect(userRef).remove();
-
 onValue(ref(db, "online"), snapshot => {
   const users = snapshot.val() || {};
-
   const onlineCount = document.getElementById("online-count");
-
   if (onlineCount) {
     onlineCount.textContent = Object.keys(users).length;
   }
 });
+
 
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -60,13 +57,21 @@ const visitsRef = ref(db, "stats/visits");
 const VISITOR_KEY = "portfolio_visited";
 
 if (!localStorage.getItem(VISITOR_KEY)) {
-
   runTransaction(visitsRef, (current) => {
     return (current || 0) + 1;
+  }).then(() => {
+    get(visitsRef).then((snapshot) => {
+      document.getElementById("visits").textContent = snapshot.val() || 0;
+    });
   });
-
   localStorage.setItem(VISITOR_KEY, "true");
+} else {
+  // visiteur déjà compté → lit directement
+  get(visitsRef).then((snapshot) => {
+    document.getElementById("visits").textContent = snapshot.val() || 0;
+  });
 }
+
 
 get(visitsRef).then((snapshot) => {
 
