@@ -1,23 +1,3 @@
-fetch("https://api.countapi.xyz/hit/luco667.github.io/visits")
-  .then(response => response.json())
-  .then(data => {
-    document.getElementById("visits").textContent = data.value;
-  })
-  .catch(() => {
-    document.getElementById("visits").textContent = "N/A";
-  });
-
-const userRef = ref(db, "online/" + userId);
-
-set(userRef, true);
-onDisconnect(userRef).remove();
-
-onValue(ref(db, "online"), (snapshot) => {
-  const users = snapshot.val() || {};
-  document.getElementById("online-count").textContent =
-    Object.keys(users).length;
-});
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
@@ -27,6 +7,21 @@ import {
   onValue,
   onDisconnect
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+/* ───────── VISITS ───────── */
+
+fetch("https://api.countapi.xyz/hit/luco667.github.io/visits")
+  .then(response => response.json())
+  .then(data => {
+    const visits = document.getElementById("visits");
+    if (visits) visits.textContent = data.value;
+  })
+  .catch(() => {
+    const visits = document.getElementById("visits");
+    if (visits) visits.textContent = "N/A";
+  });
+
+/* ───────── FIREBASE ONLINE ───────── */
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRj2MmECUYqeISLB-y4nR8Y0k3bv5q5g8",
@@ -42,21 +37,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const userId =
-  crypto.randomUUID?.() ||
-  Math.random().toString(36).slice(2);
+const userId = crypto.randomUUID();
 
-const userRef = ref(db, "online/" + userId);
+const userRef = ref(db, `online/${userId}`);
 
-set(userRef, true);
-onDisconnect(userRef).remove();
-
-onValue(ref(db, "online"), (snapshot) => {
-  const users = snapshot.val() || {};
-  document.getElementById("online-count").textContent =
-    Object.keys(users).length;
+set(userRef, {
+  connected: true,
+  timestamp: Date.now()
 });
 
+onDisconnect(userRef).remove();
+
+onValue(ref(db, "online"), snapshot => {
+  const users = snapshot.val() || {};
+
+  const onlineCount = document.getElementById("online-count");
+
+  if (onlineCount) {
+    onlineCount.textContent = Object.keys(users).length;
+  }
+});
 
 /* ══════════════════════════════════════════
    MATRIX RAIN
