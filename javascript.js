@@ -57,6 +57,12 @@ onValue(ref(db, "online"), snapshot => {
   }
 });
 
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-1X06XFM7L1');
+
 /* ══════════════════════════════════════════
    MATRIX RAIN
 ══════════════════════════════════════════ */
