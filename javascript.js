@@ -28,28 +28,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-/* ───────── VISITS ───────── */
-
-const visitsRef = ref(db, "stats/visits");
-
-const VISITOR_KEY = "portfolio_visited";
-
-if (!localStorage.getItem(VISITOR_KEY)) {
-
-  runTransaction(visitsRef, (current) => {
-    return (current || 0) + 1;
-  });
-
-  localStorage.setItem(VISITOR_KEY, "true");
-}
-
-get(visitsRef).then((snapshot) => {
-
-  document.getElementById("visits").textContent =
-    snapshot.val() || 0;
-
-});
-
 const userId = crypto.randomUUID();
 
 const userRef = ref(db, `online/${userId}`);
@@ -77,6 +55,27 @@ gtag('js', new Date());
 
 gtag('config', 'G-1X06XFM7L1');
 
+/* ───────── VISITS ───────── */
+
+const visitsRef = ref(db, "stats/visits");
+
+const VISITOR_KEY = "portfolio_visited";
+
+if (!localStorage.getItem(VISITOR_KEY)) {
+
+  runTransaction(visitsRef, (current) => {
+    return (current || 0) + 1;
+  });
+
+  localStorage.setItem(VISITOR_KEY, "true");
+}
+
+get(visitsRef).then((snapshot) => {
+
+  document.getElementById("visits").textContent =
+    snapshot.val() || 0;
+
+});
 /* ══════════════════════════════════════════
    MATRIX RAIN
 ══════════════════════════════════════════ */
