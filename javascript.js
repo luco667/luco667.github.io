@@ -3,6 +3,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebas
 import {
   getDatabase,
   ref,
+  runTransaction,
+  get,
   set,
   onValue,
   onDisconnect
@@ -10,16 +12,22 @@ import {
 
 /* ───────── VISITS ───────── */
 
-fetch("https://api.countapi.xyz/hit/luco667.github.io/visits")
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    document.getElementById("visits").textContent = data.value;
-  })
-  .catch(error => {
-    console.error(error);
-    document.getElementById("visits").textContent = "N/A";
+const VISITOR_KEY = "portfolio_visited";
+
+if (!localStorage.getItem(VISITOR_KEY)) {
+
+  runTransaction(ref(db, "stats/visits"), (current) => {
+    return (current || 0) + 1;
   });
+
+  localStorage.setItem(VISITOR_KEY, "true");
+}
+
+get(ref(db, "stats/visits")).then((snapshot) => {
+  document.getElementById("visits").textContent =
+    snapshot.val() || 0;
+});
+
 /* ───────── FIREBASE ONLINE ───────── */
 
 const firebaseConfig = {
