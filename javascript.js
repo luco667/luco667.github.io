@@ -2,14 +2,15 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebas
 import {
   getDatabase,
   ref,
-  runTransaction,
-  get,
   set,
+  get,
+  update,
   onValue,
-  onDisconnect
+  onDisconnect,
+  runTransaction
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
-/* ───────── FIREBASE INIT ───────── */
+/* ───────── INIT FIREBASE ───────── */
 
 const firebaseConfig = {
   apiKey: "AIzaSyBRj2MmECUYqeISLB-y4nR8Y0k3bv5q5g8",
@@ -18,52 +19,118 @@ const firebaseConfig = {
   projectId: "portfolio-60614",
   storageBucket: "portfolio-60614.firebasestorage.app",
   messagingSenderId: "296651632810",
-  appId: "1:296651632810:web:bcbb692921ee27497ce0d3",
-  measurementId: "G-1X06XFM7L1"
+  appId: "1:296651632810:web:bcbb692921ee27497ce0d3"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-/* ───────── ONLINE SYSTEM FIX ───────── */
+/* ───────── IDS ───────── */
 
-const userId = crypto.randomUUID();
-const userRef = ref(db, `online/${userId}`);
+const sessionId = crypto.randomUUID();
 
-set(userRef, {
-  timestamp: Date.now()
-});
-
-/* IMPORTANT : suppression auto si onglet fermé */
-onDisconnect(userRef).remove();
-
-/* affichage temps réel */
-onValue(ref(db, "online"), (snapshot) => {
-  const users = snapshot.val() || {};
-  document.getElementById("online-count").textContent =
-    Object.keys(users).length;
-});
-
-/* ───────── VISITS FIX ───────── */
-
-const visitsRef = ref(db, "stats/visits");
-const VISITOR_KEY = "portfolio_visited";
-
-async function updateVisits() {
-  const alreadyVisited = localStorage.getItem(VISITOR_KEY);
-
-  if (!alreadyVisited) {
-    await runTransaction(visitsRef, (current) => (current || 0) + 1);
-    localStorage.setItem(VISITOR_KEY, "1");
-  }
-
-  const snapshot = await get(visitsRef);
-
-  document.getElementById("visits").textContent =
-    snapshot.val() || 0;
+/* hash simple navigateur (pas IP, compatible GitHub Pages) */
+async function getVisitorHash() {
+  const raw = navigator.userAgent + screen.width + screen.height;
+  const buf = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(raw)
+  );
+  return [...new Uint8Array(buf)]
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
-updateVisits();
+const onlineRef = ref(db, `analytics/online/${sessionId}`);
+const sessionRef = ref(db, `analytics/sessions/${sessionId}`);
+const visitsRef = ref(db, `analytics/visits_total`);
+
+/* ───────── VISITE UNIQUE ───────── */
+
+async function registerVisit() {
+  const visitorHash = await getVisitorHash();
+  const visitorRef = ref(db, `analytics/unique_visitors/${visitorHash}`);
+
+  const snap = await get(visitorRef);
+
+  if (!snap.exists()) {
+    await set(visitorRef, {
+      firstSeen: Date.now()
+    });
+
+    await runTransaction(visitsRef, v => (v || 0) + 1);
+  }
+}
+
+/* ───────── SESSION ───────── */
+
+async function startSession() {
+  await set(sessionRef, {
+    start: Date.now(),
+    page: location.href,
+    active: true
+  });
+
+  onDisconnect(sessionRef).update({
+    end: Date.now(),
+    active: false
+  });
+}
+
+/* ───────── ONLINE HEARTBEAT ───────── */
+
+function startHeartbeat() {
+  const heartbeat = () => {
+    set(onlineRef, {
+      lastPing: Date.now()
+    });
+  };
+
+  heartbeat();
+
+  setInterval(heartbeat, 8000);
+
+  onDisconnect(onlineRef).remove();
+}
+
+/* ───────── CLEAN ONLINE DISPLAY ───────── */
+
+function listenOnline() {
+  const onlineRoot = ref(db, "analytics/online");
+
+  onValue(onlineRoot, snapshot => {
+    const data = snapshot.val() || {};
+    const now = Date.now();
+
+    // filtre clients actifs < 20 sec
+    const active = Object.values(data).filter(
+      u => now - u.lastPing < 20000
+    );
+
+    const el = document.getElementById("online-count");
+    if (el) el.textContent = active.length;
+  });
+}
+
+/* ───────── VISITS DISPLAY ───────── */
+
+function listenVisits() {
+  const el = document.getElementById("visits");
+
+  onValue(visitsRef, snap => {
+    if (el) el.textContent = snap.val() || 0;
+  });
+}
+
+/* ───────── INIT ───────── */
+
+(async function init() {
+  await registerVisit();
+  await startSession();
+  startHeartbeat();
+  listenOnline();
+  listenVisits();
+})();
 /* ══════════════════════════════════════════
    MATRIX RAIN
 ══════════════════════════════════════════ */
