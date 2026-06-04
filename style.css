@@ -816,7 +816,7 @@ footer{
 /* ── TABLET ── */
 @media screen and (max-width: 900px) {
   header { padding: 60px 20px 30px; }
-  section { padding: 60px 18px; }
+  section { padding: 40px 18px; }
   .card, .terminal { padding: 22px; }
   .skills-container {display: flex;flex-wrap: wrap;gap: 12px;margin-top: 20px;}
   .skill-box {padding: 10px 16px;border: 1px solid var(--green);background: rgba(0, 255, 65, 0.08);color: var(--green);border-radius: 8px;font-size: 14px;}
