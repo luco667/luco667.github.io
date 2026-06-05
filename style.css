@@ -834,7 +834,8 @@ footer{
 @media screen and (max-width: 768px) {
   body { cursor: default; }
   header { padding: 5px 15px; }
-  header h1 {font-size: clamp(2rem, 12vw, 3.5rem);line-height: 1;word-break: break-word; }
+  header h1 {font-size: clamp(2rem, 12vw, 3.5rem);line-height: 1;word-break: break-word; margin-top:15px }
+  .work-exp { margin-top:15px; margin-bottom:15px; }
   header .subtitle {padding: 0 10px;font-size: 0.75rem; line-height: 1.6; letter-spacing: 0.08em;}
   section { padding: 45px 14px; }
   section h2 { margin-bottom: 20px; font-size: 1.6rem; }
@@ -854,8 +855,8 @@ footer{
 /* ── SMALL PHONES ── */
 @media screen and (max-width: 480px) {
   header { padding:5px 15px; }
-  work-exp { margin-top:15px; margin-bottom:15px; }
-  header h1 { font-size: 2rem; }
+  .work-exp { margin-top:15px; margin-bottom:15px; }
+  header h1 { font-size: 2rem; margin-top:15px}
   header .subtitle { margin-top: 8px; font-size: 0.68rem; }
   section { padding: 15px 12px; }
   section h2 { font-size: 1.4rem; }
@@ -870,14 +871,11 @@ footer{
 
 /* ── VERY SMALL ── */
 @media screen and (max-width: 340px) {
-  header h1 { font-size: 1.6rem; }
+  header h1 { font-size: 1.6rem; margin-top:15px }
+  .work-exp { margin-top:15px; margin-bottom:15px; }
   .card p, #terminal-output { font-size: 0.72rem;overflow: hidden }
   .skills{display:grid;grid-template-columns:repeat(1, 1fr);gap:10px;padding:18px;align-items:center;
   }
-}
-/* tablette */
-@media (max-width:900px){
-
 }
 
 /* mobile */
