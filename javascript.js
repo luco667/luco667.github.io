@@ -534,6 +534,7 @@ const PROJECTS = [
     .projects-scroll::-webkit-scrollbar { display: none; }
 
     .cat-card {
+      font-family:'Minecraft', monospace;
       min-width: 250px;
       max-width: 250px;
       border: 1px solid rgba(0,255,65,0.2);
