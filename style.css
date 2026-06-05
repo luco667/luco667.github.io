@@ -525,8 +525,6 @@ section {
 section h2 {
   margin-bottom: 30px;
 
-  font-family: 'Minecraft', monospace;
-
   font-size: 2rem;
 
   color: var(--green);
@@ -716,6 +714,8 @@ section h2 {
 
 #projects .card {
   margin-bottom: 16px;
+
+  font-family: 'Minecraft', monospace;
 }
 
 
