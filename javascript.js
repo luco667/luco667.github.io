@@ -585,7 +585,7 @@ const PROJECTS = [
     }
     
     .cat-name{
-      font-family:'Share Tech Mono', monospace;
+      font-family:'Minecraft', monospace;
     
       font-size:.88rem;
     
@@ -638,7 +638,7 @@ const PROJECTS = [
       background: #020d02;
     }
     .modal-title {
-      font-family: 'VT323', monospace;
+      font-family: 'Minecraft', monospace;
       font-size: 1.6rem;
       color: var(--modal-color,#00ff41);
       text-shadow: 0 0 12px var(--modal-color,#00ff41);
@@ -648,7 +648,7 @@ const PROJECTS = [
       background: none;
       border: 1px solid rgba(255,255,255,0.15);
       color: #666;
-      font-family: 'Share Tech Mono', monospace;
+      font-family: 'Minecraft', monospace;
       font-size: 1rem;
       width: 32px; height: 32px;
       cursor: pointer;
@@ -670,7 +670,7 @@ const PROJECTS = [
       background: rgba(255,255,255,0.03);
     }
     .proj-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
-    .proj-name { font-family: 'Share Tech Mono', monospace; font-size: 0.95rem; color: var(--modal-color,#00ff41); letter-spacing: 0.05em; }
+    .proj-name { font-family: 'Minecraft', monospace; font-size: 0.95rem; color: var(--modal-color,#00ff41); letter-spacing: 0.05em; }
     .proj-name a { color: inherit; text-decoration: none; }
     .proj-name a:hover { text-decoration: underline; }
     .proj-meta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
