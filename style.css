@@ -508,6 +508,7 @@ nav a.active::after{
    margin: 10px 15px;
 }
 
+
 /* ─────────────────────────────────────────
    SECTIONS
 ───────────────────────────────────────── */
@@ -716,6 +717,9 @@ section h2 {
   margin-bottom: 16px;
 }
 
+.projects-grid {
+   font-family: 'Minecraft', monospace;
+}
 
 
 /* ─────────────────────────────────────────
