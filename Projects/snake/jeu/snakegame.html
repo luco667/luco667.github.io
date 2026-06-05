@@ -76,93 +76,104 @@ br {
 } /*give a texture to redbutton when they're clicked*/
 
 .keys {
-  /* this is the box contains the arrow button*/
-  font-family: "Lato", sans-serif;
-  text-align: center;
   width: 235px;
-  box-sizing: border-box;
   height: 200px;
-} /* stylize and place .keys class*/
-
-.keysplace {/*replace keys in box*/
-display: block;
-padding: 29.5px;
-padding-left: 42.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.keysplace {
+  display: grid;
+  grid-template-columns: repeat(3, 40px);
+  grid-template-rows: repeat(3, 40px);
+  gap: 0;
+  padding: 0;
+}
 
 .box {
-  /* this box contains the outlines of the keys*/
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  line-height: 25px;
+  width: 40px;
+  height: 40px;
   background: rgb(24, 23, 23);
-  color: rgb(78, 78, 78);
   border-right: 5px solid #181616;
   border-bottom: 5px solid #131212;
   border-left: 5px solid #161515;
   border-top: 5px solid #161515;
-  display: inline-table;
-  transition: all 0.1s linear;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
   user-select: none;
-  background-position: relative;
+  transition: all 0.1s linear;
 }
 
 .box:active {
   background: #555;
-} /*give a texture to box button when they're clicked*/
+}
 
-.chevron::before {/* give a texture of arrows to border*/
+/* Positionnement fixe */
+.up {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.middle {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.right {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.down {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+/* Chevron parfaitement centré */
+.chevron::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
   border-style: solid;
   border-width: 4px 4px 0 0;
-  content: "";
-  display: table inline;
-  height: 10px;
-  width: 10px;
-  top: 40px;
-  position: relative;
+}
+
+.chevron.up::before {
   transform: rotate(-45deg);
-  margin-bottom: 5px;
+}
+
+.chevron.right::before {
+  transform: rotate(45deg);
 }
 
 .chevron.down::before {
   transform: rotate(135deg);
-  top: -1px;
-}/* link the arrow with the button box*/
-
-.chevron.right::before {
-  transform: rotate(45deg);
-  top: 1.5px;
-  left: -1px;
-}/* link the arrow with the button box*/
+}
 
 .chevron.left::before {
   transform: rotate(225deg);
-  top: 1.5px;
-  left: 1px;
-}/* link the arrow with the button box*/
+}
 
-.chevron.up::before {
- top: 3px;
-}/* link the arrow with the button box*/
-
-.color.middle::before {
-  content: "";
-  position: relative;
-}/* link the square with the button box*/
-
+/* Losange central */
 .color::before {
-  display: inline-table;
-  cursor: pointer;
-  text-align: center;
-  height: 10px;
-  line-height: 10px;
-  width: 10px;
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
   background: rgb(77, 70, 70);
-  transform: rotate(45deg); /* Internet Explorer */
-}/*make a square*/
+  transform: rotate(45deg);
+}
 
 #game-container {
   display: flex;
@@ -244,43 +255,29 @@ padding-left: 42.5px;
 
           <div class="keys">
 
-            <table class="keysplace">
+            <div class="keysplace">
 
-              <thead>
-                <td>
-                  <a class="up box" onclick="Snake.action('up')">
-                    <i class="chevron up"></i>
-                  </a>
-                </td>
-              </thead>
+  <a class="up box" onclick="Snake.action('up')">
+    <i class="chevron up"></i>
+  </a>
 
-              <tbody>
-                <td>
+  <a class="left box" onclick="Snake.action('left')">
+    <i class="chevron left"></i>
+  </a>
 
-                  <a class="left box" onclick="Snake.action('left')">
-                    <i class="chevron left"></i>
-                  </a>
+  <a class="middle box" onclick="Snake.middlebut()">
+    <i class="color middle"></i>
+  </a>
 
-                  <a class="middle box" onclick="Snake.middlebut()">
-                    <i class="color middle"></i>
-                  </a>
+  <a class="right box" onclick="Snake.action('right')">
+    <i class="chevron right"></i>
+  </a>
 
-                  <a class="right box" onclick="Snake.action('right')">
-                    <i class="chevron right"></i>
-                  </a>
+  <a class="down box" onclick="Snake.action('down')">
+    <i class="chevron down"></i>
+  </a>
 
-                </td>
-              </tbody>
-
-              <tfoot>
-                <td>
-                  <a class="down box" onclick="Snake.action('down')">
-                    <i class="chevron down"></i>
-                  </a>
-                </td>
-              </tfoot>
-
-            </table>
+</div>
 
           </div>
 
