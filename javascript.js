@@ -514,9 +514,9 @@ const PROJECTS = [
 ══════════════════════════════════════════ */
 (function renderProjects() {
   const STATUS_LABEL = {
-    done:     { text: 'done',        color: '#00ff41' },
-    wip:      { text: 'in progress', color: '#ffcc00' },
-    archived: { text: 'archived',    color: '#888'    },
+    done:     { text: 'done',        color: '#00ff41', family:'Minecraft'},
+    wip:      { text: 'in progress', color: '#ffcc00', family:'Minecraft'},
+    archived: { text: 'archived',    color: '#888', family:'Minecraft'},
   };
 
   /* ── Styles injectés ── */
