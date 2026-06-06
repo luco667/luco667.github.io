@@ -44,15 +44,26 @@ const sessionRef = ref(db, `analytics/sessions/${sessionId}`);
 const visitsRef  = ref(db, `analytics/visits_total`);
 
 /* ═══════════════════════════════════════════
-   GÉOLOCALISATION — 0 requête, 0 dépendance
+   GÉOLOCALISATION — timezone + langue + IP
    ─────────────────────────────────────────
-   Basé sur navigator.language + Intl timezone.
-   100% côté client, compatible GitHub Pages,
-   aucune API externe, aucun problème RGPD.
-   Timezone → pays déduit via table IANA.
+   IP récupérée via ifconfig.me (open source).
+   Combinée avec timezone IANA + langue nav.
+   ⚠ Mentionner la collecte d'IP dans ta page RGPD.
 ═══════════════════════════════════════════ */
 
-function getGeoInfo() {
+async function getGeoInfo() {
+  // Récupération IP via ifconfig.me
+  let ip = null;
+  try {
+    const res = await fetch("https://ifconfig.me/ip", {
+      signal: AbortSignal.timeout(4000)
+    });
+    if (res.ok) ip = (await res.text()).trim();
+  } catch {
+    // silencieux si bloqué ou offline
+  }
+
+
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
   const language = navigator.language || navigator.languages?.[0] || "";
 
@@ -96,7 +107,7 @@ function getGeoInfo() {
   const countryCode = TZ_TO_COUNTRY[timezone] || language.split("-")[1] || "??";
   const country     = COUNTRY_NAMES[countryCode] || "Unknown";
 
-  return { countryCode, country, timezone, language };
+  return { countryCode, country, timezone, language, ip };
 }
 
 /* ═══════════════════════════════════════════
@@ -109,7 +120,7 @@ async function registerVisit() {
   const snap        = await get(visitorRef);
 
   if (!snap.exists()) {
-    const geo = getGeoInfo();  // synchrone, pas d'await
+    const geo = await getGeoInfo();
 
     await set(visitorRef, {
       firstSeen: Date.now(),
@@ -117,6 +128,7 @@ async function registerVisit() {
       country:     geo.country,
       timezone:    geo.timezone,
       language:    geo.language,
+      ...(geo.ip && { ip: geo.ip }),
     });
 
     await runTransaction(visitsRef, v => (v || 0) + 1);
