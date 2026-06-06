@@ -36,15 +36,18 @@
   <meta http-equiv="Content-Security-Policy"
         content="
           default-src   'self';
-          script-src    'self' https://www.gstatic.com;
+          script-src    'self' https://www.gstatic.com https://www.googletagmanager.com 'unsafe-inline';
           style-src     'self' 'unsafe-inline';
-          img-src       'self' data:;
+          img-src       'self' data: https://www.google-analytics.com;
           connect-src   'self'
                         https://*.firebaseio.com
                         https://*.firebasedatabase.app
                         wss://*.firebaseio.com
                         wss://*.firebasedatabase.app
-                        https://ifconfig.me;
+                        https://ifconfig.me
+                        https://www.google-analytics.com
+                        https://region1.google-analytics.com
+                        https://www.googletagmanager.com;
           frame-ancestors 'none';
           base-uri      'self';
           form-action   'none';
@@ -68,6 +71,15 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="../icons/icon.ico" type="image/x-icon">
   <link rel="next" href="../jeu/snake.html">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1X06XFM7L1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1X06XFM7L1');
+  </script>
 </head>
 
 <body>
