@@ -1,166 +1,323 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head><!-- head -->
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lucas Le Gueut — Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="../icons/icon.ico" type="image/x-icon" />
-  <link rel="next" href="../jeu/snake.html" />
-</head>
-<body><!-- body -->
-<canvas id="matrix"></canvas>
-<header>
-<!-- Title -->
-  <div>
-  <h1>Lucas Le Gueut</h1>
-  <p class="subtitle">Cybersecurity &amp; Electronics student</p>
-  </div>
-<!-- Workexperience -->
-  <div class="work-exp">
-  <div class="work-track">
-<!-- boucle 1 -->
-    <div class="work-item"><!---->
-        <div class="work-icon">
-    <img src="../icons/disney.ico" alt="network"></div>
-      <span class="work-role">DSI Disneyland Paris</span><span class="work-sep">|</span>
-      <span>Internship</span><span class="work-sep">|</span>
-      <span class="work-date">2017</span></div>
-    <div class="work-item"><!---->
-        <div class="work-icon">
-    <img src="../icons/WF.ico" alt="network"></div>
-      <span class="work-role"><a href="https://www.societe.com/societe/wonder-france-828086223.html" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Wonder France</a></span><span class="work-sep">|</span>
-      <span>Multi-skilled employee</span><span class="work-sep">|</span>
-      <span class="work-date">2019</span></div>
-    <div class="work-item"><!---->
-        <div class="work-icon">
-    <img src="../icons/Krys.ico" alt="network"></div>
-      <span class="work-role"><a href="https://www.krys.com/opticien/france/seine-et-marne/opticien-crecy-la-chapelle/crecylachapelle-ruedebouleurs" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Opticien Krys</a></span><span class="work-sep">|</span>
-      <span>Multi-skilled employee</span><span class="work-sep">|</span>
-      <span class="work-date">2021</span></div><!---->
-    <div class="work-item"><!---->
-        <div class="work-icon">
-    <img src="../icons/Syn.ico" alt="network"></div>
-      <span class="work-role"><a href="https://www.synergie.fr/trouver-une-agence/agence-synergie-lagny-sur-marne" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Synergie Disneyland Paris</a></span><span class="work-sep">|</span>
-      <span>Agency assignment</span><span class="work-sep">|</span>
-      <span class="work-date">2021</span></div>
-    <div class="work-item"><!---->
-        <div class="work-icon">
-    <img src="../icons/champ.ico" alt="network"></div>
-      <span class="work-role"><a href="https://champagne-jeromeblin.fr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Jérôme Blin Viticulture</a></span><span class="work-sep">|</span>
-      <span>Multi-skilled employee</span><span class="work-sep">|</span>
-      <span class="work-date">2022</span></div>
-    <div class="work-item"><!---->
-        <div class="work-icon">
-    <img src="../icons/Veolia.ico" alt="network"></div>
-      <span class="work-role">DSI <a href="https://agence.sarp-assainissement.fr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">SARP</a></span><span class="work-sep">|</span>
-      <span><a href="../Projects/Rapport.Activités.Lucas.Le.Gueut.pdf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Internship</a></span><span class="work-sep">|</span>
-      <span class="work-date">2024</span>
-    </div><!---->
-    <div class="work-item">
-        <div class="work-icon">
-    <img src="../icons/Fran.ico" alt="network"></div>
-      <span class="work-role"><a href="https://www.franprix.fr/magasins/4089/bailly-romainvilliers-1-rue-du-pre-des-merlans" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Franprix</a></span><span class="work-sep">|</span>
-      <span>Multi-skilled employee</span><span class="work-sep">|</span>
-      <span class="work-date">2025</span></div>
 
-<!-- DUPLICATION POUR LOOP INFINIE -->
-    <div class="work-item"><!---->
-        <div class="work-icon">
-    <img src="../icons/disney.ico" alt="network"></div>
-      <span class="work-role">DSI Disneyland Paris</span><span class="work-sep">|</span>
-      <span>Internship</span><span class="work-sep">|</span>
-      <span class="work-date">2017</span></div>
-    <div class="work-item"><!---->
-        <div class="work-icon">
-    <img src="../icons/WF.ico" alt="network"></div>
-      <span class="work-role"><a href="https://www.societe.com/societe/wonder-france-828086223.html" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Wonder France</a></span><span class="work-sep">|</span>
-      <span>Multi-skilled employee</span><span class="work-sep">|</span>
-      <span class="work-date">2019</span></div>
-    <div class="work-item"><!---->
-        <div class="work-icon">
-    <img src="../icons/Krys.ico" alt="network"></div>
-      <span class="work-role"><a href="https://www.krys.com/opticien/france/seine-et-marne/opticien-crecy-la-chapelle/crecylachapelle-ruedebouleurs" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Opticien Krys</a></span><span class="work-sep">|</span>
-      <span>Multi-skilled employee</span><span class="work-sep">|</span>
-      <span class="work-date">2021</span></div><!---->
-    <div class="work-item"><!---->
-        <div class="work-icon">
-    <img src="../icons/Syn.ico" alt="network"></div>
-      <span class="work-role"><a href="https://www.synergie.fr/trouver-une-agence/agence-synergie-lagny-sur-marne" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Synergie Disneyland Paris</a></span><span class="work-sep">|</span>
-      <span>Agency assignment</span><span class="work-sep">|</span>
-      <span class="work-date">2021</span></div>
-    <div class="work-item"><!---->
-        <div class="work-icon">
-    <img src="../icons/champ.ico" alt="network"></div>
-      <span class="work-role"><a href="https://champagne-jeromeblin.fr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Jérôme Blin Viticulture</a></span><span class="work-sep">|</span>
-      <span>Multi-skilled employee</span><span class="work-sep">|</span>
-      <span class="work-date">2022</span></div>
-    <div class="work-item"><!---->
-        <div class="work-icon">
-    <img src="../icons/Veolia.ico" alt="network"></div>
-      <span class="work-role">DSI <a href="https://agence.sarp-assainissement.fr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">SARP</a></span><span class="work-sep">|</span>
-      <span><a href="../Projects/Rapport.Activités.Lucas.Le.Gueut.pdf" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Internship</a></span><span class="work-sep">|</span>
-      <span class="work-date">2024</span>
-    </div><!---->
-    <div class="work-item">
-        <div class="work-icon">
-    <img src="../icons/Fran.ico" alt="network"></div>
-      <span class="work-role"><a href="https://www.franprix.fr/magasins/4089/bailly-romainvilliers-1-rue-du-pre-des-merlans" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Franprix</a></span><span class="work-sep">|</span>
-      <span>Multi-skilled employee</span><span class="work-sep">|</span>
-      <span class="work-date">2025</span></div>
-<!-- FIN POUR LOOP INFINIE -->
+  <!-- ═══════════════════════════════════════════════
+       SÉCURITÉ — En-têtes via balises meta
+       (à dupliquer côté serveur via HTTP headers)
+  ════════════════════════════════════════════════ -->
+
+  <!--
+    Content-Security-Policy :
+    - default-src 'self'              → seules les ressources du même domaine
+    - script-src 'self'               → pas de scripts inline ni CDN non listés
+    - style-src  'self'               → pas de styles inline
+    - img-src    'self' data:         → images locales + data URI (favicon)
+    - connect-src 'self'              → XHR/fetch limités au même domaine
+    - frame-ancestors 'none'          → bloque le clickjacking (remplace X-Frame-Options)
+    - base-uri   'self'               → empêche l'injection de <base> malicieuse
+    - form-action 'none'              → aucun formulaire ne peut soumettre à l'extérieur
+    ATTENTION : si tu charges des polices ou libs CDN, ajoute-les explicitement.
+  -->
+  <meta http-equiv="Content-Security-Policy"
+        content="
+          default-src 'self';
+          script-src  'self';
+          style-src   'self';
+          img-src     'self' data:;
+          connect-src 'self';
+          frame-ancestors 'none';
+          base-uri    'self';
+          form-action 'none';
+        ">
+
+  <!-- Bloque le clickjacking pour navigateurs anciens -->
+  <meta http-equiv="X-Frame-Options" content="DENY">
+
+  <!-- Empêche le MIME-sniffing -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <!-- Referrer minimal : n'envoie l'URL d'origine qu'aux mêmes origines -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Limite l'indexation des données personnelles -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Supprime la détection automatique des numéros de téléphone -->
+  <meta name="format-detection" content="telephone=no">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="../icons/icon.ico" type="image/x-icon">
+  <link rel="next" href="../jeu/snake.html">
+</head>
+
+<body>
+<canvas id="matrix"></canvas>
+
+<header>
+  <!-- Titre -->
+  <div>
+    <h1>Lucas Le Gueut</h1>
+    <p class="subtitle">Cybersecurity &amp; Electronics student</p>
   </div>
-</div>
+
+  <!-- Expériences professionnelles — scroll infini -->
+  <div class="work-exp" aria-label="Expériences professionnelles">
+    <div class="work-track" aria-hidden="true"><!-- aria-hidden car doublon décoratif -->
+
+      <!-- ─── Boucle principale ─── -->
+      <div class="work-item">
+        <div class="work-icon"><img src="../icons/disney.ico" alt="Logo Disneyland Paris" width="20" height="20"></div>
+        <span class="work-role">DSI Disneyland Paris</span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span>Internship</span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span class="work-date">2017</span>
+      </div>
+
+      <div class="work-item">
+        <div class="work-icon"><img src="../icons/WF.ico" alt="Logo Wonder France" width="20" height="20"></div>
+        <span class="work-role">
+          <a href="https://www.societe.com/societe/wonder-france-828086223.html"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Wonder France</a>
+        </span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span>Multi-skilled employee</span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span class="work-date">2019</span>
+      </div>
+
+      <div class="work-item">
+        <div class="work-icon"><img src="../icons/Krys.ico" alt="Logo Opticien Krys" width="20" height="20"></div>
+        <span class="work-role">
+          <a href="https://www.krys.com/opticien/france/seine-et-marne/opticien-crecy-la-chapelle/crecylachapelle-ruedebouleurs"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Opticien Krys</a>
+        </span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span>Multi-skilled employee</span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span class="work-date">2021</span>
+      </div>
+
+      <div class="work-item">
+        <div class="work-icon"><img src="../icons/Syn.ico" alt="Logo Synergie" width="20" height="20"></div>
+        <span class="work-role">
+          <a href="https://www.synergie.fr/trouver-une-agence/agence-synergie-lagny-sur-marne"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Synergie Disneyland Paris</a>
+        </span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span>Agency assignment</span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span class="work-date">2021</span>
+      </div>
+
+      <div class="work-item">
+        <div class="work-icon"><img src="../icons/champ.ico" alt="Logo Jérôme Blin Viticulture" width="20" height="20"></div>
+        <span class="work-role">
+          <a href="https://champagne-jeromeblin.fr"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Jérôme Blin Viticulture</a>
+        </span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span>Multi-skilled employee</span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span class="work-date">2022</span>
+      </div>
+
+      <div class="work-item">
+        <div class="work-icon"><img src="../icons/Veolia.ico" alt="Logo SARP" width="20" height="20"></div>
+        <span class="work-role">DSI
+          <a href="https://agence.sarp-assainissement.fr"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">SARP</a>
+        </span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span>
+          <a href="../Projects/Rapport.Activités.Lucas.Le.Gueut.pdf"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Internship</a>
+        </span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span class="work-date">2024</span>
+      </div>
+
+      <div class="work-item">
+        <div class="work-icon"><img src="../icons/Fran.ico" alt="Logo Franprix" width="20" height="20"></div>
+        <span class="work-role">
+          <a href="https://www.franprix.fr/magasins/4089/bailly-romainvilliers-1-rue-du-pre-des-merlans"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Franprix</a>
+        </span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span>Multi-skilled employee</span>
+        <span class="work-sep" aria-hidden="true">|</span>
+        <span class="work-date">2025</span>
+      </div>
+
+      <!-- ─── Duplication pour animation loop infinie (décoratif uniquement) ─── -->
+      <div class="work-item" aria-hidden="true">
+        <div class="work-icon"><img src="../icons/disney.ico" alt="" width="20" height="20"></div>
+        <span class="work-role">DSI Disneyland Paris</span>
+        <span class="work-sep">|</span><span>Internship</span>
+        <span class="work-sep">|</span><span class="work-date">2017</span>
+      </div>
+      <div class="work-item" aria-hidden="true">
+        <div class="work-icon"><img src="../icons/WF.ico" alt="" width="20" height="20"></div>
+        <span class="work-role">Wonder France</span>
+        <span class="work-sep">|</span><span>Multi-skilled employee</span>
+        <span class="work-sep">|</span><span class="work-date">2019</span>
+      </div>
+      <div class="work-item" aria-hidden="true">
+        <div class="work-icon"><img src="../icons/Krys.ico" alt="" width="20" height="20"></div>
+        <span class="work-role">Opticien Krys</span>
+        <span class="work-sep">|</span><span>Multi-skilled employee</span>
+        <span class="work-sep">|</span><span class="work-date">2021</span>
+      </div>
+      <div class="work-item" aria-hidden="true">
+        <div class="work-icon"><img src="../icons/Syn.ico" alt="" width="20" height="20"></div>
+        <span class="work-role">Synergie Disneyland Paris</span>
+        <span class="work-sep">|</span><span>Agency assignment</span>
+        <span class="work-sep">|</span><span class="work-date">2021</span>
+      </div>
+      <div class="work-item" aria-hidden="true">
+        <div class="work-icon"><img src="../icons/champ.ico" alt="" width="20" height="20"></div>
+        <span class="work-role">Jérôme Blin Viticulture</span>
+        <span class="work-sep">|</span><span>Multi-skilled employee</span>
+        <span class="work-sep">|</span><span class="work-date">2022</span>
+      </div>
+      <div class="work-item" aria-hidden="true">
+        <div class="work-icon"><img src="../icons/Veolia.ico" alt="" width="20" height="20"></div>
+        <span class="work-role">DSI SARP</span>
+        <span class="work-sep">|</span><span>Internship</span>
+        <span class="work-sep">|</span><span class="work-date">2024</span>
+      </div>
+      <div class="work-item" aria-hidden="true">
+        <div class="work-icon"><img src="../icons/Fran.ico" alt="" width="20" height="20"></div>
+        <span class="work-role">Franprix</span>
+        <span class="work-sep">|</span><span>Multi-skilled employee</span>
+        <span class="work-sep">|</span><span class="work-date">2025</span>
+      </div>
+
+    </div><!-- /work-track -->
+  </div><!-- /work-exp -->
 </header>
-  <nav><!-- navbar -->
-    <a href="#about">about</a>
-    <a href="#skills">skills</a>
-    <a href="#projects">projects</a>
-    <a href="#contact">contact</a></nav>
-<div class="stats"><!-- stats -->
+
+<nav aria-label="Navigation principale">
+  <a href="#about">about</a>
+  <a href="#skills">skills</a>
+  <a href="#projects">projects</a>
+  <a href="#contact">contact</a>
+</nav>
+
+<div class="stats" aria-live="polite">
   <span>Visits: <span id="visits">0</span></span>
-  <span>|</span>
-  <span>Online: <span id="online-count">0</span></span></div>
-<section id="about"><!-- about -->
+  <span aria-hidden="true">|</span>
+  <span>Online: <span id="online-count">0</span></span>
+</div>
+
+<section id="about">
   <h2>&#10148; about</h2>
-  <div class="terminal"><!-- terminal -->
-    <div id="terminal-output"></div></div>
+  <div class="terminal" role="log" aria-live="polite" aria-label="Terminal interactif">
+    <div id="terminal-output"></div>
+  </div>
 </section>
-<section id="skills"><!-- skills -->
+
+<section id="skills">
   <h2>&#10148; skills</h2>
   <div class="card skills">
-<span><a href="https://en.wikipedia.org/wiki/Computer_network" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Networking</a></span>
-<span><a href="https://en.wikipedia.org/wiki/Cybersecurity" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Cybersecurity</a></span>
-<span><a href="https://en.wikipedia.org/wiki/Electronics" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Electronics</a></span>
-<span><a href="https://en.wikipedia.org/wiki/Technical_support" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">IT Support</a></span>
-<span><a href="https://en.wikipedia.org/wiki/Embedded_system" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Embedded Systems</a></span>
-<span><a href="https://en.wikipedia.org/wiki/Software_development" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Software Development</a></span>
-<span><a href="https://en.wikipedia.org/wiki/System_administrator" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">System Administration</a></span>
-<span><a href="https://en.wikipedia.org/wiki/Troubleshooting" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">Technical Troubleshooting</a></span>  </div>
+    <span><a href="https://en.wikipedia.org/wiki/Computer_network"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Networking</a></span>
+    <span><a href="https://en.wikipedia.org/wiki/Cybersecurity"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Cybersecurity</a></span>
+    <span><a href="https://en.wikipedia.org/wiki/Electronics"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Electronics</a></span>
+    <span><a href="https://en.wikipedia.org/wiki/Technical_support"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">IT Support</a></span>
+    <span><a href="https://en.wikipedia.org/wiki/Embedded_system"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Embedded Systems</a></span>
+    <span><a href="https://en.wikipedia.org/wiki/Software_development"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Software Development</a></span>
+    <span><a href="https://en.wikipedia.org/wiki/System_administrator"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">System Administration</a></span>
+    <span><a href="https://en.wikipedia.org/wiki/Troubleshooting"
+             target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Technical Troubleshooting</a></span>
+  </div>
 </section>
-<section id="projects"><!-- projects -->
+
+<section id="projects">
   <h2>&#10148; projects</h2>
 </section>
+
 <section id="contact">
   <h2>&#10148; contact</h2>
   <div class="card">
-    <p>&gt; email: <a href="mailto:777lucaslg@gmail.com" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
-        777lucaslg@gmail.com</a></p>
-    <p style="margin-top:10px;">
-      &gt; github: <a href="https://github.com/luco667" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
-        github.com/luco667</a></p>
-    <p style="margin-top:10px;">
-      &gt; linkedin: <a href="https://www.linkedin.com/in/lucas-le-gueut-344990207/" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
-        Lucas Le Gueut</a></p>
-    <p style="margin-top:10px;"> &gt; chess.com: <a href="https://www.chess.com/member/Killuraw" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
-  Killuraw</a></p>
-    <p style="margin-top:10px;"> &gt; paypal: <a href="https://www.paypal.me/killufsoc" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">
-  Killuraw</a></p>
+    <!--
+      Email obfusqué via data-attributes + reconstruction JS côté client.
+      Les bots scrapers lisent le HTML brut et ne verront pas l'adresse complète.
+      Le JS (dans javascript.js) doit faire :
+        const el = document.getElementById('contact-email');
+        el.href = 'mailto:' + el.dataset.user + '@' + el.dataset.domain;
+        el.textContent = el.dataset.user + '@' + el.dataset.domain;
+    -->
+    <p>&gt; email:
+      <a id="contact-email"
+         href="#"
+         data-user="777lucaslg"
+         data-domain="gmail.com"
+         aria-label="Adresse email (chargée dynamiquement)">[chargement…]</a>
+    </p>
+    <p style="margin-top:10px;">&gt; github:
+      <a href="https://github.com/luco667"
+         target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">github.com/luco667</a>
+    </p>
+    <p style="margin-top:10px;">&gt; linkedin:
+      <a href="https://www.linkedin.com/in/lucas-le-gueut-344990207/"
+         target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Lucas Le Gueut</a>
+    </p>
+    <p style="margin-top:10px;">&gt; chess.com:
+      <a href="https://www.chess.com/member/Killuraw"
+         target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Killuraw</a>
+    </p>
+    <p style="margin-top:10px;">&gt; paypal:
+      <a href="https://www.paypal.me/killufsoc"
+         target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">Killuraw</a>
+    </p>
   </div>
 </section>
-<footer><!-- foot -->
-  <a href="https://starboost.fr" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;"><p>© 2026 — Starboost instance</p></a>
+
+<footer>
+  <a href="https://starboost.fr"
+     target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">
+    <p>© 2026 — Starboost instance</p>
+  </a>
 </footer>
+
+<!-- type="module" = chargement différé + scope isolé (pas de variable globale) -->
 <script type="module" src="javascript.js"></script>
+
+<!--
+  ══════════════════════════════════════════════════════════════
+  À FAIRE CÔTÉ SERVEUR (Apache .htaccess / Nginx / headers HTTP)
+  ══════════════════════════════════════════════════════════════
+
+  Les balises <meta http-equiv> ci-dessus ne remplacent PAS
+  les vrais en-têtes HTTP. Ajoute-les dans ta config serveur :
+
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none';
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  Et dans javascript.js, ajoute l'obfuscation de l'email :
+  ──────────────────────────────────────────────────────────────
+  const el = document.getElementById('contact-email');
+  if (el) {
+    const addr = el.dataset.user + '@' + el.dataset.domain;
+    el.href = 'mailto:' + addr;
+    el.textContent = addr;
+  }
+  ══════════════════════════════════════════════════════════════
+-->
 </body>
 </html>
