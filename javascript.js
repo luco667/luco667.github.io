@@ -44,34 +44,59 @@ const sessionRef = ref(db, `analytics/sessions/${sessionId}`);
 const visitsRef  = ref(db, `analytics/visits_total`);
 
 /* ═══════════════════════════════════════════
-   GÉOLOCALISATION PAYS (sans IP stockée)
+   GÉOLOCALISATION — 0 requête, 0 dépendance
    ─────────────────────────────────────────
-   ip-api.com/json — gratuit, ~1 000 req/min
-   On ne demande QUE : countryCode, country,
-   city, regionName, timezone.
-   L'IP brute n'est jamais stockée dans Firebase.
-   RGPD : données agrégées par pays → ok.
+   Basé sur navigator.language + Intl timezone.
+   100% côté client, compatible GitHub Pages,
+   aucune API externe, aucun problème RGPD.
+   Timezone → pays déduit via table IANA.
 ═══════════════════════════════════════════ */
 
-async function getGeoInfo() {
-  try {
-    const res = await fetch(
-      "https://ip-api.com/json/?fields=status,countryCode,country,city,regionName,timezone",
-      { signal: AbortSignal.timeout(4000) }  // timeout 4 s
-    );
-    if (!res.ok) return null;
-    const data = await res.json();
-    if (data.status !== "success") return null;
-    return {
-      countryCode: data.countryCode || "??",
-      country:     data.country     || "Unknown",
-      region:      data.regionName  || "",
-      city:        data.city        || "",
-      timezone:    data.timezone    || "",
-    };
-  } catch {
-    return null;  // silencieux si bloqué (adblocker, offline…)
-  }
+function getGeoInfo() {
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+  const language = navigator.language || navigator.languages?.[0] || "";
+
+  // Déduction du pays depuis le timezone IANA (Europe/Paris → FR, etc.)
+  const TZ_TO_COUNTRY = {
+    "Europe/Paris":"FR","Europe/London":"GB","Europe/Berlin":"DE",
+    "Europe/Madrid":"ES","Europe/Rome":"IT","Europe/Amsterdam":"NL",
+    "Europe/Brussels":"BE","Europe/Zurich":"CH","Europe/Vienna":"AT",
+    "Europe/Warsaw":"PL","Europe/Prague":"CZ","Europe/Budapest":"HU",
+    "Europe/Bucharest":"RO","Europe/Sofia":"BG","Europe/Helsinki":"FI",
+    "Europe/Stockholm":"SE","Europe/Oslo":"NO","Europe/Copenhagen":"DK",
+    "Europe/Lisbon":"PT","Europe/Athens":"GR","Europe/Dublin":"IE",
+    "Europe/Kiev":"UA","Europe/Moscow":"RU","Europe/Istanbul":"TR",
+    "America/New_York":"US","America/Chicago":"US","America/Denver":"US",
+    "America/Los_Angeles":"US","America/Toronto":"CA","America/Vancouver":"CA",
+    "America/Montreal":"CA","America/Mexico_City":"MX","America/Sao_Paulo":"BR",
+    "America/Argentina/Buenos_Aires":"AR","America/Bogota":"CO",
+    "America/Lima":"PE","America/Santiago":"CL",
+    "Asia/Tokyo":"JP","Asia/Shanghai":"CN","Asia/Hong_Kong":"HK",
+    "Asia/Seoul":"KR","Asia/Singapore":"SG","Asia/Kolkata":"IN",
+    "Asia/Dubai":"AE","Asia/Bangkok":"TH","Asia/Jakarta":"ID",
+    "Asia/Karachi":"PK","Asia/Dhaka":"BD","Asia/Taipei":"TW",
+    "Australia/Sydney":"AU","Australia/Melbourne":"AU","Australia/Perth":"AU",
+    "Pacific/Auckland":"NZ","Africa/Cairo":"EG","Africa/Lagos":"NG",
+    "Africa/Johannesburg":"ZA","Africa/Nairobi":"KE","Africa/Casablanca":"MA",
+  };
+
+  const COUNTRY_NAMES = {
+    FR:"France",GB:"United Kingdom",DE:"Germany",ES:"Spain",IT:"Italy",
+    NL:"Netherlands",BE:"Belgium",CH:"Switzerland",AT:"Austria",PL:"Poland",
+    CZ:"Czech Republic",HU:"Hungary",RO:"Romania",BG:"Bulgaria",FI:"Finland",
+    SE:"Sweden",NO:"Norway",DK:"Denmark",PT:"Portugal",GR:"Greece",IE:"Ireland",
+    UA:"Ukraine",RU:"Russia",TR:"Turkey",US:"United States",CA:"Canada",
+    MX:"Mexico",BR:"Brazil",AR:"Argentina",CO:"Colombia",PE:"Peru",CL:"Chile",
+    JP:"Japan",CN:"China",HK:"Hong Kong",KR:"South Korea",SG:"Singapore",
+    IN:"India",AE:"UAE",TH:"Thailand",ID:"Indonesia",PK:"Pakistan",
+    BD:"Bangladesh",TW:"Taiwan",AU:"Australia",NZ:"New Zealand",
+    EG:"Egypt",NG:"Nigeria",ZA:"South Africa",KE:"Kenya",MA:"Morocco",
+  };
+
+  const countryCode = TZ_TO_COUNTRY[timezone] || language.split("-")[1] || "??";
+  const country     = COUNTRY_NAMES[countryCode] || "Unknown";
+
+  return { countryCode, country, timezone, language };
 }
 
 /* ═══════════════════════════════════════════
@@ -84,24 +109,20 @@ async function registerVisit() {
   const snap        = await get(visitorRef);
 
   if (!snap.exists()) {
-    // Nouvelle visite : on récupère le pays et on stocke
-    const geo = await getGeoInfo();
+    const geo = getGeoInfo();  // synchrone, pas d'await
 
     await set(visitorRef, {
       firstSeen: Date.now(),
-      ...(geo && {
-        countryCode: geo.countryCode,
-        country:     geo.country,
-        region:      geo.region,
-        city:        geo.city,
-        timezone:    geo.timezone,
-      }),
+      countryCode: geo.countryCode,
+      country:     geo.country,
+      timezone:    geo.timezone,
+      language:    geo.language,
     });
 
     await runTransaction(visitsRef, v => (v || 0) + 1);
 
     // Compteur agrégé par pays : analytics/geo/<countryCode>
-    if (geo) {
+    if (geo.countryCode !== "??") {
       const geoRef = ref(db, `analytics/geo/${geo.countryCode}`);
       await runTransaction(geoRef, v => (v || 0) + 1);
     }
