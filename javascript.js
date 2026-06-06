@@ -512,11 +512,11 @@ const PROJECTS = [
    - scroll modal ne remonte plus la page
 ══════════════════════════════════════════ */
 (function renderProjects() {
-  const STATUS_LABEL = {
+  const STATUS_LABEL = Object.freeze({
     done:     { text: 'done',        color: '#00ff41', family:'Minecraft'},
     wip:      { text: 'in progress', color: '#ffcc00', family:'Minecraft'},
     archived: { text: 'archived',    color: '#888', family:'Minecraft'},
-  };
+  });
 
   /* ── Styles injectés ── */
   const style = document.createElement('style');
