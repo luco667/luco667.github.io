@@ -513,9 +513,9 @@ const PROJECTS = [
 ══════════════════════════════════════════ */
 (function renderProjects() {
   const STATUS_LABEL = Object.freeze({
-    done:     { text: 'done',        color: '#00ff41', family:'Minecraft'},
-    wip:      { text: 'in progress', color: '#ffcc00', family:'Minecraft'},
-    archived: { text: 'archived',    color: '#888', family:'Minecraft'},
+    done:     { text: 'done',        color: '#00ff41'},
+    wip:      { text: 'in progress', color: '#ffcc00'},
+    archived: { text: 'archived',    color: '#888'},
   });
 
   /* ── Styles injectés ── */
@@ -594,7 +594,7 @@ const PROJECTS = [
     
       line-height:1;
     }
-    .cat-desc { font-family:'Minecraft', monospace; }
+
     .cat-count { font-size: 0.72rem; color: #444; margin-top: 6px; letter-spacing: 0.1em; }
     .cat-count.has-projects { color: #666; }
 
@@ -675,8 +675,8 @@ const PROJECTS = [
     .proj-name a:hover { text-decoration: underline; }
     .proj-meta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
     .proj-date { font-size: 0.72rem; color: #444; letter-spacing: 0.1em; }
-    .proj-status { font-size: 0.7rem; letter-spacing: 0.12em; padding: 2px 8px; border: 1px solid; }
-    .proj-desc { font-size: 0.83rem; color: #556655; line-height: 1.7; margin-bottom: 10px; }
+    .proj-status { font-size: 0.7rem; letter-spacing: 0.12em; padding: 2px 8px; border: 1px solid; font-family:'Minecraft', monospace; }
+    .proj-desc { font-size: 0.83rem; color: #556655; line-height: 1.7; margin-bottom: 10px; font-family:'Minecraft', monospace; }
     .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .proj-tag { font-size: 0.7rem; color: #445544; border: 1px solid #1a2e1a; padding: 2px 8px; letter-spacing: 0.08em; }
     .empty-state { text-align: center; padding: 40px; color: #333; font-size: 0.85rem; letter-spacing: 0.1em; }
