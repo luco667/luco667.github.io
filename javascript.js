@@ -533,7 +533,6 @@ const PROJECTS = [
     .projects-scroll::-webkit-scrollbar { display: none; }
 
     .cat-card {
-      font-family:'Minecraft', monospace;
       min-width: 250px;
       max-width: 250px;
       border: 1px solid rgba(0,255,65,0.2);
@@ -595,6 +594,7 @@ const PROJECTS = [
     
       line-height:1;
     }
+    .cat-desc { font-family:'Minecraft', monospace; }
     .cat-count { font-size: 0.72rem; color: #444; margin-top: 6px; letter-spacing: 0.1em; }
     .cat-count.has-projects { color: #666; }
 
