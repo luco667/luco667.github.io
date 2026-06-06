@@ -5,34 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lucas Le Gueut — Portfolio</title>
 
-  <!-- ═══════════════════════════════════════════════
-       SÉCURITÉ — En-têtes via balises meta
-       (à dupliquer côté serveur via HTTP headers)
-  ════════════════════════════════════════════════ -->
-
-  <!--
-    Content-Security-Policy — adaptée à Firebase + gstatic CDN
-    ──────────────────────────────────────────────────────────
-    script-src :
-      'self'                              → javascript.js local
-      https://www.gstatic.com             → SDK Firebase (ES modules)
-    style-src :
-      'self'                              → style.css local
-      'unsafe-inline'                     → styles injectés par JS (renderProjects)
-                                            Idéalement : remplace par un hash SHA256
-                                            une fois le CSS inline stabilisé.
-    img-src :
-      'self' data:                        → icônes locales + data URI
-    connect-src :
-      'self'
-      https://*.firebaseio.com            → Realtime Database REST
-      https://*.firebasedatabase.app      → Realtime Database WebSocket/HTTPS
-      wss://*.firebaseio.com              → WebSocket Firebase
-      wss://*.firebasedatabase.app        → WebSocket Firebase (région europe-west1)
-    frame-ancestors 'none'               → anti-clickjacking
-    base-uri       'self'                → empêche injection <base>
-    form-action    'none'                → aucun formulaire externe
-  -->
   <meta http-equiv="Content-Security-Policy"
         content="
           script-src    'self' https://www.gstatic.com https://www.googletagmanager.com 'unsafe-inline';
@@ -53,9 +25,6 @@
 
   <!-- Bloque le clickjacking pour navigateurs anciens -->
   <meta http-equiv="X-Frame-Options" content="DENY">
-
-  <!-- Empêche le MIME-sniffing -->
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
   <!-- Referrer minimal : n'envoie l'URL d'origine qu'aux mêmes origines -->
   <meta name="referrer" content="strict-origin-when-cross-origin">
