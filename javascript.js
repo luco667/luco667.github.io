@@ -4,7 +4,6 @@ import {
   ref,
   set,
   get,
-  update,
   onValue,
   onDisconnect,
   runTransaction
@@ -45,6 +44,37 @@ const sessionRef = ref(db, `analytics/sessions/${sessionId}`);
 const visitsRef  = ref(db, `analytics/visits_total`);
 
 /* ═══════════════════════════════════════════
+   GÉOLOCALISATION PAYS (sans IP stockée)
+   ─────────────────────────────────────────
+   ip-api.com/json — gratuit, ~1 000 req/min
+   On ne demande QUE : countryCode, country,
+   city, regionName, timezone.
+   L'IP brute n'est jamais stockée dans Firebase.
+   RGPD : données agrégées par pays → ok.
+═══════════════════════════════════════════ */
+
+async function getGeoInfo() {
+  try {
+    const res = await fetch(
+      "https://ip-api.com/json/?fields=status,countryCode,country,city,regionName,timezone",
+      { signal: AbortSignal.timeout(4000) }  // timeout 4 s
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (data.status !== "success") return null;
+    return {
+      countryCode: data.countryCode || "??",
+      country:     data.country     || "Unknown",
+      region:      data.regionName  || "",
+      city:        data.city        || "",
+      timezone:    data.timezone    || "",
+    };
+  } catch {
+    return null;  // silencieux si bloqué (adblocker, offline…)
+  }
+}
+
+/* ═══════════════════════════════════════════
    VISITE UNIQUE
 ═══════════════════════════════════════════ */
 
@@ -54,8 +84,27 @@ async function registerVisit() {
   const snap        = await get(visitorRef);
 
   if (!snap.exists()) {
-    await set(visitorRef, { firstSeen: Date.now() });
+    // Nouvelle visite : on récupère le pays et on stocke
+    const geo = await getGeoInfo();
+
+    await set(visitorRef, {
+      firstSeen: Date.now(),
+      ...(geo && {
+        countryCode: geo.countryCode,
+        country:     geo.country,
+        region:      geo.region,
+        city:        geo.city,
+        timezone:    geo.timezone,
+      }),
+    });
+
     await runTransaction(visitsRef, v => (v || 0) + 1);
+
+    // Compteur agrégé par pays : analytics/geo/<countryCode>
+    if (geo) {
+      const geoRef = ref(db, `analytics/geo/${geo.countryCode}`);
+      await runTransaction(geoRef, v => (v || 0) + 1);
+    }
   }
 }
 
@@ -111,8 +160,8 @@ function listenVisits() {
 function revealEmail() {
   const el = document.getElementById("contact-email");
   if (!el) return;
-  const addr  = el.dataset.user + "\u0040" + el.dataset.domain; // \u0040 = @
-  el.href     = "mailto:" + addr;
+  const addr     = el.dataset.user + "\u0040" + el.dataset.domain;
+  el.href        = "mailto:" + addr;
   el.textContent = addr;
 }
 
@@ -311,9 +360,6 @@ window.addEventListener("scroll", () => {
 
 /* ═══════════════════════════════════════════
    PROJECTS DATABASE
-   Pour ajouter un projet : copie un bloc {}
-   Champs : name*, desc*, tags[], link, status, date
-   status : 'done' | 'wip' | 'archived'
 ═══════════════════════════════════════════ */
 
 const PROJECTS = [
@@ -322,30 +368,9 @@ const PROJECTS = [
     icon: "◈",
     color: "#00ff41",
     projects: [
-      {
-        name:   "Snake game",
-        desc:   "Web page with game in javascript",
-        tags:   ["javascript", "web", "html", "css"],
-        link:   "Projects/snake/enregistrement/snake.html",
-        status: "done",
-        date:   "2023",
-      },
-      {
-        name:   "Notepad",
-        desc:   "Note-blocks in C.",
-        tags:   ["C", "SDL3", "MinGW"],
-        link:   "https://github.com/luco667/LANGUAGEC",
-        status: "done",
-        date:   "2024",
-      },
-      {
-        name:   "Portfolio",
-        desc:   "This page — matrix portfolio in pur HTML/CSS/JS.",
-        tags:   ["html", "css", "js", "canvas", "static"],
-        link:   "https://luco667.github.io/",
-        status: "wip",
-        date:   "2026",
-      },
+      { name: "Snake game", desc: "Web page with game in javascript", tags: ["javascript", "web", "html", "css"], link: "Projects/snake/enregistrement/snake.html", status: "done", date: "2023" },
+      { name: "Notepad", desc: "Note-blocks in C.", tags: ["C", "SDL3", "MinGW"], link: "https://github.com/luco667/LANGUAGEC", status: "done", date: "2024" },
+      { name: "Portfolio", desc: "This page — matrix portfolio in pur HTML/CSS/JS.", tags: ["html", "css", "js", "canvas", "static"], link: "https://luco667.github.io/", status: "wip", date: "2026" },
     ],
   },
   {
@@ -353,21 +378,8 @@ const PROJECTS = [
     icon: "◆",
     color: "#00ccff",
     projects: [
-      {
-        name:   "Arroseur PCB",
-        desc:   "",
-        tags:   ["KiCad", "PCB", "STM32"],
-        status: "wip",
-        date:   "2025",
-      },
-      {
-        name:   "Etiquette PCB",
-        desc:   "",
-        tags:   ["Kicad", "CODE39"],
-        link:   "https://github.com/luco667",
-        status: "wip",
-        date:   "2026",
-      },
+      { name: "Arroseur PCB", desc: "", tags: ["KiCad", "PCB", "STM32"], status: "wip", date: "2025" },
+      { name: "Etiquette PCB", desc: "", tags: ["Kicad", "CODE39"], link: "https://github.com/luco667", status: "wip", date: "2026" },
     ],
   },
   {
@@ -375,14 +387,7 @@ const PROJECTS = [
     icon: "⬢",
     color: "#ffcc00",
     projects: [
-      {
-        name:   "Empty",
-        desc:   "",
-        tags:   [],
-        link:   "",
-        status: "wip",
-        date:   "2026",
-      },
+      { name: "Empty", desc: "", tags: [], link: "", status: "wip", date: "2026" },
     ],
   },
   {
@@ -390,13 +395,7 @@ const PROJECTS = [
     icon: "▣",
     color: "#ff4466",
     projects: [
-      {
-        name:   "Proxy",
-        desc:   "Routeur proxy anti-pub.",
-        tags:   ["OSI"],
-        status: "wip",
-        date:   "2026",
-      },
+      { name: "Proxy", desc: "Routeur proxy anti-pub.", tags: ["OSI"], status: "wip", date: "2026" },
     ],
   },
   {
@@ -404,23 +403,13 @@ const PROJECTS = [
     icon: "⧉",
     color: "#812bd5",
     projects: [
-      {
-        name:   "Empty",
-        desc:   "",
-        tags:   [],
-        link:   "https://github.com/luco667",
-        status: "wip",
-        date:   "2026",
-      },
+      { name: "Empty", desc: "", tags: [], link: "https://github.com/luco667", status: "wip", date: "2026" },
     ],
   },
 ];
 
 /* ═══════════════════════════════════════════
-   PROJECTS RENDERER
-   SÉCURITÉ : innerHTML remplacé par création
-   DOM manuelle pour tous les champs issus
-   des données (anti-XSS).
+   PROJECTS RENDERER — DOM manuel, anti-XSS
 ═══════════════════════════════════════════ */
 
 (function renderProjects() {
@@ -431,83 +420,42 @@ const PROJECTS = [
     archived: { text: "archived",    color: "#888"    },
   });
 
-  /* ── Helper : crée un élément avec des propriétés texte sûres ── */
   function el(tag, props = {}, text = "") {
     const node = document.createElement(tag);
     Object.entries(props).forEach(([k, v]) => {
-      if (k === "class")  node.className = v;
-      else if (k === "style") Object.assign(node.style, v);
-      else                node.setAttribute(k, v);
+      if (k === "class")       node.className = v;
+      else if (k === "style")  Object.assign(node.style, v);
+      else                     node.setAttribute(k, v);
     });
-    if (text) node.textContent = text; // textContent = jamais de HTML injecté
+    if (text) node.textContent = text;
     return node;
   }
 
-  /* ── Styles injectés (renderProjects crée des éléments dynamiques) ── */
   const style = el("style");
   style.textContent = `
-    .projects-scroll {
-      overflow-x: auto; overflow-y: visible;
-      scrollbar-width: none; margin-left: -4px; margin-right: -4px;
-    }
-    .projects-scroll::-webkit-scrollbar { display: none; }
-    .cat-card {
-      min-width: 250px; max-width: 250px;
-      border: 1px solid rgba(0,255,65,0.2); background: rgba(0,10,0,0.75);
-      padding: 20px; cursor: pointer; transition: all 0.22s;
-      position: relative; overflow: hidden; backdrop-filter: blur(6px); flex-shrink: 0;
-    }
-    .cat-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--cat-color,#00ff41) 0%, transparent 60%);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .cat-card:hover::before { opacity: 0.07; }
-    .cat-card:hover {
-      border-color: var(--cat-color,#00ff41);
-      box-shadow: 0 0 20px color-mix(in srgb, var(--cat-color,#00ff41) 20%, transparent);
-      transform: translateY(-2px);
-    }
-    .cat-card.active {
-      border-color: var(--cat-color,#00ff41);
-      box-shadow: 0 0 24px color-mix(in srgb, var(--cat-color,#00ff41) 30%, transparent),
-                  inset 0 0 20px rgba(255,255,255,0.02);
-      background: rgba(0,255,65,0.05);
-    }
+    .projects-scroll { overflow-x:auto; overflow-y:visible; scrollbar-width:none; margin-left:-4px; margin-right:-4px; }
+    .projects-scroll::-webkit-scrollbar { display:none; }
+    .cat-card { min-width:250px; max-width:250px; border:1px solid rgba(0,255,65,0.2); background:rgba(0,10,0,0.75); padding:20px; cursor:pointer; transition:all 0.22s; position:relative; overflow:hidden; backdrop-filter:blur(6px); flex-shrink:0; }
+    .cat-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,var(--cat-color,#00ff41) 0%,transparent 60%); opacity:0; transition:opacity 0.3s; }
+    .cat-card:hover::before { opacity:0.07; }
+    .cat-card:hover { border-color:var(--cat-color,#00ff41); box-shadow:0 0 20px color-mix(in srgb,var(--cat-color,#00ff41) 20%,transparent); transform:translateY(-2px); }
+    .cat-card.active { border-color:var(--cat-color,#00ff41); box-shadow:0 0 24px color-mix(in srgb,var(--cat-color,#00ff41) 30%,transparent),inset 0 0 20px rgba(255,255,255,0.02); background:rgba(0,255,65,0.05); }
     .cat-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
     .cat-icon { font-size:1.4rem; color:var(--cat-color,#00ff41); text-shadow:0 0 10px var(--cat-color,#00ff41); line-height:1; }
     .cat-name { font-family:'Minecraft',monospace; font-size:.88rem; letter-spacing:.14em; color:var(--cat-color,#00ff41); line-height:1; }
     .cat-count { font-size:0.72rem; color:#444; margin-top:6px; letter-spacing:0.1em; }
     .cat-count.has-projects { color:#666; }
-    #proj-overlay {
-      position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center;
-      background:rgba(0,0,0,0.88); backdrop-filter:blur(8px);
-      opacity:0; pointer-events:none; transition:opacity 0.25s;
-    }
+    #proj-overlay { position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.88); backdrop-filter:blur(8px); opacity:0; pointer-events:none; transition:opacity 0.25s; }
     #proj-overlay.open { opacity:1; pointer-events:all; }
-    #proj-modal {
-      background:#020d02; border:1px solid var(--modal-color,#00ff41);
-      box-shadow:0 0 50px color-mix(in srgb, var(--modal-color,#00ff41) 18%, transparent);
-      width:min(700px,92vw); max-height:80vh; overflow:hidden;
-      display:flex; flex-direction:column;
-      transform:translateY(14px); transition:transform 0.25s;
-    }
+    #proj-modal { background:#020d02; border:1px solid var(--modal-color,#00ff41); box-shadow:0 0 50px color-mix(in srgb,var(--modal-color,#00ff41) 18%,transparent); width:min(700px,92vw); max-height:80vh; overflow:hidden; display:flex; flex-direction:column; transform:translateY(14px); transition:transform 0.25s; }
     #proj-overlay.open #proj-modal { transform:translateY(0); }
-    .modal-header {
-      display:flex; align-items:center; justify-content:space-between;
-      padding:20px 28px; border-bottom:1px solid rgba(255,255,255,0.06);
-      flex-shrink:0; background:#020d02;
-    }
+    .modal-header { display:flex; align-items:center; justify-content:space-between; padding:20px 28px; border-bottom:1px solid rgba(255,255,255,0.06); flex-shrink:0; background:#020d02; }
     .modal-title { font-family:'Minecraft',monospace; font-size:1.6rem; color:var(--modal-color,#00ff41); text-shadow:0 0 12px var(--modal-color,#00ff41); letter-spacing:0.1em; }
-    .modal-close {
-      background:none; border:1px solid rgba(255,255,255,0.15); color:#666;
-      font-family:'Minecraft',monospace; font-size:1rem; width:32px; height:32px;
-      cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center;
-    }
+    .modal-close { background:none; border:1px solid rgba(255,255,255,0.15); color:#666; font-family:'Minecraft',monospace; font-size:1rem; width:32px; height:32px; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; }
     .modal-close:hover { border-color:var(--modal-color,#00ff41); color:var(--modal-color,#00ff41); }
     .modal-body { padding:24px 28px; display:flex; flex-direction:column; gap:14px; overflow-y:auto; }
     .proj-item { font-family:'Minecraft',monospace; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); padding:18px 20px; transition:all 0.2s; }
-    .proj-item:hover { border-color:color-mix(in srgb, var(--modal-color,#00ff41) 35%, transparent); background:rgba(255,255,255,0.03); }
+    .proj-item:hover { border-color:color-mix(in srgb,var(--modal-color,#00ff41) 35%,transparent); background:rgba(255,255,255,0.03); }
     .proj-top { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:8px; }
     .proj-name { font-family:'Minecraft',monospace; font-size:0.95rem; color:var(--modal-color,#00ff41); letter-spacing:0.05em; }
     .proj-name a { color:inherit; text-decoration:none; }
@@ -526,7 +474,6 @@ const PROJECTS = [
   `;
   document.head.appendChild(style);
 
-  /* ── Grille ── */
   const section = document.querySelector("#projects");
   if (!section) return;
 
@@ -537,16 +484,14 @@ const PROJECTS = [
     card.style.setProperty("--cat-color", cat.color);
     card.dataset.category = cat.category;
 
-    /* cat-header */
     const header  = el("div", { class: "cat-header" });
     const icon    = el("span", { class: "cat-icon" });
-    icon.textContent = cat.icon;                          // textContent = sûr
+    icon.textContent = cat.icon;
     const name    = el("div", { class: "cat-name" });
     name.textContent = `./${cat.category}/`;
     header.appendChild(icon);
     header.appendChild(name);
 
-    /* cat-count */
     const count   = cat.projects.length;
     const counter = el("div", { class: `cat-count${count > 0 ? " has-projects" : ""}` });
     counter.textContent = count > 0 ? `${count} project${count > 1 ? "s" : ""}` : "empty";
@@ -565,7 +510,6 @@ const PROJECTS = [
 
   section.appendChild(grid);
 
-  /* ── Modal (structure fixe, sans innerHTML sur données) ── */
   const overlay    = el("div", { id: "proj-overlay" });
   const modal      = el("div", { id: "proj-modal" });
   const mHeader    = el("div", { class: "modal-header" });
@@ -586,15 +530,10 @@ const PROJECTS = [
   document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
   modalBody.addEventListener("wheel", e => e.stopPropagation(), { passive: true });
 
-  /* ─────────────────────────────────────────
-     openModal — construction DOM sans innerHTML
-     → élimine tout risque XSS sur les données
-     des projets (name, desc, tags, link, etc.)
-  ───────────────────────────────────────── */
   function openModal(cat) {
     overlay.style.setProperty("--modal-color", cat.color);
-    modalTitle.textContent = `> ${cat.icon} ${cat.category}/`; // textContent, jamais innerHTML
-    modalBody.innerHTML = ""; // on vide le body (structure statique, pas de data)
+    modalTitle.textContent = `> ${cat.icon} ${cat.category}/`;
+    modalBody.innerHTML = "";
 
     if (cat.projects.length === 0) {
       const empty = el("div", { class: "empty-state" });
@@ -605,54 +544,47 @@ const PROJECTS = [
         const s    = p.status ? STATUS_LABEL[p.status] : null;
         const item = el("div", { class: "proj-item" });
 
-        /* proj-top */
-        const top  = el("div", { class: "proj-top" });
-
-        /* nom — lien optionnel, href validé */
+        const top     = el("div", { class: "proj-top" });
         const nameDiv = el("div", { class: "proj-name" });
-        const prefix  = document.createTextNode("> ");
-        nameDiv.appendChild(prefix);
+        nameDiv.appendChild(document.createTextNode("> "));
 
         if (p.link && isSafeUrl(p.link)) {
           const a = el("a", { href: p.link, target: "_blank", rel: "noopener noreferrer", referrerpolicy: "no-referrer" });
-          a.textContent = p.name;              // textContent = pas d'injection HTML
+          a.textContent = p.name;
           nameDiv.appendChild(a);
         } else {
           nameDiv.appendChild(document.createTextNode(p.name));
         }
 
-        /* meta : date + status */
         const meta = el("div", { class: "proj-meta" });
         if (p.date) {
-          const dateSpan = el("span", { class: "proj-date" });
-          dateSpan.textContent = p.date;
-          meta.appendChild(dateSpan);
+          const d = el("span", { class: "proj-date" });
+          d.textContent = p.date;
+          meta.appendChild(d);
         }
         if (s) {
-          const statusSpan = el("span", { class: "proj-status" });
-          statusSpan.style.color       = s.color;
-          statusSpan.style.borderColor = s.color + "33";
-          statusSpan.textContent = s.text;
-          meta.appendChild(statusSpan);
+          const sp = el("span", { class: "proj-status" });
+          sp.style.color       = s.color;
+          sp.style.borderColor = s.color + "33";
+          sp.textContent = s.text;
+          meta.appendChild(sp);
         }
 
         top.appendChild(nameDiv);
         top.appendChild(meta);
 
-        /* description */
         const desc = el("div", { class: "proj-desc" });
-        desc.textContent = p.desc;            // textContent = pas d'injection HTML
+        desc.textContent = p.desc;
 
         item.appendChild(top);
         item.appendChild(desc);
 
-        /* tags */
         if (p.tags && p.tags.length > 0) {
           const tagsDiv = el("div", { class: "proj-tags" });
           p.tags.forEach(t => {
             if (!t) return;
             const tag = el("span", { class: "proj-tag" });
-            tag.textContent = "#" + t;        // textContent = sûr
+            tag.textContent = "#" + t;
             tagsDiv.appendChild(tag);
           });
           item.appendChild(tagsDiv);
@@ -672,16 +604,11 @@ const PROJECTS = [
     document.querySelectorAll(".cat-card").forEach(c => c.classList.remove("active"));
   }
 
-  /**
-   * Valide qu'une URL est http/https ou un chemin relatif.
-   * Bloque javascript:, data:, vbscript:, etc.
-   */
   function isSafeUrl(url) {
     try {
       const u = new URL(url, location.origin);
       return u.protocol === "https:" || u.protocol === "http:";
     } catch {
-      // chemin relatif (pas d'origine) → autorisé
       return /^[^:]*$/.test(url);
     }
   }
