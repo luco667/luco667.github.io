@@ -12,6 +12,7 @@ body {
 }
 
 header {
+  width:1666px;
   height:1105px;
 }
 embed {
@@ -38,5 +39,5 @@ embed {
 
   pointer-events:none;
 
-  opacity:.45;
+  opacity:.045;
 }
