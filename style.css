@@ -803,8 +803,8 @@ section { scroll-margin-top: 56px; }
 
 /* ── CONTACT — espace physique pour scroll sticky nav ── */
 #contact {
-  scroll-margin-bottom: 400px;
-  padding-bottom: 400px;
+  scroll-margin-bottom: 300px;
+  padding-bottom: 200px;
 }
 
 header,
