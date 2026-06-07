@@ -47,3 +47,44 @@ function drawMatrix() {
 initMatrix();
 window.addEventListener("resize", initMatrix);
 setInterval(drawMatrix, 40);
+
+
+
+const pdfUrl = "../Stage/stageDSI.pdf";
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.worker.min.js";
+
+async function renderPDF() {
+  const container = document.getElementById("pdf-container");
+
+  const pdf = await pdfjsLib.getDocument(pdfUrl).promise;
+
+  for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+
+    const page = await pdf.getPage(pageNum);
+
+    const viewport = page.getViewport({ scale: 1 });
+
+    const scale =
+      (window.innerWidth - 20) / viewport.width;
+
+    const scaledViewport =
+      page.getViewport({ scale });
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = scaledViewport.width;
+    canvas.height = scaledViewport.height;
+
+    container.appendChild(canvas);
+
+    await page.render({
+      canvasContext: ctx,
+      viewport: scaledViewport
+    }).promise;
+  }
+}
+
+renderPDF();
