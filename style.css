@@ -24,8 +24,7 @@ footer{
   background: var(--green);
   color: #000;
 }
-/* ── SCROLL MARGIN — compense la sticky nav (~52px) ── 
-section { scroll-margin-top: 56px; }*/
+
 /* ────────────────────────────────────────
    SCROLLBAR
 ───────────────────────────────────────── */
@@ -438,7 +437,8 @@ section h2 {
 
   text-shadow: 0 0 8px var(--green);
 }
-
+/* ── SCROLL MARGIN — compense la sticky nav (~52px) ── */
+section { scroll-margin-top: 56px; }
 /* ─────────────────────────────────────────
    CARDS
 ───────────────────────────────────────── */
