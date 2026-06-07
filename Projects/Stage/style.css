@@ -12,8 +12,8 @@ body {
 }
 
 header {
-  width:1666px;
-  height:1105px;
+  width:max;
+  height:max;
 }
 embed {
    margin:10px 10px;
