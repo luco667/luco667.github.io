@@ -841,7 +841,7 @@ footer{
   .work-item{font-size:.72rem;padding:10px 14px;}
   .work-exp::before,
   .work-exp::after{ width:40px;}
-  nav{ gap:6px;padding:8px 8px;}
+  nav{ gap:3px;padding:8px 8px;}
   nav a{  padding:7px 10px;}
   footer { padding: 20px 10px; font-size: 0.7rem; }
   #matrix { opacity: 0.3; }
@@ -859,7 +859,7 @@ footer{
   .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6;overflow: hidden }
   .skills{ display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;padding:18px; align-items:center; }
   .skills span{width:100%;text-align:center;padding:8px 4px;font-size:.7rem;align-items:center;justify-content:center; }
-  nav{gap:4px;padding:6px 6px;}
+  nav{gap:2px;padding:6px 6px;}
   nav a{padding:6px 8px;font-size:.66rem;letter-spacing:.05em;}
   footer { letter-spacing: 0.08em; }
 }
