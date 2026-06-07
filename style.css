@@ -576,7 +576,6 @@ section h2 {
    TERMINAL
 ───────────────────────────────────────── */
 .terminal{
-  min-height:320px;
 
   overflow:hidden;
 }
@@ -601,7 +600,7 @@ section h2 {
 
   z-index:1;
 
-  padding:28px 32px;
+  padding:24px 32px;
 
   border:1px solid var(--border);
 
