@@ -8,7 +8,7 @@ body{
 /* zone PDF avec 10px de marge */
 #document{
   position:relative;
-  z-index:1;
+  z-index:0;
 
   margin:10px;
   width:calc(100vw - 20px);
@@ -29,7 +29,7 @@ iframe{
   inset:0;
   width:100%;
   height:100%;
-  z-index:0;
+  z-index:1;
   pointer-events:none;
-  opacity:.045;
+  opacity:.09;
 }
