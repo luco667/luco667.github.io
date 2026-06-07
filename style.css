@@ -518,9 +518,8 @@ section {
   width:min(950px, calc(100% - 30px));
   margin:auto;
 
-  padding: 70px 20px;
+  padding: 30px 10px;
   overflow: visible; /* la grille projets peut dépasser */
-  padding:50px 0;
 }
 
 section h2 {
@@ -820,7 +819,7 @@ footer{
 /* ── TABLET ── */
 @media screen and (max-width: 900px) {
   header { padding: 60px 20px 30px; }
-  section { padding: 40px 18px; }
+  section { padding: 20px 18px; }
   .card, .terminal { padding: 22px; }
   .skills-container {display: flex;flex-wrap: wrap;gap: 12px;margin-top: 20px;}
   .skill-box {padding: 10px 16px;border: 1px solid var(--green);background: rgba(0, 255, 65, 0.08);color: var(--green);border-radius: 8px;font-size: 14px;}
@@ -834,7 +833,7 @@ footer{
   header h1 {font-size: clamp(2rem, 12vw, 3.5rem);line-height: 1;word-break: break-word; margin-top:15px }
   .work-exp { margin-top:15px; margin-bottom:15px; }
   header .subtitle {padding: 0 10px;font-size: 0.75rem; line-height: 1.6; letter-spacing: 0.08em;}
-  section { padding: 45px 14px; }
+  section { padding: 20px 14px; }
   section h2 { margin-bottom: 20px; font-size: 1.6rem; }
   .card, .terminal { padding: 18px; overflow: hidden; }
   .card p, #terminal-output { font-size: 0.82rem; line-height: 1.7;overflow: hidden }
@@ -855,7 +854,7 @@ footer{
   .work-exp { margin-top:15px; margin-bottom:15px; }
   header h1 { font-size: 2rem; margin-top:15px}
   header .subtitle { margin-top: 8px; font-size: 0.68rem; }
-  section { padding: 15px 12px; }
+  section { padding: 10px 12px; }
   section h2 { font-size: 1.4rem; }
   .card, .terminal { padding: 16px; overflow: hidden; }
   .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6;overflow: hidden }
