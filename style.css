@@ -4,7 +4,7 @@
 /* ── CONTACT — espace physique pour scroll sticky nav ── */
 #contact {
   scroll-margin-bottom: 350px;
-  padding-bottom: 350px;
+  padding-bottom: 400px;
 }
 header,
 section,
@@ -24,7 +24,6 @@ footer{
   background: var(--green);
   color: #000;
 }
-
 /* ────────────────────────────────────────
    SCROLLBAR
 ───────────────────────────────────────── */
@@ -154,13 +153,10 @@ nav a{
   padding:10px 16px;
   border:1px solid transparent;
   color:var(--green-dim);
-
   text-decoration:none;
   text-transform:lowercase;
-
   font-size:.82rem;
   letter-spacing:.12em;
-
   transition:
     color .2s,
     border-color .2s,
@@ -188,93 +184,69 @@ nav a:hover{
 
   transform:translateY(-1px);
 }
-
 nav a:hover::before,
 nav a:hover::after{
   opacity:1;
 }
-
 nav a.active{
   color:var(--green);
-
   border-color:var(--green);
-
   background:rgba(0,255,65,.08);
-
   box-shadow:0 0 12px rgba(0,255,65,.15);
 }
-
 nav a.active::before,
 nav a.active::after{
   opacity:1;
 }
-
 /* ─────────────────────────────────────────
    WORK EXPERIENCE MARQUEE
 ───────────────────────────────────────── */
-
 .work-exp{
   position: relative;
   touch-action:pan-y;
   margin-top:30px;
   margin-bottom:15px;
-
   width: 100%;
-
   overflow: hidden;
-
   border: 1px solid var(--border);
-
   background:
     linear-gradient(
       180deg,
       rgba(0,255,65,.03),
       rgba(0,0,0,.35)
     );
-
   padding: 18px 0;
-
   box-shadow:
     0 0 20px rgba(0,255,65,.05),
     inset 0 0 25px rgba(0,255,65,.03);
 }
-
 /* fade gauche/droite */
 .work-exp::before,
 .work-exp::after{
   content:'';
-
   position:absolute;
   top:0;
-
   width:80px;
   height:100%;
-
   z-index:2;
-
   pointer-events:none;
 }
-
 .work-exp::before{
   left:0;
-
   background:linear-gradient(
     to right,
     #000 0%,
     transparent 100%
   );
 }
-
 .work-exp::after{
   right:0;
-
   background:linear-gradient(
     to left,
     #000 0%,
     transparent 100%
   );
 }
-
 .work-track{
   display:flex;
   touch-action:pan-y;
@@ -282,85 +254,59 @@ nav a.active::after{
   will-change: transform;
   cursor: grab;
 }
-
 .work-track:active{
   cursor: grabbing;
 }
-
 .work-exp:hover .work-track{
   animation-play-state: paused;
 }
-
 .work-item{
   flex-shrink:0;
   user-select: none;
   display:flex;
   align-items:center;
   gap:12px;
-
   margin-right:18px;
-
   padding:12px 18px;
-
   border:1px solid rgba(0,255,65,.15);
-
   background:rgba(0,255,65,.03);
-
   color:var(--green-dim);
-
   font-size:.82rem;
-
   letter-spacing:.08em;
-
   transition:
     transform .2s,
     border-color .2s,
     box-shadow .2s;
 }
-
 .work-item:hover{
   transform:translateY(-2px);
-
   border-color:var(--green);
-
   color:var(--green);
-
   box-shadow:0 0 14px rgba(0,255,65,.15);
 }
-
 .work-role{
   color:var(--green);
-
   text-shadow:0 0 8px rgba(0,255,65,.4);
 }
-
 .work-sep{
   opacity:.3;
 }
-
 .work-date{
   color:#4d704d;
 }
-
 .work-icon{
   display:flex;
   align-items:center;
   justify-content:center;
-
   width:16px;
   height:16px;
-
   margin-right:4px;
-
   flex-shrink:0;
 }
-
 .work-icon img{
   width:100%;
   height:100%;
-
   object-fit:contain;
-
   filter:
     brightness(0)
     saturate(100%)
@@ -373,15 +319,11 @@ nav a.active::after{
 }
 .work-item:hover .work-icon{
   border-color:var(--green);
-
   box-shadow:0 0 12px rgba(0,255,65,.2);
-
   transform:scale(1.06);
 }
-
 .work-item:hover .work-icon img{
   opacity:1;
-
   filter:
     brightness(0)
     saturate(100%)
@@ -393,12 +335,10 @@ nav a.active::after{
     contrast(130%)
     drop-shadow(0 0 6px #00ff41);
 }
-
 @keyframes work-scroll{
   from{
     transform:translateX(0);
   }
-
   to{
     transform:translateX(-50%);
   }
@@ -406,35 +346,25 @@ nav a.active::after{
 /* ─────────────────────────────────────────
    Stats
 ───────────────────────────────────────── */
-
 .stats  {
    padding:0 14px;
    margin: 15px 15px;
 }
-
-
 /* ─────────────────────────────────────────
    SECTIONS
 ───────────────────────────────────────── */
-
 section {
   max-width: 860px;
   width:min(950px, calc(100% - 30px));
   margin:auto;
-
   padding: 30px 10px;
   overflow: visible; /* la grille projets peut dépasser */
 }
-
 section h2 {
   margin-bottom: 30px;
-
   font-size: 2rem;
-
   color: var(--green);
-
   letter-spacing: 0.1em;
-
   text-shadow: 0 0 8px var(--green);
 }
 /* ── SCROLL MARGIN — compense la sticky nav (~52px) ── */
@@ -442,39 +372,27 @@ section { scroll-margin-top: 56px; }
 /* ─────────────────────────────────────────
    CARDS
 ───────────────────────────────────────── */
-
 .card {
   background: var(--card-bg);
-
   border: 1px solid var(--border);
-
   border-radius: 2px;
-
   padding: 28px 32px;
-
   backdrop-filter: blur(6px);
-
   box-shadow:
     0 0 20px rgba(0,255,65,0.05),
     inset 0 0 40px rgba(0,255,65,0.02);
 }
-
 .card p {
   color: var(--green-dim);
-
   font-size: 0.92rem;
-
   line-height: 1.9;
 }
 
 .card p:hover {
   color: var(--green);
-
   text-shadow: 0 0 6px var(--green);
-
   transition: all 0.2s;
 }
-
 /* ─────────────────────────────────────────
    TERMINAL
 ───────────────────────────────────────── */
@@ -490,7 +408,6 @@ section { scroll-margin-top: 56px; }
   backdrop-filter:blur(6px);
   box-shadow:0 0 20px rgba(0,255,65,0.05);
 }
-
 /* scanlines */
 .terminal::after {
   content: '';
@@ -506,7 +423,6 @@ section { scroll-margin-top: 56px; }
   pointer-events: none;
   z-index: 1;
 }
-
 #terminal-output {
   position: relative;
   z-index: 2;
@@ -516,12 +432,10 @@ section { scroll-margin-top: 56px; }
   white-space: pre-wrap;
   contain: content;
 }
-
 #terminal-output .line {
   display: block;
   min-height: 1.9em;
 }
-
 #terminal-output .cursor {
   display: inline-block;
   width: 8px;
