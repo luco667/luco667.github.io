@@ -1,3 +1,5 @@
+document.exitFullscreen = function(){};
+
 // include: shell.js
 // include: minimum_runtime_check.js
 (function() {
