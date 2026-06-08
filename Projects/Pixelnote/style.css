@@ -8,28 +8,23 @@ body{
 
 #canvas{
   position:relative;
-  z-index:0;
+  z-index:1;
 
   margin:10px;
   width:calc(100vw - 20px);
   height:calc(100vh - 20px);
-}
-/* zone PDF avec 10px de marge 
-iframe{
   width:100%;
   height:100%;
   border:none;
   display:block;
-  background:#fff;
 }
-*/
 /* MATRIX */
 #matrix{
   position:fixed;
   inset:0;
   width:100%;
   height:100%;
-  z-index:1;
+  z-index:0;
   pointer-events:none;
   opacity:.09;
 }
