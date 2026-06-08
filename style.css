@@ -15,6 +15,9 @@ footer{
 html, body {
   overscroll-behavior: none;
 }
+body {
+  overflow-anchor: none;
+}
 /* ─────────────────────────────────────────
    ANIMATIONS
 ───────────────────────────────────────── */
