@@ -435,7 +435,7 @@ section { scroll-margin-top: 56px; }
 }
 #terminal-output .line {
   display: block;
-  min-height: 1.9em;
+  height: 1.9em;
 }
 #terminal-output .cursor {
   display: inline-block;
@@ -446,7 +446,6 @@ section { scroll-margin-top: 56px; }
   vertical-align: middle;
   animation: blink 1s step-end infinite;
 }
-@keyframes blink {50% {opacity: 0; }}
 /* ─────────────────────────────────────────
    SKILLS
 ───────────────────────────────────────── */
