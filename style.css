@@ -12,12 +12,6 @@ footer{
   position:relative;
   z-index:10;
 }
-html, body {
-  overscroll-behavior: none;
-}
-body {
-  overflow-anchor: none;
-}
 /* ─────────────────────────────────────────
    ANIMATIONS
 ───────────────────────────────────────── */
@@ -438,7 +432,7 @@ section { scroll-margin-top: 56px; }
 }
 #terminal-output .line {
   display: block;
-  height: 1.9em;
+  min-height: 1.9em;
 }
 #terminal-output .cursor {
   display: inline-block;
