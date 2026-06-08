@@ -1,7 +1,7 @@
 
-
-
-
+/* ═══════════════════════════════════════════
+   INIT GGSTATIC
+═══════════════════════════════════════════ */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import {
@@ -390,7 +390,7 @@ const navLinks = document.querySelectorAll("nav a");
 
 window.addEventListener("scroll", () => {
   let current = "";
-  sections.forEach(sec => { if (scrollY >= sec.offsetTop - 140) current = sec.id; });
+  sections.forEach(sec => { if (scrollY >= sec.offsetTop - 60) current = sec.id; });
   navLinks.forEach(link => {
     link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
   });
