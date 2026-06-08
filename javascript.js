@@ -1,3 +1,14 @@
+function lockScroll() {
+  document.body.style.overflow = "hidden";
+  document.body.style.position = "fixed";
+  document.body.style.width = "100%";
+}
+
+lockScroll();
+
+
+
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import {
   getDatabase,
