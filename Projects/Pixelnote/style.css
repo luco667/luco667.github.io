@@ -6,7 +6,7 @@ body{
 }
 
 
-/*canvas{
+canvas{
   position:relative;
   z-index:1;
 
@@ -16,7 +16,7 @@ body{
   border:none;
   display:block;
 }
- MATRIX 
+/* MATRIX 
 #matrix{
   position:fixed;
   inset:0;
