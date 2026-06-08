@@ -31,9 +31,7 @@ footer{
 ::-webkit-scrollbar-track { background: #000;}
 ::-webkit-scrollbar-thumb { background: var(--green-dark);}
 ::-webkit-scrollbar-thumb:hover {  background: var(--green-dim);}
-nav::-webkit-scrollbar{
-  display:none;
-}
+/*::-webkit-scrollbar{display:none;}*/
 /* ─────────────────────────────────────────
    FONTS
 ───────────────────────────────────────── */
