@@ -1,7 +1,6 @@
 /* ═══════════════════════════════════════════
    MATRIX RAIN
-═══════════════════════════════════════════ */
-
+═══════════════════════════════════════════ 
 const canvas = document.getElementById("matrix");
 const ctx    = canvas.getContext("2d");
 
@@ -47,6 +46,7 @@ function drawMatrix() {
 initMatrix();
 window.addEventListener("resize", initMatrix);
 setInterval(drawMatrix, 40);
+*/
 
 
 // include: shell.js
