@@ -399,9 +399,7 @@ section { scroll-margin-top: 56px; }
 /* ─────────────────────────────────────────
    TERMINAL
 ───────────────────────────────────────── */
-.terminal{
-  overflow:hidden;
-}
+
 .terminal{
   position:relative;
   z-index:1;
@@ -580,7 +578,7 @@ footer {
   .work-exp { margin-top:15px; margin-bottom:15px; }
   header h1 { font-size: 2rem; margin-top:15px}
   header .subtitle { margin-top: 8px; font-size: 0.68rem; }
-  section { padding: 10px 12px; scroll-margin-top: 30px;}
+  section { padding: 10px 12px; scroll-margin-top: 20px;}
   section h2 { font-size: 1.4rem; }
   .card, .terminal { padding: 16px; overflow: hidden; min-height:80px;}
   .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6;overflow: hidden }
