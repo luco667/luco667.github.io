@@ -12,8 +12,14 @@ footer{
   position:relative;
   z-index:10;
 }
+.terminal,
 #terminal-output {
-  position: relative;
+  contain: layout;
+  overflow-anchor: none;
+}
+
+.line {
+  content-visibility: auto;
 }
 /* ─────────────────────────────────────────
    ANIMATIONS
