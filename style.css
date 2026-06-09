@@ -403,21 +403,6 @@ section { scroll-margin-top: 56px; }
   background:var(--card-bg);
   backdrop-filter:blur(6px);
   box-shadow:0 0 20px rgba(0,255,65,0.05);
-
-  /* FIX IMPORTANT */
-  contain: layout paint;
-  overflow-anchor: none;
-  transform: translateZ(0);
-}
-.terminal {
-  contain: layout paint style;
-  overflow-anchor: none;
-  transform: translateZ(0);
-}
-
-#terminal-output {
-  contain: layout paint;
-  overflow-anchor: none;
 }
 /* scanlines */
 .terminal::after {
@@ -434,7 +419,6 @@ section { scroll-margin-top: 56px; }
   pointer-events: none;
   z-index: 1;
 }
-
 #terminal-output {
   position: relative;
   z-index: 2;
@@ -442,22 +426,20 @@ section { scroll-margin-top: 56px; }
   font-size: 0.92rem;
   line-height: 1.9;
   white-space: pre-wrap;
-
-  /* FIX IMPORTANT */
-  contain: layout paint;
-  overflow-anchor: none;
+  contain: content;
 }
-
 #terminal-output .line {
   display: block;
   min-height: 1.9em;
 }
-
-#terminal-output .cursor{
-  display:inline-block;
-  margin-left:2px;
-  color:var(--green);
-  animation:blink 1s step-end infinite;
+#terminal-output .cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  margin-left: 2px;
+  background: var(--green);
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
 }
 /* ─────────────────────────────────────────
    SKILLS
@@ -613,4 +595,3 @@ footer {
 @media (max-width:600px){
   .projects-grid{grid-template-columns:1fr;justify-items: center;}
 }
-
