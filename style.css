@@ -31,7 +31,7 @@ footer{
 ::-webkit-scrollbar-track { background: #000;}
 ::-webkit-scrollbar-thumb { background: var(--green-dark);}
 ::-webkit-scrollbar-thumb:hover {  background: var(--green-dim);}
-::-webkit-scrollbar{display:swap;}
+::-webkit-scrollbar{display:flex;}
 /* ─────────────────────────────────────────
    FONTS
 ───────────────────────────────────────── */
@@ -582,6 +582,70 @@ footer {
   nav a{  padding:7px 10px;}
   footer { padding: 20px 10px; font-size: 0.7rem; }
   #matrix { opacity: 0.3; }
+  .terminal {
+  position: relative;
+  z-index: 1;
+  padding: 24px 32px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 20px rgba(0,255,65,0.05);
+}
+
+/* Scrollbar Chrome/Safari */
+.terminal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.terminal::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.terminal::-webkit-scrollbar-thumb {
+  background: var(--green-dark);
+  border-radius: 3px;
+}
+
+.terminal::-webkit-scrollbar-thumb:hover {
+  background: var(--green-dim);
+}
+/* scanlines */
+.terminal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.08) 3px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+#terminal-output {
+  position: relative;
+  z-index: 2;
+  color: var(--green-dim);
+  font-size: 0.92rem;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  contain: content;
+}
+#terminal-output .line {
+  display: block;
+  min-height: 1.9em;
+}
+#terminal-output .cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  margin-left: 2px;
+  background: var(--green);
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
 }
 
 /* ── SMALL PHONES ── */
