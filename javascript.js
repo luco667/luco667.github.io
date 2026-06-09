@@ -334,6 +334,10 @@ if (track) {
    TERMINAL TYPEWRITER
 ═══════════════════════════════════════════ */
 
+/* ═══════════════════════════════════════════
+   TERMINAL TYPEWRITER (STABLE)
+═══════════════════════════════════════════ */
+
 const LINES = [
   "> initializing profile...",
   " ",
@@ -350,26 +354,7 @@ const output = document.getElementById("terminal-output");
 let lineIdx = 0;
 let charIdx = 0;
 
-function isTerminalVisible() {
-  const rect = output.getBoundingClientRect();
-
-  return (
-    rect.top < window.innerHeight &&
-    rect.bottom > 0
-  );
-}
-
-function typeLine() {
-  if (lineIdx >= LINES.length) {
-    const finalLine = document.createElement("div");
-    finalLine.className = "line";
-    finalLine.innerHTML =
-      '<span>> system ready</span><span class="cursor"></span>';
-
-    output.appendChild(finalLine);
-    return;
-  }
-
+function createLine() {
   const line = document.createElement("div");
   line.className = "line";
 
@@ -379,36 +364,70 @@ function typeLine() {
 
   line.appendChild(text);
   line.appendChild(cursor);
+
+  return { line, text, cursor };
+}
+
+function typeLine() {
+  if (!output) return;
+
+  if (lineIdx >= LINES.length) {
+    // ligne finale avec underscore clignotant
+    const final = document.createElement("div");
+    final.className = "line";
+
+    const text = document.createElement("span");
+    text.textContent = "> system ready";
+
+    const cursor = document.createElement("span");
+    cursor.className = "cursor";
+    cursor.textContent = "_";
+
+    final.appendChild(text);
+    final.appendChild(cursor);
+    output.appendChild(final);
+
+    return;
+  }
+
+  const { line, text, cursor } = createLine();
   output.appendChild(line);
 
   const current = LINES[lineIdx];
 
   function typeChar() {
     if (charIdx < current.length) {
-
-      const oldY = window.scrollY;
-
       text.textContent += current.charAt(charIdx++);
-
-      if (!isTerminalVisible()) {
-        window.scrollTo(0, oldY);
-      }
-
       setTimeout(typeChar, Math.random() * 35 + 18);
-
-    } else {
-
-      cursor.remove();
-
-      lineIdx++;
-      charIdx = 0;
-
-      setTimeout(typeLine, 110);
+      return;
     }
+
+    cursor.remove();
+    lineIdx++;
+    charIdx = 0;
+
+    setTimeout(typeLine, 120);
   }
 
   typeChar();
 }
+
+/* anti scroll jump simple et efficace */
+(function lockScrollDuringTyping() {
+  let lockedY = window.scrollY;
+
+  const observer = new MutationObserver(() => {
+    const diff = Math.abs(window.scrollY - lockedY);
+
+    if (diff > 2) {
+      window.scrollTo(0, lockedY);
+    }
+
+    lockedY = window.scrollY;
+  });
+
+  observer.observe(output, { childList: true, subtree: true });
+})();
 
 setTimeout(typeLine, 600);
 
