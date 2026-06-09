@@ -403,25 +403,13 @@ section { scroll-margin-top: 56px; }
   background: var(--card-bg);
   backdrop-filter: blur(6px);
   box-shadow: 0 0 20px rgba(0,255,65,0.05);
+  
+  /* 🔧 Isoler le layout du terminal */
+  contain: layout style paint;
+  will-change: contents;
 }
 
-/* Scrollbar Chrome/Safari */
-.terminal::-webkit-scrollbar {
-  width: 6px;
-}
 
-.terminal::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.terminal::-webkit-scrollbar-thumb {
-  background: var(--green-dark);
-  border-radius: 3px;
-}
-
-.terminal::-webkit-scrollbar-thumb:hover {
-  background: var(--green-dim);
-}
 /* scanlines */
 .terminal::after {
   content: '';
@@ -601,24 +589,6 @@ footer {
   footer { letter-spacing: 0.08em; }
     footer { padding: 20px 10px; font-size: 0.7rem; }
   #matrix { opacity: 0.3; }
-  
-  /* Scrollbar Chrome/Safari */
-  .terminal::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .terminal::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  .terminal::-webkit-scrollbar-thumb {
-    background: var(--green-dark);
-    border-radius: 3px;
-  }
-  
-  .terminal::-webkit-scrollbar-thumb:hover {
-    background: var(--green-dim);
-  }
 }
 
 /* ── VERY SMALL ── */
