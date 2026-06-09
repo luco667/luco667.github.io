@@ -335,7 +335,7 @@ if (track) {
 ═══════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════
-   TERMINAL TYPEWRITER (STABLE)
+   TERMINAL TYPEWRITER (STABLE FIX MOBILE)
 ═══════════════════════════════════════════ */
 
 const LINES = [
@@ -346,15 +346,36 @@ const LINES = [
   "> education  : Baccalaureate in Science and Technology of Industry and Sustainable Development, and studies in Optical Eyewear BTS and BTS CIEL Option B (Electronics and Networks).",
   "> hobbies    : nature, art, literature, cinema, music, animation, science",
   " ",
-  "> system ready"
+  "> system ready",
 ];
 
-const output = document.getElementById("terminal-output");
+const output   = document.getElementById("terminal-output");
+const terminal = document.querySelector(".terminal");
 
 let lineIdx = 0;
 let charIdx = 0;
 
-function createLine() {
+/* lock scroll position brut (simple et fiable mobile) */
+let lockScroll = false;
+
+function lock() {
+  lockScroll = true;
+}
+
+function unlock() {
+  lockScroll = false;
+}
+
+/* empêche Safari de re-snap */
+window.addEventListener("scroll", () => {
+  if (!lockScroll) return;
+  window.scrollTo(window.scrollX, window.scrollY);
+}, { passive: true });
+
+function typeLine() {
+
+  if (lineIdx >= LINES.length) return;
+
   const line = document.createElement("div");
   line.className = "line";
 
@@ -364,70 +385,35 @@ function createLine() {
 
   line.appendChild(text);
   line.appendChild(cursor);
-
-  return { line, text, cursor };
-}
-
-function typeLine() {
-  if (!output) return;
-
-  if (lineIdx >= LINES.length) {
-    // ligne finale avec underscore clignotant
-    const final = document.createElement("div");
-    final.className = "line";
-
-    const text = document.createElement("span");
-    text.textContent = "> system ready";
-
-    const cursor = document.createElement("span");
-    cursor.className = "cursor";
-    cursor.textContent = "_";
-
-    final.appendChild(text);
-    final.appendChild(cursor);
-    output.appendChild(final);
-
-    return;
-  }
-
-  const { line, text, cursor } = createLine();
   output.appendChild(line);
 
   const current = LINES[lineIdx];
 
+  lock();
+
   function typeChar() {
+
     if (charIdx < current.length) {
+
       text.textContent += current.charAt(charIdx++);
+
       setTimeout(typeChar, Math.random() * 35 + 18);
-      return;
+
+    } else {
+
+      cursor.remove();
+
+      lineIdx++;
+      charIdx = 0;
+
+      unlock();
+
+      setTimeout(typeLine, 110);
     }
-
-    cursor.remove();
-    lineIdx++;
-    charIdx = 0;
-
-    setTimeout(typeLine, 120);
   }
 
   typeChar();
 }
-
-/* anti scroll jump simple et efficace */
-(function lockScrollDuringTyping() {
-  let lockedY = window.scrollY;
-
-  const observer = new MutationObserver(() => {
-    const diff = Math.abs(window.scrollY - lockedY);
-
-    if (diff > 2) {
-      window.scrollTo(0, lockedY);
-    }
-
-    lockedY = window.scrollY;
-  });
-
-  observer.observe(output, { childList: true, subtree: true });
-})();
 
 setTimeout(typeLine, 600);
 
