@@ -579,7 +579,7 @@ footer {
   header .subtitle { margin-top: 8px; font-size: 0.68rem; }
   section { padding: 10px 12px; scroll-margin-top: 50px;}
   section h2 { font-size: 1.4rem; }
-  .stat { margin-bottom:-10px; }
+  .stats { margin-bottom:-10px; }
   .card, .terminal { padding: 16px; min-height:80px;}
   .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6; }
   .skills{ display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;padding:18px; align-items:center; }
@@ -591,6 +591,7 @@ footer {
   ::-webkit-scrollbar-track { background: #000;}
   ::-webkit-scrollbar-thumb { background: var(--green-dark);}
   ::-webkit-scrollbar-thumb:hover {  background: var(--green-dim);}
+  ::-webkit-scrollbar {display:inline-block;}
   footer { padding: 20px 10px; font-size: 0.7rem; }
   #matrix { opacity: 0.3; }
 }
