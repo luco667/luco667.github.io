@@ -449,7 +449,6 @@ section { scroll-margin-top: 56px; }
   background: var(--card-bg);
   backdrop-filter: blur(6px);
   box-shadow: 0 0 20px rgba(0,255,65,0.05);
-  
   /* 🔧 Isoler le layout du terminal */
   contain: layout style paint;
   will-change: contents;
@@ -633,11 +632,6 @@ footer {
   nav{gap:2px;padding:6px 6px;}
   nav a{padding:6px 8px;font-size:.66rem;letter-spacing:.05em;}
   footer { letter-spacing: 0.08em; }
-  ::-webkit-scrollbar {width: 6px;}
-  ::-webkit-scrollbar-track { background: #000;}
-  ::-webkit-scrollbar-thumb { background: var(--green-dark);}
-  ::-webkit-scrollbar-thumb:hover {  background: var(--green-dim);}
-  ::-webkit-scrollbar {display:inline-block;}
   footer { padding: 20px 10px; font-size: 0.7rem; }
   #matrix { opacity: 0.3; }
 }
