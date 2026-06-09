@@ -81,6 +81,7 @@
   /* WebKit browsers (Chrome, Safari, Edge) */  
   .scrollable-container::-webkit-scrollbar {  
     width: 6px; /* Increase scrollbar width for visibility */  
+				display: -webkit-box;
   }
  
   .scrollable-container::-webkit-scrollbar-track {  
@@ -102,19 +103,16 @@
     scrollbar-width: thin; /* Make scrollbar visible */  
     scrollbar-color: #888 #f1f1f1; /* Thumb color, track color */  
   }
-}  
-/* High-contrast example */  
+}
+/* High-contrast example
 .scrollable-container::-webkit-scrollbar-thumb {  
-  background: #4a4a4a; /* Darker thumb */  
+  background: #4a4a4a; Darker thumb
 }  
 .scrollable-container::-webkit-scrollbar-track {  
-  background: #eaeaea; /* Lighter track */  
-}  
+  background: #eaeaea; Lighter track
+}  */
 .scrollable-container {  
   -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */  
-}
- .scrollable-container {  
-  overflow: overlay; /* Scrollbar overlays content (WebKit only) */  
 }
 /* ─────────────────────────────────────────
    GLOBAL
