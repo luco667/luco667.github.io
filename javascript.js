@@ -1,4 +1,3 @@
-
 /* ═══════════════════════════════════════════
    INIT GGSTATIC
 ═══════════════════════════════════════════ */
@@ -67,7 +66,6 @@ async function getGeoInfo() {
   } catch {
     // silencieux si bloqué ou offline
   }
-
 
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
   const language = navigator.language || navigator.languages?.[0] || "";
@@ -342,59 +340,38 @@ const LINES = [
   "> education  : Baccalaureate in Science and Technology of Industry and Sustainable Development, and studies in Optical Eyewear BTS and BTS CIEL Option B (Electronics and Networks).",
   "> hobbies    : nature, art, literature, cinema, music, animation, science",
   " ",
-  "> system ready"
+  "> system ready_",
 ];
 
 const output = document.getElementById("terminal-output");
+let lineIdx  = 0, charIdx = 0;
 
-/* buffer interne (réduit les reflows visibles) */
-const buffer = document.createDocumentFragment();
+function typeLine() {
+  if (lineIdx >= LINES.length) return;
 
-let lineIdx = 0;
-let charIdx = 0;
-
-function createLine() {
-  const line = document.createElement("div");
+  const line   = document.createElement("div");
   line.className = "line";
 
-  const text = document.createElement("span");
+  const text   = document.createElement("span");
   const cursor = document.createElement("span");
   cursor.className = "cursor";
 
   line.appendChild(text);
   line.appendChild(cursor);
-
-  return { line, text, cursor };
-}
-
-function flushBuffer() {
-  output.appendChild(buffer);
-}
-
-function typeLine() {
-  if (lineIdx >= LINES.length) return;
-
-  const { line, text, cursor } = createLine();
-  buffer.appendChild(line);
+  output.appendChild(line);
 
   const current = LINES[lineIdx];
 
   function typeChar() {
     if (charIdx < current.length) {
       text.textContent += current.charAt(charIdx++);
-      setTimeout(typeChar, Math.random() * 30 + 15);
-      return;
+      setTimeout(typeChar, Math.random() * 35 + 18);
+    } else {
+      cursor.remove();
+      lineIdx++;
+      charIdx = 0;
+      setTimeout(typeLine, 110);
     }
-
-    cursor.remove();
-
-    /* flush uniquement quand ligne finie */
-    flushBuffer();
-
-    lineIdx++;
-    charIdx = 0;
-
-    setTimeout(typeLine, 120);
   }
 
   typeChar();
