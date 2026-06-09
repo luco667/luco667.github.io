@@ -12,9 +12,13 @@ footer{
   position:relative;
   z-index:10;
 }
-section,
-body{
-overflow-anchor: none;
+html,
+body {
+  overflow-anchor: none;
+}
+
+#terminal-output {
+  overflow-anchor: none;
 }
 /* ─────────────────────────────────────────
    ANIMATIONS
