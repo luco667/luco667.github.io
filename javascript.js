@@ -334,13 +334,6 @@ if (track) {
    TERMINAL TYPEWRITER
 ═══════════════════════════════════════════ */
 
-/* ═══════════════════════════════════════════
-   TERMINAL TYPEWRITER (STABLE FIX MOBILE)
-═══════════════════════════════════════════ */
-/* ═══════════════════════════════════════════
-   TERMINAL TYPEWRITER (NO LAYOUT SHIFT FIX)
-═══════════════════════════════════════════ */
-
 const LINES = [
   "> initializing profile...",
   " ",
@@ -349,23 +342,20 @@ const LINES = [
   "> education  : Baccalaureate in Science and Technology of Industry and Sustainable Development, and studies in Optical Eyewear BTS and BTS CIEL Option B (Electronics and Networks).",
   "> hobbies    : nature, art, literature, cinema, music, animation, science",
   " ",
-  "> system ready",
+  "> system ready"
 ];
 
 const output = document.getElementById("terminal-output");
 
-/* buffer invisible (évite les reflows visibles) */
-const buffer = document.createElement("div");
-buffer.style.position = "absolute";
-buffer.style.visibility = "hidden";
-buffer.style.pointerEvents = "none";
-document.body.appendChild(buffer);
+/* buffer interne (réduit les reflows visibles) */
+const buffer = document.createDocumentFragment();
 
 let lineIdx = 0;
 let charIdx = 0;
 
 function createLine() {
   const line = document.createElement("div");
+  line.className = "line";
 
   const text = document.createElement("span");
   const cursor = document.createElement("span");
@@ -377,8 +367,8 @@ function createLine() {
   return { line, text, cursor };
 }
 
-function commitLine(line) {
-  output.appendChild(line);
+function flushBuffer() {
+  output.appendChild(buffer);
 }
 
 function typeLine() {
@@ -392,19 +382,19 @@ function typeLine() {
   function typeChar() {
     if (charIdx < current.length) {
       text.textContent += current.charAt(charIdx++);
-      setTimeout(typeChar, Math.random() * 35 + 18);
+      setTimeout(typeChar, Math.random() * 30 + 15);
       return;
     }
 
     cursor.remove();
 
-    /* transfert instantané après complétion */
-    commitLine(line);
+    /* flush uniquement quand ligne finie */
+    flushBuffer();
 
     lineIdx++;
     charIdx = 0;
 
-    setTimeout(typeLine, 110);
+    setTimeout(typeLine, 120);
   }
 
   typeChar();
