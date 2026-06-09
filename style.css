@@ -409,7 +409,16 @@ section { scroll-margin-top: 56px; }
   overflow-anchor: none;
   transform: translateZ(0);
 }
+.terminal {
+  contain: layout paint style;
+  overflow-anchor: none;
+  transform: translateZ(0);
+}
 
+#terminal-output {
+  contain: layout paint;
+  overflow-anchor: none;
+}
 /* scanlines */
 .terminal::after {
   content: '';
@@ -449,18 +458,6 @@ section { scroll-margin-top: 56px; }
   margin-left:2px;
   color:var(--green);
   animation:blink 1s step-end infinite;
-}
-.terminal {
-  contain: layout paint;
-}
-
-#terminal-output {
-  overflow-anchor: none;
-  contain: layout paint;
-}
-
-.line {
-  will-change: contents;
 }
 /* ─────────────────────────────────────────
    SKILLS
