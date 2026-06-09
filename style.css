@@ -73,7 +73,9 @@
   height: 2260px; /* Fixed height to enable scrolling */  
   overflow-y: auto; /* Show scrollbar when content overflows */  
   padding: 16px;  
+		display:
   border: 1px solid #e0e0e0;  
+		display: -webkit-box
 }  
 @media (max-width: 480px) and (hover: none) {  
   /* WebKit browsers (Chrome, Safari, Edge) */  
