@@ -12,12 +12,11 @@ footer{
   position:relative;
   z-index:10;
 }
-html,
-body {
+html {
   overflow-anchor: none;
 }
 
-#terminal {
+.terminal {
   overflow-anchor: none;
 }
 /* ─────────────────────────────────────────
