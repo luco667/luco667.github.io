@@ -403,13 +403,6 @@ section { scroll-margin-top: 56px; }
   background: var(--card-bg);
   backdrop-filter: blur(6px);
   box-shadow: 0 0 20px rgba(0,255,65,0.05);
-  
-  /* 🔧 AJOUTS IMPORTANTS */
-  height: 340px;              /* Hauteur fixe */
-  overflow-y: auto;           /* Scrollbar vertical interne */
-  overflow-x: hidden;         /* Pas de scroll horizontal */
-  scrollbar-width: thin;      /* Firefox */
-  scrollbar-color: var(--green-dark) transparent;
 }
 
 /* Scrollbar Chrome/Safari */
