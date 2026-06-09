@@ -432,15 +432,13 @@ section { scroll-margin-top: 56px; }
   display: block;
   min-height: 1.9em;
 }
-#terminal-output .cursor {
-  display: inline-block;
-  width: 8px;
-  height: 1em;
-  margin-left: 2px;
-  background: var(--green);
-  vertical-align: middle;
-  animation: blink 1s step-end infinite;
+#terminal-output .cursor{
+  display:inline-block;
+  margin-left:2px;
+  color:var(--green);
+  animation:blink 1s step-end infinite;
 }
+
 /* ─────────────────────────────────────────
    SKILLS
 ───────────────────────────────────────── */
