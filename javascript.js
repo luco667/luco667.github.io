@@ -342,37 +342,87 @@ const LINES = [
   "> education  : Baccalaureate in Science and Technology of Industry and Sustainable Development, and studies in Optical Eyewear BTS and BTS CIEL Option B (Electronics and Networks).",
   "> hobbies    : nature, art, literature, cinema, music, animation, science",
   " ",
-  "> system ready_",
+  "> system ready",
 ];
 
-const output = document.getElementById("terminal-output");
-let lineIdx  = 0, charIdx = 0;
+const output   = document.getElementById("terminal-output");
+const terminal = document.querySelector(".terminal");
+
+let lineIdx = 0;
+let charIdx = 0;
+
+/* Conserve la position visuelle si le terminal grandit */
+let previousHeight = terminal.offsetHeight;
+
+const resizeObserver = new ResizeObserver(() => {
+
+  const newHeight = terminal.offsetHeight;
+  const delta     = newHeight - previousHeight;
+
+  if (delta > 0) {
+
+    const terminalBottom =
+      terminal.getBoundingClientRect().bottom + window.scrollY;
+
+    if (window.scrollY > terminalBottom) {
+      window.scrollTo(0, window.scrollY + delta);
+    }
+  }
+
+  previousHeight = newHeight;
+});
+
+resizeObserver.observe(terminal);
 
 function typeLine() {
+
   if (lineIdx >= LINES.length) return;
 
-  const line   = document.createElement("div");
+  const line = document.createElement("div");
   line.className = "line";
 
-  const text   = document.createElement("span");
+  const text = document.createElement("span");
+
   const cursor = document.createElement("span");
   cursor.className = "cursor";
 
   line.appendChild(text);
   line.appendChild(cursor);
+
   output.appendChild(line);
 
   const current = LINES[lineIdx];
 
   function typeChar() {
+
     if (charIdx < current.length) {
+
       text.textContent += current.charAt(charIdx++);
       setTimeout(typeChar, Math.random() * 35 + 18);
+
     } else {
-      cursor.remove();
+
+      /* Dernière ligne : on garde le curseur clignotant */
+      if (lineIdx === LINES.length - 1) {
+
+        cursor.textContent = "_";
+        cursor.style.width = "auto";
+        cursor.style.height = "auto";
+        cursor.style.background = "transparent";
+
+      } else {
+
+        cursor.remove();
+
+        lineIdx++;
+        charIdx = 0;
+
+        setTimeout(typeLine, 110);
+        return;
+      }
+
       lineIdx++;
       charIdx = 0;
-      setTimeout(typeLine, 110);
     }
   }
 
