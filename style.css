@@ -76,7 +76,7 @@
   padding: 16px;  
 		display:
   border: 1px solid #e0e0e0;  
-		display: -webkit-box
+		display: -webkit-box;
 }  
 @media (max-width: 480px) and (hover: none) {  
   /* WebKit browsers (Chrome, Safari, Edge) */  
