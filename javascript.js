@@ -337,6 +337,9 @@ if (track) {
 /* ═══════════════════════════════════════════
    TERMINAL TYPEWRITER (STABLE FIX MOBILE)
 ═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   TERMINAL TYPEWRITER (NO LAYOUT SHIFT FIX)
+═══════════════════════════════════════════ */
 
 const LINES = [
   "> initializing profile...",
@@ -349,35 +352,20 @@ const LINES = [
   "> system ready",
 ];
 
-const output   = document.getElementById("terminal-output");
-const terminal = document.querySelector(".terminal");
+const output = document.getElementById("terminal-output");
+
+/* buffer invisible (évite les reflows visibles) */
+const buffer = document.createElement("div");
+buffer.style.position = "absolute";
+buffer.style.visibility = "hidden";
+buffer.style.pointerEvents = "none";
+document.body.appendChild(buffer);
 
 let lineIdx = 0;
 let charIdx = 0;
 
-/* lock scroll position brut (simple et fiable mobile) */
-let lockScroll = false;
-
-function lock() {
-  lockScroll = true;
-}
-
-function unlock() {
-  lockScroll = false;
-}
-
-/* empêche Safari de re-snap */
-window.addEventListener("scroll", () => {
-  if (!lockScroll) return;
-  window.scrollTo(window.scrollX, window.scrollY);
-}, { passive: true });
-
-function typeLine() {
-
-  if (lineIdx >= LINES.length) return;
-
+function createLine() {
   const line = document.createElement("div");
-  line.className = "line";
 
   const text = document.createElement("span");
   const cursor = document.createElement("span");
@@ -385,31 +373,38 @@ function typeLine() {
 
   line.appendChild(text);
   line.appendChild(cursor);
+
+  return { line, text, cursor };
+}
+
+function commitLine(line) {
   output.appendChild(line);
+}
+
+function typeLine() {
+  if (lineIdx >= LINES.length) return;
+
+  const { line, text, cursor } = createLine();
+  buffer.appendChild(line);
 
   const current = LINES[lineIdx];
 
-  lock();
-
   function typeChar() {
-
     if (charIdx < current.length) {
-
       text.textContent += current.charAt(charIdx++);
-
       setTimeout(typeChar, Math.random() * 35 + 18);
-
-    } else {
-
-      cursor.remove();
-
-      lineIdx++;
-      charIdx = 0;
-
-      unlock();
-
-      setTimeout(typeLine, 110);
+      return;
     }
+
+    cursor.remove();
+
+    /* transfert instantané après complétion */
+    commitLine(line);
+
+    lineIdx++;
+    charIdx = 0;
+
+    setTimeout(typeLine, 110);
   }
 
   typeChar();
