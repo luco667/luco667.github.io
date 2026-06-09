@@ -624,7 +624,7 @@ footer {
   header .subtitle { margin-top: 8px; font-size: 0.68rem; }
   section { padding: 10px 12px; scroll-margin-top: 50px;}
   section h2 { font-size: 1.4rem; }
-  .stats { margin-bottom:-10px; }
+  .stats div{ margin-bottom:-10px; }
   .card, .terminal { padding: 16px; min-height:80px;}
   .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6; }
   .skills{ display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;padding:18px; align-items:center; }
