@@ -17,4 +17,5 @@ body {
     height:100%;
     display:block;
     background:#000;
+    user-select: none;
 }
