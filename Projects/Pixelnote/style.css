@@ -5,6 +5,7 @@
 
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
+  background:#000;
 }
 
 .contener{
@@ -23,6 +24,5 @@
 
 /* ── SMALL PHONES ── */
 @media screen and (max-width: 480px) and (hover: none) {
-  .contener{ height:90vh;}
   * { user-select: none;}
 }
