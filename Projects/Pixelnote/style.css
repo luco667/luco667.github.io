@@ -7,8 +7,14 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.contener{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+}
+
 #canvas{
-    position:relative;
     width:100%;
     height:100%;
     display:block;
@@ -17,6 +23,6 @@
 
 /* ── SMALL PHONES ── */
 @media screen and (max-width: 480px) and (hover: none) {
-  #canvas{ height:99%;}
+  .contener{ height:90vh;}
   * { user-select: none;}
 }
