@@ -11,20 +11,6 @@ body {
     user-select: none;
 }
 
-.controls{
-    position:absolute;
-    top:16px;
-    right:16px;
-    display:flex;
-    gap:12px;
-    align-items:center;
-    padding:10px 14px;
-    border:1px solid var(--border);
-    background:var(--card-bg);
-    backdrop-filter:blur(10px);
-    border-radius:12px;
-    z-index:10;
-}
 
 #canvas{
     width:100%;
