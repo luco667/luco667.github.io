@@ -1,6 +1,5 @@
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
-#include <SDL3_image/SDL_image.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -24,6 +23,27 @@ int clamp(int val, int min, int max) {
     return val < min ? min : (val > max ? max : val);
 }
 
+void updateToolbarLayout(int ww)
+{
+    float btnSize = TOOLBAR_HEIGHT - 2;
+
+    if (ww < 450)
+        btnSize = 30;
+
+    g.colorButton.rect = (SDL_FRect){0 * btnSize, 0, btnSize, btnSize};
+    g.increase.rect    = (SDL_FRect){1 * btnSize, 0, btnSize, btnSize};
+    g.decrease.rect    = (SDL_FRect){2 * btnSize, 0, btnSize, btnSize};
+    g.shapeBtn.rect    = (SDL_FRect){3 * btnSize, 0, btnSize, btnSize};
+    g.erase.rect       = (SDL_FRect){4 * btnSize, 0, btnSize, btnSize};
+    g.saveBtn.rect     = (SDL_FRect){5 * btnSize, 0, btnSize, btnSize};
+
+    g.colorPreview = (SDL_FRect){
+        ww - btnSize - 5,
+        2,
+        btnSize - 4,
+        btnSize - 4
+    };
+}
 EM_JS(void, save_canvas, (), {
     const canvas = document.querySelector("canvas");
 
@@ -228,6 +248,7 @@ typedef struct {
     bool running, mouseDown, mouseRight;
     bool showColorPicker, showShapePicker;
     bool clicked;
+    bool saveRequested;
 
     int   pickerR, pickerG, pickerB;
     float lastX, lastY;
@@ -277,7 +298,7 @@ void main_loop(void) {
         if (HIT(g.decrease) && now - g.lastButtonTime > 50)
             { if (g.pixelWidth > 1) { g.pixelWidth--; g.pixelHeight--; } g.lastButtonTime = now; }
         if (HIT(g.saveBtn)) {
-            save_canvas();
+            g.saveRequested = true;
             g.clicked = true;
         }
 #undef HIT
@@ -346,6 +367,7 @@ void main_loop(void) {
     SDL_SetRenderDrawColor(g.renderer, 100, 100, 100, 255);
     int ww, wh;
     SDL_GetWindowSize(g.window, &ww, &wh);
+    updateToolbarLayout(ww);
 
     SDL_FRect toolbar = { 0, 0, ww, TOOLBAR_HEIGHT };
     SDL_RenderFillRect(g.renderer, &toolbar);
@@ -369,7 +391,12 @@ void main_loop(void) {
     SDL_DestroySurface(sizeS);
     float tw = 0, th = 0;
     SDL_GetTextureSize(sizeT, &tw, &th);
-    SDL_FRect dstSize = { (WINDOW_WIDTH - tw) / 2.0f, (TOOLBAR_HEIGHT - th) / 2.0f, tw, th };
+    SDL_FRect dstSize = {
+    (ww - tw) / 2.0f,
+    (TOOLBAR_HEIGHT - th) / 2.0f,
+    tw,
+    th
+    };
     SDL_RenderTexture(g.renderer, sizeT, NULL, &dstSize);
     SDL_DestroyTexture(sizeT);
 
@@ -385,7 +412,8 @@ void main_loop(void) {
     SDL_FRect dstRGB = {ww - tw - 60,(TOOLBAR_HEIGHT - th) / 2,tw,th};
     SDL_GetTextureSize(texRGB, &tw, &th);
     dstRGB.w = tw; dstRGB.h = th;
-    SDL_RenderTexture(g.renderer, texRGB, NULL, &dstRGB);
+    if (ww > 500)
+        SDL_RenderTexture(g.renderer, texRGB, NULL, &dstRGB);
     SDL_DestroyTexture(texRGB);
     TTF_CloseFont(smallFont);
 
@@ -396,6 +424,10 @@ void main_loop(void) {
         renderShapePicker(g.renderer, g.font, &g.shapePicker, mx, my, g.mouseDown, &g.currentShape);
 
     SDL_RenderPresent(g.renderer);
+    if (g.saveRequested) {
+    save_canvas();
+    g.saveRequested = false;
+    }
 }
 
 /* ══════════════════════════════════════════════════════════════════════════════
