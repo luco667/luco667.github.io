@@ -423,10 +423,7 @@ int main(void) {
     g.shapeBtn    = (Button){{ 3 * btnSize, 0, btnSize, btnSize }, "S"};
     g.erase       = (Button){{ 4 * btnSize, 0, btnSize, btnSize }, "E"};
     g.saveBtn     = (Button){{ 5 * btnSize, 0, btnSize, btnSize }, "P"};
-    g.colorPreview.x = ww - 45;
-    g.colorPreview.y = 2;
-    g.colorPreview.w = 38;
-    g.colorPreview.h = 38;
+    g.colorPreview = (SDL_FRect){ WINDOW_WIDTH - 50, 0, 40, 40 };
 
     g.pixelWidth  = 5;
     g.pixelHeight = 5;
