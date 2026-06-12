@@ -23,27 +23,6 @@ int clamp(int val, int min, int max) {
     return val < min ? min : (val > max ? max : val);
 }
 
-void updateToolbarLayout(int ww)
-{
-    float btnSize = TOOLBAR_HEIGHT - 2;
-
-    if (ww < 450)
-        btnSize = 30;
-
-    g.colorButton.rect = (SDL_FRect){0 * btnSize, 0, btnSize, btnSize};
-    g.increase.rect    = (SDL_FRect){1 * btnSize, 0, btnSize, btnSize};
-    g.decrease.rect    = (SDL_FRect){2 * btnSize, 0, btnSize, btnSize};
-    g.shapeBtn.rect    = (SDL_FRect){3 * btnSize, 0, btnSize, btnSize};
-    g.erase.rect       = (SDL_FRect){4 * btnSize, 0, btnSize, btnSize};
-    g.saveBtn.rect     = (SDL_FRect){5 * btnSize, 0, btnSize, btnSize};
-
-    g.colorPreview = (SDL_FRect){
-        ww - btnSize - 5,
-        2,
-        btnSize - 4,
-        btnSize - 4
-    };
-}
 EM_JS(void, save_canvas, (), {
     const canvas = document.querySelector("canvas");
 
@@ -55,7 +34,6 @@ EM_JS(void, save_canvas, (), {
         URL.revokeObjectURL(a.href);
     });
 });
-
 /* ─── Rendu bouton ─────────────────────────────────────────────────────────── */
 void renderButton(SDL_Renderer *renderer, TTF_Font *font, Button btn, int fontSize) {
     SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
@@ -259,6 +237,28 @@ typedef struct {
 } AppState;
 
 static AppState g;   /* instance unique globale */
+
+void updateToolbarLayout(int ww)
+    {
+    float btnSize = TOOLBAR_HEIGHT - 2;
+
+    if (ww < 450)
+        btnSize = 30;
+
+    g.colorButton.rect = (SDL_FRect){0 * btnSize, 0, btnSize, btnSize};
+    g.increase.rect    = (SDL_FRect){1 * btnSize, 0, btnSize, btnSize};
+    g.decrease.rect    = (SDL_FRect){2 * btnSize, 0, btnSize, btnSize};
+    g.shapeBtn.rect    = (SDL_FRect){3 * btnSize, 0, btnSize, btnSize};
+    g.erase.rect       = (SDL_FRect){4 * btnSize, 0, btnSize, btnSize};
+    g.saveBtn.rect     = (SDL_FRect){5 * btnSize, 0, btnSize, btnSize};
+
+    g.colorPreview = (SDL_FRect){
+        ww - btnSize - 5,
+        2,
+        btnSize - 4,
+        btnSize - 4
+    };
+}
 
 /* ─── Une frame ────────────────────────────────────────────────────────────── */
 void main_loop(void) {
