@@ -19,18 +19,5 @@
         <canvas id="canvas" tabindex="-1"></canvas>
 
     </div>
-
-    <script>
-        document.getElementById("fullscreenBtn").addEventListener("click", () => {
-            if (typeof Module !== "undefined" && Module.requestFullscreen) {
-                Module.requestFullscreen(
-                    false,
-                    document.getElementById("resize").checked
-                );
-            }
-        });
-    </script>
-
-
 </body>
 </html>
