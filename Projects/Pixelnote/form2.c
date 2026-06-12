@@ -1,5 +1,6 @@
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
+#include <SDL3_image/SDL_image.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -23,17 +24,17 @@ int clamp(int val, int min, int max) {
     return val < min ? min : (val > max ? max : val);
 }
 
-void saveCanvasPNG(SDL_Window *window, SDL_Renderer *renderer)
-{
-    SDL_Surface *surface = SDL_RenderReadPixels(renderer, NULL);
+EM_JS(void, save_canvas, (), {
+    const canvas = document.querySelector("canvas");
 
-    if (!surface)
-        return;
-
-    SDL_SaveBMP(surface, "drawing.bmp");
-
-    SDL_DestroySurface(surface);
-}
+    canvas.toBlob(function(blob) {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "drawing.png";
+        a.click();
+        URL.revokeObjectURL(a.href);
+    });
+});
 
 /* ─── Rendu bouton ─────────────────────────────────────────────────────────── */
 void renderButton(SDL_Renderer *renderer, TTF_Font *font, Button btn, int fontSize) {
@@ -275,8 +276,10 @@ void main_loop(void) {
             { g.pixelWidth++; g.pixelHeight++; g.lastButtonTime = now; }
         if (HIT(g.decrease) && now - g.lastButtonTime > 50)
             { if (g.pixelWidth > 1) { g.pixelWidth--; g.pixelHeight--; } g.lastButtonTime = now; }
-        if (HIT(g.saveBtn))
-        {saveCanvasPNG(g.window, g.renderer);g.clicked = true;}
+        if (HIT(g.saveBtn)) {
+            save_canvas();
+            g.clicked = true;
+        }
 #undef HIT
     }
 
