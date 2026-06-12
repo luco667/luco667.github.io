@@ -23,6 +23,24 @@ int clamp(int val, int min, int max) {
     return val < min ? min : (val > max ? max : val);
 }
 
+void saveCanvasPNG(SDL_Window *window, SDL_Renderer *renderer)
+{
+    int w, h;
+    SDL_GetRenderOutputSize(renderer, &w, &h);
+
+    SDL_Surface *surface =
+        SDL_CreateSurface(w, h, SDL_PIXELFORMAT_RGBA32);
+
+    SDL_RenderReadPixels(renderer, NULL,
+                         SDL_PIXELFORMAT_RGBA32,
+                         surface->pixels,
+                         surface->pitch);
+
+    SDL_SaveBMP(surface, "drawing.bmp");
+
+    SDL_DestroySurface(surface);
+}
+
 /* ─── Rendu bouton ─────────────────────────────────────────────────────────── */
 void renderButton(SDL_Renderer *renderer, TTF_Font *font, Button btn, int fontSize) {
     SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
@@ -203,7 +221,7 @@ typedef struct {
     SDL_Renderer *renderer;
     TTF_Font     *font;
 
-    Button colorButton, increase, decrease, shapeBtn, erase;
+    Button colorButton, increase, decrease, shapeBtn, erase, saveBtn;
     SDL_FRect colorPreview;
 
     int        pixelWidth, pixelHeight;
@@ -263,6 +281,8 @@ void main_loop(void) {
             { g.pixelWidth++; g.pixelHeight++; g.lastButtonTime = now; }
         if (HIT(g.decrease) && now - g.lastButtonTime > 50)
             { if (g.pixelWidth > 1) { g.pixelWidth--; g.pixelHeight--; } g.lastButtonTime = now; }
+        if (HIT(g.saveBtn))
+        {saveCanvasPNG(g.window, g.renderer);g.clicked = true;}
 #undef HIT
     }
 
@@ -327,13 +347,17 @@ void main_loop(void) {
 
     /* Toolbar */
     SDL_SetRenderDrawColor(g.renderer, 100, 100, 100, 255);
-    SDL_FRect toolbar = { 0, 0, WINDOW_WIDTH, TOOLBAR_HEIGHT };
+    int ww, wh;
+    SDL_GetWindowSize(g.window, &ww, &wh);
+
+    SDL_FRect toolbar = { 0, 0, ww, TOOLBAR_HEIGHT };
     SDL_RenderFillRect(g.renderer, &toolbar);
     renderButton(g.renderer, g.font, g.colorButton, 0);
     renderButton(g.renderer, g.font, g.increase,    36);
     renderButton(g.renderer, g.font, g.decrease,    36);
     renderButton(g.renderer, g.font, g.shapeBtn,    0);
     renderButton(g.renderer, g.font, g.erase,       0);
+    renderButton(g.renderer, g.font, g.saveBtn, 0);
 
     SDL_SetRenderDrawColor(g.renderer, g.currentColor.r, g.currentColor.g,
                            g.currentColor.b, 255);
@@ -361,7 +385,7 @@ void main_loop(void) {
                                                   (SDL_Color){255,255,255,255});
     SDL_Texture *texRGB  = SDL_CreateTextureFromSurface(g.renderer, surfRGB);
     SDL_DestroySurface(surfRGB);
-    SDL_FRect dstRGB = { WINDOW_WIDTH - 200, 5, 0, 0 };
+    SDL_FRect dstRGB = {ww - tw - 60,(TOOLBAR_HEIGHT - th) / 2,tw,th};
     SDL_GetTextureSize(texRGB, &tw, &th);
     dstRGB.w = tw; dstRGB.h = th;
     SDL_RenderTexture(g.renderer, texRGB, NULL, &dstRGB);
@@ -388,12 +412,21 @@ int main(void) {
     g.renderer = SDL_CreateRenderer(g.window, NULL);
     g.font     = TTF_OpenFont("Minecraft.ttf", 24);
 
-    g.colorButton = (Button){{ 0,   0, 40, 40 }, "C"};
-    g.increase    = (Button){{41,   0, 40, 40 }, "+"};
-    g.decrease    = (Button){{82,   0, 40, 40 }, "-"};
-    g.shapeBtn    = (Button){{123,  0, 40, 40 }, "S"};
-    g.erase       = (Button){{164,  0, 40, 40 }, "E"};
-    g.colorPreview = (SDL_FRect){ WINDOW_WIDTH - 50, 0, 40, 40 };
+    int w, h;
+    SDL_GetWindowSize(g.window, &w, &h);
+
+    float btnSize = TOOLBAR_HEIGHT - 2;
+
+    g.colorButton = (Button){{ 0 * btnSize, 0, btnSize, btnSize }, "C"};
+    g.increase    = (Button){{ 1 * btnSize, 0, btnSize, btnSize }, "+"};
+    g.decrease    = (Button){{ 2 * btnSize, 0, btnSize, btnSize }, "-"};
+    g.shapeBtn    = (Button){{ 3 * btnSize, 0, btnSize, btnSize }, "S"};
+    g.erase       = (Button){{ 4 * btnSize, 0, btnSize, btnSize }, "E"};
+    g.saveBtn     = (Button){{ 5 * btnSize, 0, btnSize, btnSize }, "P"};
+    g.colorPreview.x = ww - 45;
+    g.colorPreview.y = 2;
+    g.colorPreview.w = 38;
+    g.colorPreview.h = 38;
 
     g.pixelWidth  = 5;
     g.pixelHeight = 5;
