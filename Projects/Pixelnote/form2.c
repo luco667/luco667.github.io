@@ -25,16 +25,10 @@ int clamp(int val, int min, int max) {
 
 void saveCanvasPNG(SDL_Window *window, SDL_Renderer *renderer)
 {
-    int w, h;
-    SDL_GetRenderOutputSize(renderer, &w, &h);
+    SDL_Surface *surface = SDL_RenderReadPixels(renderer, NULL);
 
-    SDL_Surface *surface =
-        SDL_CreateSurface(w, h, SDL_PIXELFORMAT_RGBA32);
-
-    SDL_RenderReadPixels(renderer, NULL,
-                         SDL_PIXELFORMAT_RGBA32,
-                         surface->pixels,
-                         surface->pitch);
+    if (!surface)
+        return;
 
     SDL_SaveBMP(surface, "drawing.bmp");
 
