@@ -1,3 +1,8 @@
+body {
+    user-select: none;
+}
+
+
 .viewer-container{
     position:relative;
     z-index:1;
