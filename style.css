@@ -462,7 +462,8 @@ nav a.active::after{
 ───────────────────────────────────────── */
 .stats  {
    padding:0 14px;
-   margin: 15px 15px;
+   margin-top: 15px;
+			margin-bottom: 15px;
 }
 /* ─────────────────────────────────────────
    SECTIONS
@@ -671,6 +672,7 @@ footer {
   header { padding: 5px 15px; }
   header h1 {font-size: clamp(2rem, 12vw, 3.5rem);line-height: 1;word-break: break-word; margin-top:15px }
   .work-exp { margin-top:15px; margin-bottom:15px; }
+		.stats div{ margin-bottom:10px; margin-top:15px; }
   header .subtitle {padding: 0 10px;font-size: 0.75rem; line-height: 1.6; letter-spacing: 0.08em;}
   section { padding: 20px 14px; scroll-margin-top: 60px;}
   section h2 { margin-bottom: 20px; font-size: 1.6rem; }
@@ -694,7 +696,7 @@ footer {
   header .subtitle { margin-top: 8px; font-size: 0.68rem; }
   section { padding: 10px 12px; scroll-margin-top: 50px;}
   section h2 { font-size: 1.4rem; }
-  .stats div{ margin-bottom:-10px; }
+  .stats div{ margin-bottom:10px; margin-top:15px; }
   .card, .terminal { padding: 16px; min-height:80px;}
   .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6; }
   .skills{ display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;padding:18px; align-items:center; }
