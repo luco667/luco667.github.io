@@ -19,3 +19,9 @@ body {
     background:#000;
     user-select: none;
 }
+
+/* ── SMALL PHONES ── */
+@media screen and (max-width: 480px) and (hover: none) {
+  #canvas{ height:80%;}
+
+}
