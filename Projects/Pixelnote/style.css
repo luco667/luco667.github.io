@@ -24,6 +24,6 @@
 
 /* ── SMALL PHONES ── */
 @media screen and (max-width: 480px) and (hover: none) {
-  #canvas{ height:80%;}
+  #canvas{ height:99%;}
   * { user-select: none;}
 }
