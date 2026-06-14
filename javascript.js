@@ -347,6 +347,7 @@ const output = document.getElementById("terminal-output");
 
 let lineIndex = 0;
 let charIndex = 0;
+const term = document.getElementById("terminal");
 
 function typeLine() {
   if (lineIndex >= LINES.length) return;
@@ -385,6 +386,25 @@ function typeLine() {
 window.addEventListener("load", () => {
   setTimeout(typeLine, 600);
 });
+
+function printLine(text) {
+  const oldScroll = window.scrollY;
+  term.textContent += text + "\n";
+  window.scrollTo(0, oldScroll);
+
+
+  const atBottom =
+    window.innerHeight + window.scrollY >= document.body.offsetHeight - 5;
+
+  term.textContent += text + "\n";
+
+  if (atBottom) {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "instant"
+    });
+  }
+}
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
 ═══════════════════════════════════════════ */
