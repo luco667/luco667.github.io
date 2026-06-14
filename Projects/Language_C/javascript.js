@@ -58,7 +58,7 @@ const PROJECTS = [
     desc: "Modern notepad written in C with SDL3.",
     tags: ["C","SDL3","MinGW"],
     canvasId: "pixelnote-preview",
-    link: "Pixelnote/index.html",
+    link: "http://luco667.io/Projects/Pixelnote/index.html",
     date: "2024"
 },
 {
