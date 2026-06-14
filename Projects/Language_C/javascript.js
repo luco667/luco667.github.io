@@ -249,6 +249,7 @@ function initPreview(canvasId) {
         animate();
     }
 }
+
 PROJECTS.forEach(project => {
-    initPreviewCanvas(project.canvasId);
+    initPreview(project.canvasId);
 });
