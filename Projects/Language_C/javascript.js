@@ -57,8 +57,8 @@ const PROJECTS = [
     name: "PixelNote",
     desc: "Modern notepad written in C with SDL3.",
     tags: ["C", "SDL3", "MinGW"],
-    image: "assets/pixelnote.webp",
-    link: "Projects/Pixelnote/index.html",
+    image: "Pixelnote/index.html",
+    link: "Pixelnote/index.html",
     status: "done",
     date: "2024"
 },
@@ -67,7 +67,7 @@ const PROJECTS = [
     desc: "Classic Snake game written in C.",
     tags: ["C", "Game"],
     image: "assets/snake.webp",
-    link: "Projects/snake/enregistrement/snake.html",
+    link: "/Projects/snake/enregistrement/snake.html",
     status: "done",
     date: "2024"
 }
