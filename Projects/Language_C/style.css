@@ -220,7 +220,7 @@ footer {
 @media screen and (max-width: 900px) {
   header { padding: 60px 20px 30px; }
   section { padding: 20px 18px; }
-  .card, .terminal { padding: 22px; }
+  .card { padding: 22px; }
   .projects-grid{grid-template-columns:repeat(2, 1fr);justify-items: center;}
 }
 
@@ -232,8 +232,8 @@ footer {
   header .subtitle {padding: 0 10px;font-size: 0.75rem; line-height: 1.6; letter-spacing: 0.08em;}
   section { padding: 20px 14px; scroll-margin-top: 60px;}
   section h2 { margin-bottom: 20px; font-size: 1.6rem; }
-  .card, .terminal { padding: 18px; overflow: hidden; min-height:110px; }
-  .card p, #terminal-output { font-size: 0.82rem; line-height: 1.7;overflow: hidden }
+  .card{ padding: 18px; overflow: hidden; min-height:110px; }
+  .card p{ font-size: 0.82rem; line-height: 1.7;overflow: hidden }
 }
 
 /* ── SMALL PHONES ── */
@@ -245,8 +245,8 @@ footer {
   section { padding: 10px 12px; scroll-margin-top: 50px;}
   section h2 { font-size: 1.4rem; }
   .stats { margin-bottom:-2px; margin-top:15px;font-size:0.8em; }
-  .card, .terminal { padding: 16px; min-height:80px;}
-  .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6; }
+  .card{ padding: 16px; min-height:80px;}
+  .card p{ font-size: 0.76rem; line-height: 1.6; }
   footer { letter-spacing: 0.08em; }
   footer { padding: 20px 10px; font-size: 0.7rem; }
   #matrix { opacity: 0.3; }
