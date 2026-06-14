@@ -406,6 +406,7 @@ const PROJECTS = [
     projects: [
       { name: "Snake game", desc: "Web page with game in javascript", tags: ["javascript", "web", "html", "css"], link: "Projects/snake/enregistrement/snake.html", status: "done", date: "2023" },
       { name: "Notepad", desc: "Note-blocks in C.", tags: ["C", "SDL3", "MinGW"], link: "Projects/Pixelnote/index.html", status: "done", date: "2024" },
+	  { name: "C Language", desc: "All projects in C.", tags: ["C", "SDL3", "MinGW","embscripte"], link: "Projects/Language_C/Language_C.html", status: "done", date: "2026" },
       { name: "Portfolio", desc: "This page — matrix portfolio in pur HTML/CSS/JS.", tags: ["html", "css", "js", "canvas", "static"], link: "https://luco667.github.io/", status: "wip", date: "2026" },
     ],
   },
