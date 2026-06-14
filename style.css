@@ -519,12 +519,7 @@ section { scroll-margin-top: 56px; }
   box-shadow: 0 0 20px rgba(0,255,65,0.05);
   overscroll-behavior: contain;
   /* Empêche le navigateur de modifier le scroll */
-  overflow-anchor: none;
-}
-.terminal {
   overflow-y: visible;   /* pas de scroll interne */
-  white-space: pre-wrap;
-  font-family: monospace;
 }
 
 /* scanlines */
