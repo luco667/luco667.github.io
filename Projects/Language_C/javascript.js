@@ -62,14 +62,6 @@ const PROJECTS = [
     date: "2024"
   },
   {
-    name: "Snake",
-    desc: "Classic Snake game written in C.",
-    tags: ["C", "Game"],
-    preview: { type: "iframe", src: "https://luco667.github.io/Projects/snake/enregistrement/snake.html" },
-    link: "https://luco667.github.io/Projects/snake/enregistrement/snake.html",
-    date: "2024"
-  },
-  {
     name: "NetGraph",
     desc: "Network visualization tool.",
     tags: ["C", "Networking"],
