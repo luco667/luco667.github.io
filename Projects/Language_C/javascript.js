@@ -53,49 +53,25 @@ setInterval(drawMatrix, 40);
 ═══════════════════════════════════════════ */
 
 const PROJECTS = [
-  {
-    category: "NOte block",
-    icon: "◈",
-    color: "#00ff41",
-    projects: [
-     { name: "Notepad", desc: "Note-blocks in C.", tags: ["C", "SDL3", "MinGW"], link: "Projects/Pixelnote/index.html", status: "done", date: "2024" },
-    ],
-  },
-  {
-    category: "electronics",
-    icon: "◆",
-    color: "#00ccff",
-    projects: [
-      { name: "Arroseur PCB", desc: "", tags: ["KiCad", "PCB", "STM32"], status: "wip", date: "2025" },
-      { name: "Etiquette PCB", desc: "", tags: ["Kicad", "CODE39"], link: "https://github.com/luco667", status: "wip", date: "2026" },
-    ],
-  },
-  {
-    category: "cybersecurity",
-    icon: "⬢",
-    color: "#ffcc00",
-    projects: [
-      { name: "Empty", desc: "", tags: [], link: "", status: "wip", date: "2026" },
-    ],
-  },
-  {
-    category: "network",
-    icon: "▣",
-    color: "#ff4466",
-    projects: [
-      { name: "Proxy", desc: "Routeur proxy anti-pub.", tags: ["OSI"], status: "wip", date: "2026" },
-    ],
-  },
-  {
-    category: "miscellaneous",
-    icon: "⧉",
-    color: "#812bd5",
-    projects: [
-      { name: "Empty", desc: "", tags: [], link: "https://github.com/luco667", status: "wip", date: "2026" },
-    ],
-  },
+{
+    name: "PixelNote",
+    desc: "Modern notepad written in C with SDL3.",
+    tags: ["C", "SDL3", "MinGW"],
+    image: "assets/pixelnote.webp",
+    link: "Projects/Pixelnote/index.html",
+    status: "done",
+    date: "2024"
+},
+{
+    name: "Snake",
+    desc: "Classic Snake game written in C.",
+    tags: ["C", "Game"],
+    image: "assets/snake.webp",
+    link: "Projects/snake/enregistrement/snake.html",
+    status: "done",
+    date: "2024"
+}
 ];
-
 /* ═══════════════════════════════════════════
    PROJECTS RENDERER — DOM manuel, anti-XSS
 ═══════════════════════════════════════════ */
@@ -162,41 +138,50 @@ const PROJECTS = [
   `;
   document.head.appendChild(style);
 
-  const section = document.querySelector("#projects");
-  if (!section) return;
+const section = document.querySelector("#projects");
 
-  const grid = el("div", { class: "projects-grid" });
+const grid = document.createElement("div");
+grid.className = "projects-grid";
 
-  PROJECTS.forEach(cat => {
-    const card = el("div", { class: "cat-card" });
-    card.style.setProperty("--cat-color", cat.color);
-    card.dataset.category = cat.category;
+PROJECTS.forEach(project => {
 
-    const header  = el("div", { class: "cat-header" });
-    const icon    = el("span", { class: "cat-icon" });
-    icon.textContent = cat.icon;
-    const name    = el("div", { class: "cat-name" });
-    name.textContent = `./${cat.category}/`;
-    header.appendChild(icon);
-    header.appendChild(name);
+    const card = document.createElement("div");
+    card.className = "project-card";
 
-    const count   = cat.projects.length;
-    const counter = el("div", { class: `cat-count${count > 0 ? " has-projects" : ""}` });
-    counter.textContent = count > 0 ? `${count} project${count > 1 ? "s" : ""}` : "empty";
+    card.innerHTML = `
+        <img
+            class="project-preview"
+            src="${project.image}"
+            alt="${project.name}"
+            loading="lazy"
+        >
 
-    card.appendChild(header);
-    card.appendChild(counter);
+        <div class="project-content">
 
-    card.addEventListener("click", () => {
-      document.querySelectorAll(".cat-card").forEach(c => c.classList.remove("active"));
-      card.classList.add("active");
-      openModal(cat);
-    });
+            <div class="project-header">
+                <h3>${project.name}</h3>
+                <span class="project-date">${project.date}</span>
+            </div>
+
+            <p>${project.desc}</p>
+
+            <div class="project-tags">
+                ${project.tags.map(tag =>
+                    `<span>${tag}</span>`
+                ).join("")}
+            </div>
+
+            <a href="${project.link}" target="_blank">
+                Open Project →
+            </a>
+
+        </div>
+    `;
 
     grid.appendChild(card);
-  });
+});
 
-  section.appendChild(grid);
+section.appendChild(grid);
 
   const overlay    = el("div", { id: "proj-overlay" });
   const modal      = el("div", { id: "proj-modal" });
