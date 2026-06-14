@@ -334,51 +334,57 @@ if (track) {
 
 const LINES = [
   "> initializing profile...",
-  " ",
+  "",
   "> status     : Open to opportunities",
   "> interests  : design, web security, reverse engineering, continuous learning",
   "> education  : Baccalaureate in Science and Technology of Industry and Sustainable Development, and studies in Optical Eyewear BTS and BTS CIEL Option B (Electronics and Networks).",
   "> hobbies    : nature, art, literature, cinema, music, animation, science",
-  " ",
-  "> system ready_",
+  "",
+  "> system ready_"
 ];
 
 const output = document.getElementById("terminal-output");
-let lineIdx  = 0, charIdx = 0;
+
+let lineIndex = 0;
+let charIndex = 0;
 
 function typeLine() {
-  if (lineIdx >= LINES.length) return;
+  if (lineIndex >= LINES.length) return;
 
-  const line   = document.createElement("div");
-  line.className = "line";
+  const line = document.createElement("div");
+  line.classList.add("line");
 
-  const text   = document.createElement("span");
+  const text = document.createElement("span");
+
   const cursor = document.createElement("span");
-  cursor.className = "cursor";
+  cursor.classList.add("cursor");
 
-  line.appendChild(text);
-  line.appendChild(cursor);
+  line.append(text, cursor);
   output.appendChild(line);
 
-  const current = LINES[lineIdx];
+  const currentLine = LINES[lineIndex];
 
   function typeChar() {
-    if (charIdx < current.length) {
-      text.textContent += current.charAt(charIdx++);
-      setTimeout(typeChar, Math.random() * 35 + 18);
-    } else {
-      cursor.remove();
-      lineIdx++;
-      charIdx = 0;
-      setTimeout(typeLine, 110);
+    if (charIndex < currentLine.length) {
+      text.textContent += currentLine[charIndex++];
+      setTimeout(typeChar, 18 + Math.random() * 35);
+      return;
     }
+
+    cursor.remove();
+
+    lineIndex++;
+    charIndex = 0;
+
+    setTimeout(typeLine, 110);
   }
 
   typeChar();
 }
 
-setTimeout(typeLine, 600);
-
+window.addEventListener("load", () => {
+  setTimeout(typeLine, 600);
+});
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
 ═══════════════════════════════════════════ */
