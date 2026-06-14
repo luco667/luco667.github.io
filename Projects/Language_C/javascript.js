@@ -58,7 +58,7 @@ const PROJECTS = [
     desc: "Modern notepad written in C with SDL3.",
     tags: ["C","SDL3","MinGW"],
     canvasId: "pixelnote-preview",
-    link: "http://luco667.io/Projects/Pixelnote/index.html",
+    link: "http://luco667.github.io/Projects/Pixelnote/index.html",
     date: "2024"
 },
 {
@@ -66,7 +66,7 @@ const PROJECTS = [
     desc: "Classic Snake game written in C.",
     tags: ["C","Game"],
     canvasId: "snake-preview",
-    link: "http://luco667.io/Projects/snake/enregistrement/snake.html",
+    link: "http://luco667.github.io/Projects/snake/enregistrement/snake.html",
     date: "2024"
 },
 {
