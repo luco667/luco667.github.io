@@ -10,10 +10,47 @@
 }
 
 body{
-  margin:0;
-  background:#000;
-  cursor:crosshair;
-  overflow:hidden;
+    margin:0;
+    background:#000;
+    color:#fff;
+    font-family:Consolas, monospace;
+    cursor:crosshair;
+    overflow-x:hidden;
+}
+header{
+    text-align:center;
+    padding:60px 20px;
+}
+
+header h1{
+    margin:0;
+    color:#00ff41;
+    font-size:3rem;
+
+    text-shadow:
+        0 0 10px #00ff41,
+        0 0 25px #00ff41;
+}
+.projects-title{
+    text-align:center;
+    color:#00ff41;
+
+    font-size:5rem;
+    font-weight:900;
+
+    letter-spacing:10px;
+    text-transform:uppercase;
+
+    margin:80px 0;
+
+    text-shadow:
+        0 0 15px #00ff41,
+        0 0 30px #00ff41;
+}
+.subtitle{
+    color:#888;
+    margin-top:10px;
+    letter-spacing:2px;
 }
 
 #projects {
