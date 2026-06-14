@@ -521,6 +521,12 @@ section { scroll-margin-top: 56px; }
   /* Empêche le navigateur de modifier le scroll */
   overflow-anchor: none;
 }
+.terminal {
+  overflow-y: visible;   /* pas de scroll interne */
+  white-space: pre-wrap;
+  font-family: monospace;
+}
+
 /* scanlines */
 .terminal::after {
   content: '';
