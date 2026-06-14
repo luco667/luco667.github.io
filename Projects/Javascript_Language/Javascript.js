@@ -55,19 +55,19 @@ setInterval(drawMatrix, 40);
 const PROJECTS = [
   {
     name: "Snake",
-    desc: "Classic Snake game written in C.",
-    tags: ["C", "Game"],
+    desc: "Classic Snake game in Javascript.",
+    tags: ["Javascript", "Game"],
     preview: { type: "iframe", src: "https://luco667.github.io/Projects/snake/enregistrement/snake.html" },
     link: "https://luco667.github.io/Projects/snake/enregistrement/snake.html",
-    date: "2024"
+    date: "2023"
   },
   {
-    name: "NetGraph",
-    desc: "Network visualization tool.",
-    tags: ["C", "Networking"],
-    preview: { type: "canvas", id: "network-preview" },
-    link: "#",
-    date: "2025"
+    name: "Portfolio",
+    desc: "Portfolio on github",
+    tags: ["HTML", "CSS", "Javascript"],
+    preview: { type: "iframe", src: "https://luco667.github.io" },
+    link: "https://luco667.github.io",
+    date: "2026"
   }
 ];
 
@@ -123,80 +123,4 @@ PROJECTS.forEach(project => {
 PROJECTS
     .filter(project => project.preview.type === "canvas")
     .forEach(project => initPreview(project.preview.id));
-
-function initPreview(canvasId) {
-
-    const canvas = document.getElementById(canvasId);
-
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-
-    canvas.width = 400;
-    canvas.height = 220;
-
-    /* =========================
-       NETWORK
-    ========================= */
-
-    if (canvasId === "network-preview") {
-
-        const nodes = [];
-
-        for (let i = 0; i < 15; i++) {
-
-            nodes.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                dx: (Math.random() - .5) * 1.5,
-                dy: (Math.random() - .5) * 1.5
-            });
-        }
-
-        function animate() {
-
-            ctx.fillStyle = "#050505";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.strokeStyle = "rgba(0,255,65,.25)";
-
-            for (let i = 0; i < nodes.length; i++) {
-
-                const a = nodes[i];
-
-                a.x += a.dx;
-                a.y += a.dy;
-
-                if (a.x < 0 || a.x > canvas.width) a.dx *= -1;
-                if (a.y < 0 || a.y > canvas.height) a.dy *= -1;
-
-                for (let j = i + 1; j < nodes.length; j++) {
-
-                    const b = nodes[j];
-
-                    const dist = Math.hypot(
-                        a.x - b.x,
-                        a.y - b.y
-                    );
-
-                    if (dist < 100) {
-
-                        ctx.beginPath();
-                        ctx.moveTo(a.x, a.y);
-                        ctx.lineTo(b.x, b.y);
-                        ctx.stroke();
-                    }
-                }
-
-                ctx.fillStyle = "#00ff41";
-                ctx.beginPath();
-                ctx.arc(a.x, a.y, 3, 0, Math.PI * 2);
-                ctx.fill();
-            }
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    }
 }
