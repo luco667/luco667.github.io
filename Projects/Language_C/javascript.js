@@ -62,8 +62,8 @@ const PROJECTS = [
     date: "2024"
   },
   {
-    name: "NetGraph",
-    desc: "Network visualization tool.",
+    name: "***",
+    desc: "In progress.",
     tags: ["C", "Networking"],
     preview: { type: "canvas", id: "network-preview" },
     link: "#",
