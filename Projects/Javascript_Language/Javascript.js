@@ -123,4 +123,3 @@ PROJECTS.forEach(project => {
 PROJECTS
     .filter(project => project.preview.type === "canvas")
     .forEach(project => initPreview(project.preview.id));
-}
