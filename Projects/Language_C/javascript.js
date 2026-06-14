@@ -66,7 +66,7 @@ const PROJECTS = [
     desc: "Classic Snake game written in C.",
     tags: ["C","Game"],
     canvasId: "snake-preview",
-    link: "snake/enregistrement/snake.html",
+    link: "http://luco667.io/Projects/snake/enregistrement/snake.html",
     date: "2024"
 },
 {
