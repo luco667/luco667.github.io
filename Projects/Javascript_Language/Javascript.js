@@ -1,264 +1,202 @@
-@font-face {
-  font-family: 'Minecraft';
-  src: url('https://luco667.github.io/Minecraft.ttf') format('truetype');
-  font-display: swap;
-  font-weight: 400;
-  font-style: normal;
+/* ═══════════════════════════════════════════
+   MATRIX RAIN
+═══════════════════════════════════════════ */
+
+const matrix = document.getElementById("matrix");
+const ctx    = matrix.getContext("2d");
+
+const CHARS = "スシシャリノリサーモンマグロエビアボカドキュウリワサビショウユガリマキギリタテ1234567890><{}[]|/\\\\";
+
+let cols, drops, fontSize;
+
+function initMatrix() {
+  fontSize      = 14;
+  matrix.width  = window.innerWidth;
+  matrix.height = window.innerHeight;
+  cols          = Math.floor(matrix.width / fontSize);
+  drops         = Array.from({ length: cols }, () => Math.random() * -100);
 }
 
+function drawMatrix() {
+  ctx.fillStyle = "rgba(0,0,0,0.05)";
+  ctx.fillRect(0, 0, matrix.width, matrix.height);
+  ctx.font = `${fontSize}px "Minecraft", monospace`;
 
-:root {
-  --green: #00ff41;
-  --green-dim: #00cc33;
-  --green-dark: #003b00;
-  --green-glow: rgba(0, 255, 65, 0.15);
-  --bg: #000000;
-  --card-bg: rgba(0, 10, 0, 0.85);
-  --border: rgba(0, 255, 65, 0.3);
-}
+  for (let i = 0; i < drops.length; i++) {
+    const char = CHARS[Math.floor(Math.random() * CHARS.length)];
+    const y    = drops[i] * fontSize;
 
-@keyframes flicker {0%, 95%, 100% {opacity: 1;}96% { opacity: 0.7;}97% {opacity: 1;} 98% {  opacity: 0.6;  }99% {opacity: 1; }}
-/* ────────────────────────────────────────
-   SCROLLBAR
-───────────────────────────────────────── */
-::-webkit-scrollbar {width: 6px;height:3px;}
-::-webkit-scrollbar-track { background: #000;}
-::-webkit-scrollbar-thumb { background: var(--green-dark);}
-::-webkit-scrollbar-thumb:hover {  background: var(--green-dim);}
-/*::-webkit-scrollbar{display:block;}*/
-/* ─────────────────────────────────────────
-   MATRIX
-───────────────────────────────────────── */
-/* MATRIX */
-#matrix{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:-1;
-  pointer-events:none;
-  opacity:.09;
-}
-/* ─────────────────────────────────────────
-   RESET
-───────────────────────────────────────── */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { 
-   scroll-behavior: smooth; 
-}
-body {
-  background: var(--bg);
-  color: var(--green);
-  font-family: 'Minecraft', monospace;
-  overflow-x: hidden;
-  background:#000;
-  cursor: crosshair;
-}
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+    if (y > 0 && y < matrix.height) {
+      ctx.fillStyle   = "#ccffcc";
+      ctx.shadowColor = "#00ff41";
+      ctx.shadowBlur  = 8;
+    } else {
+      ctx.fillStyle   = "#00ff41";
+      ctx.shadowColor = "#00ff41";
+      ctx.shadowBlur  = 4;
+    }
+
+    ctx.fillText(char, i * fontSize, y);
+    ctx.shadowBlur = 0;
+
+    if (y > matrix.height && Math.random() > 0.975) drops[i] = 0;
+    drops[i] += 0.5;
+  }
 }
 
-::selection {
-  background: var(--green);
-  color: #000;
-}
+initMatrix();
+window.addEventListener("resize", initMatrix);
+setInterval(drawMatrix, 40);
 
-html{
-    scroll-behavior:smooth;
-}
-/* ─────────────────────────────────────────
-   HEADER
-───────────────────────────────────────── */
-header {
-  text-align: center;
-  padding:15px 25px;
-}
-header h1 {
-  font-family: 'VT323', monospace;
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  color: var(--green);
-  letter-spacing: 0.08em;
-  text-shadow:
-    0 0 10px var(--green),
-    0 0 30px var(--green),
-    0 0 60px var(--green-dim);
-  animation: flicker 6s infinite;
-}
-header .subtitle {
-  margin-top: 10px;
-  color: var(--green-dim);
-  font-size: 0.9rem;
-  opacity: 0.8;
-  letter-spacing: 0.15em;
-}
-header .subtitle::before {
-  content: '> ';
-  opacity: 0.5;
-}
-.projects-title{
-    text-align:center;
-    color:#00ff41;
-    font-size:2rem;
-    font-weight:700;
-    letter-spacing:10px;
-    text-transform:uppercase;
-    margin-bottom:20px;
-    text-shadow:
-        0 0 15px #00ff41,
-        0 0 30px #00ff41;
-}
-.subtitle{
-    color:#888;
-    margin-top:10px;
-    letter-spacing:2px;
-}
+/* ═══════════════════════════════════════════
+   PROJECTS DATABASE
+═══════════════════════════════════════════ */
 
-#projects {
-    max-width: 1400px;
-    margin: auto;
-    padding: 0px 40px;
-}
+const PROJECTS = [
+  {
+    name: "Snake",
+    desc: "Classic Snake game written in C.",
+    tags: ["C", "Game"],
+    preview: { type: "iframe", src: "https://luco667.github.io/Projects/snake/enregistrement/snake.html" },
+    link: "https://luco667.github.io/Projects/snake/enregistrement/snake.html",
+    date: "2024"
+  },
+  {
+    name: "NetGraph",
+    desc: "Network visualization tool.",
+    tags: ["C", "Networking"],
+    preview: { type: "canvas", id: "network-preview" },
+    link: "#",
+    date: "2025"
+  }
+];
 
-#projects h3 {
-    text-align: center;
-    color: #00ff41;
-    font-size: 4rem;
-    margin-bottom: 60px;
-    letter-spacing: 8px;
-    text-transform: uppercase;
-}
+const grid = document.querySelector(".projects-grid");
 
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(380px,1fr));
-    gap: 30px;
-}
+PROJECTS.forEach(project => {
 
-.project-card {
-    overflow: hidden;
-    border: 1px solid rgba(0,255,65,.2);
-    background: rgba(0,10,0,.8);
-    backdrop-filter: blur(10px);
+    const card = document.createElement("div");
+    card.className = "project-card";
 
-    transition: .3s;
-}
+    const previewHTML = project.preview.type === "iframe"
+        ? `<iframe
+               class="project-preview"
+               src="${project.preview.src}"
+               loading="lazy"
+               title="${project.name} live preview">
+           </iframe>`
+        : `<canvas
+               class="project-preview"
+               id="${project.preview.id}">
+           </canvas>`;
 
-.project-card:hover {
-    transform: translateY(-10px);
+    card.innerHTML = `
+       ${previewHTML}
 
-    border-color: #00ff41;
+       <div class="project-content">
 
-    box-shadow:
-        0 0 25px rgba(0,255,65,.25);
-}
+           <div class="project-header">
+               <h4>${project.name}</h4>
+               <span class="project-date">${project.date}</span>
+           </div>
 
-.project-preview {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    display: block;
-}
+           <p>${project.desc}</p>
 
-.project-content {
-    padding: 20px;
-}
+           <div class="project-tags">
+               ${project.tags.map(tag =>
+                   `<span>${tag}</span>`
+               ).join("")}
+           </div>
 
-.project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+           <a href="${project.link}">
+               Open Project →
+           </a>
 
-.project-header h3 {
-    margin: 0;
-    font-size: 1.4rem;
-    color: #00ff41;
-}
+       </div>
+   `;
 
-.project-date {
-    color: #666;
-}
+    grid.appendChild(card);
+});
 
-.project-content p {
-    color: #aaa;
-    line-height: 1.6;
-}
+// Seules les previews "canvas" (animations JS pures) ont besoin d'une init.
+// Les previews "iframe" se chargent et tournent toutes seules.
+PROJECTS
+    .filter(project => project.preview.type === "canvas")
+    .forEach(project => initPreview(project.preview.id));
 
-.project-tags {
-    margin: 15px 0;
-}
+function initPreview(canvasId) {
 
-.project-tags span {
-    border: 1px solid #00ff41;
-    color: #00ff41;
-    padding: 4px 10px;
-    margin-right: 6px;
-    font-size: .8rem;
-}
+    const canvas = document.getElementById(canvasId);
 
-.project-content a {
-    color: #00ff41;
-    text-decoration: none;
-}
-/* ─────────────────────────────────────────
-   FOOTER
-───────────────────────────────────────── */
-footer {
-  padding: 30px;
-  text-align: center;
-  color: var(--green-dark);
-  font-size: 0.8rem;
-  letter-spacing: 0.15em;
-}
+    if (!canvas) return;
 
-/* ─────────────────────────────────────────
-   SCREEN
-───────────────────────────────────────── */
-/* ── TABLET ── */
-@media screen and (max-width: 900px) {
-  header { padding: 60px 20px 30px; }
-  section { padding: 20px 18px; }
-  .card { padding: 22px; }
-  .projects-grid{grid-template-columns:repeat(2, 1fr);justify-items: center;}
-}
+    const ctx = canvas.getContext("2d");
 
-/* ── MOBILE ── */
-@media screen and (max-width: 768px) {
-  body { cursor: default; }
-  header { padding: 5px 15px; }
-  header h1 {font-size: clamp(2rem, 12vw, 3.5rem);line-height: 1;word-break: break-word; margin-top:15px }
-  header .subtitle {padding: 0 10px;font-size: 0.75rem; line-height: 1.6; letter-spacing: 0.08em;}
-  section { padding: 20px 14px; scroll-margin-top: 60px;}
-  section h2 { margin-bottom: 20px; font-size: 1.6rem; }
-  .card{ padding: 18px; overflow: hidden; min-height:110px; }
-  .card p{ font-size: 0.82rem; line-height: 1.7;overflow: hidden }
-}
+    canvas.width = 400;
+    canvas.height = 220;
 
-/* ── SMALL PHONES ── */
-@media screen and (max-width: 480px) and (hover: none) {
-  header { padding:5px 15px; }
-  .work-exp { margin-top:15px; margin-bottom:15px; }
-  header h1 { font-size: 2rem; margin-top:15px}
-  header .subtitle { margin-top: 8px; font-size: 0.68rem; }
-  section { padding: 10px 12px; scroll-margin-top: 50px;}
-  section h2 { font-size: 1.4rem; }
-  .stats { margin-bottom:-2px; margin-top:15px;font-size:0.8em; }
-  .card{ padding: 16px; min-height:80px;}
-  .card p{ font-size: 0.76rem; line-height: 1.6; }
-  footer { letter-spacing: 0.08em; }
-  footer { padding: 20px 10px; font-size: 0.7rem; }
-  #matrix { opacity: 0.3; }
-}
+    /* =========================
+       NETWORK
+    ========================= */
 
-/* ── VERY SMALL ── */
-@media screen and (max-width: 340px) {
-  header h1 { font-size: 1.6rem; margin-top:15px }
-  .card p,{ font-size: 0.72rem;overflow: hidden }
-}
+    if (canvasId === "network-preview") {
 
-/* mobile */
-@media (max-width:600px){
-  .projects-grid{grid-template-columns:1fr;justify-items: center;}
+        const nodes = [];
+
+        for (let i = 0; i < 15; i++) {
+
+            nodes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                dx: (Math.random() - .5) * 1.5,
+                dy: (Math.random() - .5) * 1.5
+            });
+        }
+
+        function animate() {
+
+            ctx.fillStyle = "#050505";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.strokeStyle = "rgba(0,255,65,.25)";
+
+            for (let i = 0; i < nodes.length; i++) {
+
+                const a = nodes[i];
+
+                a.x += a.dx;
+                a.y += a.dy;
+
+                if (a.x < 0 || a.x > canvas.width) a.dx *= -1;
+                if (a.y < 0 || a.y > canvas.height) a.dy *= -1;
+
+                for (let j = i + 1; j < nodes.length; j++) {
+
+                    const b = nodes[j];
+
+                    const dist = Math.hypot(
+                        a.x - b.x,
+                        a.y - b.y
+                    );
+
+                    if (dist < 100) {
+
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.stroke();
+                    }
+                }
+
+                ctx.fillStyle = "#00ff41";
+                ctx.beginPath();
+                ctx.arc(a.x, a.y, 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    }
 }
