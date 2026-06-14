@@ -1,3 +1,25 @@
+:root {
+  : #00ff41;
+  --green-dim: #00cc33;
+  --green-dark: #003b00;
+  --green-glow: rgba(0, 255, 65, 0.15);
+  --bg: #000000;
+  --card-bg: rgba(0, 10, 0, 0.85);
+  --border: rgba(0, 255, 65, 0.3);
+}
+
+@keyframes flicker {0%, 95%, 100% {opacity: 1;}96% { opacity: 0.7;}97% {opacity: 1;} 98% {  opacity: 0.6;  }99% {opacity: 1; }}
+/* ────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────── */
+::-webkit-scrollbar {width: 6px;height:3px;}
+::-webkit-scrollbar-track { background: #000;}
+::-webkit-scrollbar-thumb { background: var(--green-dark);}
+::-webkit-scrollbar-thumb:hover {  background: var(--green-dim);}
+/*::-webkit-scrollbar{display:block;}*/
+/* ─────────────────────────────────────────
+   MATRIX
+───────────────────────────────────────── */
 /* MATRIX */
 #matrix{
   position:fixed;
@@ -8,12 +30,27 @@
   pointer-events:none;
   opacity:.09;
 }
-
+/* ─────────────────────────────────────────
+   RESET
+───────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { 
+   scroll-behavior: smooth; 
+}
+body {
+  background: var(--bg);
+  color: var(--green);
+  font-family: 'Share Tech Mono', monospace;
+  overflow-x: hidden;
+  background:#000;
+  cursor: crosshair;
+}
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
 }
+
 ::selection {
   background: var(--green);
   color: #000;
@@ -22,30 +59,25 @@
 html{
     scroll-behavior:smooth;
 }
-
-body{
-    min-height:100vh;
-    margin:0;
-    background:#000;
-    color:#fff;
-    font-family:Consolas, monospace;
-    cursor:crosshair;
-    overflow-x:hidden;
+/* ─────────────────────────────────────────
+   HEADER
+───────────────────────────────────────── */
+header {
+  text-align: center;
+  padding:15px 25px;
 }
-header{
-    text-align:center;
-    padding:20px 20px;
+header h1 {
+  font-family: 'VT323', monospace;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  color: var(--green);
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0 10px var(--green),
+    0 0 30px var(--green),
+    0 0 60px var(--green-dim);
+  animation: flicker 6s infinite;
 }
 
-header h1{
-    margin:0;
-    color:#00ff41;
-    font-size:3rem;
-
-    text-shadow:
-        0 0 10px #00ff41,
-        0 0 25px #00ff41;
-}
 .projects-title{
     text-align:center;
     color:#00ff41;
