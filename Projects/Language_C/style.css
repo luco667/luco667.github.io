@@ -212,3 +212,53 @@ footer {
   font-size: 0.8rem;
   letter-spacing: 0.15em;
 }
+
+/* ─────────────────────────────────────────
+   SCREEN
+───────────────────────────────────────── */
+/* ── TABLET ── */
+@media screen and (max-width: 900px) {
+  header { padding: 60px 20px 30px; }
+  section { padding: 20px 18px; }
+  .card, .terminal { padding: 22px; }
+  .projects-grid{grid-template-columns:repeat(2, 1fr);justify-items: center;}
+}
+
+/* ── MOBILE ── */
+@media screen and (max-width: 768px) {
+  body { cursor: default; }
+  header { padding: 5px 15px; }
+  header h1 {font-size: clamp(2rem, 12vw, 3.5rem);line-height: 1;word-break: break-word; margin-top:15px }
+  header .subtitle {padding: 0 10px;font-size: 0.75rem; line-height: 1.6; letter-spacing: 0.08em;}
+  section { padding: 20px 14px; scroll-margin-top: 60px;}
+  section h2 { margin-bottom: 20px; font-size: 1.6rem; }
+  .card, .terminal { padding: 18px; overflow: hidden; min-height:110px; }
+  .card p, #terminal-output { font-size: 0.82rem; line-height: 1.7;overflow: hidden }
+}
+
+/* ── SMALL PHONES ── */
+@media screen and (max-width: 480px) and (hover: none) {
+  header { padding:5px 15px; }
+  .work-exp { margin-top:15px; margin-bottom:15px; }
+  header h1 { font-size: 2rem; margin-top:15px}
+  header .subtitle { margin-top: 8px; font-size: 0.68rem; }
+  section { padding: 10px 12px; scroll-margin-top: 50px;}
+  section h2 { font-size: 1.4rem; }
+  .stats { margin-bottom:-2px; margin-top:15px;font-size:0.8em; }
+  .card, .terminal { padding: 16px; min-height:80px;}
+  .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6; }
+  footer { letter-spacing: 0.08em; }
+  footer { padding: 20px 10px; font-size: 0.7rem; }
+  #matrix { opacity: 0.3; }
+}
+
+/* ── VERY SMALL ── */
+@media screen and (max-width: 340px) {
+  header h1 { font-size: 1.6rem; margin-top:15px }
+  .card p,{ font-size: 0.72rem;overflow: hidden }
+}
+
+/* mobile */
+@media (max-width:600px){
+  .projects-grid{grid-template-columns:1fr;justify-items: center;}
+}
