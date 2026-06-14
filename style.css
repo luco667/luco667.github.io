@@ -116,6 +116,9 @@
   scroll-margin-bottom: 350px;
   padding-bottom: 400px;
 }
+#skills {
+  scroll-margin-top: 5px;
+}
 header,
 section,
 footer{
