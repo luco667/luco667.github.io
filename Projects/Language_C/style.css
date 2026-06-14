@@ -1,5 +1,14 @@
+@font-face {
+  font-family: 'Minecraft';
+  src: url('Minecraft.ttf') format('truetype');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 :root {
-  : #00ff41;
+  --green: #00ff41;
   --green-dim: #00cc33;
   --green-dark: #003b00;
   --green-glow: rgba(0, 255, 65, 0.15);
