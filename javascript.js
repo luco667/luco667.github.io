@@ -383,10 +383,6 @@ function typeLine() {
   typeChar();
 }
 
-window.addEventListener("load", () => {
-  setTimeout(typeLine, 600);
-});
-
 function printLine(text) {
   const oldScroll = window.scrollY;
   term.textContent += text + "\n";
@@ -394,7 +390,7 @@ function printLine(text) {
 
 
   const atBottom =
-    window.innerHeight + window.scrollY >= document.body.offsetHeight - 5;
+  window.innerHeight + window.scrollY >= document.body.offsetHeight - 5;
 
   term.textContent += text + "\n";
 
@@ -405,6 +401,12 @@ function printLine(text) {
     });
   }
 }
+
+window.addEventListener("load", () => {
+  setTimeout(typeLine, 600);
+});
+
+
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
 ═══════════════════════════════════════════ */
