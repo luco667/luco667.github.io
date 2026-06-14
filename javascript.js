@@ -404,9 +404,8 @@ const PROJECTS = [
     icon: "◈",
     color: "#00ff41",
     projects: [
-      { name: "Web Language", desc: "All projects in Web Language", tags: ["javascript", "wasm", "html", "css"], link: "Projects/Javascript_Language/Js.html", status: "done", date: "2023" },
+      { name: "Web Language", desc: "All projects in language for the Web", tags: ["javascript", "wasm", "html", "css"], link: "Projects/Javascript_Language/Js.html", status: "done", date: "2023" },
 	    { name: "C Language", desc: "All projects in C.", tags: ["C", "SDL3", "MinGW","embscripte"], link: "Projects/Language_C/Language_C.html", status: "done", date: "2024" },
-      { name: "Portfolio", desc: "This page — matrix portfolio in pur HTML/CSS/JS.", tags: ["html", "css", "js", "canvas", "static"], link: "https://luco667.github.io/", status: "wip", date: "2026" },
     ],
   },
   {
