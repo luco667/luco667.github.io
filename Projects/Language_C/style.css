@@ -49,7 +49,7 @@ html {
 body {
   background: var(--bg);
   color: var(--green);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Minecraft', monospace;
   overflow-x: hidden;
   background:#000;
   cursor: crosshair;
