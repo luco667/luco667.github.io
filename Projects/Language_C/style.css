@@ -90,15 +90,11 @@ header h1 {
 .projects-title{
     text-align:center;
     color:#00ff41;
-
-    font-size:5rem;
-    font-weight:900;
-
+    font-size:2rem;
+    font-weight:700;
     letter-spacing:10px;
     text-transform:uppercase;
-
-    margin-bottom:40px;
-
+    margin-bottom:20px;
     text-shadow:
         0 0 15px #00ff41,
         0 0 30px #00ff41;
