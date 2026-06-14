@@ -383,11 +383,13 @@ function typeLine() {
   typeChar();
 }
 
-function printLine(text) {
+window.addEventListener("load", () => {
+  setTimeout(typeLine, 600);
+  
+  function printLine(text) {
   const oldScroll = window.scrollY;
   term.textContent += text + "\n";
   window.scrollTo(0, oldScroll);
-
 
   const atBottom =
   window.innerHeight + window.scrollY >= document.body.offsetHeight - 5;
@@ -398,12 +400,6 @@ function printLine(text) {
     window.scrollTo({
       top: document.body.scrollHeight,
       behavior: "instant"
-    });
-  }
-}
-
-window.addEventListener("load", () => {
-  setTimeout(typeLine, 600);
 });
 
 
