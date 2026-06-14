@@ -155,3 +155,13 @@ header h1{
     color: #00ff41;
     text-decoration: none;
 }
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+footer {
+  padding: 30px;
+  text-align: center;
+  color: var(--green-dark);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+}
