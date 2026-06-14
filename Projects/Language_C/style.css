@@ -86,7 +86,17 @@ header h1 {
     0 0 60px var(--green-dim);
   animation: flicker 6s infinite;
 }
-
+header .subtitle {
+  margin-top: 10px;
+  color: var(--green-dim);
+  font-size: 0.9rem;
+  opacity: 0.8;
+  letter-spacing: 0.15em;
+}
+header .subtitle::before {
+  content: '> ';
+  opacity: 0.5;
+}
 .projects-title{
     text-align:center;
     color:#00ff41;
