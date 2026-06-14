@@ -3,18 +3,9 @@
 }
 
 .touchScrollBars {
-	display: -webkit-box;
-	padding: 3px;
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: 2147483647;
-	-webkit-box-align: end;
-	-webkit-box-pack: end;
-	-webkit-box-sizing: border-box;
-	-webkit-overflow-scrolling: touch
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .touchScrollTrack {
@@ -76,7 +67,10 @@
   padding: 16px;
   border: 1px solid #e0e0e0;  
 		display: -webkit-box;
-}  
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
 @media (max-width: 480px) and (hover: none) {  
   /* WebKit browsers (Chrome, Safari, Edge) */  
   .scrollable-container::-webkit-scrollbar {  
@@ -520,11 +514,10 @@ section { scroll-margin-top: 56px; }
   background: var(--card-bg);
   backdrop-filter: blur(6px);
   box-shadow: 0 0 20px rgba(0,255,65,0.05);
-
+  overscroll-behavior: contain;
   /* Empêche le navigateur de modifier le scroll */
   overflow-anchor: none;
 }
-
 /* scanlines */
 .terminal::after {
   content: '';
@@ -676,7 +669,7 @@ footer {
   header { padding: 5px 15px; }
   header h1 {font-size: clamp(2rem, 12vw, 3.5rem);line-height: 1;word-break: break-word; margin-top:15px }
   .work-exp { margin-top:15px; margin-bottom:15px; }
-		.stats { margin-bottom:-4px; margin-top:15px;font-size:0.8em;}
+  .stats { margin-bottom:-4px; margin-top:15px;font-size:0.8em;}
   header .subtitle {padding: 0 10px;font-size: 0.75rem; line-height: 1.6; letter-spacing: 0.08em;}
   section { padding: 20px 14px; scroll-margin-top: 60px;}
   section h2 { margin-bottom: 20px; font-size: 1.6rem; }
