@@ -6,7 +6,6 @@
   font-style: normal;
 }
 
-
 :root {
   --green: #00ff41;
   --green-dim: #00cc33;
@@ -104,8 +103,8 @@ header .subtitle::before {
     font-weight:700;
     letter-spacing:10px;
     text-transform:uppercase;
-    margin-bottom:20px;
-    margin-top:20px;
+    margin:20px;
+
     text-shadow:
         0 0 15px #00ff41,
         0 0 30px #00ff41;
