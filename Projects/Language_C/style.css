@@ -105,6 +105,7 @@ header .subtitle::before {
     letter-spacing:10px;
     text-transform:uppercase;
     margin-bottom:20px;
+    margin-top:20px;
     text-shadow:
         0 0 15px #00ff41,
         0 0 30px #00ff41;
@@ -141,7 +142,6 @@ header .subtitle::before {
     border: 1px solid rgba(0,255,65,.2);
     background: rgba(0,10,0,.8);
     backdrop-filter: blur(10px);
-
     transition: .3s;
 }
 
