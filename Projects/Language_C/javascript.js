@@ -65,7 +65,7 @@ const PROJECTS = [
     name: "Snake",
     desc: "Classic Snake game written in C.",
     tags: ["C", "Game"],
-    preview: { type: "iframe",src:"https://luco667.github.io/Projects/snake/enregistrement/snake.html"},
+    preview: { type: "iframe", src: "https://luco667.github.io/Projects/snake/enregistrement/snake.html" },
     link: "https://luco667.github.io/Projects/snake/enregistrement/snake.html",
     date: "2024"
   },
@@ -142,33 +142,6 @@ function initPreview(canvasId) {
 
     canvas.width = 400;
     canvas.height = 220;
-
-    /* =========================
-       SNAKE
-    ========================= */
-
-    if (canvasId === "snake-preview") {
-
-        let x = 0;
-
-        function animate() {
-
-            ctx.fillStyle = "#050505";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = "#00ff41";
-            ctx.fillRect(x, 100, 20, 20);
-
-            x += 2;
-
-            if (x > canvas.width)
-                x = -20;
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    }
 
     /* =========================
        NETWORK
