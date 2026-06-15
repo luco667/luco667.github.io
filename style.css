@@ -126,6 +126,10 @@ footer{
     height:2260px;
     overflow:auto;
 }
+.os-scrollbar{
+    background: var(--green);
+    border-radius: 100px;
+}
 .os-scrollbar-handle{
     background: var(--green);
     border-radius: 100px;
@@ -417,7 +421,7 @@ section {
   padding: 60px 10px;
   overflow: visible; /* la grille projets peut dépasser */
   overflow-anchor: auto;
-  scroll-margin-top: 85px;
+  scroll-margin-top: 45px;
 }
 section h2 {
   margin-bottom: 30px;
