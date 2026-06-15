@@ -422,6 +422,7 @@ const PROJECTS = [
     icon: "◆",
     color: "#00ccff",
     projects: [
+      { name: "Mini Piano PCB", desc: "", tags: ["KiCad", "PCB", "Hertz"], status: "wip", date: "2024" },
       { name: "Arroseur PCB", desc: "", tags: ["KiCad", "PCB", "STM32"], status: "wip", date: "2025" },
       { name: "Etiquette PCB", desc: "", tags: ["Kicad", "CODE39"], link: "https://github.com/luco667", status: "wip", date: "2026" },
     ],
