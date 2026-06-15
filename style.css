@@ -116,6 +116,8 @@ scrollable {
   overflow:auto;
   border: 2px solid cornflowerblue;
   font-family: monospace;
+  overflow-y: scroll;
+  scrollbar-color: #000077 #bada55;
 }
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
