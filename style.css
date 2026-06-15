@@ -417,7 +417,7 @@ section {
   padding: 30px 10px;
   overflow: visible; /* la grille projets peut dépasser */
   overflow-anchor: auto;
- scroll-margin-top: 80px;
+ scroll-margin-top: -80px;
 }
 section h2 {
   margin-bottom: 30px;
