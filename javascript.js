@@ -1,3 +1,15 @@
+/* ═══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+
+(async function init() {
+  await registerVisit();
+  await startSession();
+  startHeartbeat();
+  listenOnline();
+  listenVisits();
+  revealEmail();
+})();
 
 /* ═══════════════════════════════════════════
    INIT FIREBASE
@@ -287,19 +299,6 @@ function revealEmail() {
   el.href = "mailto:" + addr;
   el.textContent = addr;
 }
-
-/* ═══════════════════════════════════════════
-   INIT
-═══════════════════════════════════════════ */
-
-(async function init() {
-  await registerVisit();
-  await startSession();
-  startHeartbeat();
-  listenOnline();
-  listenVisits();
-  revealEmail();
-})();
 
 /* ═══════════════════════════════════════════
    MATRIX RAIN
