@@ -1,5 +1,4 @@
-console.log("term", term.scrollHeight, term.clientHeight);
-console.log("body", document.body.scrollHeight);
+
 
 /* ═══════════════════════════════════════════
    INIT
@@ -805,3 +804,6 @@ const PROJECTS = [
     }
   }
 })();
+
+console.log("term", term.scrollHeight, term.clientHeight);
+console.log("body", document.body.scrollHeight);
