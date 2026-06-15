@@ -110,22 +110,21 @@ footer{
   position:relative;
   z-index:10;
 }
-.scrollable{
-    height:2260px;
-    overflow:auto;
+/* For browsers that support `scrollbar-*` properties */
+@supports (scrollbar-color: auto) {
+  .scrollable {
+    scrollbar-color: aquamarine cornflowerblue;
+  }
 }
 
-.os-scrollbar {
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-.os-scrollbar-handle{
-    background: var(--green);
-    border-radius: 100px;
-}
-
-.os-scrollbar-track{
-    background: var(--green);
+/* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
+@supports selector(::-webkit-scrollbar) {
+  .scrollable::-webkit-scrollbar {
+    background: aquamarine;
+  }
+  .scrollable::-webkit-scrollbar-thumb {
+    background: cornflowerblue;
+  }
 }
 /* ─────────────────────────────────────────
    MATRIX
