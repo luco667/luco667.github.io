@@ -443,7 +443,7 @@ if (track) {
 }
 
 /* ═══════════════════════════════════════════
-   TERMINAL TYPEWRITER (stable + fixed state)
+   TERMINAL TYPEWRITER (querySelector version)
 ═══════════════════════════════════════════ */
 
 const LINES = [
@@ -457,8 +457,8 @@ const LINES = [
   "> system ready_"
 ];
 
-const output = document.getElementById("terminal-output");
-const term = document.getElementById("terminal");
+const output = document.querySelector("#terminal-output");
+const term = document.querySelector("#terminal");
 
 let lineIndex = 0;
 
@@ -474,9 +474,7 @@ if (!output || !term) {
     const shouldAutoScroll = isNearBottom(term);
 
     if (lineIndex >= LINES.length) {
-      if (shouldAutoScroll) {
-        term.scrollTop = term.scrollHeight;
-      }
+      if (shouldAutoScroll) term.scrollTop = term.scrollHeight;
       return;
     }
 
@@ -509,7 +507,6 @@ if (!output || !term) {
 
       cursor.remove();
       lineIndex++;
-
       setTimeout(typeLine, 110);
     }
 
