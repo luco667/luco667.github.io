@@ -1,4 +1,21 @@
 /* ─────────────────────────────────────────
+   FONTS
+───────────────────────────────────────── */
+@font-face {
+  font-family: 'Share Tech Mono';
+  src: url('ShareTechMono-Regular.ttf') format('truetype');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Minecraft';
+  src: url('Minecraft.ttf') format('truetype');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+/* ─────────────────────────────────────────
    ANIMATIONS
 ───────────────────────────────────────── */
 @keyframes blink {0%, 100% {opacity: 1;}50% {opacity: 0;}}
@@ -23,24 +40,6 @@
 ::selection {
   background: var(--green);
   color: var(--bg);
-}
-
-/* ─────────────────────────────────────────
-   FONTS
-───────────────────────────────────────── */
-@font-face {
-  font-family: 'Share Tech Mono';
-  src: url('ShareTechMono-Regular.ttf') format('truetype');
-  font-display: swap;
-  font-weight: 400;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Minecraft';
-  src: url('Minecraft.ttf') format('truetype');
-  font-display: swap;
-  font-weight: 400;
-  font-style: normal;
 }
 
 /* ─────────────────────────────────────────
@@ -297,8 +296,6 @@ section h2 {
   color:#666;
   font-size:.78rem;
 }
-
-
 /* ────────────────────────────────────────
    SCROLLBAR
 ───────────────────────────────────────── */
@@ -311,7 +308,6 @@ section h2 {
     height: 100%;
     margin: auto;
     font-family: monospace;
-  
     scrollbar-width: thin;
     scrollbar-color: #00ff41 #003b00;
   }
