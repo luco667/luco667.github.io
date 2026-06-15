@@ -111,7 +111,32 @@ footer{
   position:relative;
   z-index:10;
 }
+.scrollable {
+  overflow: auto;
+  width: 20rem;
+  height: 5rem;
+  border: 2px solid cornflowerblue;
+  margin: 2rem auto;
+  font-family: monospace;
+}
+/* For browsers that support `scrollbar-*` properties */
+@supports (scrollbar-color: auto) {
+  .scrollable {
+    scrollbar-color: aquamarine cornflowerblue;
+  }
+}
 
+/* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
+@supports selector(::-webkit-scrollbar) {
+  .scrollable::-webkit-scrollbar {
+    background: aquamarine;
+  }
+  .scrollable::-webkit-scrollbar-thumb {
+    background: cornflowerblue;
+  }
+}
+
+/*
 scrollable {
   index:9999;
   overflow:auto;
@@ -123,7 +148,7 @@ scrollable {
   scrollbar-color: #000077 #bada55;
   overflow-anchor: auto;
 }
-/* For browsers that support `scrollbar-*` properties */
+For browsers that support `scrollbar-*` properties
 @supports (scrollbar-color: auto) {
   .scrollable {
     scrollbar-color: #000077 #bada55;
@@ -135,7 +160,7 @@ scrollable {
   }
 }
 
-/* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
+Otherwise, use `::-webkit-scrollbar-*` pseudo-elements
 @supports selector(::-webkit-scrollbar) {
   .scrollable::-webkit-scrollbar {
     background: green;
@@ -147,7 +172,7 @@ scrollable {
     background: cornflowerblue;
   }
 }
-
+*/
 /* ─────────────────────────────────────────
    MATRIX
 ───────────────────────────────────────── */
