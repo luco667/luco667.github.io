@@ -567,7 +567,7 @@ const PROJECTS = [
   function openModal(cat) {
     overlay.style.setProperty("--modal-color", cat.color);
     modalTitle.textContent = `> ${cat.icon} ${cat.category}/`;
-    modalBody.innerHTML = "";
+    modalBody.replaceChildren() ;
 
     if (cat.projects.length === 0) {
       const empty = el("div", { class: "empty-state" });
