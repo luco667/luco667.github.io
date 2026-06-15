@@ -114,9 +114,6 @@ scrollable {
   overflow: auto;
   width: 20rem;
   height: 5rem;
-  border: 2px solid cornflowerblue;
-  margin: 2rem auto;
-  font-family: monospace;
 }
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
@@ -124,6 +121,8 @@ scrollable {
     scrollbar-color: var(--green-dim);
     overflow-anchor: auto;
     height: 20px;
+    width: 20rem;
+    height:5rem;
   }
 }
 
@@ -132,8 +131,14 @@ scrollable {
   .scrollable::-webkit-scrollbar {
     background: var(--green-dark);
   }
-  .scrollable::-webkit-scrollbar-thumb {
-    background: var(--green);
+  .scrollable::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  .scrollable::-webkit-scrollbar-thumb { 
+    background: var(--green-dark);
+  }
+  .scrollable::-webkit-scrollbar-thumb:hover { 
+    background: var(--green-dim);
   }
 }
 
