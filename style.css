@@ -40,7 +40,7 @@
 .modal-body::-webkit-scrollbar { width:4px; }
 .modal-body::-webkit-scrollbar-track { background:transparent; }
 .modal-body::-webkit-scrollbar-thumb { background:#1a3a1a; }
-@media (max-width:500px) { #proj-modal { max-height:90vh; } }
+@media (max-width:600px) { #proj-modal { max-height:90vh; } }
 /* ─────────────────────────────────────────
    ANIMATIONS
 ───────────────────────────────────────── */
