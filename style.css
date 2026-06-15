@@ -110,6 +110,14 @@ footer{
   position:relative;
   z-index:10;
 }
+scrollable {
+  overflow: auto;
+  width: 20rem;
+  height: 5rem;
+  border: 2px solid cornflowerblue;
+  margin: 2rem auto;
+  font-family: monospace;
+}
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
   .scrollable {
@@ -126,6 +134,7 @@ footer{
     background: cornflowerblue;
   }
 }
+
 /* ─────────────────────────────────────────
    MATRIX
 ───────────────────────────────────────── */
