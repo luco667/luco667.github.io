@@ -123,6 +123,7 @@ scrollable {
   .scrollable {
     scrollbar-color: var(--green-dim);
     overflow-anchor: auto;
+    height: 20px;
   }
 }
 
