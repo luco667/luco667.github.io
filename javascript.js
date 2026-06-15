@@ -380,6 +380,9 @@ function typeLine() {
 
   line.append(text, cursor);
   output.appendChild(line);
+  
+  const wasAtBottom =
+    term.scrollHeight - term.scrollTop - term.clientHeight < 20;
 
   const currentLine = LINES[lineIndex];
 
@@ -388,6 +391,9 @@ function typeLine() {
       text.textContent += currentLine[charIndex++];
       setTimeout(typeChar, 18 + Math.random() * 35);
       return;
+    }
+    if (wasAtBottom) {
+    term.scrollTop = term.scrollHeight;
     }
 
     cursor.remove();
