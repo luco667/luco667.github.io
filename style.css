@@ -51,7 +51,7 @@
 ───────────────────────────────────────── */
 ::selection {
   background: var(--green);
-  color: #000;
+  color: var(--bg);
 }
 /* ────────────────────────────────────────
    SCROLLBAR
@@ -60,7 +60,7 @@
 ::-webkit-scrollbar-track { background: var(--bg);}
 ::-webkit-scrollbar-thumb { background: var(--green-dark);}
 ::-webkit-scrollbar-thumb:hover {  background: var(--green-dim);}
-::-webkit-scrollbar{display:block;}
+/*::-webkit-scrollbar{display:block;}*/
 /* ─────────────────────────────────────────
    FONTS
 ───────────────────────────────────────── */
@@ -110,16 +110,35 @@ footer{
   position:relative;
   z-index:10;
 }
+
+/* For browsers that support `scrollbar-*` properties */
+@supports (scrollbar-color: auto) {
+  .scroll-box {
+    scrollbar-color: aquamarine cornflowerblue;
+  }
+}
+
+/* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
+@supports selector(::-webkit-scrollbar) {
+  .scroll-box::-webkit-scrollbar {
+    background: aquamarine;
+  }
+  .scroll-box::-webkit-scrollbar-thumb {
+    background: cornflowerblue;
+  }
+}
+
 scrollable {
+  overflow:auto;
   overflow-anchor: auto;
-  border: 2px solid green;
+  border: 2px solid cornflowerblue;
   margin: 2rem auto;
+  font-family: monospace;
 }
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
   .scrollable {
-    scrollbar-color: green
-    darkgreen;
+    scrollbar-color: green yellow cornflowerblue blue;
   }
 }
 
@@ -129,13 +148,13 @@ scrollable {
     background: green;
   }
   .scrollable::-webkit-scrollbar-track {
-    background: green;
+    background: yellow;
   }
   .scrollable::-webkit-scrollbar-thumb { 
-    background: green;
+    background: cornflowerblue;
   }
   .scrollable::-webkit-scrollbar-thumb:hover { 
-    background: green;
+    background: blue;
   }
 }
 
