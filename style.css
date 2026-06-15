@@ -493,7 +493,7 @@ section { scroll-margin-top: 56px; }
   line-height: 1.9;
   white-space: pre-wrap;
   /* Empêche l'ancrage automatique du scroll */
-  overflow-anchor: none;
+  overflow-anchor: auto;
 }
 
 #terminal-output .line {
