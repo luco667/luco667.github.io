@@ -125,7 +125,7 @@ body {
 }
 .scrollable{
     height:2260px;
-    overflow-y:auto;
+    overflow:auto;
 }
 .os-scrollbar-handle{
     background: var(--green);
@@ -404,9 +404,9 @@ nav a.active::after{
    Stats
 ───────────────────────────────────────── */
 .stats  {
-   padding:0 14px;
-   margin-top: 15px;
-			margin-bottom: 15px;
+ padding:0 14px;
+ margin-top: 15px;
+ margin-bottom: 16px;
 }
 /* ─────────────────────────────────────────
    SECTIONS
