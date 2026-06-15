@@ -57,10 +57,10 @@
    SCROLLBAR
 ───────────────────────────────────────── */
 ::-webkit-scrollbar {width: 6px;height:3px;}
-::-webkit-scrollbar-track { background: #000;}
+::-webkit-scrollbar-track { background: var(--bg);}
 ::-webkit-scrollbar-thumb { background: var(--green-dark);}
 ::-webkit-scrollbar-thumb:hover {  background: var(--green-dim);}
-/*::-webkit-scrollbar{display:block;}*/
+::-webkit-scrollbar{display:block;}
 /* ─────────────────────────────────────────
    FONTS
 ───────────────────────────────────────── */
@@ -112,19 +112,13 @@ footer{
 }
 scrollable {
   overflow-anchor: auto;
-  width: 20rem;
-  height: 5rem;
   border: 2px solid green;
   margin: 2rem auto;
-  font-family: monospace;
 }
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
   .scrollable {
-    scrollbar-color: var(--green-dim);
-    height: 20px;
-    width: 20rem;
-    height:5rem;
+    scrollbar-color: var(--border);
   }
 }
 
