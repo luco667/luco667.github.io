@@ -646,3 +646,4 @@ const PROJECTS = [
       return /^[^:]*$/.test(url);
     }
   }
+}
