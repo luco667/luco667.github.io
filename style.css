@@ -422,10 +422,10 @@ section {
   padding: 60px 10px;
   overflow: visible; /* la grille projets peut dépasser */
   overflow-anchor: auto;
-  scroll-margin-top: 30px;
+  scroll-margin-top: 20px;
 }
 section h2 {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 3rem;
   color: var(--green);
   letter-spacing: 0.1em;
