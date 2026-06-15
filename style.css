@@ -126,9 +126,10 @@ footer{
     height:2260px;
     overflow:auto;
 }
-.os-scrollbar{
-    background: var(--green);
-    border-radius: 100px;
+
+.os-scrollbar {
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 .os-scrollbar-handle{
     background: var(--green);
