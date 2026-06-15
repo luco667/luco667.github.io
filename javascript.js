@@ -232,6 +232,11 @@ function revealEmail() {
   revealEmail();
 })();
 
+
+/*tets*/
+
+element.focus({ preventScroll: true });
+
 /* ═══════════════════════════════════════════
    MATRIX RAIN
 ═══════════════════════════════════════════ */
