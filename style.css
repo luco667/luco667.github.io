@@ -118,7 +118,8 @@ scrollable {
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
   .scrollable {
-    scrollbar-color: green;
+    scrollbar-color: green
+    darkgreen;
   }
 }
 
