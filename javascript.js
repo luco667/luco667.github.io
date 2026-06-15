@@ -458,23 +458,28 @@ const LINES = [
 ];
 
 const output = document.getElementById("terminal-output");
+const term = document.getElementById("terminal");
 let lineIndex = 0;
 let charIndex = 0;
-const term = document.getElementById("terminal");
 
-function isNearBottom(el) {
-  return (el.scrollHeight - el.scrollTop - el.clientHeight < 30);
-}
-
-function typeLine() {
-  const shouldAutoScroll = isNearBottom(term);
-
-  if (lineIndex >= LINES.length) {
-    if (shouldAutoScroll) {
-      term.scrollTop = term.scrollHeight;
-    }
-    return;
+// Vérifier que les éléments existent avant de continuer
+if (!output || !term) {
+  console.warn("Terminal elements not found, skipping typewriter animation");
+} else {
+  function isNearBottom(el) {
+    if (!el) return false;
+    return (el.scrollHeight - el.scrollTop - el.clientHeight < 30);
   }
+
+  function typeLine() {
+    const shouldAutoScroll = isNearBottom(term);
+
+    if (lineIndex >= LINES.length) {
+      if (shouldAutoScroll && term) {
+        term.scrollTop = term.scrollHeight;
+      }
+      return;
+    }
 
   const line = document.createElement("div");
   line.classList.add("line");
@@ -510,9 +515,10 @@ function typeLine() {
   typeChar();
 }
 
-window.addEventListener("load", () => {
-  setTimeout(typeLine, 600);
-});
+  window.addEventListener("load", () => {
+    setTimeout(typeLine, 600);
+  });
+}
 
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
