@@ -111,23 +111,6 @@ footer{
   z-index:10;
 }
 
-/* For browsers that support `scrollbar-*` properties */
-@supports (scrollbar-color: auto) {
-  .scroll-box {
-    scrollbar-color: aquamarine cornflowerblue;
-  }
-}
-
-/* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
-@supports selector(::-webkit-scrollbar) {
-  .scroll-box::-webkit-scrollbar {
-    background: aquamarine;
-  }
-  .scroll-box::-webkit-scrollbar-thumb {
-    background: cornflowerblue;
-  }
-}
-
 scrollable {
   overflow:auto;
   overflow-anchor: auto;
