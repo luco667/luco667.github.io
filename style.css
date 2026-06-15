@@ -121,17 +121,18 @@ scrollable {
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
   .scrollable {
-    scrollbar-color: aquamarine cornflowerblue;
+    scrollbar-color: var(--green-dim);
+    overflow-anchor: auto;
   }
 }
 
 /* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
 @supports selector(::-webkit-scrollbar) {
   .scrollable::-webkit-scrollbar {
-    background: aquamarine;
+    background: var(--green-dark);
   }
   .scrollable::-webkit-scrollbar-thumb {
-    background: cornflowerblue;
+    background: var(--green);
   }
 }
 
