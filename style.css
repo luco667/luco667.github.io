@@ -118,11 +118,17 @@ scrollable {
   font-family: monospace;
   overflow-y: scroll;
   scrollbar-color: #000077 #bada55;
+  overflow-anchor: auto;
 }
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
   .scrollable {
-    scrollbar-color: auto;
+    scrollbar-color: #000077 #bada55;
+    overflow:auto;
+    border: 2px solid cornflowerblue;
+    font-family: monospace;
+    overflow-y: scroll;
+    overflow-anchor: auto;
   }
 }
 
@@ -136,9 +142,6 @@ scrollable {
   }
   .scrollable::-webkit-scrollbar-thumb { 
     background: cornflowerblue;
-  }
-  .scrollable::-webkit-scrollbar-thumb:hover { 
-    background: blue;
   }
 }
 
