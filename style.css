@@ -118,7 +118,6 @@ body {
   cursor: crosshair;
 }
 header,
-section,
 footer{
   position:relative;
   z-index:10;
