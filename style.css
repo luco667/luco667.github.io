@@ -1,112 +1,14 @@
-.touchScroll {
-	position: relative;
+.scrollable{
+    height:300px;
+    overflow:auto;
+}
+.os-scrollbar-handle{
+    background: #00ff88 !important;
+    border-radius: 999px;
 }
 
-.touchScrollBars {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-.touchScrollTrack {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-}
-
-.touchScrollTrackX {
-	height: 6px;
-}
-
-.touchScrollTrackY {
-	float: right;
-	width: 6px;
-}
-
-.touchScrollBarsBoth {
-	padding-bottom: 12px;
-	padding-right: 12px;
-}
-
-.touchScrollBarsBoth .touchScrollTrackX {
-	-webkit-transform: translateY(9px);
-}
-
-.touchScrollBarsBoth .touchScrollTrackY {
-	-webkit-transform: translateX(3px);
-}
-
-.touchScrollHandle {
-	border: 1px solid;
-	min-height: 4px;
-	min-width: 4px;
-	-webkit-transition-property: -webkit-transform, height, width;
-	-webkit-border-radius: 3px;
-
-	/* COLOR VARIANTS */
-/* Default 
-	border-color: rgba(255, 255, 255, 0.15);
-	background: rgba(0, 0, 0, 0.5);
-*/
-
-/* White*
-	border-color: rgba(255, 255, 255, 0.5);
-	background: rgba(255, 255, 255, 0.5);
-/**/
-
-/* Black*/
-	border-color: rgba(0, 0, 0, 0.5);
-	background: rgba(0, 0, 0, 0.5);
-/**/
-}
-
-.scrollable-container {  
-  width: 100%;  
-  height: 2460vh; /* Fixed height to enable scrolling */  
-  overflow-y: auto; /* Show scrollbar when content overflows */  
-  padding: 16px;
-  border: 1px solid #e0e0e0;  
-		display: -webkit-box;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-}
-
-@media (max-width: 480px) and (hover: none) {  
-  /* WebKit browsers (Chrome, Safari, Edge) */  
-  .scrollable-container::-webkit-scrollbar {  
-    width: 6px; /* Increase scrollbar width for visibility */  
-				display: -webkit-box;
-  }
- 
-  .scrollable-container::-webkit-scrollbar-track {  
-    background: #f1f1f1; /* Light gray track */  
-    border-radius: 10px; /* Rounded corners */  
-  }
- 
-  .scrollable-container::-webkit-scrollbar-thumb {  
-    background: #888; /* Dark gray thumb */  
-    border-radius: 10px; /* Rounded thumb */  
-  }
- 
-  .scrollable-container::-webkit-scrollbar-thumb:hover {  
-    background: #555; /* Darker thumb on hover (optional) */  
-  }
- 
-  /* Firefox */  
-  .scrollable-container {  
-    scrollbar-width: thin; /* Make scrollbar visible */  
-    scrollbar-color: #888 #f1f1f1; /* Thumb color, track color */  
-  }
-}
-/* High-contrast example
-.scrollable-container::-webkit-scrollbar-thumb {  
-  background: #4a4a4a; Darker thumb
-}  
-.scrollable-container::-webkit-scrollbar-track {  
-  background: #eaeaea; Lighter track
-}  */
-.scrollable-container {  
-  -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */  
+.os-scrollbar-track{
+    background: rgba(255,255,255,0.1) !important;
 }
 /* ─────────────────────────────────────────
    GLOBAL
