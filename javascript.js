@@ -505,6 +505,8 @@ if (!output || !term) {
     start();
   }
 }
+console.log("term", term.scrollHeight, term.clientHeight);
+console.log("body", document.body.scrollHeight);
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
 ═══════════════════════════════════════════ */
@@ -802,6 +804,3 @@ const PROJECTS = [
     }
   }
 })();
-
-console.log("term", term.scrollHeight, term.clientHeight);
-console.log("body", document.body.scrollHeight);
