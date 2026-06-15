@@ -537,11 +537,8 @@ const PROJECTS = [
       document.querySelectorAll(".cat-card").forEach(c => c.classList.remove("active"));
       card.classList.add("active");
       openModal(cat);
-    });
-
-    grid.appendChild(card);
   });
-
+  grid.appendChild(card);
   section.appendChild(grid);
 
   const overlay    = el("div", { id: "proj-overlay" });
@@ -646,4 +643,6 @@ const PROJECTS = [
       return /^[^:]*$/.test(url);
     }
   }
+});
+}
 }
