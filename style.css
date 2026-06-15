@@ -67,9 +67,6 @@ footer{
 /* ────────────────────────────────────────
    SCROLLBAR
 ───────────────────────────────────────── */
-/* ────────────────────────────────────────
-   SCROLLBAR
-───────────────────────────────────────── */}
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
   .scrollable {
@@ -385,7 +382,7 @@ section {
   max-width: 860px;
   width:min(950px, calc(100% - 30px));
   margin:auto;
-  padding: 60px 10px;
+  padding: 65px 10px;
   overflow: visible; /* la grille projets peut dépasser */
   overflow-anchor: auto;
   scroll-margin-top: 20px;
