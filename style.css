@@ -111,9 +111,12 @@ footer{
   z-index:10;
 }
 scrollable {
-  overflow: auto;
+overflow: auto;
   width: 20rem;
   height: 5rem;
+  border: 2px solid var(--green-dim);
+  margin: 2rem auto;
+  font-family: monospace;
 }
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
