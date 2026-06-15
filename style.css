@@ -113,6 +113,7 @@ footer{
 }
 
 scrollable {
+  index:9999;
   overflow:auto;
   border: 2px solid cornflowerblue;
   font-family: monospace;
