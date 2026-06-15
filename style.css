@@ -1,14 +1,22 @@
 /* ─────────────────────────────────────────
-   GLOBAL
-───────────────────────────────────────── */
-/* ── CONTACT — espace physique pour scroll sticky nav ── */
-
-
-/* ─────────────────────────────────────────
    ANIMATIONS
 ───────────────────────────────────────── */
 @keyframes blink {0%, 100% {opacity: 1;}50% {opacity: 0;}}
 @keyframes flicker {0%, 95%, 100% {opacity: 1;}96% { opacity: 0.7;}97% {opacity: 1;} 98% {  opacity: 0.6;  }99% {opacity: 1; }}
+
+/* ─────────────────────────────────────────
+   ROOT
+───────────────────────────────────────── */
+:root {
+  --green: #00ff41;
+  --green-dim: #00cc33;
+  --green-dark: #003b00;
+  --green-glow: rgba(0, 255, 65, 0.15);
+  --bg: #000000;
+  --card-bg: rgba(0, 10, 0, 0.85);
+  --border: rgba(0, 255, 65, 0.3);
+}
+
 /* ─────────────────────────────────────────
    SELECTION
 ───────────────────────────────────────── */
@@ -34,18 +42,7 @@
   font-weight: 400;
   font-style: normal;
 }
-/* ─────────────────────────────────────────
-   ROOT
-───────────────────────────────────────── */
-:root {
-  --green: #00ff41;
-  --green-dim: #00cc33;
-  --green-dark: #003b00;
-  --green-glow: rgba(0, 255, 65, 0.15);
-  --bg: #000000;
-  --card-bg: rgba(0, 10, 0, 0.85);
-  --border: rgba(0, 255, 65, 0.3);
-}
+
 /* ─────────────────────────────────────────
    RESET
 ───────────────────────────────────────── */
@@ -64,6 +61,244 @@ footer{
   position:relative;
   z-index:10;
 }
+/* ─────────────────────────────────────────
+   MATRIX
+───────────────────────────────────────── */
+#matrix{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  top: 0;
+  left: 0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.45;
+}
+/* ─────────────────────────────────────────
+   GLOBAL
+───────────────────────────────────────── */
+/* ─────────────────────────────────────────
+   HEADER
+───────────────────────────────────────── */
+header {
+  text-align: center;
+  padding:15px 25px;
+}
+header h1 {
+  font-family: 'VT323', monospace;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  color: var(--green);
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0 10px var(--green),
+    0 0 30px var(--green),
+    0 0 60px var(--green-dim);
+  animation: flicker 6s infinite;
+}
+header .subtitle {
+  margin-top: 10px;
+  color: var(--green-dim);
+  font-size: 0.9rem;
+  opacity: 0.8;
+  letter-spacing: 0.15em;
+}
+header .subtitle::before {
+  content: '> ';
+  opacity: 0.5;
+}
+/* ─────────────────────────────────────────
+   Stats
+───────────────────────────────────────── */
+.stats  {
+ padding:0 14px;
+ margin-top: 15px;
+ margin-bottom: 16px;
+}
+/* ─────────────────────────────────────────
+   SECTIONS
+───────────────────────────────────────── */
+section {
+  max-width: 860px;
+  width:min(950px, calc(100% - 30px));
+  margin:auto;
+  padding: 65px 10px;
+  overflow: visible; /* la grille projets peut dépasser */
+  overflow-anchor: auto;
+  scroll-margin-top: 20px;
+}
+section h2 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: var(--green);
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 8px var(--green);
+}
+
+/* ─────────────────────────────────────────
+   CARDS
+───────────────────────────────────────── */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 28px 32px;
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0 0 20px rgba(0,255,65,0.05),
+    inset 0 0 40px rgba(0,255,65,0.02);
+}
+.card p {
+  color: var(--green-dim);
+  font-size: 0.92rem;
+  line-height: 1.9;
+}
+
+.card p:hover {
+  color: var(--green);
+  text-shadow: 0 0 6px var(--green);
+  transition: all 0.2s;
+}
+/* ─────────────────────────────────────────
+   TERMINAL
+───────────────────────────────────────── */
+
+#terminal {
+  position: relative;
+  z-index: 1;
+  padding: 24px 32px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 20px rgba(0,255,65,0.05);
+
+  overflow-anchor: auto;
+  contain: layout;
+}
+
+/* scanlines */
+#terminal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.08) 3px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+#terminal-output {
+  position: relative;
+  z-index: 2;
+  color: var(--green-dim);
+  font-size: 0.92rem;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  /* Empêche l'ancrage automatique du scroll */
+  overflow-anchor: auto;
+}
+
+#terminal-output .line {
+  display: block;
+  min-height: 1.9em;
+}
+
+#terminal-output .cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  margin-left: 2px;
+  background: var(--green);
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+/* ─────────────────────────────────────────
+   SKILLS
+───────────────────────────────────────── */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 24px;
+}
+.skills span {
+  padding: 6px 18px;
+  border: 1px solid var(--border);
+  background: rgba(0,255,65,0.03);
+  color: var(--green-dim);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  cursor: default;
+  transition: all 0.2s;
+}
+.skills span:hover {
+  color: var(--green);
+  border-color: var(--green);
+  background: rgba(0,255,65,0.07);
+  text-shadow: 0 0 8px var(--green);
+  box-shadow: 0 0 12px rgba(0,255,65,0.15);
+  transform:translateY(-2px);
+}
+.skills a{
+  color:inherit;
+  text-decoration:none;
+}
+/* ─────────────────────────────────────────
+   PROJECTS
+───────────────────────────────────────── */
+#projects .card {
+  margin-bottom: 16px;
+}
+/* ─────────────────────────────────────────
+   PROJECTS GRID
+───────────────────────────────────────── */
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(240px, 1fr));
+  gap:20px;
+  width:100%;
+  justify-items: center;
+  padding:12px 8px 20px;
+  box-sizing:border-box;
+}
+.project-card{
+  width:100%;
+  min-height:180px;
+  padding:20px;
+  border:1px solid var(--border);
+  background:rgba(0,10,0,.8);
+  cursor:pointer;
+  transition:
+    transform .22s,
+    border-color .22s,
+    box-shadow .22s;
+  box-sizing:border-box;
+}
+.project-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--green);
+  box-shadow:0 0 22px rgba(0,255,65,.2);
+}
+.project-icon{
+  font-size:2rem;
+  margin-bottom:12px;
+}
+.project-name{
+  font-size:1rem;
+  margin-bottom:8px;
+  letter-spacing:.08em;
+}
+.project-count{
+  color:#666;
+  font-size:.78rem;
+}
+
+
 /* ────────────────────────────────────────
    SCROLLBAR
 ───────────────────────────────────────── */
@@ -102,49 +337,7 @@ footer{
     background: #00cc33;
   }
 }
-/* ─────────────────────────────────────────
-   MATRIX
-───────────────────────────────────────── */
-#matrix{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  top: 0;
-  left: 0;
-  z-index:0;
-  pointer-events:none;
-  opacity:.45;
-}
-/* ─────────────────────────────────────────
-   HEADER
-───────────────────────────────────────── */
-header {
-  text-align: center;
-  padding:15px 25px;
-}
-header h1 {
-  font-family: 'VT323', monospace;
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  color: var(--green);
-  letter-spacing: 0.08em;
-  text-shadow:
-    0 0 10px var(--green),
-    0 0 30px var(--green),
-    0 0 60px var(--green-dim);
-  animation: flicker 6s infinite;
-}
-header .subtitle {
-  margin-top: 10px;
-  color: var(--green-dim);
-  font-size: 0.9rem;
-  opacity: 0.8;
-  letter-spacing: 0.15em;
-}
-header .subtitle::before {
-  content: '> ';
-  opacity: 0.5;
-}
+
 /* ─────────────────────────────────────────
    NAVBAR
 ───────────────────────────────────────── */
@@ -367,196 +560,7 @@ nav a.active::after{
     transform:translateX(-50%);
   }
 }
-/* ─────────────────────────────────────────
-   Stats
-───────────────────────────────────────── */
-.stats  {
- padding:0 14px;
- margin-top: 15px;
- margin-bottom: 16px;
-}
-/* ─────────────────────────────────────────
-   SECTIONS
-───────────────────────────────────────── */
-section {
-  max-width: 860px;
-  width:min(950px, calc(100% - 30px));
-  margin:auto;
-  padding: 65px 10px;
-  overflow: visible; /* la grille projets peut dépasser */
-  overflow-anchor: auto;
-  scroll-margin-top: 20px;
-}
-section h2 {
-  margin-bottom: 20px;
-  font-size: 3rem;
-  color: var(--green);
-  letter-spacing: 0.1em;
-  text-shadow: 0 0 8px var(--green);
-}
 
-/* ─────────────────────────────────────────
-   CARDS
-───────────────────────────────────────── */
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  padding: 28px 32px;
-  backdrop-filter: blur(6px);
-  box-shadow:
-    0 0 20px rgba(0,255,65,0.05),
-    inset 0 0 40px rgba(0,255,65,0.02);
-}
-.card p {
-  color: var(--green-dim);
-  font-size: 0.92rem;
-  line-height: 1.9;
-}
-
-.card p:hover {
-  color: var(--green);
-  text-shadow: 0 0 6px var(--green);
-  transition: all 0.2s;
-}
-/* ─────────────────────────────────────────
-   TERMINAL
-───────────────────────────────────────── */
-
-#terminal {
-  position: relative;
-  z-index: 1;
-  padding: 24px 32px;
-  border: 1px solid var(--border);
-  background: var(--card-bg);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 0 20px rgba(0,255,65,0.05);
-
-  overflow-anchor: auto;
-  contain: layout;
-}
-
-/* scanlines */
-#terminal::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 3px,
-    rgba(0,0,0,0.08) 3px,
-    rgba(0,0,0,0.08) 4px
-  );
-  pointer-events: none;
-  z-index: 1;
-}
-
-#terminal-output {
-  position: relative;
-  z-index: 2;
-  color: var(--green-dim);
-  font-size: 0.92rem;
-  line-height: 1.9;
-  white-space: pre-wrap;
-  /* Empêche l'ancrage automatique du scroll */
-  overflow-anchor: auto;
-}
-
-#terminal-output .line {
-  display: block;
-  min-height: 1.9em;
-}
-
-#terminal-output .cursor {
-  display: inline-block;
-  width: 8px;
-  height: 1em;
-  margin-left: 2px;
-  background: var(--green);
-  vertical-align: middle;
-  animation: blink 1s step-end infinite;
-}
-/* ─────────────────────────────────────────
-   SKILLS
-───────────────────────────────────────── */
-.skills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 24px;
-}
-.skills span {
-  padding: 6px 18px;
-  border: 1px solid var(--border);
-  background: rgba(0,255,65,0.03);
-  color: var(--green-dim);
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  cursor: default;
-  transition: all 0.2s;
-}
-.skills span:hover {
-  color: var(--green);
-  border-color: var(--green);
-  background: rgba(0,255,65,0.07);
-  text-shadow: 0 0 8px var(--green);
-  box-shadow: 0 0 12px rgba(0,255,65,0.15);
-  transform:translateY(-2px);
-}
-.skills a{
-  color:inherit;
-  text-decoration:none;
-}
-/* ─────────────────────────────────────────
-   PROJECTS
-───────────────────────────────────────── */
-#projects .card {
-  margin-bottom: 16px;
-}
-/* ─────────────────────────────────────────
-   PROJECTS GRID
-───────────────────────────────────────── */
-.projects-grid{
-  display:grid;
-  grid-template-columns:repeat(3, minmax(240px, 1fr));
-  gap:20px;
-  width:100%;
-  justify-items: center;
-  padding:12px 8px 20px;
-  box-sizing:border-box;
-}
-.project-card{
-  width:100%;
-  min-height:180px;
-  padding:20px;
-  border:1px solid var(--border);
-  background:rgba(0,10,0,.8);
-  cursor:pointer;
-  transition:
-    transform .22s,
-    border-color .22s,
-    box-shadow .22s;
-  box-sizing:border-box;
-}
-.project-card:hover{
-  transform:translateY(-4px);
-  border-color:var(--green);
-  box-shadow:0 0 22px rgba(0,255,65,.2);
-}
-.project-icon{
-  font-size:2rem;
-  margin-bottom:12px;
-}
-.project-name{
-  font-size:1rem;
-  margin-bottom:8px;
-  letter-spacing:.08em;
-}
-.project-count{
-  color:#666;
-  font-size:.78rem;
-}
 /* ─────────────────────────────────────────
    Projects
 ───────────────────────────────────────── */
