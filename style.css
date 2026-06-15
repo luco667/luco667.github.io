@@ -91,12 +91,12 @@ footer{
     width: 6px;
     height:3px;
   }
-  .scrollable::-webkit-scrollbar-thumb {
+  /*.scrollable::-webkit-scrollbar-thumb {
     background: #00cc33;
   }
   .scrollable::-webkit-scrollbar-thumb:hover {
     background: #000000;
-  }
+  }*/
   .scrollable::-webkit-scrollbar-track {
     background: #003b00;
   }
