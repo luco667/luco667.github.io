@@ -395,11 +395,17 @@ function isNearBottom(el) {
   const currentLine = LINES[lineIndex];
 
   function typeChar() {
-    if (charIndex < currentLine.length) {
-      text.textContent += currentLine[charIndex++];
-      setTimeout(typeChar, 18 + Math.random() * 35);
-      return;
+  if (charIndex < currentLine.length) {
+
+    text.textContent += currentLine[charIndex++];
+
+    if (shouldAutoScroll) {
+      term.scrollTop = term.scrollHeight;
     }
+
+    setTimeout(typeChar, 18 + Math.random() * 35);
+    return;
+  }
     cursor.remove();
 
     lineIndex++;
@@ -407,11 +413,6 @@ function isNearBottom(el) {
 
     setTimeout(typeLine, 110);
   }
-
-  typeChar();
-    if (shouldAutoScroll) {
-      term.scrollTop = term.scrollHeight;
-    }
 }
 
 window.addEventListener("load", () => {
