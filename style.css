@@ -417,7 +417,7 @@ section {
   padding: 60px 10px;
   overflow: visible; /* la grille projets peut dépasser */
   overflow-anchor: auto;
- /*scroll-margin-top: -80px; ── SCROLL MARGIN — compense la sticky nav (~52px) ── */
+  scroll-margin-top: 60px; ── SCROLL MARGIN — compense la sticky nav (~52px) ── */
 }
 section h2 {
   margin-bottom: 30px;
