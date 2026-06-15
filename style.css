@@ -19,7 +19,7 @@
 /* ────────────────────────────────────────
    SCROLLBAR
 ───────────────────────────────────────── */
-::-webkit-scrollbar {width: 6px;height:3px; scrollbar-color: var(--green-dim);}
+::-webkit-scrollbar {width: 6px;height:3px;}
 ::-webkit-scrollbar-track { background: var(--bg);}
 ::-webkit-scrollbar-track:hover { background: var(--bg);}
 ::-webkit-scrollbar-thumb { background: var(--green-dark);}
