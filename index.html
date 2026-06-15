@@ -17,11 +17,6 @@
     gtag('js', new Date());
     gtag('config', 'G-1X06XFM7L1');
   </script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars/styles/overlayscrollbars.min.css">
-  <script type="module">
-  import { OverlayScrollbars } from "https://cdn.jsdelivr.net/npm/overlayscrollbars/+esm";
-  OverlayScrollbars(document.querySelector(".scrollable"), {});
-  </script>
 </head>
 <body class="scrollable">
 <canvas id="matrix"></canvas>
@@ -271,5 +266,7 @@
 </footer>
 <!-- type="module" = chargement différé + scope isolé (pas de variable globale) -->
 <script type="module" src="javascript.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars/styles/overlayscrollbars.min.css">
+<script type="module">import { OverlayScrollbars } from "https://cdn.jsdelivr.net/npm/overlayscrollbars/+esm";OverlayScrollbars(document.querySelector(".scrollable"), {});</script>
 </body>
 </html>
