@@ -467,7 +467,7 @@ if (!output || !term) {
 } else {
 
   function isNearBottom(el) {
-    return (el.scrollHeight - el.scrollTop - el.clientHeight < 30);
+    return (el.scrollHeight - el.scrollTop - el.clientHeight < 1500);
   }
 
   function typeLine() {
