@@ -115,6 +115,8 @@ footer{
 scrollable {
   index:9999;
   overflow:auto;
+  height:2260vh;
+  widht:1640vh;
   border: 2px solid cornflowerblue;
   font-family: monospace;
   overflow-y: scroll;
