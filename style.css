@@ -67,37 +67,44 @@ footer{
 /* ────────────────────────────────────────
    SCROLLBAR
 ───────────────────────────────────────── */
-.scrollable {
-  scroll-behavior: smooth;
-  overflow-anchor: auto;
-  width: 100%;
-  height: 100%;
-  margin: auto;
-  font-family: monospace;
-
-  scrollbar-width: thin;
-  scrollbar-color: #00ff41 #003b00;
+/* ────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────── */}
+/* For browsers that support `scrollbar-*` properties */
+@supports (scrollbar-color: auto) {
+  .scrollable {
+    scroll-behavior: smooth;
+    overflow-anchor: auto;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    font-family: monospace;
+  
+    scrollbar-width: thin;
+    scrollbar-color: #00ff41 #003b00;
+  }
 }
-
+/* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
+@supports selector(::-webkit-scrollbar) {
 /* Chrome, Edge, Safari macOS */
-.scrollable::-webkit-scrollbar {
-  width: 6px;
-  height: 3px;
+  .scrollable::-webkit-scrollbar {
+    width: 6px;
+    height: 3px;
+  }
+  
+  .scrollable::-webkit-scrollbar-track {
+    background: #003b00;
+  }
+  
+  .scrollable::-webkit-scrollbar-thumb {
+    background: #00ff41;
+    border-radius: 999px;
+  }
+  
+  .scrollable::-webkit-scrollbar-thumb:hover {
+    background: #00cc33;
+  }
 }
-
-.scrollable::-webkit-scrollbar-track {
-  background: #003b00;
-}
-
-.scrollable::-webkit-scrollbar-thumb {
-  background: #00ff41;
-  border-radius: 999px;
-}
-
-.scrollable::-webkit-scrollbar-thumb:hover {
-  background: #00cc33;
-}
-
 /* ─────────────────────────────────────────
    MATRIX
 ───────────────────────────────────────── */
