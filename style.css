@@ -414,7 +414,7 @@ section {
   max-width: 860px;
   width:min(950px, calc(100% - 30px));
   margin:auto;
-  padding: 30px 10px;
+  padding: 60px 10px;
   overflow: visible; /* la grille projets peut dépasser */
   overflow-anchor: auto;
  /*scroll-margin-top: -80px; ── SCROLL MARGIN — compense la sticky nav (~52px) ── */
