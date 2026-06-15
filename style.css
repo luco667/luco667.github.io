@@ -96,7 +96,6 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { 
   scroll-behavior: smooth;
-  /*overflow-anchor: auto;*/
 }
 body {
   background: var(--bg);
@@ -112,27 +111,27 @@ footer{
   z-index:10;
 }
 .scrollable {
-  overflow: auto;
+  overflow-anchor: auto;
+  /*overflow: auto;*/
   width: 100%;
   height: 100%;
-  border: 2px solid cornflowerblue;
-  margin: 2rem auto;
+  margin: auto;
   font-family: monospace;
 }
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
   .scrollable {
-    scrollbar-color: aquamarine cornflowerblue;
+    scrollbar-color: #00ff41 #00cc33;
   }
 }
 
 /* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
 @supports selector(::-webkit-scrollbar) {
   .scrollable::-webkit-scrollbar {
-    background: aquamarine;
+    background: #00ff41;
   }
   .scrollable::-webkit-scrollbar-thumb {
-    background: cornflowerblue;
+    background: #00cc33;
   }
 }
 
