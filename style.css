@@ -164,7 +164,7 @@ section h2 {
 #terminal {
   position: relative;
   z-index: 1;
-  padding: 24px 32px;
+  padding: 15px 30px;
   border: 1px solid var(--border);
   background: var(--card-bg);
   backdrop-filter: blur(6px);
