@@ -381,6 +381,7 @@ section {
   margin:auto;
   padding: 30px 10px;
   overflow: visible; /* la grille projets peut dépasser */
+  overflow-anchor: none;
 }
 section h2 {
   margin-bottom: 30px;
@@ -419,7 +420,7 @@ section { scroll-margin-top: 56px; }
    TERMINAL
 ───────────────────────────────────────── */
 
-.terminal {
+#terminal {
   position: relative;
   z-index: 1;
   padding: 24px 32px;
@@ -427,10 +428,10 @@ section { scroll-margin-top: 56px; }
   background: var(--card-bg);
   backdrop-filter: blur(6px);
   box-shadow: 0 0 20px rgba(0,255,65,0.05);
-  overscroll-behavior: contain;
-  /* Empêche le navigateur de modifier le scroll */
-  overflow-y: visible;   /* pas de scroll interne */
-}
+
+  overflow-anchor: none;
+  contain: layout;
+}}
 
 /* scanlines */
 .terminal::after {
