@@ -417,7 +417,7 @@ section {
   padding: 30px 10px;
   overflow: visible; /* la grille projets peut dépasser */
   overflow-anchor: auto;
- scroll-margin-top: -80px;
+ /*scroll-margin-top: -80px; ── SCROLL MARGIN — compense la sticky nav (~52px) ── */
 }
 section h2 {
   margin-bottom: 30px;
@@ -426,7 +426,7 @@ section h2 {
   letter-spacing: 0.1em;
   text-shadow: 0 0 8px var(--green);
 }
-/* ── SCROLL MARGIN — compense la sticky nav (~52px) ── */
+
 /* ─────────────────────────────────────────
    CARDS
 ───────────────────────────────────────── */
