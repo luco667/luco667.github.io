@@ -503,7 +503,7 @@ const PROJECTS = [
       if (k === "class")       node.className = v;
       else if (k === "style")  Object.assign(node.style, v);
       else                     node.setAttribute(k, v);
-    });
+    };
     if (text) node.textContent = text;
     return node;
   }
@@ -646,5 +646,3 @@ const PROJECTS = [
       return /^[^:]*$/.test(url);
     }
   }
-
-})();
