@@ -80,25 +80,25 @@ footer{
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
   .scrollable {
-    scrollbar-color: #00ff41 #00cc33 #003b00 #000000;
+    scrollbar-color: #00ff41 #00cc33;
   }
 }
 
 /* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
 @supports selector(::-webkit-scrollbar) {
   .scrollable::-webkit-scrollbar {
-    background: #00ff41;
+    background: #00cc33;
     width: 6px;
     height:3px;
   }
-  /*.scrollable::-webkit-scrollbar-thumb {
+  .scrollable::-webkit-scrollbar-thumb {
     background: #00cc33;
   }
   .scrollable::-webkit-scrollbar-thumb:hover {
-    background: #000000;
+    background: #00ff41;
   }*/
   .scrollable::-webkit-scrollbar-track {
-    background: #003b00;
+    background: #00ff41;
   }
   .scrollable::-webkit-scrollbar-track:hover {
     background: #003b00;
