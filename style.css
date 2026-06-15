@@ -95,7 +95,8 @@
 ───────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { 
-   scroll-behavior: smooth; 
+  scroll-behavior: smooth;
+  overflow-anchor: auto;
 }
 body {
   background: var(--bg);
@@ -113,15 +114,13 @@ footer{
 
 scrollable {
   overflow:auto;
-  overflow-anchor: auto;
   border: 2px solid cornflowerblue;
-  margin: 2rem auto;
   font-family: monospace;
 }
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
   .scrollable {
-    scrollbar-color: green yellow cornflowerblue blue;
+    scrollbar-color: green, yellow, cornflowerblue, blue;
   }
 }
 
