@@ -118,23 +118,23 @@ scrollable {
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
   .scrollable {
-    scrollbar-color: var(--border);
+    scrollbar-color: green;
   }
 }
 
 /* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements */
 @supports selector(::-webkit-scrollbar) {
   .scrollable::-webkit-scrollbar {
-    background: var(--green-dark);
+    background: green;
   }
   .scrollable::-webkit-scrollbar-track {
-    background: var(--bg);
+    background: green;
   }
   .scrollable::-webkit-scrollbar-thumb { 
-    background: var(--green-dark);
+    background: green;
   }
   .scrollable::-webkit-scrollbar-thumb:hover { 
-    background: var(--green-dim);
+    background: green;
   }
 }
 
