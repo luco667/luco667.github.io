@@ -17,21 +17,6 @@ const t=(t,e)=>{const{o:n,i:r,u:o}=t;let s,i=n;const c=(t,e)=>{const n=i,c=t,l=e
 //# sourceMappingURL=/sm/3d18db347d530259811999b5f884e3665fe9485f0959a07613c41be2c338d0bd.map
 
 /* ═══════════════════════════════════════════
-   INIT GGSTATIC
-═══════════════════════════════════════════ */
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import {
-  getDatabase,
-  ref,
-  set,
-  get,
-  onValue,
-  onDisconnect,
-  runTransaction
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
-
-/* ═══════════════════════════════════════════
    INIT FIREBASE
 ═══════════════════════════════════════════ */
 
