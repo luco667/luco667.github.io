@@ -58,9 +58,7 @@
    RESET
 ───────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { 
-  scroll-behavior: smooth;
-}
+
 body {
   background: var(--bg);
   color: var(--green);
@@ -75,17 +73,19 @@ footer{
   z-index:10;
 }
 .scrollable {
+  scroll-behavior: smooth;
   overflow-anchor: auto;
   /*overflow: auto;*/
   width: 100%;
   height: 100%;
   margin: auto;
   font-family: monospace;
+  scrollbar-color:#00ff41;
 }
 /* For browsers that support `scrollbar-*` properties */
 @supports (scrollbar-color: auto) {
   .scrollable {
-    scrollbar-color: #00ff41 #00cc33 #003b00;
+    scrollbar-color: #00ff41 #00cc33;
   }
 }
 
@@ -96,9 +96,6 @@ footer{
   }
   .scrollable::-webkit-scrollbar-thumb {
     background: #00cc33;
-  }
-   .scrollable::-webkit-scrollbar-track {
-    background: #003b00;
   }
 }
 
