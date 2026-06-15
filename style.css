@@ -417,7 +417,7 @@ section {
   padding: 60px 10px;
   overflow: visible; /* la grille projets peut dépasser */
   overflow-anchor: auto;
-  scroll-margin-top: 60px;
+  scroll-margin-top: 85px;
 }
 section h2 {
   margin-bottom: 30px;
@@ -593,6 +593,7 @@ section h2 {
    FOOTER
 ───────────────────────────────────────── */
 footer {
+  padding-top: 350px;
   padding: 30px;
   text-align: center;
   color: var(--green-dark);
