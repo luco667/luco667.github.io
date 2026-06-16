@@ -653,7 +653,7 @@ footer {
   .work-exp { margin-top:15px; margin-bottom:15px; }
   header h1 { font-size: 2rem; margin-top:15px}
   header .subtitle { margin-top: 8px; font-size: 0.68rem; }
-  section { padding: 10px 12px; scroll-margin-top: 50px;}
+  section { padding: 15px 12px; scroll-margin-top: 30px;}
   section h2 { font-size: 1.6rem; }
   .stats { margin-bottom:-2px; margin-top:15px;font-size:0.8em; }
   .card, #terminal { padding: 16px; min-height:80px;overflow-anchor: auto;}
