@@ -113,7 +113,10 @@ header .subtitle::before {
  padding:0 14px;
  margin-top: 15px;
  margin-bottom: 16px;
- font-size: 2px;
+}
+
+section h2 .stats {
+ font-size: 1rem;
 }
 /* ─────────────────────────────────────────
    SECTIONS
