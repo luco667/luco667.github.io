@@ -508,6 +508,21 @@ if (!output || !term) {
 console.log("term", term.scrollHeight, term.clientHeight);
 console.log("body", document.body.scrollHeight);
 console.log("term", term.scrollHeight, term.clientHeight);
+console.log("term", term.scrollHeight, term.clientHeight);
+
+let el = term;
+
+while (el) {
+  console.log(
+    el.tagName,
+    el.className,
+    getComputedStyle(el).overflowY,
+    el.scrollHeight,
+    el.clientHeight
+  );
+  el = el.parentElement;
+}
+
 
 let el = term;
 
