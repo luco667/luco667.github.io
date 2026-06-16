@@ -440,25 +440,24 @@ const LINES = [
 ];
 
 const output = document.querySelector("#terminal-output");
-const term = document.querySelector("#terminal");
 
 let lineIndex = 0;
 
-if (!output || !term) {
-  console.warn("Terminal elements not found, skipping typewriter animation");
+if (!output) {
+  console.warn("Terminal output not found");
 } else {
 
-  function isNearBottom(el) {
-    return (el.scrollHeight - el.scrollTop - el.clientHeight-450 < 30);
+  function keepScrollStable() {
+    const y = window.scrollY;
+
+    requestAnimationFrame(() => {
+      window.scrollTo(0, y);
+    });
   }
 
   function typeLine() {
-    const shouldAutoScroll = isNearBottom(term);
 
-    if (lineIndex >= LINES.length) {
-      if (shouldAutoScroll) term.scrollTop = term.scrollHeight;
-      return;
-    }
+    if (lineIndex >= LINES.length) return;
 
     const line = document.createElement("div");
     line.classList.add("line");
@@ -471,17 +470,22 @@ if (!output || !term) {
     output.appendChild(line);
 
     const currentLine = LINES[lineIndex];
-    let charIndex = 0;
+    let i = 0;
 
     function typeChar() {
-      if (charIndex < currentLine.length) {
-        text.textContent += currentLine[charIndex++];
 
-        if (shouldAutoScroll) {
-          requestAnimationFrame(() => {
-            term.scrollTop = term.scrollHeight;
-          });
-        }
+      if (i < currentLine.length) {
+
+        const scrollY = window.scrollY;
+
+        text.textContent += currentLine[i++];
+
+        // Safari iOS + Chrome desktop safe lock
+        requestAnimationFrame(() => {
+          if (window.scrollY !== scrollY) {
+            window.scrollTo(0, scrollY);
+          }
+        });
 
         setTimeout(typeChar, 18 + Math.random() * 35);
         return;
@@ -489,6 +493,7 @@ if (!output || !term) {
 
       cursor.remove();
       lineIndex++;
+
       setTimeout(typeLine, 110);
     }
 
@@ -504,37 +509,6 @@ if (!output || !term) {
   } else {
     start();
   }
-}
-console.log("term", term.scrollHeight, term.clientHeight);
-console.log("body", document.body.scrollHeight);
-console.log("term", term.scrollHeight, term.clientHeight);
-console.log("term", term.scrollHeight, term.clientHeight);
-
-let el = term;
-
-while (el) {
-  console.log(
-    el.tagName,
-    el.className,
-    getComputedStyle(el).overflowY,
-    el.scrollHeight,
-    el.clientHeight
-  );
-  el = el.parentElement;
-}
-
-
-let el = term;
-
-while (el) {
-  console.log(
-    el.tagName,
-    el.className,
-    getComputedStyle(el).overflowY,
-    el.scrollHeight,
-    el.clientHeight
-  );
-  el = el.parentElement;
 }
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
