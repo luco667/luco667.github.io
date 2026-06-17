@@ -47,10 +47,23 @@
 ───────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html,
-body {
-    overflow-anchor: auto;
-}
+  body {
+
+    margin: 0;
+
+    font-family: monospace;
+
+  }
+
+  #terminal {
+
+    padding: 20px;
+
+  }
+
+  .line {
+
+    white-space: pre;
 body {
   background: var(--bg);
   color: var(--green);
