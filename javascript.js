@@ -342,26 +342,47 @@ if (track) {
 }
 
 /* ═══════════════════════════════════════════ TERMINAL TYPEWRITER (querySelector version) ═══════════════════════════════════════════ */
- const LINES = [ "> initializing profile...", "", "> status : Open to opportunities", 
+const LINES = [
+  "> initializing profile...",
+  "",
+  "> status : Open to opportunities",
   "> interests : design, web security, reverse engineering, continuous learning",
   "> education : Baccalaureate in Science and Technology of Industry and Sustainable Development, and studies in Optical Eyewear BTS and BTS CIEL Option B (Electronics and Networks).",
-   "> hobbies : nature, art, literature, cinema, music, animation, science", "", "> system ready_" ]; 
-   const output = document.querySelector("#terminal-output"); 
-   let lineIndex = 0; if (!output) { console.warn("Terminal output not found"); 
+  "> hobbies : nature, art, literature, cinema, music, animation, science",
+  "",
+  "> system ready_"
+];
 
-   } else { function keepScrollStable() { 
-    const y = window.scrollY; requestAnimationFrame(() => { window.scrollTo(0, y); }); } 
-    
-    function typeLine() { if (lineIndex >= LINES.length) return;
-  const line = document.createElement("div"); line.classList.add("line"); const text = document.createElement("span"); const cursor = document.createElement("span");
-   cursor.classList.add("cursor"); line.append(text, cursor); output.appendChild(line); const currentLine = LINES[lineIndex];
-    let i = 0; function typeChar() { if (i < currentLine.length) { const scrollY = window.scrollY; text.textContent += currentLine[i++];
-       requestAnimationFrame(() => { if (window.scrollY !== scrollY) { window.scrollTo(0, scrollY); } });
-        setTimeout(typeChar, 18 + Math.random() * 35); return; } cursor.remove();
-         lineIndex++; setTimeout(typeLine, 110); } typeChar();
-         } function start() { setTimeout(typeLine, 600);
-          
-          } if (document.readyState === "loading") { window.addEventListener("load", start); } else { start(); } }
+const output = document.getElementById("terminal-output");
+
+let index = 0;
+
+function isAtBottom() {
+  return (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 10);
+}
+
+function addLine(text) {
+  const shouldFollow = isAtBottom();
+
+  const div = document.createElement("div");
+  div.className = "line";
+  div.textContent = text;
+
+  output.appendChild(div);
+
+  if (shouldFollow) {
+    requestAnimationFrame(() => {
+      div.scrollIntoView({ behavior: "auto", block: "end" });
+    });
+  }
+}
+
+/* version avec tes lignes */
+setInterval(() => {
+  if (index >= LINES.length) return;
+
+  addLine(LINES[index++]);
+}, 1200);
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
 ═══════════════════════════════════════════ */
