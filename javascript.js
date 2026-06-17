@@ -85,118 +85,35 @@ async function getGeoInfo() {
 
   // Déduction du pays depuis le timezone IANA
   const TZ_TO_COUNTRY = {
-    "Europe/Paris": "FR",
-    "Europe/London": "GB",
-    "Europe/Berlin": "DE",
-    "Europe/Madrid": "ES",
-    "Europe/Rome": "IT",
-    "Europe/Amsterdam": "NL",
-    "Europe/Brussels": "BE",
-    "Europe/Zurich": "CH",
-    "Europe/Vienna": "AT",
-    "Europe/Warsaw": "PL",
-    "Europe/Prague": "CZ",
-    "Europe/Budapest": "HU",
-    "Europe/Bucharest": "RO",
-    "Europe/Sofia": "BG",
-    "Europe/Helsinki": "FI",
-    "Europe/Stockholm": "SE",
-    "Europe/Oslo": "NO",
-    "Europe/Copenhagen": "DK",
-    "Europe/Lisbon": "PT",
-    "Europe/Athens": "GR",
-    "Europe/Dublin": "IE",
-    "Europe/Kiev": "UA",
-    "Europe/Moscow": "RU",
-    "Europe/Istanbul": "TR",
-    "America/New_York": "US",
-    "America/Chicago": "US",
-    "America/Denver": "US",
-    "America/Los_Angeles": "US",
-    "America/Toronto": "CA",
-    "America/Vancouver": "CA",
-    "America/Montreal": "CA",
-    "America/Mexico_City": "MX",
-    "America/Sao_Paulo": "BR",
-    "America/Argentina/Buenos_Aires": "AR",
-    "America/Bogota": "CO",
-    "America/Lima": "PE",
-    "America/Santiago": "CL",
-    "Asia/Tokyo": "JP",
-    "Asia/Shanghai": "CN",
-    "Asia/Hong_Kong": "HK",
-    "Asia/Seoul": "KR",
-    "Asia/Singapore": "SG",
-    "Asia/Kolkata": "IN",
-    "Asia/Dubai": "AE",
-    "Asia/Bangkok": "TH",
-    "Asia/Jakarta": "ID",
-    "Asia/Karachi": "PK",
-    "Asia/Dhaka": "BD",
-    "Asia/Taipei": "TW",
-    "Australia/Sydney": "AU",
-    "Australia/Melbourne": "AU",
-    "Australia/Perth": "AU",
-    "Pacific/Auckland": "NZ",
-    "Africa/Cairo": "EG",
-    "Africa/Lagos": "NG",
-    "Africa/Johannesburg": "ZA",
-    "Africa/Nairobi": "KE",
-    "Africa/Casablanca": "MA"
+    "Europe/Paris": "FR","Europe/London": "GB","Europe/Berlin": "DE",
+    "Europe/Madrid": "ES","Europe/Rome": "IT","Europe/Amsterdam": "NL",
+    "Europe/Brussels": "BE","Europe/Zurich": "CH","Europe/Vienna": "AT","Europe/Warsaw": "PL",
+    "Europe/Prague": "CZ","Europe/Budapest": "HU","Europe/Bucharest": "RO","Europe/Sofia": "BG",
+    "Europe/Helsinki": "FI","Europe/Stockholm": "SE","Europe/Oslo": "NO","Europe/Copenhagen": "DK",
+    "Europe/Lisbon": "PT", "Europe/Athens": "GR", "Europe/Dublin": "IE", "Europe/Kiev": "UA",
+    "Europe/Moscow": "RU","Europe/Istanbul": "TR","America/New_York": "US","America/Chicago": "US","America/Denver": "US",
+    "America/Los_Angeles": "US","America/Toronto": "CA","America/Vancouver": "CA","America/Montreal": "CA", "America/Mexico_City": "MX", "America/Sao_Paulo": "BR",
+     "America/Argentina/Buenos_Aires": "AR","America/Bogota": "CO", "America/Lima": "PE",  "America/Santiago": "CL",
+    "Asia/Tokyo": "JP", "Asia/Shanghai": "CN", "Asia/Hong_Kong": "HK", "Asia/Seoul": "KR",
+    "Asia/Singapore": "SG", "Asia/Kolkata": "IN", "Asia/Dubai": "AE", "Asia/Bangkok": "TH","Asia/Jakarta": "ID",
+    "Asia/Karachi": "PK","Asia/Dhaka": "BD", "Asia/Taipei": "TW",
+    "Australia/Sydney": "AU", "Australia/Melbourne": "AU",
+    "Australia/Perth": "AU", "Pacific/Auckland": "NZ", "Africa/Cairo": "EG", "Africa/Lagos": "NG",
+    "Africa/Johannesburg": "ZA", "Africa/Nairobi": "KE", "Africa/Casablanca": "MA"
   };
 
   const COUNTRY_NAMES = {
-    FR: "France",
-    GB: "United Kingdom",
-    DE: "Germany",
-    ES: "Spain",
-    IT: "Italy",
-    NL: "Netherlands",
-    BE: "Belgium",
-    CH: "Switzerland",
-    AT: "Austria",
-    PL: "Poland",
-    CZ: "Czech Republic",
-    HU: "Hungary",
-    RO: "Romania",
-    BG: "Bulgaria",
-    FI: "Finland",
-    SE: "Sweden",
-    NO: "Norway",
-    DK: "Denmark",
-    PT: "Portugal",
-    GR: "Greece",
-    IE: "Ireland",
-    UA: "Ukraine",
-    RU: "Russia",
-    TR: "Turkey",
-    US: "United States",
-    CA: "Canada",
-    MX: "Mexico",
-    BR: "Brazil",
-    AR: "Argentina",
-    CO: "Colombia",
-    PE: "Peru",
-    CL: "Chile",
-    JP: "Japan",
-    CN: "China",
-    HK: "Hong Kong",
-    KR: "South Korea",
-    SG: "Singapore",
-    IN: "India",
-    AE: "UAE",
-    TH: "Thailand",
-    ID: "Indonesia",
-    PK: "Pakistan",
-    BD: "Bangladesh",
-    TW: "Taiwan",
-    AU: "Australia",
-    NZ: "New Zealand",
-    EG: "Egypt",
-    NG: "Nigeria",
-    ZA: "South Africa",
-    KE: "Kenya",
-    MA: "Morocco"
+    FR: "France",GB: "United Kingdom",DE: "Germany",ES: "Spain",IT: "Italy",NL: "Netherlands",
+    BE: "Belgium",CH: "Switzerland",AT: "Austria",PL: "Poland",CZ: "Czech Republic",HU: "Hungary",RO: "Romania",BG: "Bulgaria",FI: "Finland",
+    SE: "Sweden",NO: "Norway",
+    DK: "Denmark", PT: "Portugal", GR: "Greece", IE: "Ireland",
+    UA: "Ukraine",  RU: "Russia", TR: "Turkey", US: "United States",
+    CA: "Canada",MX: "Mexico", BR: "Brazil", AR: "Argentina",
+    CO: "Colombia", PE: "Peru",CL: "Chile", JP: "Japan",
+    CN: "China",HK: "Hong Kong",  KR: "South Korea", SG: "Singapore", IN: "India",
+    AE: "UAE",TH: "Thailand",ID: "Indonesia", PK: "Pakistan", BD: "Bangladesh",TW: "Taiwan",
+    AU: "Australia",NZ: "New Zealand",EG: "Egypt",
+    NG: "Nigeria", ZA: "South Africa", KE: "Kenya",MA: "Morocco"
   };
 
   const countryCode = TZ_TO_COUNTRY[timezone] || language.split("-")[1] || "??";
@@ -424,103 +341,27 @@ if (track) {
   animate();
 }
 
-/* ═══════════════════════════════════════════
-   TERMINAL TYPEWRITER (querySelector version)
-═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════ TERMINAL TYPEWRITER (querySelector version) ═══════════════════════════════════════════ */
+ const LINES = [ "> initializing profile...", "", "> status : Open to opportunities", 
+  "> interests : design, web security, reverse engineering, continuous learning",
+  "> education : Baccalaureate in Science and Technology of Industry and Sustainable Development, and studies in Optical Eyewear BTS and BTS CIEL Option B (Electronics and Networks).",
+   "> hobbies : nature, art, literature, cinema, music, animation, science", "", "> system ready_" ]; 
+   const output = document.querySelector("#terminal-output"); 
+   let lineIndex = 0; if (!output) { console.warn("Terminal output not found"); 
 
-const LINES = [
-  "> initializing profile...",
-  "",
-  "> status     : Open to opportunities",
-  "> interests  : design, web security, reverse engineering, continuous learning",
-  "> education  : Baccalaureate in Science and Technology of Industry and Sustainable Development, and studies in Optical Eyewear BTS and BTS CIEL Option B (Electronics and Networks).",
-  "> hobbies    : nature, art, literature, cinema, music, animation, science",
-  "",
-  "> system ready_"
-];
-
-const output = document.querySelector("#terminal-output");
-const term = document.querySelector("#terminal");
-
-let lineIndex = 0;
-
-if (!output || !term) {
-  console.warn("Terminal elements not found, skipping typewriter animation");
-} else {
-
-  function isNearBottom(el) {
-    return (el.scrollHeight - el.scrollTop - el.clientHeight-450 < 30);
-  }
-
-  function typeLine() {
-    const shouldAutoScroll = isNearBottom(term);
-
-    if (lineIndex >= LINES.length) {
-      if (shouldAutoScroll) term.scrollTop = term.scrollHeight;
-      return;
-    }
-
-    const line = document.createElement("div");
-    line.classList.add("line");
-
-    const text = document.createElement("span");
-    const cursor = document.createElement("span");
-    cursor.classList.add("cursor");
-
-    line.append(text, cursor);
-    output.appendChild(line);
-
-    const currentLine = LINES[lineIndex];
-    let charIndex = 0;
-
-    function typeChar() {
-      if (charIndex < currentLine.length) {
-        text.textContent += currentLine[charIndex++];
-
-        if (shouldAutoScroll) {
-          requestAnimationFrame(() => {
-            term.scrollTop = term.scrollHeight;
-          });
-        }
-
-        setTimeout(typeChar, 18 + Math.random() * 35);
-        return;
-      }
-
-      cursor.remove();
-      lineIndex++;
-      setTimeout(typeLine, 110);
-    }
-
-    typeChar();
-  }
-
-  function start() {
-    setTimeout(typeLine, 600);
-  }
-
-  if (document.readyState === "loading") {
-    window.addEventListener("load", start);
-  } else {
-    start();
-  }
-}
-console.log("term", term.scrollHeight, term.clientHeight);
-console.log("body", document.body.scrollHeight);
-console.log("term", term.scrollHeight, term.clientHeight);
-
-let el = term;
-
-while (el) {
-  console.log(
-    el.tagName,
-    el.className,
-    getComputedStyle(el).overflowY,
-    el.scrollHeight,
-    el.clientHeight
-  );
-  el = el.parentElement;
-}
+   } else { function keepScrollStable() { 
+    const y = window.scrollY; requestAnimationFrame(() => { window.scrollTo(0, y); }); } 
+    
+    function typeLine() { if (lineIndex >= LINES.length) return;
+  const line = document.createElement("div"); line.classList.add("line"); const text = document.createElement("span"); const cursor = document.createElement("span");
+   cursor.classList.add("cursor"); line.append(text, cursor); output.appendChild(line); const currentLine = LINES[lineIndex];
+    let i = 0; function typeChar() { if (i < currentLine.length) { const scrollY = window.scrollY; text.textContent += currentLine[i++];
+       requestAnimationFrame(() => { if (window.scrollY !== scrollY) { window.scrollTo(0, scrollY); } });
+        setTimeout(typeChar, 18 + Math.random() * 35); return; } cursor.remove();
+         lineIndex++; setTimeout(typeLine, 110); } typeChar();
+         } function start() { setTimeout(typeLine, 600);
+          
+          } if (document.readyState === "loading") { window.addEventListener("load", start); } else { start(); } }
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
 ═══════════════════════════════════════════ */
