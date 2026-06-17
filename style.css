@@ -52,23 +52,17 @@ html, body {
   overflow: hidden;
 }
 
-  body {
-
-    margin: 0;
-
-    font-family: monospace;
-
-  }
-
-  #terminal {
-
-    padding: 20px;
-
-  }
-
-  .line {
-
-    white-space: pre;
+      body {
+        margin: 0;
+        font-family: monospace;
+      }
+    
+      #terminal {
+        padding: 20px;
+      }
+      .line {
+        white-space: pre;
+      }
 body {
   background: var(--bg);
   color: var(--green);
