@@ -342,59 +342,43 @@ if (track) {
 }
 
 /* ═══════════════════════════════════════════ TERMINAL TYPEWRITER (querySelector version) ═══════════════════════════════════════════ */
-const LINES = [
-  "> initializing profile...",
-  "",
-  "> status : Open to opportunities",
-  "> interests : design, web security, reverse engineering, continuous learning",
-  "> education : Baccalaureate in Science and Technology of Industry and Sustainable Development, and studies in Optical Eyewear BTS and BTS CIEL Option B (Electronics and Networks).",
-  "> hobbies : nature, art, literature, cinema, music, animation, science",
-  "",
-  "> system ready_"
-];
-
 const output = document.getElementById("terminal-output");
 
-let index = 0;
-
-/* mémoire position scroll */
-let lockedScrollY = window.scrollY;
-
-function lockScroll() {
-  lockedScrollY = window.scrollY;
-}
-
-function restoreScroll() {
-  window.scrollTo(0, lockedScrollY);
-}
-
 function addLine(text) {
-
-  lockScroll(); // on mémorise la position actuelle
-
   const div = document.createElement("div");
   div.className = "line";
   div.textContent = text;
-
   output.appendChild(div);
-
-  requestAnimationFrame(() => {
-    restoreScroll(); // on empêche tout déplacement visuel
-  });
 }
 
-/* ajout des lignes */
-setInterval(() => {
-  if (index >= LINES.length) return;
+/* Python code */
+const pythonCode = `
+lines = [
+"> initializing profile...",
+"",
+"> status : Open to opportunities",
+"> interests : design, web security, reverse engineering",
+"> education : BTS CIEL Option B",
+"",
+"> system ready_"
+]
 
-  addLine(LINES[index++]);
+"\\n".join(lines)
+`;
 
-}, 1200);
+async function runPython() {
+  const pyodide = await loadPyodide();
 
-/* sécurité iOS/scroll manuel */
-window.addEventListener("scroll", () => {
-  restoreScroll();
-}, { passive: true });
+  const result = await pyodide.runPythonAsync(pythonCode);
+
+  const lines = result.split("\n");
+
+  for (const line of lines) {
+    addLine(line);
+  }
+}
+
+runPython();
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
 ═══════════════════════════════════════════ */
