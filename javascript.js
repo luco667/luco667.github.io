@@ -424,117 +424,103 @@ if (track) {
   animate();
 }
 
+/* ═══════════════════════════════════════════
+   TERMINAL TYPEWRITER (querySelector version)
+═══════════════════════════════════════════ */
+
 const LINES = [
-
   "> initializing profile...",
-
   "",
-
-  "> status : Open to opportunities",
-
-  "> interests : design, web security, reverse engineering",
-
-  "> education : BTS CIEL Option B",
-
-  "> hobbies : science, cinema, music",
-
+  "> status     : Open to opportunities",
+  "> interests  : design, web security, reverse engineering, continuous learning",
+  "> education  : Baccalaureate in Science and Technology of Industry and Sustainable Development, and studies in Optical Eyewear BTS and BTS CIEL Option B (Electronics and Networks).",
+  "> hobbies    : nature, art, literature, cinema, music, animation, science",
   "",
-
   "> system ready_"
-
 ];
 
 const output = document.querySelector("#terminal-output");
+const term = document.querySelector("#terminal");
 
-let lockedY = 0;
+let lineIndex = 0;
 
-function lockView() {
+if (!output || !term) {
+  console.warn("Terminal elements not found, skipping typewriter animation");
+} else {
 
-  lockedY = window.scrollY;
-
-}
-
-function restoreView() {
-
-  window.scrollTo(0, lockedY);
-
-}
-
-function addLine(text) {
-
-  lockView();
-
-  const div = document.createElement("div");
-
-  div.className = "line";
-
-  div.textContent = text;
-
-  output.appendChild(div);
-
-  // important : attendre le layout browser
-
-  requestAnimationFrame(() => {
-
-    restoreView();
-
-  });
-
-}
-
-// typewriter
-
-let i = 0;
-
-function typeNext() {
-
-  if (i >= LINES.length) return;
-
-  const line = document.createElement("div");
-
-  line.className = "line";
-
-  output.appendChild(line);
-
-  let j = 0;
-
-  const txt = LINES[i];
-
-  function typeChar() {
-
-    if (j < txt.length) {
-
-      line.textContent += txt[j++];
-
-      setTimeout(typeChar, 15 + Math.random() * 25);
-
-    } else {
-
-      i++;
-
-      setTimeout(typeNext, 80);
-
-    }
-
+  function isNearBottom(el) {
+    return (el.scrollHeight - el.scrollTop - el.clientHeight-450 < 30);
   }
 
-  typeChar();
+  function typeLine() {
+    const shouldAutoScroll = isNearBottom(term);
 
+    if (lineIndex >= LINES.length) {
+      if (shouldAutoScroll) term.scrollTop = term.scrollHeight;
+      return;
+    }
+
+    const line = document.createElement("div");
+    line.classList.add("line");
+
+    const text = document.createElement("span");
+    const cursor = document.createElement("span");
+    cursor.classList.add("cursor");
+
+    line.append(text, cursor);
+    output.appendChild(line);
+
+    const currentLine = LINES[lineIndex];
+    let charIndex = 0;
+
+    function typeChar() {
+      if (charIndex < currentLine.length) {
+        text.textContent += currentLine[charIndex++];
+
+        if (shouldAutoScroll) {
+          requestAnimationFrame(() => {
+            term.scrollTop = term.scrollHeight;
+          });
+        }
+
+        setTimeout(typeChar, 18 + Math.random() * 35);
+        return;
+      }
+
+      cursor.remove();
+      lineIndex++;
+      setTimeout(typeLine, 110);
+    }
+
+    typeChar();
+  }
+
+  function start() {
+    setTimeout(typeLine, 600);
+  }
+
+  if (document.readyState === "loading") {
+    window.addEventListener("load", start);
+  } else {
+    start();
+  }
 }
+console.log("term", term.scrollHeight, term.clientHeight);
+console.log("body", document.body.scrollHeight);
+console.log("term", term.scrollHeight, term.clientHeight);
 
-// initial lock
+let el = term;
 
-window.addEventListener("scroll", () => {
-
-  // empêche le scroll utilisateur de casser le lock
-
-  restoreView();
-
-}, { passive: false });
-
-// start
-
-typeNext();
+while (el) {
+  console.log(
+    el.tagName,
+    el.className,
+    getComputedStyle(el).overflowY,
+    el.scrollHeight,
+    el.clientHeight
+  );
+  el = el.parentElement;
+}
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
 ═══════════════════════════════════════════ */
