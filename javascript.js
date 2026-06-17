@@ -534,7 +534,7 @@ window.addEventListener("scroll", () => {
 
 // start
 
-typeNext()
+typeNext();
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
 ═══════════════════════════════════════════ */
