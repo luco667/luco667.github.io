@@ -183,9 +183,7 @@ section h2 {
   box-shadow: 0 0 20px rgba(0,255,65,0.05);
   overflow:visible;
 }
-.line {
-  white-space: pre;
-}
+
 /* scanlines */
 #terminal::after {
   content: '';
@@ -209,7 +207,7 @@ section h2 {
   font-size: 0.92rem;
   line-height: 1.9;
   white-space: pre-wrap;
-  overflow-anchor:none;
+  overflow-anchor:auto;
   /* Empêche l'ancrage automatique du scroll */
 }
 
