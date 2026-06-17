@@ -425,88 +425,116 @@ if (track) {
 }
 
 const LINES = [
+
   "> initializing profile...",
+
   "",
-  "> status     : Open to opportunities",
-  "> interests  : design, web security, reverse engineering, continuous learning",
-  "> education  : Baccalaureate in Science and Technology of Industry and Sustainable Development, and studies in Optical Eyewear BTS and BTS CIEL Option B (Electronics and Networks).",
-  "> hobbies    : nature, art, literature, cinema, music, animation, science",
+
+  "> status : Open to opportunities",
+
+  "> interests : design, web security, reverse engineering",
+
+  "> education : BTS CIEL Option B",
+
+  "> hobbies : science, cinema, music",
+
   "",
+
   "> system ready_"
+
 ];
 
 const output = document.querySelector("#terminal-output");
 
-let lineIndex = 0;
+let lockedY = 0;
 
-if (output) {
+function lockView() {
 
-  function lockScroll() {
-    const y = window.scrollY;
-    const h = document.documentElement.scrollHeight;
+  lockedY = window.scrollY;
 
-    return { y, h };
-  }
+}
 
-  function restoreScroll(state) {
-    const newH = document.documentElement.scrollHeight;
-    const delta = newH - state.h;
+function restoreView() {
 
-    // on compense EXACTEMENT la croissance du document
-    window.scrollTo(0, state.y + delta);
-  }
+  window.scrollTo(0, lockedY);
 
-  function typeLine() {
-    if (lineIndex >= LINES.length) return;
+}
 
-    const line = document.createElement("div");
-    line.className = "line";
+function addLine(text) {
 
-    const text = document.createElement("span");
-    const cursor = document.createElement("span");
-    cursor.className = "cursor";
+  lockView();
 
-    line.append(text, cursor);
-    output.appendChild(line);
+  const div = document.createElement("div");
 
-    const current = LINES[lineIndex];
-    let i = 0;
+  div.className = "line";
 
-    function typeChar() {
+  div.textContent = text;
 
-      if (i < current.length) {
+  output.appendChild(div);
 
-        const state = lockScroll();
+  // important : attendre le layout browser
 
-        text.textContent += current[i++];
+  requestAnimationFrame(() => {
 
-        requestAnimationFrame(() => {
-          restoreScroll(state);
-        });
+    restoreView();
 
-        setTimeout(typeChar, 18 + Math.random() * 35);
-        return;
-      }
+  });
 
-      cursor.remove();
-      lineIndex++;
+}
 
-      setTimeout(typeLine, 110);
+// typewriter
+
+let i = 0;
+
+function typeNext() {
+
+  if (i >= LINES.length) return;
+
+  const line = document.createElement("div");
+
+  line.className = "line";
+
+  output.appendChild(line);
+
+  let j = 0;
+
+  const txt = LINES[i];
+
+  function typeChar() {
+
+    if (j < txt.length) {
+
+      line.textContent += txt[j++];
+
+      setTimeout(typeChar, 15 + Math.random() * 25);
+
+    } else {
+
+      i++;
+
+      setTimeout(typeNext, 80);
+
     }
 
-    typeChar();
   }
 
-  function start() {
-    setTimeout(typeLine, 600);
-  }
+  typeChar();
 
-  if (document.readyState === "loading") {
-    window.addEventListener("load", start);
-  } else {
-    start();
-  }
 }
+
+// initial lock
+
+window.addEventListener("scroll", () => {
+
+  // empêche le scroll utilisateur de casser le lock
+
+  restoreView();
+
+}, { passive: false });
+
+// start
+
+typeNext()
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
 ═══════════════════════════════════════════ */
