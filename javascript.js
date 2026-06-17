@@ -449,7 +449,7 @@ if (!output) {
 
   function reserveSpace() {
     const spacer = document.createElement("div");
-    spacer.style.height = "500px";
+    spacer.style.height = "200px";
     spacer.style.pointerEvents = "none";
     spacer.setAttribute("aria-hidden", "true");
 
