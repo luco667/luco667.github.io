@@ -425,7 +425,7 @@ if (track) {
 }
 
 /* ═══════════════════════════════════════════
-   TERMINAL TYPEWRITER (querySelector version)
+   TERMINAL TYPEWRITER — SAFARI FIX
 ═══════════════════════════════════════════ */
 
 const LINES = [
@@ -447,18 +447,21 @@ if (!output) {
   console.warn("Terminal output not found");
 } else {
 
-  function reserveSpace() {
-    const spacer = document.createElement("div");
-    spacer.style.height = "225px";
-    spacer.style.pointerEvents = "none";
-    spacer.setAttribute("aria-hidden", "true");
+  let originalPadding = "";
 
-    output.after(spacer);
+  function reserveScrollSpace(px = 500) {
+    originalPadding = document.documentElement.style.paddingBottom;
+    document.documentElement.style.paddingBottom = `${px}px`;
+  }
+
+  function releaseScrollSpace() {
+    document.documentElement.style.paddingBottom = originalPadding;
   }
 
   function typeLine() {
 
     if (lineIndex >= LINES.length) {
+      releaseScrollSpace();
       return;
     }
 
@@ -501,7 +504,10 @@ if (!output) {
 
   function start() {
 
-    reserveSpace();
+    // Safari / iOS :
+    // ajoute 500px invisibles sous la page
+    // pour empêcher le viewport de bouger
+    reserveScrollSpace(500);
 
     setTimeout(() => {
       typeLine();
