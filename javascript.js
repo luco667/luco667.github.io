@@ -424,10 +424,6 @@ if (track) {
   animate();
 }
 
-/* ═══════════════════════════════════════════
-   TERMINAL TYPEWRITER — SAFARI FIX
-═══════════════════════════════════════════ */
-
 const LINES = [
   "> initializing profile...",
   "",
@@ -443,53 +439,52 @@ const output = document.querySelector("#terminal-output");
 
 let lineIndex = 0;
 
-if (!output) {
-  console.warn("Terminal output not found");
-} else {
+if (output) {
 
-  let originalPadding = "";
+  function lockScroll() {
+    const y = window.scrollY;
+    const h = document.documentElement.scrollHeight;
 
-  function reserveScrollSpace(px = 500) {
-    originalPadding = document.documentElement.style.paddingBottom;
-    document.documentElement.style.paddingBottom = `${px}px`;
+    return { y, h };
   }
 
-  function releaseScrollSpace() {
-    document.documentElement.style.paddingBottom = originalPadding;
+  function restoreScroll(state) {
+    const newH = document.documentElement.scrollHeight;
+    const delta = newH - state.h;
+
+    // on compense EXACTEMENT la croissance du document
+    window.scrollTo(0, state.y + delta);
   }
 
   function typeLine() {
-
-    if (lineIndex >= LINES.length) {
-      releaseScrollSpace();
-      return;
-    }
+    if (lineIndex >= LINES.length) return;
 
     const line = document.createElement("div");
-    line.classList.add("line");
+    line.className = "line";
 
     const text = document.createElement("span");
-
     const cursor = document.createElement("span");
-    cursor.classList.add("cursor");
+    cursor.className = "cursor";
 
     line.append(text, cursor);
     output.appendChild(line);
 
-    const currentLine = LINES[lineIndex];
+    const current = LINES[lineIndex];
     let i = 0;
 
     function typeChar() {
 
-      if (i < currentLine.length) {
+      if (i < current.length) {
 
-        text.textContent += currentLine[i++];
+        const state = lockScroll();
 
-        setTimeout(
-          typeChar,
-          18 + Math.random() * 35
-        );
+        text.textContent += current[i++];
 
+        requestAnimationFrame(() => {
+          restoreScroll(state);
+        });
+
+        setTimeout(typeChar, 18 + Math.random() * 35);
         return;
       }
 
@@ -503,15 +498,7 @@ if (!output) {
   }
 
   function start() {
-
-    // Safari / iOS :
-    // ajoute 500px invisibles sous la page
-    // pour empêcher le viewport de bouger
-    reserveScrollSpace(window.innerHeight);
-
-    setTimeout(() => {
-      typeLine();
-    }, 600);
+    setTimeout(typeLine, 600);
   }
 
   if (document.readyState === "loading") {
