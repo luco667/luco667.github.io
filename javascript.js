@@ -447,22 +447,26 @@ if (!output) {
   console.warn("Terminal output not found");
 } else {
 
-  function keepScrollStable() {
-    const y = window.scrollY;
+  function reserveSpace() {
+    const spacer = document.createElement("div");
+    spacer.style.height = "500px";
+    spacer.style.pointerEvents = "none";
+    spacer.setAttribute("aria-hidden", "true");
 
-    requestAnimationFrame(() => {
-      window.scrollTo(0, y);
-    });
+    output.after(spacer);
   }
 
   function typeLine() {
 
-    if (lineIndex >= LINES.length) return;
+    if (lineIndex >= LINES.length) {
+      return;
+    }
 
     const line = document.createElement("div");
     line.classList.add("line");
 
     const text = document.createElement("span");
+
     const cursor = document.createElement("span");
     cursor.classList.add("cursor");
 
@@ -476,18 +480,13 @@ if (!output) {
 
       if (i < currentLine.length) {
 
-        const scrollY = window.scrollY;
-
         text.textContent += currentLine[i++];
 
-        // Safari iOS + Chrome desktop safe lock
-        requestAnimationFrame(() => {
-          if (window.scrollY !== scrollY) {
-            window.scrollTo(0, scrollY);
-          }
-        });
+        setTimeout(
+          typeChar,
+          18 + Math.random() * 35
+        );
 
-        setTimeout(typeChar, 18 + Math.random() * 35);
         return;
       }
 
@@ -501,7 +500,12 @@ if (!output) {
   }
 
   function start() {
-    setTimeout(typeLine, 600);
+
+    reserveSpace();
+
+    setTimeout(() => {
+      typeLine();
+    }, 600);
   }
 
   if (document.readyState === "loading") {
