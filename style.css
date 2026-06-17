@@ -61,7 +61,7 @@ body {
   overflow-x: hidden;
   background: var(--bg);
   cursor: crosshair;
-  overflow-y: hidden; /* bloque le scroll global */
+  /*overflow-y: hidden; bloque le scroll global */
   height: 100%;
 }
 header,
