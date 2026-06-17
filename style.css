@@ -47,13 +47,6 @@
 ───────────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html, body {
-  /*overflow: hidden; bloque le scroll global */
-  height: 100%;
-  margin: 0;
-  font-family: monospace;
-  }
-  
 body {
   background: var(--bg);
   color: var(--green);
@@ -61,8 +54,6 @@ body {
   overflow-x: hidden;
   background: var(--bg);
   cursor: crosshair;
-  /*overflow-y: hidden; bloque le scroll global */
-  height: 100%;
 }
 header,
 footer{
@@ -136,6 +127,7 @@ section {
   margin:auto;
   padding: 85px 10px;
   overflow: visible; /* la grille projets peut dépasser */
+  overflow-anchor: auto;
 }
 section h2 {
   margin-bottom: 25px;
@@ -181,7 +173,24 @@ section h2 {
   background: var(--card-bg);
   backdrop-filter: blur(6px);
   box-shadow: 0 0 20px rgba(0,255,65,0.05);
-  overflow:visible;
+
+  overflow-anchor: auto;
+  contain: layout;
+}
+
+/* 📱 SUR MOBILE SEULEMENT */
+@media (max-width: 768px) {
+  #terminal {
+    height: 15vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    touch-action: manipulation;
+  }
+
+  html, body {
+    height: 100%;
+  }
 }
 
 /* scanlines */
@@ -207,8 +216,7 @@ section h2 {
   font-size: 0.92rem;
   line-height: 1.9;
   white-space: pre-wrap;
-  overflow-anchor:auto;
-  /* Empêche l'ancrage automatique du scroll */
+  overflow-anchor: auto;
 }
 
 #terminal-output .line {
@@ -627,7 +635,7 @@ footer {
 @media screen and (max-width: 900px) {
   header { padding: 60px 20px 30px; }
   section { padding: 20px 18px; }
-  .card, #terminal { padding: 22px;}
+  .card, #terminal { padding: 22px; overflow-anchor: auto;}
   .skills-container {display: flex;flex-wrap: wrap;gap: 12px;margin-top: 20px;}
   .skill-box {padding: 10px 16px;border: 1px solid var(--green);background: rgba(0, 255, 65, 0.08);color: var(--green);border-radius: 8px;font-size: 14px;}
   .projects-grid{grid-template-columns:repeat(2, 1fr);justify-items: center;}
@@ -643,8 +651,8 @@ footer {
   header .subtitle {padding: 0 10px;font-size: 0.75rem; line-height: 1.6; letter-spacing: 0.08em;}
   section { padding: 20px 14px; scroll-margin-top: 60px;}
   section h2 { margin-bottom: 20px; font-size: 1.8rem; }
-  .card, #terminal { padding: 18px; min-height:110px; }
-  .card p, #terminal-output { font-size: 0.82rem; line-height: 1.7; }
+  .card, #terminal { padding: 18px; overflow-anchor: auto; min-height:110px; }
+  .card p, #terminal-output { font-size: 0.82rem; line-height: 1.7;overflow-anchor: auto; }
   .skills{display:grid; grid-template-columns:repeat(3, 1fr);gap:16px; padding:26px;align-items:center; }
   .skills span{ width:100%;text-align:center;padding:8px 4px;font-size:.7rem;align-items:center;justify-content:center;}
   .work-item{font-size:.72rem;padding:10px 14px;}
@@ -663,8 +671,8 @@ footer {
   section { padding: 15px 12px; scroll-margin-top: 30px;}
   section h2 { font-size: 1.6rem; }
   .stats { margin-bottom:-2px; margin-top:15px;font-size:0.8em; }
-  .card, #terminal { padding: 16px; min-height:80px;}
-  .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6;}
+  .card, #terminal { padding: 16px; min-height:80px;overflow-anchor: auto;}
+  .card p, #terminal-output { font-size: 0.76rem; line-height: 1.6;overflow-anchor: auto;}
   .skills{ display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;padding:18px; align-items:center; }
   .skills span{width:100%;text-align:center;padding:8px 4px;font-size:.7rem;align-items:center;justify-content:center; }
   nav{gap:2px;padding:6px 6px;}
@@ -678,7 +686,7 @@ footer {
 @media screen and (max-width: 340px) {
   header h1 { font-size: 1.6rem; margin-top:15px }
   .work-exp { margin-top:15px; margin-bottom:15px; }
-  .card p, #terminal-output { font-size: 0.72rem;}
+  .card p, #terminal-output { font-size: 0.72rem;overflow-anchor: auto; }
   .skills{display:grid;grid-template-columns:repeat(1, 1fr);gap:10px;padding:18px;align-items:center;}
 }
 
