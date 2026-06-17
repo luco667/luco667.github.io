@@ -357,12 +357,20 @@ const output = document.getElementById("terminal-output");
 
 let index = 0;
 
-function isAtBottom() {
-  return (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 10);
+/* mémoire position scroll */
+let lockedScrollY = window.scrollY;
+
+function lockScroll() {
+  lockedScrollY = window.scrollY;
+}
+
+function restoreScroll() {
+  window.scrollTo(0, lockedScrollY);
 }
 
 function addLine(text) {
-  const shouldFollow = isAtBottom();
+
+  lockScroll(); // on mémorise la position actuelle
 
   const div = document.createElement("div");
   div.className = "line";
@@ -370,19 +378,23 @@ function addLine(text) {
 
   output.appendChild(div);
 
-  if (shouldFollow) {
-    requestAnimationFrame(() => {
-      div.scrollIntoView({ behavior: "auto", block: "end" });
-    });
-  }
+  requestAnimationFrame(() => {
+    restoreScroll(); // on empêche tout déplacement visuel
+  });
 }
 
-/* version avec tes lignes */
+/* ajout des lignes */
 setInterval(() => {
   if (index >= LINES.length) return;
 
   addLine(LINES[index++]);
+
 }, 1200);
+
+/* sécurité iOS/scroll manuel */
+window.addEventListener("scroll", () => {
+  restoreScroll();
+}, { passive: true });
 /* ═══════════════════════════════════════════
    ACTIVE NAV ON SCROLL
 ═══════════════════════════════════════════ */
