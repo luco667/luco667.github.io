@@ -507,7 +507,7 @@ if (!output) {
     // Safari / iOS :
     // ajoute 500px invisibles sous la page
     // pour empêcher le viewport de bouger
-    reserveScrollSpace(500);
+    reserveScrollSpace(window.innerHeight);
 
     setTimeout(() => {
       typeLine();
