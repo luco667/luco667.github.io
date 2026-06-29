@@ -1,0 +1,107 @@
+/* ─────────────────────────────────────────
+   NAVBAR
+───────────────────────────────────────── */
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:10000;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:14px;
+
+  width:100%;
+
+  padding:14px 18px;
+
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+
+  background:rgba(0,0,0,.78);
+
+  backdrop-filter:blur(10px);
+
+  overflow-x:auto;
+  overflow-y:hidden;
+
+  white-space:nowrap;
+
+  scrollbar-width:none;
+
+}
+
+nav::-webkit-scrollbar{
+  display:none;
+}
+
+nav a{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  flex-shrink:0;
+
+  padding:10px 16px;
+
+  border:1px solid transparent;
+
+  color:var(--green-dim);
+
+  text-decoration:none;
+  text-transform:lowercase;
+
+  font-size:.82rem;
+  letter-spacing:.12em;
+
+  transition:
+    color .2s,
+    border-color .2s,
+    background .2s,
+    box-shadow .2s,
+    transform .2s;
+}
+
+nav a::before{
+  content:"[ ";
+  opacity:0;
+  transition:opacity .2s;
+}
+
+nav a::after{
+  content:" ]";
+  opacity:0;
+  transition:opacity .2s;
+}
+
+nav a:hover{
+  color:var(--green);
+
+  text-shadow:0 0 10px var(--green);
+
+  transform:translateY(-1px);
+}
+
+nav a:hover::before,
+nav a:hover::after{
+  opacity:1;
+}
+
+nav a.active{
+  color:var(--green);
+
+  border-color:var(--green);
+
+  background:rgba(0,255,65,.08);
+
+  box-shadow:0 0 12px rgba(0,255,65,.15);
+}
+
+nav a.active::before,
+nav a.active::after{
+  opacity:1;
+}

@@ -1,0 +1,71 @@
+:root {
+  --green: #00ff41;
+  --green-dim: #00cc33;
+  --green-dark: #003b00;
+  --green-glow: rgba(0, 255, 65, 0.15);
+  --bg: #000000;
+  --card-bg: rgba(0, 10, 0, 0.85);
+  --border: rgba(0, 255, 65, 0.3);
+}
+
+
+/* ─────────────────────────────────────────
+   TERMINAL
+
+
+#terminal {
+  position: relative;
+  z-index: 1;
+  padding: 15px 30px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 20px rgba(0,255,65,0.05);
+  width: min(700px, 90vw);
+}
+
+.line {
+  display: block;
+}
+
+/* scanlines 
+
+#terminal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.08) 3px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+#terminal-output {
+  position: relative;
+  z-index: 2;
+  color: var(--green-dim);
+  font-size: 0.92rem;
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+
+#terminal-output .line {
+  display: block;
+  min-height: 1.9em;
+}
+
+#terminal-output .cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  margin-left: 2px;
+  background: var(--green);
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+}
+───────────────────────────────────────── */
