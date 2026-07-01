@@ -1,9 +1,5 @@
 /* ══════════════════════════════════════════
    TERMINAL TYPEWRITER
-   Scroll figé pendant toute l'animation
-══════════════════════════════════════════ */
-/* ══════════════════════════════════════════
-   TERMINAL TYPEWRITER
    Hauteur réservée à l'avance → page 100% stable
 ══════════════════════════════════════════ */
 const LINES = [
@@ -19,6 +15,7 @@ const LINES = [
 ];
 
 const output = document.getElementById('terminal-output');
+const aboutSection = document.getElementById('about'); // parent réel dans le HTML
 let lineIdx = 0;
 let charIdx = 0;
 
@@ -31,26 +28,29 @@ function buildText(partial) {
   return text;
 }
 
-// ── ÉTAPE CLÉ : on mesure la hauteur finale AVANT de lancer l'animation ──
+// ── Mesure la hauteur finale AVANT de lancer l'animation ──
 function lockFinalHeight() {
   const fullText = LINES.join('\n');
 
-  // Clone invisible pour mesurer sans affecter la mise en page
-  const clone = output.cloneNode(false);
+  const clone = output.cloneNode(false); // garde class="card", id retiré ci-dessous
+  clone.removeAttribute('id');
   clone.textContent = fullText;
+
+  // Positionné dans le MÊME parent, pour hériter width/max-width de la section
   clone.style.visibility = 'hidden';
   clone.style.position = 'absolute';
   clone.style.top = '0';
   clone.style.left = '0';
   clone.style.width = output.getBoundingClientRect().width + 'px';
-  clone.style.height = 'auto';
+  clone.style.minHeight = '0';
   clone.style.pointerEvents = 'none';
 
-  document.body.appendChild(clone);
-  const finalHeight = clone.scrollHeight;
-  document.body.removeChild(clone);
+  aboutSection.style.position = aboutSection.style.position || 'relative';
+  aboutSection.appendChild(clone);
 
-  // On fixe cette hauteur dès maintenant : la carte ne grandira plus jamais
+  const finalHeight = clone.getBoundingClientRect().height;
+  aboutSection.removeChild(clone);
+
   output.style.minHeight = finalHeight + 'px';
 }
 
@@ -74,11 +74,14 @@ function type() {
   }
 }
 
-// On verrouille la hauteur AVANT de lancer le typewriter
 lockFinalHeight();
 setTimeout(type, 600);
 
-// Recalcule si l'utilisateur tourne son téléphone / redimensionne
+// Recalcule si l'utilisateur tourne l'écran (largeur change → hauteur du texte change)
+let resizeTimeout;
 window.addEventListener('resize', () => {
-  // Optionnel : relance lockFinalHeight() si tu veux que ça reste précis après rotation
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    if (lineIdx < LINES.length) lockFinalHeight(); // seulement si l'anim n'est pas finie
+  }, 150);
 });
