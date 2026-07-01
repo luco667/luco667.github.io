@@ -41,9 +41,6 @@
   overflow-wrap: break-word;
   word-break: break-word;
     /* Empêche tout débordement visuel pendant le verrouillage de hauteur */
-  overflow: hidden;
-  /* Transition douce si jamais la hauteur mesurée doit s'ajuster
-     (ex: après un resize/rotation) */
   transition: min-height 0.2s ease;
 }
 
