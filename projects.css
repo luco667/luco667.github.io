@@ -24,7 +24,7 @@
      jusqu'à 170px sur petit écran (permet 2 colonnes sur mobile au lieu
      d'une seule) et remonte jusqu'à 240px sur desktop. Plus besoin de
      forcer 1fr dans les media queries plus bas. */
-  grid-template-columns:repeat(auto-fit, minmax(clamp(170px, 40vw, 240px), 1fr));
+  grid-template-columns:repeat(auto-fit, minmax(clamp(170px, 40vw, 240px), 2fr));
   gap:clamp(10px, 3vw, 20px);
   width:100%;
   justify-items: center;
