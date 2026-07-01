@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════
    TERMINAL TYPEWRITER
-   Scroll figé (iOS safe) + animation stable
+   Scroll figé pendant toute l'animation
 ══════════════════════════════════════════ */
 
 const LINES = [
@@ -15,73 +15,61 @@ const LINES = [
   '> system ready_',
 ];
 
-const output = document.getElementById("terminal-output");
+const output = document.getElementById('terminal-output');
 
 let lineIdx = 0;
 let charIdx = 0;
 
-// ──────────────────────────────────────────
-// freeze scroll
-// ──────────────────────────────────────────
-const scrollY = window.scrollY;
+// Position de scroll à conserver
+const lockX = window.scrollX;
+const lockY = window.scrollY;
 
-document.documentElement.style.overflow = "hidden";
-document.body.style.position = "fixed";
-document.body.style.top = `-${scrollY}px`;
-document.body.style.width = "100%";
-
-function unfreezeScroll() {
-  document.documentElement.style.overflow = "";
-  document.body.style.position = "";
-  document.body.style.top = "";
-  document.body.style.width = "";
-
-  window.scrollTo(0, scrollY);
-}
-
-// ──────────────────────────────────────────
-// build text
-// ──────────────────────────────────────────
 function buildText(partial) {
-  let text = "";
+  let text = '';
 
   for (let i = 0; i < lineIdx; i++) {
-    text += LINES[i] + "\n";
+    text += LINES[i] + '\n';
   }
 
   text += partial;
   return text;
 }
 
-// ──────────────────────────────────────────
-// update safe
-// ──────────────────────────────────────────
-function render(text) {
+function updateOutput(text) {
   output.textContent = text;
+
+  // Empêche Safari/iPhone de déplacer la page
+  requestAnimationFrame(() => {
+    window.scrollTo(lockX, lockY);
+  });
 }
 
-// ──────────────────────────────────────────
-// typewriter
-// ──────────────────────────────────────────
 function type() {
-  if (lineIdx >= LINES.length) {
-    const cursor = document.createElement("span");
-    cursor.className = "cursor";
-    output.appendChild(cursor);
 
-    unfreezeScroll();
+  if (lineIdx >= LINES.length) {
+    const span = document.createElement('span');
+    span.className = 'cursor';
+    output.appendChild(span);
     return;
   }
 
   const target = LINES[lineIdx];
 
   if (charIdx < target.length) {
-    render(buildText(target.slice(0, charIdx + 1)));
+
+    updateOutput(
+      buildText(target.slice(0, charIdx + 1))
+    );
+
     charIdx++;
 
     setTimeout(type, Math.random() * 35 + 18);
+
   } else {
-    render(buildText(target));
+
+    updateOutput(
+      buildText(target)
+    );
 
     lineIdx++;
     charIdx = 0;
