@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════
    TERMINAL TYPEWRITER
-   Body figé pendant l'animation
+   Scroll figé (iOS safe) + animation stable
 ══════════════════════════════════════════ */
 
 const LINES = [
@@ -20,16 +20,28 @@ const output = document.getElementById("terminal-output");
 let lineIdx = 0;
 let charIdx = 0;
 
-// Sauvegarde de la position actuelle
+// ──────────────────────────────────────────
+// freeze scroll
+// ──────────────────────────────────────────
 const scrollY = window.scrollY;
 
-// Fige complètement la page
+document.documentElement.style.overflow = "hidden";
 document.body.style.position = "fixed";
 document.body.style.top = `-${scrollY}px`;
-document.body.style.left = "0";
-document.body.style.right = "0";
 document.body.style.width = "100%";
 
+function unfreezeScroll() {
+  document.documentElement.style.overflow = "";
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.width = "";
+
+  window.scrollTo(0, scrollY);
+}
+
+// ──────────────────────────────────────────
+// build text
+// ──────────────────────────────────────────
 function buildText(partial) {
   let text = "";
 
@@ -41,37 +53,35 @@ function buildText(partial) {
   return text;
 }
 
+// ──────────────────────────────────────────
+// update safe
+// ──────────────────────────────────────────
+function render(text) {
+  output.textContent = text;
+}
+
+// ──────────────────────────────────────────
+// typewriter
+// ──────────────────────────────────────────
 function type() {
   if (lineIdx >= LINES.length) {
+    const cursor = document.createElement("span");
+    cursor.className = "cursor";
+    output.appendChild(cursor);
 
-    const span = document.createElement("span");
-    span.className = "cursor";
-    output.appendChild(span);
-
-    // Défige la page
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.style.left = "";
-    document.body.style.right = "";
-    document.body.style.width = "";
-
-    window.scrollTo(0, scrollY);
-
+    unfreezeScroll();
     return;
   }
 
   const target = LINES[lineIdx];
 
   if (charIdx < target.length) {
-
-    output.textContent = buildText(target.slice(0, charIdx + 1));
+    render(buildText(target.slice(0, charIdx + 1)));
     charIdx++;
 
     setTimeout(type, Math.random() * 35 + 18);
-
   } else {
-
-    output.textContent = buildText(target);
+    render(buildText(target));
 
     lineIdx++;
     charIdx = 0;
