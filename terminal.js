@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════
    TERMINAL TYPEWRITER
-   Flux normal — pousse le contenu, ne bouge pas la fenêtre
+   Hauteur réservée à l'avance → aucun layout shift, même sur iOS
 ══════════════════════════════════════════ */
 const LINES = [
   '> initializing profile...',
@@ -27,17 +27,37 @@ function buildText(partial) {
   return text;
 }
 
+// Mesure la hauteur finale AVANT toute animation, et la fige immédiatement
+function lockFinalHeight() {
+  const fullText = LINES.join('\n');
+
+  const clone = output.cloneNode(false);
+  clone.removeAttribute('id');
+  clone.textContent = fullText;
+  clone.style.visibility = 'hidden';
+  clone.style.position = 'absolute';
+  clone.style.top = '0';
+  clone.style.left = '0';
+  clone.style.width = output.getBoundingClientRect().width + 'px';
+  clone.style.height = 'auto';
+  clone.style.minHeight = '0';
+  clone.style.pointerEvents = 'none';
+
+  output.parentElement.appendChild(clone);
+  const finalHeight = clone.getBoundingClientRect().height;
+  output.parentElement.removeChild(clone);
+
+  // Hauteur figée AVANT que le texte ne commence à s'afficher
+  output.style.minHeight = finalHeight + 'px';
+}
+
 function type() {
   if (lineIdx >= LINES.length) {
     const span = document.createElement('span');
     span.className = 'cursor';
     output.appendChild(span);
-
-    // Animation terminée → on rétablit le comportement de scroll normal
-    document.documentElement.style.scrollBehavior = '';
     return;
   }
-
   const target = LINES[lineIdx];
   if (charIdx < target.length) {
     output.textContent = buildText(target.slice(0, charIdx + 1));
@@ -51,8 +71,6 @@ function type() {
   }
 }
 
-// Juste avant de démarrer l'animation → on désactive le smooth-scroll
-setTimeout(() => {
-  document.documentElement.style.scrollBehavior = 'auto';
-  type();
-}, 600);
+// On verrouille la hauteur avant même de commencer à écrire
+lockFinalHeight();
+setTimeout(type, 600);
