@@ -8,26 +8,9 @@
   --border: rgba(0, 255, 65, 0.3);
 }
 
-
 /* ─────────────────────────────────────────
    TERMINAL
 ───────────────────────────────────────── */
-.terminal-slot {
-  position: relative;
-  height: 0;            /* ne prend AUCUNE place dans le flux normal */
-  overflow: visible;
-}
-
-.terminal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  z-index: 10;
-}
-
 #terminal-output {
   padding: 14px 14px;
   position: relative;
@@ -36,14 +19,13 @@
   font-size: clamp(0.8rem, 2.6vw, 0.92rem);
   line-height: 1.9;
   white-space: pre-wrap;
-  /* Coupe proprement les longs mots/chemins/URLs plutôt que de faire
-     déborder le terminal hors de son conteneur sur mobile */
   overflow-wrap: break-word;
   word-break: break-word;
-    /* Empêche tout débordement visuel pendant le verrouillage de hauteur */
-  transition: min-height 0.2s ease;
-}
 
+  /* Empêche le navigateur de "compenser" le scroll quand la hauteur
+     du terminal change pendant l'animation → plus de saut de fenêtre */
+  overflow-anchor: none;
+}
 
 #terminal-output .line {
   display: block;
