@@ -21,10 +21,7 @@
   white-space: pre-wrap;
   overflow-wrap: break-word;
   word-break: break-word;
-
-  /* Empêche le navigateur de "compenser" le scroll quand la hauteur
-     du terminal change pendant l'animation → plus de saut de fenêtre */
-  overflow-anchor: none;
+  overflow: hidden; /* sécurité pendant la mesure du clone */
 }
 
 #terminal-output .line {
