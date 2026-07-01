@@ -177,7 +177,7 @@ footer {
 ───────────────────────────────────────── */
 section {
   max-width: 860px;
-  width: min(950px, calc(100% - 30px));
+  width: min(1560px, calc(80% - 30px));
   margin: 0 auto;
   padding: var(--section-pad-y) var(--section-pad-x);
   /* La distance jusqu'à l'ancre suit maintenant la vraie hauteur de la
