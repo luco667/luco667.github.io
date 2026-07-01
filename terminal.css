@@ -40,7 +40,13 @@
      déborder le terminal hors de son conteneur sur mobile */
   overflow-wrap: break-word;
   word-break: break-word;
+    /* Empêche tout débordement visuel pendant le verrouillage de hauteur */
+  overflow: hidden;
+  /* Transition douce si jamais la hauteur mesurée doit s'ajuster
+     (ex: après un resize/rotation) */
+  transition: min-height 0.2s ease;
 }
+
 
 #terminal-output .line {
   display: block;
@@ -55,10 +61,6 @@
   background: var(--green);
   vertical-align: middle;
   animation: blink 1s step-end infinite;
-}
-
-.card#terminal-output {
-  overflow: hidden; /* évite tout débordement visuel pendant la mesure */
 }
 
 @media (prefers-reduced-motion: reduce) {
