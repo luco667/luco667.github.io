@@ -1,7 +1,8 @@
 /* ══════════════════════════════════════════
    TERMINAL TYPEWRITER
-   Hauteur réservée à l'avance → aucun layout shift, même sur iOS
+   Zéro layout shift + zéro scroll jump iOS
 ══════════════════════════════════════════ */
+
 const LINES = [
   '> initializing profile...',
   '> first name : Lucas',
@@ -15,62 +16,63 @@ const LINES = [
 ];
 
 const output = document.getElementById('terminal-output');
+
 let lineIdx = 0;
 let charIdx = 0;
 
-function buildText(partial) {
-  let text = '';
-  for (let i = 0; i < lineIdx; i++) {
-    text += LINES[i] + '\n';
-  }
-  text += partial;
-  return text;
+// ──────────────────────────────────────────
+// LOCK HEIGHT (une seule fois)
+// ──────────────────────────────────────────
+function lockHeight() {
+  const probe = document.createElement("div");
+  probe.style.position = "absolute";
+  probe.style.visibility = "hidden";
+  probe.style.whiteSpace = "pre-wrap";
+  probe.style.width = output.clientWidth + "px";
+  probe.style.font = getComputedStyle(output).font;
+
+  probe.textContent = LINES.join("\n");
+
+  document.body.appendChild(probe);
+  output.style.height = probe.getBoundingClientRect().height + "px";
+  document.body.removeChild(probe);
 }
 
-// Mesure la hauteur finale AVANT toute animation, et la fige immédiatement
-function lockFinalHeight() {
-  const fullText = LINES.join('\n');
-
-  const clone = output.cloneNode(false);
-  clone.removeAttribute('id');
-  clone.textContent = fullText;
-  clone.style.visibility = 'hidden';
-  clone.style.position = 'absolute';
-  clone.style.top = '0';
-  clone.style.left = '0';
-  clone.style.width = output.getBoundingClientRect().width + 'px';
-  clone.style.height = 'auto';
-  clone.style.minHeight = '0';
-  clone.style.pointerEvents = 'none';
-
-  output.parentElement.appendChild(clone);
-  const finalHeight = clone.getBoundingClientRect().height;
-  output.parentElement.removeChild(clone);
-
-  // Hauteur figée AVANT que le texte ne commence à s'afficher
-  output.style.minHeight = finalHeight + 'px';
-}
+// ──────────────────────────────────────────
+// DOM LINE SYSTEM (important)
+// ──────────────────────────────────────────
+let currentLine = document.createElement("div");
+output.appendChild(currentLine);
 
 function type() {
   if (lineIdx >= LINES.length) {
-    const span = document.createElement('span');
-    span.className = 'cursor';
-    output.appendChild(span);
+    const cursor = document.createElement("span");
+    cursor.className = "cursor";
+    output.appendChild(cursor);
     return;
   }
+
   const target = LINES[lineIdx];
+
   if (charIdx < target.length) {
-    output.textContent = buildText(target.slice(0, charIdx + 1));
+    currentLine.textContent = target.slice(0, charIdx + 1);
     charIdx++;
     setTimeout(type, Math.random() * 35 + 18);
   } else {
-    output.textContent = buildText(target);
+    currentLine.textContent = target;
+
     lineIdx++;
     charIdx = 0;
+
+    currentLine = document.createElement("div");
+    output.appendChild(currentLine);
+
     setTimeout(type, 110);
   }
 }
 
-// On verrouille la hauteur avant même de commencer à écrire
-lockFinalHeight();
+// ──────────────────────────────────────────
+// START
+// ──────────────────────────────────────────
+lockHeight();
 setTimeout(type, 600);
