@@ -105,3 +105,69 @@ nav a.active::before,
 nav a.active::after{
   opacity:1;
 }
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+/* Tablettes */
+@media (max-width: 860px) {
+  nav{
+    justify-content:center;
+    padding:18px 14px;
+  }
+
+  nav a{
+    padding:17px 15px;
+  }
+}
+
+
+/* Tablettes */
+@media (max-width: 768px) {
+  nav{
+    justify-content:center;
+    gap:8px;
+  }
+}
+
+/* Mobile : la navbar peut déborder, on centre son contenu quand il tient,
+   sinon le scroll horizontal natif (déjà en place) prend le relais */
+@media (max-width: 480px) {
+  nav{
+    gap:6px;
+    padding:10px 10px;
+  }
+
+  nav a{
+    padding:7px 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  nav{
+    gap:6px;
+    padding:6px 6px;
+  }
+
+  nav a{
+    font-size:.3rem;
+    padding:6px 6px;
+  }
+}
+@media (max-width: 172px) {
+  nav{
+    gap:6px;
+    padding:3px 3px;
+  }
+
+  nav a{
+    font-size:.2rem;
+    padding:2px 1px;
+  }
+}
+/* Respecte les préférences d'accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  nav a{
+    transition:none;
+  }
+}

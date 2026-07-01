@@ -32,6 +32,18 @@
   --bg: #000000;
   --card-bg: rgba(0, 10, 0, 0.85);
   --border: rgba(0, 255, 65, 0.3);
+
+  /* Espacements fluides réutilisés partout : s'adaptent automatiquement
+     entre mobile et desktop sans avoir besoin de multiplier les media queries */
+  --section-pad-y: clamp(36px, 16vw, 70px);
+  --section-pad-x: clamp(14px, 4vw, 20px);
+  --card-pad-y: clamp(18px, 4vw, 28px);
+  --card-pad-x: clamp(16px, 5vw, 32px);
+
+  /* Hauteur réelle de la navbar, mise à jour en JS (nav-scroll.js)
+     via ResizeObserver. La valeur ci-dessous n'est qu'un fallback si le
+     JS n'a pas encore tourné (premier paint) ou est désactivé. */
+  --nav-height: 90px;
 }
 
 /* ─────────────────────────────────────────
@@ -50,10 +62,12 @@
 html {
   margin: 0;
   font-family: monospace;
-
+  scroll-behavior: smooth;
   /* iOS stabilisation */
   height: 100%;
   -webkit-overflow-scrolling: touch;
+  /* Empêche le zoom-texte auto de Safari iOS en paysage */
+  -webkit-text-size-adjust: 100%;
 }
 
 
@@ -65,8 +79,20 @@ body {
   background: var(--bg);
   margin: 0;
   -webkit-overflow-scrolling: touch;
+  /* Base fluide : 15px sur petit mobile jusqu'à 17px sur grand écran */
+  font-size: clamp(15px, 0.95vw + 12px, 17px);
 }
 
+/* Respecte les préférences d'accessibilité (réduction des animations) */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  header h1 { animation: none; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
 
 /* ─────────────────────────────────────────
    MATRIX
@@ -85,6 +111,7 @@ body {
 
 #about .stats-text {
   margin-top: 10px;
+  margin-bottom: 20px;
   color: var(--green-dim);
   font-size: 1rem;
   opacity: 0.8;
@@ -95,18 +122,19 @@ body {
   opacity: 0.5;
 }
 #contact {
-  margin-bottom: max(43.5vh);
+  /* Marge basse fluide au lieu d'un vh fixe qui prenait trop de place sur mobile */
+  margin-bottom: clamp(40px, 10vh, 43.5vh);
 }
 /* ─────────────────────────────────────────
    HEADER
 ───────────────────────────────────────── */
 header {
   text-align: center;
-  padding:15px 25px;
+  padding: clamp(12px, 4vw, 15px) clamp(14px, 5vw, 25px);
 }
 header h1 {
   font-family: 'VT323', monospace;
-  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-size: clamp(2rem, 9vw, 5rem);
   color: var(--green);
   letter-spacing: 0.08em;
   text-shadow:
@@ -114,10 +142,11 @@ header h1 {
     0 0 30px var(--green),
     0 0 60px var(--green-dim);
   animation: flicker 6s infinite;
+  word-break: break-word;
 }
 header .subtitle {
   color: var(--green-dim);
-  font-size: 0.9rem;
+  font-size: clamp(0.75rem, 2.2vw, 0.9rem);
   opacity: 0.8;
   letter-spacing: 0.15em;
 }
@@ -135,11 +164,11 @@ footer{
    FOOTER
 ───────────────────────────────────────── */
 footer {
-  padding-top: 350px;
-  padding: 30px;
+  /* padding-top explicite pour ne pas dépendre de l'ordre du shorthand ci-dessous */
+  padding: clamp(120px, 30vw, 350px) clamp(16px, 5vw, 30px) clamp(16px, 5vw, 30px);
   text-align: center;
   color: var(--green-dark);
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 2vw, 0.8rem);
   letter-spacing: 0.15em;
 }
 
@@ -149,20 +178,24 @@ footer {
 section {
   max-width: 860px;
   width: min(950px, calc(100% - 30px));
-  margin: auto;
-  padding: 85px 10px;
-  scroll-margin-top: 100px;
+  margin: 0 auto;
+  padding: var(--section-pad-y) var(--section-pad-x);
+  /* La distance jusqu'à l'ancre suit maintenant la vraie hauteur de la
+     navbar (--nav-height, mise à jour en JS) + une petite marge d'air,
+     au lieu d'une valeur fixe qui se désynchronisait dès que la navbar
+     changeait de taille (mobile, retour à la ligne des liens, etc.) */
   position: relative;
   z-index: 1;
   overflow: visible; /* la grille projets peut dépasser */
 }
 section h2 {
-  margin-bottom: 25px;
-  font-size: 2.5rem;
+  margin-bottom: clamp(16px, 4vw, 25px);
+  font-size: clamp(1.6rem, 6vw, 2.5rem);
   color: var(--green);
   letter-spacing: 0.1em;
   text-shadow: 0 0 8px var(--green);
   z-index: 100;
+  word-break: break-word;
 }
 
 /* ─────────────────────────────────────────
@@ -172,7 +205,7 @@ section h2 {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 2px;
-  padding: 28px 32px;
+  padding: var(--card-pad-y) var(--card-pad-x);
   backdrop-filter: blur(6px);
   box-shadow:
     0 0 20px rgba(0,255,65,0.05),
@@ -180,7 +213,7 @@ section h2 {
 }
 .card p {
   color: var(--green-dim);
-  font-size: 0.92rem;
+  font-size: clamp(0.85rem, 2.4vw, 0.92rem);
   line-height: 1.9;
 }
 
@@ -196,16 +229,16 @@ section h2 {
 .card.skills {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: clamp(8px, 2vw, 12px);
   list-style: none;
 }
 
 .card.skills li {
-  padding: 6px 18px;
+  padding: clamp(5px, 1.5vw, 6px) clamp(12px, 3vw, 18px);
   border: 1px solid var(--border);
   background: rgba(0,255,65,0.03);
   color: var(--green-dim);
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 2.2vw, 0.85rem);
   letter-spacing: 0.12em;
   cursor: default;
   transition: all 0.2s;
@@ -251,43 +284,59 @@ section h2 {
 .scrollable::-webkit-scrollbar-thumb:hover {
   background: #00cc33;
 }
-/* ────────────────────────────────────────
-   SCROLLBAR
-───────────────────────────────────────── */
-/* For browsers that support `scrollbar-*` properties 
-@supports (scrollbar-color: auto) {
-  .scrollable {
-    inset:0;
-    scroll-behavior: smooth;
-    overflow-anchor: auto;
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    font-family: monospace;
-    scrollbar-width: thin;
-    scrollbar-color: #00ff41 #003b00;
-  }
-}
-/* Otherwise, use `::-webkit-scrollbar-*` pseudo-elements 
-@supports selector(::-webkit-scrollbar) {
-/* Chrome, Edge, Safari macOS 
-  .scrollable::-webkit-scrollbar {
-    width: 6px;
-    height: 3px;
-  }
-  
-  .scrollable::-webkit-scrollbar-track {
-    background: #003b00;
-  }
-  
-  .scrollable::-webkit-scrollbar-thumb {
-    background: #00ff41;
-    border-radius: 999px;
-  }
-  
-  .scrollable::-webkit-scrollbar-thumb:hover {
-    background: #00cc33;
-  }
-}
-*/
 
+/* ─────────────────────────────────────────
+   RESPONSIVE — Breakpoints spécifiques
+   (au-delà de ce que les clamp() gèrent déjà)
+───────────────────────────────────────── */
+
+/* Tablettes */
+@media (max-width: 768px) {
+  section {
+    width: 100%;
+  }
+
+  .card.skills {
+    gap: 8px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  /* scroll-margin-top n'est plus fixé ici : --nav-height (mis à jour
+     en JS) s'occupe déjà de suivre la vraie taille de la navbar sur
+     mobile, même si elle passe sur 2 lignes. */
+
+  .card {
+    border-radius: 4px;
+  }
+
+  .card.skills {
+    justify-content: center;
+  }
+
+  #contact {
+    margin-bottom: 40px;
+  }
+}
+
+/* Petits mobiles (ex: iPhone SE) */
+@media (max-width: 360px) {
+  header h1 {
+    letter-spacing: 0.04em;
+  }
+}
+
+/* Écrans très larges : on borne la taille pour éviter un effet "perdu" */
+@media (min-width: 1600px) {
+  section {
+    max-width: 1000px;
+  }
+}
+
+/* Mode paysage sur mobile : le footer prenait trop de hauteur */
+@media (max-width: 900px) and (orientation: landscape) {
+  footer {
+    padding-top: clamp(60px, 15vw, 150px);
+  }
+}

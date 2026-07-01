@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Lucas Le Gueut — Portfolio</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="mobile.css">
+  <!--<link rel="stylesheet" href="mobile.css">-->
   <link rel="stylesheet" href="terminal.css">
   <link rel="stylesheet" href="work.css">
   <link rel="stylesheet" href="projects.css">
@@ -48,8 +48,10 @@
   <span aria-hidden="true">|</span>
   <span>Online: <span id="online-count">0</span></span>
   </p>
-  </div>                                                                                                                                                      
-  <!--  <div id="terminal-output"></div>-->
+  </div>
+  <div id="terminal" class="card">             
+   <div id="terminal-output"></div>
+  </div> 
 </section>
 
 <section id="skills">
@@ -71,43 +73,22 @@
 <section id="contact">
   <h2>&#10148; contact</h2>
   <div class="card">
-    <p>&gt; email:
-      <a id="contact-email"
-         href="#"
-         data-user="777lucaslg"
-         data-domain="gmail.com"
-         aria-label="Adresse email (chargée dynamiquement)" style="color: inherit; text-decoration: none;">[chargement…]</a>
-    </p>
-    <p style="margin-top:10px;">&gt; github:
-      <a href="https://github.com/luco667"
-         target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" style="color: inherit; text-decoration: none;">github.com/luco667</a>
-    </p>
-    <p style="margin-top:10px;">&gt; linkedin:
-      <a href="https://www.linkedin.com/in/lucas-le-gueut-344990207/"
-         target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" style="color: inherit; text-decoration: none;">Lucas Le Gueut</a>
-    </p>
-    <p style="margin-top:10px;">&gt; chess.com:
-      <a href="https://www.chess.com/member/Killuraw"
-         target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" style="color: inherit; text-decoration: none;">Killuraw</a>
-    </p>
-    <p style="margin-top:10px;">&gt; paypal:
-      <a href="https://www.paypal.me/killufsoc"
-         target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" style="color: inherit; text-decoration: none;">Killuraw</a>
-    </p>
+    <p>&gt; email:<a id="contact-email" href="#" data-user="777lucaslg" data-domain="gmail.com" aria-label="Adresse email (chargée dynamiquement)" style="color: inherit; text-decoration: none;">[chargement…]</a></p>
+    <p style="margin-top:10px;">&gt; github:<a href="https://github.com/luco667" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" style="color: inherit; text-decoration: none;">github.com/luco667</a></p>
+    <p style="margin-top:10px;">&gt; linkedin: <a href="https://www.linkedin.com/in/lucas-le-gueut-344990207/"  target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" style="color: inherit; text-decoration: none;">Lucas Le Gueut</a></p>
+    <p style="margin-top:10px;">&gt; chess.com:<a href="https://www.chess.com/member/Killuraw" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" style="color: inherit; text-decoration: none;">Killuraw</a></p>
+    <p style="margin-top:10px;">&gt; paypal:<a href="https://www.paypal.me/killufsoc" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" style="color: inherit; text-decoration: none;">Killuraw</a></p>
   </div>
 </section>
 <footer>
-  <a href="https://starboost.fr"
-     target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" style="color: inherit; text-decoration: none;">
-    <p>© 2026 — Starboost instance</p>
-  </a>
+  <a href="https://starboost.fr" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" style="color: inherit; text-decoration: none;"><p>© 2026 — Starboost instance</p></a>
 </footer>
 <!-- type="module" = chargement différé + scope isolé (pas de variable globale) -->
 <script src="https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js"></script>
-<script type="module" src="javascript.js"></script>
 <script type="module" src="firebase.js"></script>
 <script type="module" src="projects.js"></script>
-<script type="module" src="matrixwork.js"></script>
+<script type="module" src="matrixworknav.js"></script>
 <script type="module" src="cursor.js"></script>
+<script type="module" src="terminal.js"></script>
 </body>
 </html>
