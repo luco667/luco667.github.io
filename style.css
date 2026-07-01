@@ -35,7 +35,7 @@
 
   /* Espacements fluides réutilisés partout : s'adaptent automatiquement
      entre mobile et desktop sans avoir besoin de multiplier les media queries */
-  --section-pad-y: clamp(36px, 16vw, 70px);
+  --section-pad-y: clamp(36px, 16vw, 150px);
   --section-pad-x: clamp(14px, 4vw, 20px);
   --card-pad-y: clamp(18px, 4vw, 28px);
   --card-pad-x: clamp(16px, 5vw, 32px);
