@@ -16,64 +16,34 @@ const LINES = [
 ];
 
 const output = document.getElementById('terminal-output');
-
 let lineIdx = 0;
 let charIdx = 0;
 
-// Position de scroll à conserver
-const lockX = window.scrollX;
-const lockY = window.scrollY;
-
 function buildText(partial) {
   let text = '';
-
   for (let i = 0; i < lineIdx; i++) {
     text += LINES[i] + '\n';
   }
-
   text += partial;
   return text;
 }
 
-function updateOutput(text) {
-  output.textContent = text;
-
-  // Empêche Safari/iPhone de déplacer la page
-  requestAnimationFrame(() => {
-    window.scrollTo(lockX, lockY);
-  });
-}
-
 function type() {
-
   if (lineIdx >= LINES.length) {
     const span = document.createElement('span');
     span.className = 'cursor';
     output.appendChild(span);
     return;
   }
-
   const target = LINES[lineIdx];
-
   if (charIdx < target.length) {
-
-    updateOutput(
-      buildText(target.slice(0, charIdx + 1))
-    );
-
+    output.textContent = buildText(target.slice(0, charIdx + 1));
     charIdx++;
-
     setTimeout(type, Math.random() * 35 + 18);
-
   } else {
-
-    updateOutput(
-      buildText(target)
-    );
-
+    output.textContent = buildText(target);
     lineIdx++;
     charIdx = 0;
-
     setTimeout(type, 110);
   }
 }
