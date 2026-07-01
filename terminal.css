@@ -57,6 +57,10 @@
   animation: blink 1s step-end infinite;
 }
 
+.card#terminal-output {
+  overflow: hidden; /* évite tout débordement visuel pendant la mesure */
+}
+
 @media (prefers-reduced-motion: reduce) {
   #terminal-output .cursor {
     animation: none;
