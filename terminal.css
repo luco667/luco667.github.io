@@ -12,6 +12,21 @@
 /* ─────────────────────────────────────────
    TERMINAL
 ───────────────────────────────────────── */
+.terminal-slot {
+  position: relative;
+  height: 0;            /* ne prend AUCUNE place dans le flux normal */
+  overflow: visible;
+}
+
+.terminal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  z-index: 10;
+}
 
 #terminal-output {
   padding: 14px 14px;
