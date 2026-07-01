@@ -2,7 +2,10 @@
    TERMINAL TYPEWRITER
    Scroll figé pendant toute l'animation
 ══════════════════════════════════════════ */
-
+/* ══════════════════════════════════════════
+   TERMINAL TYPEWRITER
+   Hauteur réservée à l'avance → page 100% stable
+══════════════════════════════════════════ */
 const LINES = [
   '> initializing profile...',
   '> first name : Lucas',
@@ -28,6 +31,29 @@ function buildText(partial) {
   return text;
 }
 
+// ── ÉTAPE CLÉ : on mesure la hauteur finale AVANT de lancer l'animation ──
+function lockFinalHeight() {
+  const fullText = LINES.join('\n');
+
+  // Clone invisible pour mesurer sans affecter la mise en page
+  const clone = output.cloneNode(false);
+  clone.textContent = fullText;
+  clone.style.visibility = 'hidden';
+  clone.style.position = 'absolute';
+  clone.style.top = '0';
+  clone.style.left = '0';
+  clone.style.width = output.getBoundingClientRect().width + 'px';
+  clone.style.height = 'auto';
+  clone.style.pointerEvents = 'none';
+
+  document.body.appendChild(clone);
+  const finalHeight = clone.scrollHeight;
+  document.body.removeChild(clone);
+
+  // On fixe cette hauteur dès maintenant : la carte ne grandira plus jamais
+  output.style.minHeight = finalHeight + 'px';
+}
+
 function type() {
   if (lineIdx >= LINES.length) {
     const span = document.createElement('span');
@@ -48,4 +74,11 @@ function type() {
   }
 }
 
+// On verrouille la hauteur AVANT de lancer le typewriter
+lockFinalHeight();
 setTimeout(type, 600);
+
+// Recalcule si l'utilisateur tourne son téléphone / redimensionne
+window.addEventListener('resize', () => {
+  // Optionnel : relance lockFinalHeight() si tu veux que ça reste précis après rotation
+});
