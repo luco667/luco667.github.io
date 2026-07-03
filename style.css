@@ -35,7 +35,7 @@
 
   /* Espacements fluides réutilisés partout : s'adaptent automatiquement
      entre mobile et desktop sans avoir besoin de multiplier les media queries */
-  --section-pad-y: clamp(36px, 16vw, 150px);
+  --section-pad-y: clamp(23px, 12vh, 50px);
   --section-pad-x: clamp(14px, 4vw, 20px);
   --card-pad-y: clamp(18px, 4vw, 28px);
   --card-pad-x: clamp(16px, 5vw, 32px);
@@ -44,6 +44,34 @@
      via ResizeObserver. La valeur ci-dessous n'est qu'un fallback si le
      JS n'a pas encore tourné (premier paint) ou est désactivé. */
   --nav-height: 90px;
+}
+
+/* ─────────────────────────────────────────
+   SECTIONS
+───────────────────────────────────────── */
+section {
+  max-width: 860px;
+  width: min(1560px, calc(80% - 30px));
+  margin: 0 auto;
+  padding: var(--section-pad-y) var(--section-pad-x);
+  /* La distance jusqu'à l'ancre suit maintenant la vraie hauteur de la
+     navbar (--nav-height, mise à jour en JS) + une petite marge d'air,
+     au lieu d'une valeur fixe qui se désynchronisait dès que la navbar
+     changeait de taille (mobile, retour à la ligne des liens, etc.) */
+  position: relative;
+  z-index: 1;
+  overflow: visible; /* la grille projets peut dépasser */
+  scroll-margin-top: calc(var(--nav-height) + 30px);
+}
+
+section h2 {
+  margin-bottom: clamp(16px, 4vw, 25px);
+  font-size: clamp(1.7rem, 9vw, 1.9rem);
+  color: var(--green);
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 8px var(--green);
+  z-index: 100;
+  word-break: break-word;
 }
 
 /* ─────────────────────────────────────────
@@ -60,6 +88,7 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {
+  zoom:1.25;
   margin: 0;
   font-family: monospace;
   scroll-behavior: smooth;
@@ -80,7 +109,7 @@ body {
   margin: 0;
   -webkit-overflow-scrolling: touch;
   /* Base fluide : 15px sur petit mobile jusqu'à 17px sur grand écran */
-  font-size: clamp(15px, 0.95vw + 12px, 17px);
+  font-size: clamp(15px, 0.5vw + 4px, 17px);
 }
 
 /* Respecte les préférences d'accessibilité (réduction des animations) */
@@ -172,31 +201,7 @@ footer {
   letter-spacing: 0.15em;
 }
 
-/* ─────────────────────────────────────────
-   SECTIONS
-───────────────────────────────────────── */
-section {
-  max-width: 860px;
-  width: min(1560px, calc(80% - 30px));
-  margin: 0 auto;
-  padding: var(--section-pad-y) var(--section-pad-x);
-  /* La distance jusqu'à l'ancre suit maintenant la vraie hauteur de la
-     navbar (--nav-height, mise à jour en JS) + une petite marge d'air,
-     au lieu d'une valeur fixe qui se désynchronisait dès que la navbar
-     changeait de taille (mobile, retour à la ligne des liens, etc.) */
-  position: relative;
-  z-index: 1;
-  overflow: visible; /* la grille projets peut dépasser */
-}
-section h2 {
-  margin-bottom: clamp(16px, 4vw, 25px);
-  font-size: clamp(1.6rem, 6vw, 2.5rem);
-  color: var(--green);
-  letter-spacing: 0.1em;
-  text-shadow: 0 0 8px var(--green);
-  z-index: 100;
-  word-break: break-word;
-}
+
 
 /* ─────────────────────────────────────────
    CARDS
@@ -226,14 +231,14 @@ section h2 {
 /* ─────────────────────────────────────────
    SKILLS - Correction structure
 ───────────────────────────────────────── */
-.card.skills {
+.skills {
   display: flex;
   flex-wrap: wrap;
   gap: clamp(8px, 2vw, 12px);
   list-style: none;
 }
 
-.card.skills li {
+.skills li {
   padding: clamp(5px, 1.5vw, 6px) clamp(12px, 3vw, 18px);
   border: 1px solid var(--border);
   background: rgba(0,255,65,0.03);
@@ -245,7 +250,7 @@ section h2 {
   border-radius: 2px; /* Cohérence avec .card */
 }
 
-.card.skills span:hover {
+.skills span:hover {
   color: var(--green);
   border-color: var(--green);
   background: rgba(0,255,65,0.1);
@@ -254,7 +259,7 @@ section h2 {
   transform: translateY(-2px);
 }
 
-.card.skills a {
+.skills a {
   color: inherit;
   text-decoration: none;
 }

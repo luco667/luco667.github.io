@@ -137,7 +137,7 @@ const navLinks = document.querySelectorAll("nav a");
    → change juste cette valeur pour ajuster la distance globale.
    (Doit rester cohérente avec le "+ 20px" du calc() dans le CSS,
    voir --nav-height / scroll-margin-top sur `section`.) */
-const SCROLL_EXTRA_OFFSET = -45;
+const SCROLL_EXTRA_OFFSET = -15;
 
 function getScrollOffset() {
   return nav.offsetHeight + SCROLL_EXTRA_OFFSET;

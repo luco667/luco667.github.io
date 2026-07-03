@@ -1,78 +1,251 @@
-/* ══════════════════════════════════════════
-   TERMINAL TYPEWRITER
-   Zéro layout shift + zéro scroll jump iOS
-══════════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   MINI LINUX SHELL - STABLE VERSION
+═══════════════════════════════════════ */
 
-const LINES = [
-  '> initializing profile...',
-  '> first name : Lucas',
-  '> surname    : Le Gueut',
-  '> status     : cybersecurity & electronics student',
-  '> location   : France',
-  '> interests  : design, networks, offensive security, embedded systems, reverse engineering',
-  '> education  : French National Brevet · STI2D Graduate · BTS CIEL Option B Student · Cisco Student',
-  '> activities : PCB design · programming · web development · networking · electronics studies · CTF player',
-  '> system ready_',
+const BOOT = [
+    '> initializing profile...',
+    '> first name : Lucas',
+    '> surname    : Le Gueut',
+    '> status     : cybersecurity & electronics student',
+    '> location   : France',
+    '> interests  : design, networks, offensive security, embedded systems, reverse engineering',
+    '> education  : French National Brevet · STI2D Graduate · BTS CIEL Option B Student · Cisco Student',
+    '> activities : PCB design · programming · web development · networking · electronics studies · CTF player',
 ];
 
-const output = document.getElementById('terminal-output');
+/* ─────────────────────────────
+   FILESYSTEM
+───────────────────────────── */
 
-let lineIdx = 0;
-let charIdx = 0;
+const FS = {
+    "/": {
+        type: "dir",
+        content: {
+            home: {
+                type: "dir",
+                content: {
+                    about: {
+                        type: "file",
+                        content:
+`Lucas Le Gueut
+Cybersecurity
+Electronics
+Embedded Systems`
+                    },
+                    skills: {
+                        type: "file",
+                        content:
+`Networking
+Cybersecurity
+Embedded
+PCB Design`
+                    }
+                }
+            },
+            projects: {
+                type: "dir",
+                content: {
+                    "project1.txt": {
+                        type: "file",
+                        content: "CTF tools / PCB tools / web tools"
+                    }
+                }
+            }
+        }
+    }
+};
 
-// ──────────────────────────────────────────
-// LOCK HEIGHT (une seule fois)
-// ──────────────────────────────────────────
-function lockHeight() {
-  const probe = document.createElement("div");
-  probe.style.position = "absolute";
-  probe.style.visibility = "hidden";
-  probe.style.whiteSpace = "pre-wrap";
-  probe.style.width = output.clientWidth + "px";
-  probe.style.font = getComputedStyle(output).font;
+/* ─────────────────────────────
+   STATE
+───────────────────────────── */
 
-  probe.textContent = LINES.join("\n");
+const lines = [...document.querySelectorAll(".line")];
+const prompt = document.getElementById("prompt");
+const input = document.getElementById("cmd");
 
-  document.body.appendChild(probe);
-  output.style.height = probe.getBoundingClientRect().height + "px";
-  document.body.removeChild(probe);
+let cwd = ["/"];
+let shellReady = false;
+
+let history = [];
+let historyIndex = -1;
+
+/* ─────────────────────────────
+   BOOT CURSOR
+───────────────────────────── */
+
+const cursor = document.createElement("span");
+cursor.className = "cursor";
+lines[0].appendChild(cursor);
+
+let iLine = 0;
+let iChar = 0;
+
+function boot() {
+
+    if (iLine >= BOOT.length) {
+        cursor.remove();
+        prompt.hidden = false;
+        input.focus();
+        shellReady = true;
+        return;
+    }
+
+    const line = lines[iLine];
+    const text = BOOT[iLine];
+
+    if (iChar < text.length) {
+        line.insertBefore(
+            document.createTextNode(text[iChar]),
+            cursor
+        );
+        iChar++;
+        setTimeout(boot, 20);
+        return;
+    }
+
+    iLine++;
+    iChar = 0;
+
+    if (iLine < lines.length) {
+        cursor.remove();
+        lines[iLine].appendChild(cursor);
+    }
+
+    setTimeout(boot, 60);
 }
 
-// ──────────────────────────────────────────
-// DOM LINE SYSTEM (important)
-// ──────────────────────────────────────────
-let currentLine = document.createElement("div");
-output.appendChild(currentLine);
+boot();
 
-function type() {
-  if (lineIdx >= LINES.length) {
-    const cursor = document.createElement("span");
-    cursor.className = "cursor";
-    output.appendChild(cursor);
-    return;
-  }
+/* ─────────────────────────────
+   FS HELPERS
+───────────────────────────── */
 
-  const target = LINES[lineIdx];
+function resolve(path) {
+    let node = FS["/"];
 
-  if (charIdx < target.length) {
-    currentLine.textContent = target.slice(0, charIdx + 1);
-    charIdx++;
-    setTimeout(type, Math.random() * 35 + 18);
-  } else {
-    currentLine.textContent = target;
+    for (let i = 1; i < path.length; i++) {
+        node = node.content?.[path[i]];
+        if (!node) return null;
+    }
 
-    lineIdx++;
-    charIdx = 0;
-
-    currentLine = document.createElement("div");
-    output.appendChild(currentLine);
-
-    setTimeout(type, 110);
-  }
+    return node;
 }
 
-// ──────────────────────────────────────────
-// START
-// ──────────────────────────────────────────
-lockHeight();
-setTimeout(type, 600);
+function ls() {
+    const node = resolve(cwd);
+    if (!node || node.type !== "dir") return ["not a directory"];
+    return Object.keys(node.content);
+}
+
+function cat(arg) {
+    const node = resolve([...cwd, arg]);
+    if (!node) return ["file not found"];
+    if (node.type !== "file") return ["not a file"];
+    return node.content.split("\n");
+}
+
+function cd(arg) {
+    if (!arg) return;
+
+    if (arg === "..") {
+        if (cwd.length > 1) cwd.pop();
+        return;
+    }
+
+    const next = [...cwd, arg];
+    const node = resolve(next);
+
+    if (node?.type === "dir") cwd = next;
+}
+
+/* ─────────────────────────────
+   COMMANDS
+───────────────────────────── */
+
+const commands = {
+
+    help() {
+        return ["ls", "cd <dir>", "cat <file>", "home", "clear"];
+    },
+
+    ls() {
+        return ls();
+    },
+
+    cat(arg) {
+        return cat(arg);
+    },
+
+    cd(arg) {
+        cd(arg);
+        return [];
+    },
+
+    home() {
+        cwd = ["/"];
+        return ["returned to home"];
+    },
+
+    clear() {
+        lines.forEach(l => l.textContent = "");
+        return [];
+    }
+};
+
+/* ─────────────────────────────
+   PRINT (ANTI JUMP)
+───────────────────────────── */
+
+function print(arr) {
+
+    lines.forEach(l => l.textContent = "");
+
+    arr.forEach((t, i) => {
+        if (i >= lines.length) return;
+        lines[i].textContent = t;
+    });
+
+    const out = document.getElementById("terminal-output");
+    if (out) out.scrollTop = out.scrollHeight;
+}
+
+/* ─────────────────────────────
+   INPUT
+───────────────────────────── */
+
+input.addEventListener("keydown", e => {
+
+    if (e.key === "ArrowUp") {
+        if (!history.length) return;
+        historyIndex = Math.max(0, historyIndex - 1);
+        input.value = history[historyIndex] || "";
+        return;
+    }
+
+    if (e.key === "ArrowDown") {
+        historyIndex = Math.min(history.length, historyIndex + 1);
+        input.value = history[historyIndex] || "";
+        return;
+    }
+
+    if (e.key !== "Enter") return;
+
+    const raw = input.value.trim();
+    input.value = "";
+
+    if (!raw || !shellReady) return;
+
+    history.push(raw);
+    historyIndex = history.length;
+
+    const [cmd, ...args] = raw.split(" ");
+
+    if (!(cmd in commands)) {
+        print(["> " + raw, "command not found"]);
+        return;
+    }
+
+    const res = commands[cmd](args[0] || "");
+
+    print(["> " + raw, "", ...res]);
+});
