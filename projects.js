@@ -121,7 +121,7 @@ const PROJECTS = [
         name: "Curriculum Vitae",
         desc: "",
         tags: [CV],
-        link: "Projects/Miscellaneous/Curriculum_Vitae/CV.html",
+        link: "Projects/Curriculum_Vitae/CV.html",
         status: "done",
         date: "2026"
       }
