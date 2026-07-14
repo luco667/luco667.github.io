@@ -118,7 +118,7 @@ const PROJECTS = [
     color: "#812bd5",
     projects: [
       {
-        name: "Curriculum Vitæ",
+        name: "Curriculum Vitae",
         desc: "",
         tags: [CV],
         link: "https://github.com/luco667/Projects/Miscellaneous/Curriculum_Vitae/CV.html",
