@@ -1,0 +1,35 @@
+body{
+  margin:0;
+  background:#000;
+  cursor:crosshair;
+  overflow:hidden;
+}
+
+/* zone PDF avec 10px de marge */
+#document{
+  position:relative;
+  z-index:0;
+
+  margin:10px;
+  width:calc(100vw - 20px);
+  height:calc(100vh - 20px);
+}
+
+iframe{
+  width:100%;
+  height:100%;
+  border:none;
+  display:block;
+  background:#fff;
+}
+
+/* MATRIX */
+#matrix{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  pointer-events:none;
+  opacity:.09;
+}
