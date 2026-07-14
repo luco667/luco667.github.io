@@ -124,6 +124,14 @@ const PROJECTS = [
         link: "Projects/Curriculum_Vitae/Cv.html",
         status: "done",
         date: "2026"
+      },
+      {
+        name: "French BTS Internship",
+        desc: "DIS SARP VEOLIA",
+        tags: ["Intern"],
+        link: "Projects/Stage/DSISARP.html",
+        status: "done",
+        date: "2024"
       }
     ]
   }
