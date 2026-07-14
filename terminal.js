@@ -9,7 +9,7 @@ const BOOT = [
     '> status     : cybersecurity & electronics student',
     '> location   : France',
     '> interests  : design, networks, offensive security, embedded systems, reverse engineering',
-    '> education  : French National Brevet · STI2D Graduate · BTS CIEL Option B Student · Cisco Student',
+    '> education  : Diplôme national du brevet · Diplôme du Baccalauréat technologique : Science et technologies de l’industrie et du développement durable - Option : Systèmes d’information et numérique · Brevet de technicien supérieur : Cybersécurité et Électronique - Option B : Électronique et Réseau · Cisco Student',
     '> activities : PCB design · programming · web development · networking · electronics studies · CTF player',
 ];
 
