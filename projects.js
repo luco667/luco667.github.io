@@ -126,7 +126,7 @@ const PROJECTS = [
         date: "2026"
       },
       {
-        name: "French BTS Internship",
+        name: "Advanced Technician Certificate Internship",
         desc: "DIS SARP VEOLIA",
         tags: ["Intern"],
         link: "Projects/Stage/DSISARP.html",
