@@ -118,11 +118,11 @@ const PROJECTS = [
     color: "#812bd5",
     projects: [
       {
-        name: "Empty",
+        name: "Curriculum Vitæ",
         desc: "",
-        tags: [],
-        link: "https://github.com/luco667",
-        status: "wip",
+        tags: [CV],
+        link: "https://github.com/luco667/Projects/Miscellaneous/Curriculum_Vitae/CV.html",
+        status: "done",
         date: "2026"
       }
     ]
