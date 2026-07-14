@@ -89,10 +89,9 @@ const PROJECTS = [
     color: "#ffcc00",
     projects: [
       {
-        name: "Empty",
-        desc: "",
-        tags: [],
-        link: "",
+        name: "Proxy",
+        desc: "Routeur proxy anti-pub.",
+        tags: ["OSI"],
         status: "wip",
         date: "2026"
       }
@@ -104,9 +103,10 @@ const PROJECTS = [
     color: "#ff4466",
     projects: [
       {
-        name: "Proxy",
-        desc: "Routeur proxy anti-pub.",
-        tags: ["OSI"],
+        name: "Empty",
+        desc: "",
+        tags: [],
+        link: "",
         status: "wip",
         date: "2026"
       }
