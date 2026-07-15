@@ -1,0 +1,264 @@
+@font-face {
+  font-family: 'Minecraft';
+  src: url('https://luco667.github.io/Minecraft.ttf') format('truetype');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+:root {
+  --green: #00ff41;
+  --green-dim: #00cc33;
+  --green-dark: #003b00;
+  --green-glow: rgba(0, 255, 65, 0.15);
+  --bg: #000000;
+  --card-bg: rgba(0, 10, 0, 0.85);
+  --border: rgba(0, 255, 65, 0.3);
+}
+
+@keyframes flicker {0%, 95%, 100% {opacity: 1;}96% { opacity: 0.7;}97% {opacity: 1;} 98% {  opacity: 0.6;  }99% {opacity: 1; }}
+/* ────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────── */
+::-webkit-scrollbar {width: 6px;height:3px;}
+::-webkit-scrollbar-track { background: #000;}
+::-webkit-scrollbar-thumb { background: var(--green-dark);}
+::-webkit-scrollbar-thumb:hover {  background: var(--green-dim);}
+/*::-webkit-scrollbar{display:block;}*/
+/* ─────────────────────────────────────────
+   MATRIX
+───────────────────────────────────────── */
+/* MATRIX */
+#matrix{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.09;
+}
+/* ─────────────────────────────────────────
+   RESET
+───────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { 
+   scroll-behavior: smooth; 
+}
+body {
+  background: var(--bg);
+  color: var(--green);
+  font-family: 'Minecraft', monospace;
+  overflow-x: hidden;
+  background:#000;
+  cursor: crosshair;
+}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+::selection {
+  background: var(--green);
+  color: #000;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+/* ─────────────────────────────────────────
+   HEADER
+───────────────────────────────────────── */
+header {
+  text-align: center;
+  padding:15px 25px;
+}
+header h1 {
+  font-family: 'VT323', monospace;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  color: var(--green);
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0 10px var(--green),
+    0 0 30px var(--green),
+    0 0 60px var(--green-dim);
+  animation: flicker 6s infinite;
+}
+header .subtitle {
+  margin-top: 10px;
+  color: var(--green-dim);
+  font-size: 0.9rem;
+  opacity: 0.8;
+  letter-spacing: 0.15em;
+}
+header .subtitle::before {
+  content: '> ';
+  opacity: 0.5;
+}
+.projects-title{
+    text-align:center;
+    color:#00ff41;
+    font-size:2rem;
+    font-weight:700;
+    letter-spacing:10px;
+    text-transform:uppercase;
+    margin-bottom:20px;
+    text-shadow:
+        0 0 15px #00ff41,
+        0 0 30px #00ff41;
+}
+.subtitle{
+    color:#888;
+    margin-top:10px;
+    letter-spacing:2px;
+}
+
+#projects {
+    max-width: 1400px;
+    margin: auto;
+    padding: 0px 40px;
+}
+
+#projects h3 {
+    text-align: center;
+    color: #00ff41;
+    font-size: 4rem;
+    margin-bottom: 60px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(380px,1fr));
+    gap: 30px;
+}
+
+.project-card {
+    overflow: hidden;
+    border: 1px solid rgba(0,255,65,.2);
+    background: rgba(0,10,0,.8);
+    backdrop-filter: blur(10px);
+
+    transition: .3s;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+
+    border-color: #00ff41;
+
+    box-shadow:
+        0 0 25px rgba(0,255,65,.25);
+}
+
+.project-preview {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.project-content {
+    padding: 20px;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #00ff41;
+}
+
+.project-date {
+    color: #666;
+}
+
+.project-content p {
+    color: #aaa;
+    line-height: 1.6;
+}
+
+.project-tags {
+    margin: 15px 0;
+}
+
+.project-tags span {
+    border: 1px solid #00ff41;
+    color: #00ff41;
+    padding: 4px 10px;
+    margin-right: 6px;
+    font-size: .8rem;
+}
+
+.project-content a {
+    color: #00ff41;
+    text-decoration: none;
+}
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+footer {
+  padding: 30px;
+  text-align: center;
+  color: var(--green-dark);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+}
+
+/* ─────────────────────────────────────────
+   SCREEN
+───────────────────────────────────────── */
+/* ── TABLET ── */
+@media screen and (max-width: 900px) {
+  header { padding: 60px 20px 30px; }
+  section { padding: 20px 18px; }
+  .card { padding: 22px; }
+  .projects-grid{grid-template-columns:repeat(2, 1fr);justify-items: center;}
+}
+
+/* ── MOBILE ── */
+@media screen and (max-width: 768px) {
+  body { cursor: default; }
+  header { padding: 5px 15px; }
+  header h1 {font-size: clamp(2rem, 12vw, 3.5rem);line-height: 1;word-break: break-word; margin-top:15px }
+  header .subtitle {padding: 0 10px;font-size: 0.75rem; line-height: 1.6; letter-spacing: 0.08em;}
+  section { padding: 20px 14px; scroll-margin-top: 60px;}
+  section h2 { margin-bottom: 20px; font-size: 1.6rem; }
+  .card{ padding: 18px; overflow: hidden; min-height:110px; }
+  .card p{ font-size: 0.82rem; line-height: 1.7;overflow: hidden }
+}
+
+/* ── SMALL PHONES ── */
+@media screen and (max-width: 480px) and (hover: none) {
+  header { padding:5px 15px; }
+  .work-exp { margin-top:15px; margin-bottom:15px; }
+  header h1 { font-size: 2rem; margin-top:15px}
+  header .subtitle { margin-top: 8px; font-size: 0.68rem; }
+  section { padding: 10px 12px; scroll-margin-top: 50px;}
+  section h2 { font-size: 1.4rem; }
+  .stats { margin-bottom:-2px; margin-top:15px;font-size:0.8em; }
+  .card{ padding: 16px; min-height:80px;}
+  .card p{ font-size: 0.76rem; line-height: 1.6; }
+  footer { letter-spacing: 0.08em; }
+  footer { padding: 20px 10px; font-size: 0.7rem; }
+  #matrix { opacity: 0.3; }
+}
+
+/* ── VERY SMALL ── */
+@media screen and (max-width: 340px) {
+  header h1 { font-size: 1.6rem; margin-top:15px }
+  .card p,{ font-size: 0.72rem;overflow: hidden }
+}
+
+/* mobile */
+@media (max-width:600px){
+  .projects-grid{grid-template-columns:1fr;justify-items: center;}
+}

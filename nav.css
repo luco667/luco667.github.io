@@ -24,7 +24,7 @@ nav{
 
   backdrop-filter:blur(10px);
 
-  overflow-x:auto;
+  overflow-x:none;
   overflow-y:hidden;
 
   white-space:nowrap;

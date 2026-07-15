@@ -32,7 +32,7 @@ function createCursorPNG(color, size = 32) {
 
 const PROJECTS = [
   {
-    category: "developpement",
+    category: "Developpement",
     icon: "◈",
     color: "#00ff41",
     projects: [
@@ -40,7 +40,7 @@ const PROJECTS = [
         name: "Web Language",
         desc: "All projects in language for the Web.",
         tags: ["javascript", "wasm", "html", "css"],
-        link: "Projects/Javascript_Language/Js.html",
+        link: "Projects/Web_Language/Js.html",
         status: "done",
         date: "2023"
       },
@@ -55,7 +55,7 @@ const PROJECTS = [
     ]
   },
   {
-    category: "electronics",
+    category: "Electronics",
     icon: "◆",
     color: "#00ccff",
     projects: [
@@ -84,7 +84,7 @@ const PROJECTS = [
     ]
   },
   {
-    category: "cybersecurity",
+    category: "Cybersecurity",
     icon: "⬢",
     color: "#ffcc00",
     projects: [
@@ -98,7 +98,7 @@ const PROJECTS = [
     ]
   },
   {
-    category: "network",
+    category: "Network",
     icon: "▣",
     color: "#ff4466",
     projects: [
@@ -113,7 +113,7 @@ const PROJECTS = [
     ]
   },
   {
-    category: "miscellaneous",
+    category: "Miscellaneous",
     icon: "⧉",
     color: "#812bd5",
     projects: [

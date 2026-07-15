@@ -37,7 +37,7 @@ document.querySelectorAll('body, li').forEach(el => {
 });
 
 // A et button en vert
-document.querySelectorAll('a, button').forEach(el => {
+document.querySelectorAll('a, button, work-exp').forEach(el => {
   el.style.cursor = `url('${greenCursor}') 16 16, auto`;
 });
 
@@ -45,7 +45,7 @@ document.querySelectorAll('a, button').forEach(el => {
 document.addEventListener('mouseover', (e) => {
   const computedCursor = window.getComputedStyle(e.target).cursor;
   
-  if (computedCursor === 'grab' || computedCursor === 'pointer') {
+  if (computedCursor === 'grab' || computedCursor === 'grabbing' || computedCursor === 'pointer') {
     e.target.style.cursor = `url('${greenCursor}') 16 16, auto`;
   }
 }, true);

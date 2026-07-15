@@ -104,7 +104,7 @@ body {
   background: var(--bg);
   color: var(--green);
   font-family: 'Share Tech Mono', monospace;
-  overflow-x: hidden;
+  overflow-x: none;
   background: var(--bg);
   margin: 0;
   -webkit-overflow-scrolling: touch;
@@ -114,7 +114,7 @@ body {
 
 /* Respecte les préférences d'accessibilité (réduction des animations) */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html { scroll-behavior: smooth; }
   header h1 { animation: none; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
@@ -240,6 +240,7 @@ footer {
 
 .skills li {
   padding: clamp(5px, 1.5vw, 6px) clamp(12px, 3vw, 18px);
+  
   border: 1px solid var(--border);
   background: rgba(0,255,65,0.03);
   color: var(--green-dim);

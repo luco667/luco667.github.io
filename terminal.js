@@ -3,7 +3,6 @@
 ═══════════════════════════════════════ */
 
 const BOOT = [
-    '> initializing profile...',
     '> first name : Lucas',
     '> surname    : Le Gueut',
     '> status     : cybersecurity & electronics student',
@@ -11,6 +10,8 @@ const BOOT = [
     '> interests  : design, networks, offensive security, embedded systems, reverse engineering',
     '> education  : Diplôme national du brevet · Diplôme du Baccalauréat technologique : Science et technologies de l’industrie et du développement durable - Option : Systèmes d’information et numérique · Brevet de technicien supérieur : Cybersécurité et Électronique - Option B : Électronique et Réseau · Cisco Student',
     '> activities : PCB design · programming · web development · networking · electronics studies · CTF player',
+    '',
+    '',
 ];
 
 /* ─────────────────────────────
@@ -58,8 +59,65 @@ PCB Design`
 /* ─────────────────────────────
    STATE
 ───────────────────────────── */
+const terminalOutput = document.getElementById("terminal-output");
 
-const lines = [...document.querySelectorAll(".line")];
+function createLine(text = "") {
+
+    const line = document.createElement("div");
+    line.className = "line";
+
+    // garde les \n et force les longues lignes à descendre
+    line.textContent = text;
+
+    terminalOutput.appendChild(line);
+
+    requestAnimationFrame(() => {
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    });
+
+    return line;
+}
+function restartTerminal() {
+
+    prompt.hidden = true;
+
+    terminalOutput.innerHTML = "";
+
+    iLine = 0;
+    iChar = 0;
+
+    shellReady = false;
+
+    currentLine = createLine();
+
+    currentLine.appendChild(cursor);
+
+    boot();
+
+}
+let scrollbarTimer;
+
+function showScrollbar() {
+
+    terminalOutput.classList.add("show-scrollbar");
+
+    clearTimeout(scrollbarTimer);
+
+    scrollbarTimer = setTimeout(() => {
+        terminalOutput.classList.remove("show-scrollbar");
+    },2000);
+}
+    [
+    "wheel",
+    "touchstart",
+    "touchmove",
+    "pointerdown",
+    "scroll",
+    "keydown"
+    ].forEach(evt=>{
+        terminalOutput.addEventListener(evt,showScrollbar,{passive:true});
+    });
+
 const prompt = document.getElementById("prompt");
 const input = document.getElementById("cmd");
 
@@ -75,43 +133,64 @@ let historyIndex = -1;
 
 const cursor = document.createElement("span");
 cursor.className = "cursor";
-lines[0].appendChild(cursor);
 
 let iLine = 0;
 let iChar = 0;
 
+let currentLine = createLine();
+currentLine.appendChild(cursor);
+
 function boot() {
 
     if (iLine >= BOOT.length) {
+
         cursor.remove();
+
         prompt.hidden = false;
         input.focus();
         shellReady = true;
+
         return;
     }
 
-    const line = lines[iLine];
     const text = BOOT[iLine];
 
     if (iChar < text.length) {
-        line.insertBefore(
+
+        currentLine.insertBefore(
             document.createTextNode(text[iChar]),
             cursor
         );
+
         iChar++;
-        setTimeout(boot, 20);
+
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+        setTimeout(boot,20);
+
         return;
     }
 
+
+    // ligne suivante du boot
     iLine++;
     iChar = 0;
 
-    if (iLine < lines.length) {
+
+    if (iLine < BOOT.length) {
+
         cursor.remove();
-        lines[iLine].appendChild(cursor);
+
+        currentLine = createLine();
+
+        currentLine.appendChild(cursor);
+
     }
 
-    setTimeout(boot, 60);
+
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+    setTimeout(boot,60);
 }
 
 boot();
@@ -183,11 +262,26 @@ const commands = {
 
     home() {
         cwd = ["/"];
-        return ["returned to home"];
+
+        terminalOutput.innerHTML = "";
+
+        prompt.hidden = true;
+
+        iLine = 0;
+        iChar = 0;
+
+        shellReady = false;
+
+        currentLine = createLine();
+        currentLine.appendChild(cursor);
+
+        boot();
+
+        return [];
     },
 
     clear() {
-        lines.forEach(l => l.textContent = "");
+        terminalOutput.innerHTML = "";
         return [];
     }
 };
@@ -198,15 +292,20 @@ const commands = {
 
 function print(arr) {
 
-    lines.forEach(l => l.textContent = "");
+    arr.forEach(text => {
 
-    arr.forEach((t, i) => {
-        if (i >= lines.length) return;
-        lines[i].textContent = t;
+        const parts = String(text).split("\n");
+
+        parts.forEach(part => {
+
+            createLine(part);
+
+        });
+
     });
 
-    const out = document.getElementById("terminal-output");
-    if (out) out.scrollTop = out.scrollHeight;
+    showScrollbar();
+
 }
 
 /* ─────────────────────────────
@@ -245,7 +344,18 @@ input.addEventListener("keydown", e => {
         return;
     }
 
+    if (cmd === "home") {
+        commands.home();
+        return;
+
+    }
     const res = commands[cmd](args[0] || "");
 
-    print(["> " + raw, "", ...res]);
+    createLine("> " + raw);
+
+    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
+    res.forEach(line => {
+        createLine(line);
+    });
 });
