@@ -45,7 +45,7 @@
 /* Chrome / Safari */
 #terminal-output::-webkit-scrollbar{
     width:0;
-    transition:width .25s;
+    transition:width .025s;
 }
 
 #terminal-output.show-scrollbar::-webkit-scrollbar{
