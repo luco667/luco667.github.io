@@ -89,19 +89,20 @@ nav a:hover{
 }
 
 /* état actif pendant le scroll + effet temporaire après clic */
-nav a.active,
+nav a:hover::before,
+nav a:hover::after,
+nav a.selected::before,
+nav a.selected::after,
+nav a.active::before,
+nav a.active::after{
+  opacity:1;
+}
+
+
 nav a.selected{
   color:var(--green);
   border-color:var(--green);
   text-shadow:0 0 10px var(--green);
-}
-
-
-nav a.active::before,
-nav a.active::after,
-nav a.selected::before,
-nav a.selected::after{
-  opacity:1;
 }
 
 
