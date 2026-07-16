@@ -90,26 +90,44 @@
    PROMPT
 ───────────────────────────── */
 
-#prompt {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 6px 10px;
-    border-top: 1px solid var(--border);
-}
-
 #prompt[hidden] {
     display: none;
 }
 
-#cmd {
-    flex: 1;
-    background: none;
-    border: none;
-    color: var(--green);
-    font: inherit;
-    outline: none;
+#prompt{
+    display:flex;
+    align-items:center;
+    gap:2px;
+    padding:6px 10px;
+    border-top:1px solid var(--border);
+
+    position:relative;
+}
+
+#cmd-view{
+    color:var(--green);
+    white-space:pre;
+}
+
+#cmd{
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:1px;
+    height:1px;
+
+    opacity:0;
+
+    caret-color:transparent;
+    color:transparent;
+
+    background:none;
+    border:none;
+    outline:none;
+
+    font-size:16px; /* empêche le zoom iPhone */
 }
 
 /* ─────────────────────────────
