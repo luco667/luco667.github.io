@@ -6,31 +6,20 @@ nav{
   position:sticky;
   top:0;
   z-index:10000;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   gap:14px;
-
   width:100%;
-
   padding:14px 18px;
-
   border-top:1px solid var(--border);
   border-bottom:1px solid var(--border);
-
   background:rgba(0,0,0,.78);
-
   backdrop-filter:blur(10px);
-
   overflow-x:none;
   overflow-y:hidden;
-
   white-space:nowrap;
-
   scrollbar-width:none;
-
 }
 
 nav::-webkit-scrollbar{
@@ -39,25 +28,17 @@ nav::-webkit-scrollbar{
 
 nav a{
   position:relative;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   flex-shrink:0;
-
   padding:10px 16px;
-
   border:1px solid transparent;
-
   color:var(--green-dim);
-
   text-decoration:none;
   text-transform:lowercase;
-
   font-size:.82rem;
   letter-spacing:.12em;
-
   transition:
     color .2s,
     border-color .2s,
@@ -81,10 +62,9 @@ nav a::after{
 nav a:hover{
   color:var(--green);
   border-color:var(--green);
-  opcity:1;
+  opacity:1;
   transition:opacity 1s
   text-shadow:0 0 10px var(--green);
-
   transform:translateY(-1px);
 }
 
