@@ -59,6 +59,7 @@ nav a{
   letter-spacing:.12em;
 
   transition:
+    opacity .5s,
     color .2s,
     border-color .2s,
     background .2s,
@@ -88,7 +89,7 @@ nav a:hover{
 
 nav a:hover::before,
 nav a:hover::after{
-  opacity:0;
+  opacity:1;
 }
 
 nav a.active{
