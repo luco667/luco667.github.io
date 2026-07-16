@@ -138,7 +138,7 @@
     height: 1em;
     background: var(--green);
     margin-left: 2px;
-    animation: blink 1s step-end infinite;
+    animation: blink .9s steps(1) infinite;
 }
 
 @keyframes blink {
