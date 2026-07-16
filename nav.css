@@ -95,8 +95,6 @@ nav a:hover::after{
 nav a.active{
   color:var(--green);
 
-  border-color:var(--green);
-
   background:rgba(0,255,65,.08);
   
   box-shadow:0 0 12px rgba(0,255,65,.15);
