@@ -64,7 +64,6 @@ nav a:hover{
   border-color:var(--green);
   opacity:1;
   transition:opacity 1s
-  text-shadow:0 0 10px var(--green);
   transform:translateY(-1px);
 }
 
