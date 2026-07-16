@@ -189,9 +189,7 @@ navLinks.forEach(link => {
 
     // Met à jour l'URL sans provoquer de saut natif du navigateur
     history.pushState(null, "", href);
-    // Effet visuel temporaire après sélection
-    navLinks.forEach(a => a.classList.remove("selected"));
-    
+ 
     link.classList.add("selected");
     
     clearTimeout(selectedTimer);
