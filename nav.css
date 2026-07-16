@@ -62,7 +62,8 @@ nav a::after{
 nav a::hover{
   color:var(--green);
   border-color:var(--green);
-  opacity:1;
+  opacity:0;
+  transition:opacity .9s;
   text-shadow:0 0 10px var(--green);
   transform:translateY(-1px);
 }
@@ -70,10 +71,10 @@ nav a::hover{
 nav a:hover{
   color:var(--green);
   border-color:var(--green);
-  transition:opacity .9s;
+  opacity:1;
   text-shadow:0 0 10px var(--green);
   transform:translateY(-1px);
-
+}
 
 
 nav a:hover::before,
