@@ -101,9 +101,11 @@ nav a.active{
   box-shadow:0 0 12px rgba(0,255,65,.15);
 }
 
-nav a.active::before,
-nav a.active::after{
+nav a.active::before{
   opacity:1;
+}
+nav a.active::after{
+  opacity:0;
 }
 
 /* ─────────────────────────────────────────
