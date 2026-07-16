@@ -88,11 +88,6 @@ nav a:hover{
   transform:translateY(-1px);
 }
 
-
-nav a:hover::before,
-nav a:hover::after{
-  opacity:1;
-}
 /* état actif pendant le scroll + effet temporaire après clic */
 nav a.active,
 nav a.selected{
