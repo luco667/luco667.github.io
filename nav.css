@@ -63,7 +63,7 @@ nav a:hover{
   color:var(--green);
   border-color:var(--green);
   opacity:1;
-  transition:opacity 1s
+  transition:opacity 1s;
   transform:translateY(-1px);
 }
 
