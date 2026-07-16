@@ -37,15 +37,17 @@
     line-height:1.9;
     overflow-anchor:auto;
     white-space:normal;
-    scroll-behavior:smooth;
+    scroll-behavior:auto;
     scrollbar-width:none;          /* Firefox */
     -ms-overflow-style:none;
+    -webkit-overflow-scrolling:touch;
+    
 }
 
 /* Chrome / Safari */
 #terminal-output::-webkit-scrollbar{
     width:0;
-    transition:widt;
+    transition:width 0.25s;
 }
 
 #terminal-output.show-scrollbar::-webkit-scrollbar{
@@ -80,7 +82,8 @@
     min-height: 1.9em;
     line-height: 1.9em;
     word-break:break-word;
-    overflow-wrap: auto;
+    overflow-wrap: anywhere;
+    word-break:break-word;
 }
 
 /* ─────────────────────────────
