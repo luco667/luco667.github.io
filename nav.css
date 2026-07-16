@@ -59,7 +59,6 @@ nav a{
   letter-spacing:.12em;
 
   transition:
-    opacity .5s,
     color .2s,
     border-color .2s,
     background .2s,
@@ -94,7 +93,7 @@ nav a:hover::after{
 
 nav a.active{
   color:var(--green);
-
+  border:1px solid transparent;
   background:rgba(0,255,65,.08);
   
   box-shadow:0 0 12px rgba(0,255,65,.15);
