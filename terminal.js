@@ -338,9 +338,6 @@ input.addEventListener("keydown", e => {
     const raw = input.value.trim();
     input.value = "";
     cmdView.textContent = "";
-    prompt.addEventListener("click", () => {
-    input.focus();
-    });
 
     if (!raw || !shellReady) return;
 
@@ -368,4 +365,11 @@ input.addEventListener("keydown", e => {
     res.forEach(line => {
         createLine(line);
     });
+prompt.addEventListener("touchstart", () => {
+    input.focus();
+});
+
+prompt.addEventListener("click", () => {
+    input.focus();
+});
 });
