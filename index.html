@@ -48,13 +48,22 @@
   </p>
   </div>
   <div id="terminal">
-      <div id="terminal-output"></div>
-
-      <div id="prompt" hidden>
-          <span>&gt;</span>
-          <input id="cmd" autocomplete="off" spellcheck="false">
-      </div>
-  </div>
+    <div id="terminal-output"></div>
+    <div id="prompt" hidden>
+        <span>&gt;</span>
+        <!-- Texte affiché -->
+        <span id="cmd-view"></span>
+        <!-- Ton curseur -->
+        <span class="cursor" id="input-cursor"></span>
+        <!-- Input invisible -->
+        <input
+            id="cmd"
+            autocomplete="off"
+            spellcheck="false"
+            autocorrect="off"
+            autocapitalize="off">
+    </div>
+</div>
 </section>
 
 <section id="skills">
