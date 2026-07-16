@@ -41,7 +41,7 @@ nav a{
   display:flex;
   align-items:center;
   justify-content:center;
-
+  overflow-x:auto;
   flex-shrink:0;
 
   padding:10px 16px;
