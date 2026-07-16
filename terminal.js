@@ -123,7 +123,11 @@ const input = document.getElementById("cmd");
 const cmdView = document.getElementById("cmd-view");
 
 input.addEventListener("input", () => {
+
     cmdView.textContent = input.value;
+
+    cmdView.after(cursor);
+
 });
 
 let cwd = ["/"];
@@ -152,8 +156,11 @@ function boot() {
         cursor.remove();
 
         prompt.hidden = false;
-        input.focus();
+        
+        cmdView.after(cursor);
+        
         cmdView.textContent = "";
+        
         shellReady = true;
 
         return;
@@ -338,7 +345,8 @@ input.addEventListener("keydown", e => {
     const raw = input.value.trim();
     input.value = "";
     cmdView.textContent = "";
-
+    cmdView.after(cursor);
+    
     if (!raw || !shellReady) return;
 
     history.push(raw);
@@ -372,4 +380,22 @@ prompt.addEventListener("touchstart", () => {
 prompt.addEventListener("click", () => {
     input.focus();
 });
+});
+
+function focusInput() {
+    if (!shellReady) return;
+
+    input.focus({
+        preventScroll: true
+    });
+}
+
+prompt.addEventListener("pointerdown", focusInput);
+terminalOutput.addEventListener("pointerdown", focusInput);
+prompt.addEventListener("touchstart", focusInput, {
+    passive: true
+});
+
+terminalOutput.addEventListener("touchstart", focusInput, {
+    passive: true
 });
