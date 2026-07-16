@@ -131,6 +131,7 @@ if (track) {
 const nav = document.querySelector("nav");
 const sections = document.querySelectorAll("section");
 const navLinks = document.querySelectorAll("nav a");
+let selectedTimer;
 
 /* Marge supplémentaire ajoutée en plus de la hauteur de la navbar,
    pour ne pas coller le titre de la section pile sous le bandeau.
@@ -188,6 +189,16 @@ navLinks.forEach(link => {
 
     // Met à jour l'URL sans provoquer de saut natif du navigateur
     history.pushState(null, "", href);
+    // Effet visuel temporaire après sélection
+    navLinks.forEach(a => a.classList.remove("selected"));
+    
+    link.classList.add("selected");
+    
+    clearTimeout(selectedTimer);
+    
+    selectedTimer = setTimeout(() => {
+      link.classList.remove("selected");
+    }, 2000);
   });
 });
 
