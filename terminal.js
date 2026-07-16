@@ -391,11 +391,6 @@ function focusInput() {
 }
 
 prompt.addEventListener("pointerdown", focusInput);
-terminalOutput.addEventListener("pointerdown", focusInput);
 prompt.addEventListener("touchstart", focusInput, {
-    passive: true
-});
-
-terminalOutput.addEventListener("touchstart", focusInput, {
     passive: true
 });
