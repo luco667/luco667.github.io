@@ -88,7 +88,7 @@ nav a:hover{
 
 nav a:hover::before,
 nav a:hover::after{
-  opacity:1;
+  opacity:0;
 }
 
 nav a.active{
@@ -97,16 +97,15 @@ nav a.active{
   border-color:var(--green);
 
   background:rgba(0,255,65,.08);
-
+  
   box-shadow:0 0 12px rgba(0,255,65,.15);
 }
 
+nav a.active::after,
 nav a.active::before{
   opacity:1;
 }
-nav a.active::after{
-  opacity:0;
-}
+
 
 /* ─────────────────────────────────────────
    RESPONSIVE
