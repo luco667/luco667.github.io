@@ -120,6 +120,11 @@ function showScrollbar() {
 
 const prompt = document.getElementById("prompt");
 const input = document.getElementById("cmd");
+const cmdView = document.getElementById("cmd-view");
+
+input.addEventListener("input", () => {
+    cmdView.textContent = input.value;
+});
 
 let cwd = ["/"];
 let shellReady = false;
@@ -148,6 +153,7 @@ function boot() {
 
         prompt.hidden = false;
         input.focus();
+        cmdView.textContent = "";
         shellReady = true;
 
         return;
@@ -331,6 +337,10 @@ input.addEventListener("keydown", e => {
 
     const raw = input.value.trim();
     input.value = "";
+    cmdView.textContent = "";
+    prompt.addEventListener("click", () => {
+    input.focus();
+    });
 
     if (!raw || !shellReady) return;
 
