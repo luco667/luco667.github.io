@@ -208,7 +208,10 @@ window.addEventListener("scroll", () => {
   let current = "";
 
   sections.forEach(sec => {
-    if (scrollY >= sec.offsetTop - offset - sec.offsetHeight / 8) {
+    const top = sec.offsetTop - offset - sec.offsetHeight / 8;
+    const bottom = sec.offsetTop + sec.offsetHeight - offset;
+
+    if (scrollY >= top && scrollY < bottom) {
       current = sec.id;
     }
   });
