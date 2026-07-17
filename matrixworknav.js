@@ -130,7 +130,6 @@ if (track) {
 const nav = document.querySelector("nav");
 const sections = document.querySelectorAll("section");
 const navLinks = document.querySelectorAll("nav a");
-let selectedTimer;
 
 /* Marge supplémentaire retirée à la hauteur de la navbar.
    → change juste cette valeur pour ajuster la distance globale. */
@@ -177,12 +176,7 @@ navLinks.forEach(link => {
     });
 
     history.pushState(null, "", href);
-
     link.classList.add("selected");
-    clearTimeout(selectedTimer);
-    selectedTimer = setTimeout(() => {
-      link.classList.remove("selected");
-    }, 2000);
   });
 });
 
@@ -203,7 +197,10 @@ window.addEventListener("scroll", () => {
   });
 
   navLinks.forEach(link => {
-    link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+    const isCurrent = link.getAttribute("href") === `#${current}`;
+    link.classList.toggle("active", isCurrent);
+    if (!isCurrent) link.classList.remove("selected");
   });
 }, { passive: true });
+
 
