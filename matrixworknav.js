@@ -121,7 +121,6 @@ if (track) {
   });
   animate();
 }
-
 /* ═══════════════════════════════════════════
    NAV SCROLL — offset dynamique vers les ancres
    + active nav on scroll
@@ -133,11 +132,8 @@ const sections = document.querySelectorAll("section");
 const navLinks = document.querySelectorAll("nav a");
 let selectedTimer;
 
-/* Marge supplémentaire ajoutée en plus de la hauteur de la navbar,
-   pour ne pas coller le titre de la section pile sous le bandeau.
-   → change juste cette valeur pour ajuster la distance globale.
-   (Doit rester cohérente avec le "+ 20px" du calc() dans le CSS,
-   voir --nav-height / scroll-margin-top sur `section`.) */
+/* Marge supplémentaire retirée à la hauteur de la navbar.
+   → change juste cette valeur pour ajuster la distance globale. */
 const SCROLL_EXTRA_OFFSET = 15;
 
 function getScrollOffset() {
@@ -145,11 +141,7 @@ function getScrollOffset() {
 }
 
 /* ─────────────────────────────────────────
-   Publie la vraie hauteur de la navbar en CSS,
-   pour que `scroll-margin-top: calc(var(--nav-height) + 20px)`
-   (dans le CSS des sections) reste toujours juste — y compris quand
-   la navbar change de taille (retour à la ligne des liens sur mobile,
-   rotation d'écran, chargement d'une font qui décale le texte, etc.)
+   Publie la vraie hauteur de la navbar en CSS
 ───────────────────────────────────────── */
 function syncNavHeight() {
   document.documentElement.style.setProperty("--nav-height", `${nav.offsetHeight}px`);
@@ -158,11 +150,8 @@ function syncNavHeight() {
 syncNavHeight();
 
 if ("ResizeObserver" in window) {
-  // Détecte tout changement de hauteur de la navbar, pas seulement
-  // les redimensionnements de fenêtre (ex: police qui finit de charger)
   new ResizeObserver(syncNavHeight).observe(nav);
 } else {
-  // Fallback pour les navigateurs sans ResizeObserver
   window.addEventListener("resize", syncNavHeight);
   window.addEventListener("orientationchange", syncNavHeight);
 }
@@ -187,13 +176,10 @@ navLinks.forEach(link => {
       behavior: "smooth"
     });
 
-    // Met à jour l'URL sans provoquer de saut natif du navigateur
     history.pushState(null, "", href);
- 
+
     link.classList.add("selected");
-    
     clearTimeout(selectedTimer);
-    
     selectedTimer = setTimeout(() => {
       link.classList.remove("selected");
     }, 2000);
@@ -211,7 +197,7 @@ window.addEventListener("scroll", () => {
     const top = sec.offsetTop - offset - sec.offsetHeight / 8;
     const bottom = sec.offsetTop + sec.offsetHeight - offset;
 
-    if (scrollY >= top && scrollY < bottom) {
+    if (window.scrollY >= top && window.scrollY < bottom) {
       current = sec.id;
     }
   });
@@ -220,3 +206,4 @@ window.addEventListener("scroll", () => {
     link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
   });
 }, { passive: true });
+
