@@ -48,7 +48,6 @@ if (canvas) {
   }
 
   initMatrix();
-  window.addEventListener("resize", initMatrix);
   setInterval(drawMatrix, 40);
 }
 
