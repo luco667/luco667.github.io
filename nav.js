@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   NAV — clic immédiat + suivi actif au scroll
+   NAV — vert plein au clic, crochets au scroll
    + synchronisation --nav-height avec le CSS
 ═══════════════════════════════════════════ */
 
@@ -30,12 +30,25 @@ if ("ResizeObserver" in window) {
 }
 
 /* ─────────────────────────────────────────
-   Applique la classe active à un seul lien
+   Crochets seuls : suivent la section visible
 ───────────────────────────────────────── */
-function setActiveLink(id) {
+function setCurrentLink(id) {
   navLinks.forEach(link => {
-    link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+    link.classList.toggle("current", link.getAttribute("href") === `#${id}`);
   });
+}
+
+/* ─────────────────────────────────────────
+   Vert plein : uniquement sur le lien cliqué
+───────────────────────────────────────── */
+function setSelectedLink(id) {
+  navLinks.forEach(link => {
+    link.classList.toggle("selected", link.getAttribute("href") === `#${id}`);
+  });
+}
+
+function clearSelected() {
+  navLinks.forEach(link => link.classList.remove("selected"));
 }
 
 /* ─────────────────────────────────────────
@@ -59,9 +72,9 @@ function getCurrentSection() {
 }
 
 /* ─────────────────────────────────────────
-   Clic : actif immédiat + scroll fluide
-   (suppression temporaire du suivi scroll
-   pour éviter le clignotement pendant l'animation)
+   Clic : vert plein immédiat + scroll fluide
+   (le scroll auto du clic ne déclenche pas
+   la disparition du vert)
 ───────────────────────────────────────── */
 let suppressScrollUpdate = false;
 let suppressTimer = null;
@@ -76,11 +89,15 @@ navLinks.forEach(link => {
 
     e.preventDefault();
 
-    setActiveLink(href.slice(1));
+    const id = href.slice(1);
+    setSelectedLink(id);
+    setCurrentLink(id);
 
     suppressScrollUpdate = true;
     clearTimeout(suppressTimer);
-    suppressTimer = setTimeout(() => { suppressScrollUpdate = false; }, 700);
+    suppressTimer = setTimeout(() => {
+      suppressScrollUpdate = false;
+    }, 700);
 
     const targetY = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
 
@@ -94,19 +111,22 @@ navLinks.forEach(link => {
 });
 
 /* ─────────────────────────────────────────
-   Suivi actif pendant le scroll libre
+   Scroll manuel : le vert plein disparaît,
+   les crochets prennent le relais
 ───────────────────────────────────────── */
 let ticking = false;
 
 window.addEventListener("scroll", () => {
   if (suppressScrollUpdate) return;
-  if (ticking) return;
 
+  clearSelected();
+
+  if (ticking) return;
   ticking = true;
   requestAnimationFrame(() => {
-    setActiveLink(getCurrentSection());
+    setCurrentLink(getCurrentSection());
     ticking = false;
   });
 }, { passive: true });
 
-window.addEventListener("load", () => setActiveLink(getCurrentSection()));
+window.addEventListener("load", () => setCurrentLink(getCurrentSection()));
