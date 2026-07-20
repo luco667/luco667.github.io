@@ -44,7 +44,7 @@ nav a {
 
   padding: 10px 16px;
   border: 1px solid transparent;
-  border-radius: 2px; /* Cohérence globale avec vos .card et .skills */
+  border-radius: 2px;
 
   color: var(--green-dim);
   text-decoration: none;
@@ -113,11 +113,10 @@ nav a.selected::after {
 }
 
 /* ─────────────────────────────────────────
-   RESPONSIVE NAVBAR
+   RESPONSIVE NAVBAR (justify-content retiré pour forcer le centre)
 ───────────────────────────────────────── */
 @media (max-width: 860px) {
   nav {
-    justify-content: flex-start;
     padding: 18px 14px;
   }
   nav a {
@@ -127,7 +126,6 @@ nav a.selected::after {
 
 @media (max-width: 768px) {
   nav {
-    justify-content: flex-start;
     gap: 8px;
   }
 }
