@@ -1,16 +1,24 @@
 /* ═══════════════════════════════════════════
    NAV — vert plein au clic, crochets au scroll
-   (suivi via IntersectionObserver, fiable à toute vitesse)
+   Cibles résolues depuis les href des liens (pas <section> en dur)
+   Fin d'auto-scroll détectée via 'scrollend' (pas de timer arbitraire)
 ═══════════════════════════════════════════ */
 
 const nav = document.querySelector("nav");
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll("nav a");
+const navLinks = Array.from(document.querySelectorAll("nav a"));
 
-const SCROLL_EXTRA_OFFSET = 15;
+// Résout les cibles réelles à partir des href des liens nav
+const targets = navLinks
+  .map(link => {
+    const href = link.getAttribute("href");
+    if (!href || !href.startsWith("#")) return null;
+    const el = document.querySelector(href);
+    return el ? { id: href.slice(1), el } : null;
+  })
+  .filter(Boolean);
 
 function getScrollOffset() {
-  return nav.offsetHeight - SCROLL_EXTRA_OFFSET;
+  return nav.offsetHeight - 15;
 }
 
 function syncNavHeight() {
@@ -42,8 +50,7 @@ function clearSelected() {
 }
 
 /* ─────────────────────────────────────────
-   Suivi de la section visible : IntersectionObserver
-   → indépendant de la vitesse/fréquence des events scroll
+   Suivi de la cible visible : IntersectionObserver
 ───────────────────────────────────────── */
 let observer = null;
 
@@ -65,18 +72,20 @@ function buildObserver() {
     threshold: 0
   });
 
-  sections.forEach(sec => observer.observe(sec));
+  targets.forEach(t => observer.observe(t.el));
 }
 
 buildObserver();
 window.addEventListener("resize", buildObserver);
 window.addEventListener("orientationchange", buildObserver);
+window.addEventListener("load", buildObserver);
 
 /* ─────────────────────────────────────────
    Clic : vert plein immédiat + scroll fluide
+   isAutoScrolling ignore les events générés par
+   l'animation elle-même ; 'scrollend' la clôture proprement
 ───────────────────────────────────────── */
-let suppressScrollUpdate = false;
-let suppressTimer = null;
+let isAutoScrolling = false;
 
 navLinks.forEach(link => {
   link.addEventListener("click", (e) => {
@@ -93,25 +102,41 @@ navLinks.forEach(link => {
     setCurrentLink(id);
     link.blur();
 
-    suppressScrollUpdate = true;
-    clearTimeout(suppressTimer);
-    suppressTimer = setTimeout(() => {
-      suppressScrollUpdate = false;
-    }, 400);
+    isAutoScrolling = true;
 
     const targetY = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
-
     window.scrollTo({ top: targetY, behavior: "smooth" });
     history.pushState(null, "", href);
   });
 });
 
+if ("onscrollend" in window) {
+  window.addEventListener("scrollend", () => {
+    isAutoScrolling = false;
+  });
+} else {
+  // Fallback si 'scrollend' n'est pas supporté :
+  // détecte l'arrêt réel via des frames stables, pas un délai deviné
+  let lastY = window.scrollY;
+  let stableFrames = 0;
+  (function watchStop() {
+    if (window.scrollY === lastY) {
+      stableFrames++;
+    } else {
+      stableFrames = 0;
+      lastY = window.scrollY;
+    }
+    if (isAutoScrolling && stableFrames > 3) {
+      isAutoScrolling = false;
+    }
+    requestAnimationFrame(watchStop);
+  })();
+}
+
 /* ─────────────────────────────────────────
-   Le vert plein disparaît dès que l'utilisateur scrolle
+   Le vert plein disparaît dès que l'utilisateur scrolle lui-même
 ───────────────────────────────────────── */
 window.addEventListener("scroll", () => {
-  if (suppressScrollUpdate) return;
+  if (isAutoScrolling) return;
   clearSelected();
 }, { passive: true });
-
-window.addEventListener("load", buildObserver);
