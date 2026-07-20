@@ -87,16 +87,18 @@ nav a:hover{
   transform:translateY(-1px);
 }
 
-/* crochets visibles au hover ou sur le lien actif (clic + scroll) */
+/* crochets visibles : hover, section courante (scroll), ou lien cliqué */
 nav a:hover::before,
 nav a:hover::after,
-nav a.active::before,
-nav a.active::after{
+nav a.current::before,
+nav a.current::after,
+nav a.selected::before,
+nav a.selected::after{
   opacity:1;
 }
 
-
-nav a.active{
+/* vert plein (couleur + bordure + glow) : uniquement au clic */
+nav a.selected{
   color:var(--green);
   border-color:var(--green);
   text-shadow:0 0 10px var(--green);
