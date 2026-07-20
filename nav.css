@@ -144,6 +144,8 @@ nav a.selected::after{
 
 @media (max-width:480px){
   nav{
+    position:sticky;
+    top:0;
     gap:6px;
     padding:9px 12px;
   }
