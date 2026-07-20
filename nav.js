@@ -79,7 +79,7 @@ navLinks.forEach(link => {
     clearTimeout(suppressTimer);
     suppressTimer = setTimeout(() => {
       suppressScrollUpdate = false;
-    }, 400);
+    }, 80);
 
     const targetY = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
 
