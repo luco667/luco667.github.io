@@ -78,20 +78,15 @@ nav a::after{
 }
 
 
-/* Hover uniquement sur appareils avec souris — évite le hover "collant" au tactile */
+/* Hover uniquement sur appareils avec souris — crochets seuls, pas de couleur/bordure pleine */
 @media (hover:hover) and (pointer:fine){
-  nav a:hover{
-    color:var(--green);
-    border-color:var(--green);
-    text-shadow:0 0 10px var(--green);
-    transform:translateY(-1px);
-  }
-
   nav a:hover::before,
   nav a:hover::after{
     opacity:1;
+    color:var(--green);
   }
 }
+
 
 
 /* ─────────────────────────────────────────
