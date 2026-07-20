@@ -45,17 +45,16 @@ navLinks.forEach(link => {
 
     e.preventDefault();
 
-    const targetY = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
-
-    window.scrollTo({
-      top: targetY,
-      behavior: "smooth"
-    });
-
-    history.pushState(null, "", href);
+    // retire 'selected' de tous les liens avant d'ajouter au bon
+    navLinks.forEach(l => l.classList.remove("selected"));
     link.classList.add("selected");
+
+    const targetY = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
+    window.scrollTo({ top: targetY, behavior: "smooth" });
+    history.pushState(null, "", href);
   });
 });
+
 
 /* ─────────────────────────────────────────
    ACTIVE NAV ON SCROLL
