@@ -67,25 +67,25 @@ nav a{
 nav a::before{
   content:"[ ";
   opacity:0;
-  transition:opacity .2s, color .2s;
 }
 
 
 nav a::after{
   content:" ]";
   opacity:0;
-  transition:opacity .2s, color .2s;
 }
 
 
-/* Hover uniquement sur appareils avec souris — crochets seuls, pas de couleur/bordure pleine */
+/* Hover uniquement sur appareils avec souris — transition douce, car pas de bascule rapide au hover */
 @media (hover:hover) and (pointer:fine){
   nav a:hover::before,
   nav a:hover::after{
     opacity:1;
     color:var(--green);
+    transition:opacity .2s, color .2s;
   }
 }
+
 
 
 
