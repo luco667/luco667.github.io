@@ -76,7 +76,7 @@ nav a::after{
 }
 
 
-/* Hover uniquement sur appareils avec souris — transition douce, car pas de bascule rapide au hover */
+/* Hover uniquement sur appareils avec souris — crochets seuls, transition douce */
 @media (hover:hover) and (pointer:fine){
   nav a:hover::before,
   nav a:hover::after{
@@ -87,11 +87,10 @@ nav a::after{
 }
 
 
-
-
 /* ─────────────────────────────────────────
    CROCHETS SEULS — suivent la section visible
-   pendant le scroll (pas de couleur/bordure pleine)
+   au scroll (pas de couleur/bordure pleine,
+   pas de transition = pas de traînée sur iPhone)
 ───────────────────────────────────────── */
 nav a.current::before,
 nav a.current::after{
@@ -139,8 +138,6 @@ nav a.selected::after{
 
 @media (max-width:480px){
   nav{
-    position:sticky;
-    top:0;
     gap:6px;
     padding:9px 12px;
   }
