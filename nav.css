@@ -97,6 +97,13 @@ nav a.selected::after{
   opacity:1;
 }
 
+/* crochets seuls en vert vif pour le suivi scroll (texte reste terne) */
+nav a.current::before,
+nav a.current::after{
+  color:var(--green);
+}
+
+
 /* vert plein (couleur + bordure + glow) : uniquement au clic */
 nav a.selected{
   color:var(--green);
