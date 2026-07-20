@@ -7,7 +7,6 @@
 const nav = document.querySelector("nav");
 const navLinks = Array.from(document.querySelectorAll("nav a"));
 
-// Résout les cibles réelles à partir des href des liens nav
 const targets = navLinks
   .map(link => {
     const href = link.getAttribute("href");
@@ -49,9 +48,6 @@ function clearSelected() {
   navLinks.forEach(link => link.classList.remove("selected"));
 }
 
-/* ─────────────────────────────────────────
-   Suivi de la cible visible : IntersectionObserver
-───────────────────────────────────────── */
 let observer = null;
 
 function buildObserver() {
@@ -80,11 +76,6 @@ window.addEventListener("resize", buildObserver);
 window.addEventListener("orientationchange", buildObserver);
 window.addEventListener("load", buildObserver);
 
-/* ─────────────────────────────────────────
-   Clic : vert plein immédiat + scroll fluide
-   isAutoScrolling ignore les events générés par
-   l'animation elle-même ; 'scrollend' la clôture proprement
-───────────────────────────────────────── */
 let isAutoScrolling = false;
 
 navLinks.forEach(link => {
@@ -115,8 +106,6 @@ if ("onscrollend" in window) {
     isAutoScrolling = false;
   });
 } else {
-  // Fallback si 'scrollend' n'est pas supporté :
-  // détecte l'arrêt réel via des frames stables, pas un délai deviné
   let lastY = window.scrollY;
   let stableFrames = 0;
   (function watchStop() {
@@ -132,19 +121,12 @@ if ("onscrollend" in window) {
     requestAnimationFrame(watchStop);
   })();
 }
-/* ─────────────────────────────────────────
-   Le vert plein disparaît dès que l'utilisateur scrolle lui-même
-───────────────────────────────────────── */
+
 window.addEventListener("scroll", () => {
   if (isAutoScrolling) return;
   clearSelected();
 }, { passive: true });
 
-/* ─────────────────────────────────────────
-   Resynchronise la nav à chaque changement de hash
-   (retour/avance navigateur, lien externe vers une ancre,
-   ou URL chargée directement avec un #hash)
-───────────────────────────────────────── */
 function syncFromHash() {
   const id = location.hash.replace("#", "");
   if (!id) return;
