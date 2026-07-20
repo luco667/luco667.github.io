@@ -150,6 +150,12 @@ body {
   content: '> ';
   opacity: 0.5;
 }
+#contact {
+  /* Marge basse fluide valide (minimum 60px, idéal 20vh, maximum 350px) */
+  margin-bottom: clamp(60px, 20vh, 350px);
+}
+
+
 /* ─────────────────────────────────────────
    HEADER
 ───────────────────────────────────────── */
@@ -227,6 +233,7 @@ footer {
 /* ─────────────────────────────────────────
    SKILLS - Correction structure
 ───────────────────────────────────────── */
+
 .skills {
   display: flex;
   flex-wrap: wrap;
