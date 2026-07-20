@@ -45,16 +45,20 @@ navLinks.forEach(link => {
 
     e.preventDefault();
 
-    // retire 'selected' de tous les liens avant d'ajouter au bon
-    navLinks.forEach(l => l.classList.remove("selected"));
-    link.classList.add("selected");
+    // un seul lien actif à la fois, appliqué immédiatement au clic
+    navLinks.forEach(l => l.classList.remove("active"));
+    link.classList.add("active");
 
     const targetY = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
-    window.scrollTo({ top: targetY, behavior: "smooth" });
+
+    window.scrollTo({
+      top: targetY,
+      behavior: "smooth"
+    });
+
     history.pushState(null, "", href);
   });
 });
-
 
 /* ─────────────────────────────────────────
    ACTIVE NAV ON SCROLL
@@ -75,6 +79,5 @@ window.addEventListener("scroll", () => {
   navLinks.forEach(link => {
     const isCurrent = link.getAttribute("href") === `#${current}`;
     link.classList.toggle("active", isCurrent);
-    if (!isCurrent) link.classList.remove("selected");
   });
 }, { passive: true });
