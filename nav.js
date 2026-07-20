@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
-   NAV — vert plein au clic, crochets seuls au scroll
-   + synchronisation --nav-height avec le CSS
+   NAV — vert plein au clic, crochets au scroll
+   (suivi via IntersectionObserver, fiable à toute vitesse)
 ═══════════════════════════════════════════ */
 
 const nav = document.querySelector("nav");
@@ -41,22 +41,40 @@ function clearSelected() {
   navLinks.forEach(link => link.classList.remove("selected"));
 }
 
-function getCurrentSection() {
-  const refLine = getScrollOffset() + 1;
-  let current = sections[0]?.id ?? "";
+/* ─────────────────────────────────────────
+   Suivi de la section visible : IntersectionObserver
+   → indépendant de la vitesse/fréquence des events scroll
+───────────────────────────────────────── */
+let observer = null;
 
-  sections.forEach(sec => {
-    if (sec.getBoundingClientRect().top <= refLine) {
-      current = sec.id;
-    }
+function buildObserver() {
+  if (observer) observer.disconnect();
+
+  const offset = getScrollOffset();
+  const bandBottom = Math.max(window.innerHeight - offset - 2, 0);
+
+  observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setCurrentLink(entry.target.id);
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: `-${offset}px 0px -${bandBottom}px 0px`,
+    threshold: 0
   });
 
-  const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-  if (atBottom) current = sections[sections.length - 1].id;
-
-  return current;
+  sections.forEach(sec => observer.observe(sec));
 }
 
+buildObserver();
+window.addEventListener("resize", buildObserver);
+window.addEventListener("orientationchange", buildObserver);
+
+/* ─────────────────────────────────────────
+   Clic : vert plein immédiat + scroll fluide
+───────────────────────────────────────── */
 let suppressScrollUpdate = false;
 let suppressTimer = null;
 
@@ -79,44 +97,21 @@ navLinks.forEach(link => {
     clearTimeout(suppressTimer);
     suppressTimer = setTimeout(() => {
       suppressScrollUpdate = false;
-    }, 80);
+    }, 400);
 
     const targetY = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
 
-    window.scrollTo({
-      top: targetY,
-      behavior: "smooth"
-    });
-
+    window.scrollTo({ top: targetY, behavior: "smooth" });
     history.pushState(null, "", href);
   });
 });
 
-let ticking = false;
-let settleTimer = null;
-
-function recalcCurrent() {
-  if (suppressScrollUpdate) return;
-  clearSelected();
-  setCurrentLink(getCurrentSection());
-}
-
+/* ─────────────────────────────────────────
+   Le vert plein disparaît dès que l'utilisateur scrolle
+───────────────────────────────────────── */
 window.addEventListener("scroll", () => {
   if (suppressScrollUpdate) return;
-
   clearSelected();
-
-  if (!ticking) {
-    ticking = true;
-    requestAnimationFrame(() => {
-      setCurrentLink(getCurrentSection());
-      ticking = false;
-    });
-  }
-
-  // recalcul de sécurité une fois le scroll (rapide ou non) vraiment stabilisé
-  clearTimeout(settleTimer);
-  settleTimer = setTimeout(recalcCurrent, 80);
 }, { passive: true });
 
-window.addEventListener("load", () => setCurrentLink(getCurrentSection()));
+window.addEventListener("load", buildObserver);
