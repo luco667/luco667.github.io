@@ -93,18 +93,30 @@ navLinks.forEach(link => {
 });
 
 let ticking = false;
+let settleTimer = null;
+
+function recalcCurrent() {
+  if (suppressScrollUpdate) return;
+  clearSelected();
+  setCurrentLink(getCurrentSection());
+}
 
 window.addEventListener("scroll", () => {
   if (suppressScrollUpdate) return;
 
   clearSelected();
 
-  if (ticking) return;
-  ticking = true;
-  requestAnimationFrame(() => {
-    setCurrentLink(getCurrentSection());
-    ticking = false;
-  });
+  if (!ticking) {
+    ticking = true;
+    requestAnimationFrame(() => {
+      setCurrentLink(getCurrentSection());
+      ticking = false;
+    });
+  }
+
+  // recalcul de sécurité une fois le scroll (rapide ou non) vraiment stabilisé
+  clearTimeout(settleTimer);
+  settleTimer = setTimeout(recalcCurrent, 80);
 }, { passive: true });
 
 window.addEventListener("load", () => setCurrentLink(getCurrentSection()));
