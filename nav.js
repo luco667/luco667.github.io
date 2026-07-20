@@ -132,7 +132,6 @@ if ("onscrollend" in window) {
     requestAnimationFrame(watchStop);
   })();
 }
-
 /* ─────────────────────────────────────────
    Le vert plein disparaît dès que l'utilisateur scrolle lui-même
 ───────────────────────────────────────── */
@@ -140,3 +139,29 @@ window.addEventListener("scroll", () => {
   if (isAutoScrolling) return;
   clearSelected();
 }, { passive: true });
+
+/* ─────────────────────────────────────────
+   Resynchronise la nav à chaque changement de hash
+   (retour/avance navigateur, lien externe vers une ancre,
+   ou URL chargée directement avec un #hash)
+───────────────────────────────────────── */
+function syncFromHash() {
+  const id = location.hash.replace("#", "");
+  if (!id) return;
+
+  const exists = targets.some(t => t.id === id);
+  if (!exists) return;
+
+  setSelectedLink(id);
+  setCurrentLink(id);
+
+  isAutoScrolling = true;
+  const target = document.getElementById(id);
+  if (target) {
+    const targetY = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
+    window.scrollTo({ top: targetY, behavior: "smooth" });
+  }
+}
+
+window.addEventListener("hashchange", syncFromHash);
+window.addEventListener("load", syncFromHash);
