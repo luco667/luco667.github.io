@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════
-   NAV — vert plein au clic, crochets au scroll
+   NAV — vert plein au clic, crochets seuls au scroll
    + synchronisation --nav-height avec le CSS
 ═══════════════════════════════════════════ */
 
@@ -13,13 +13,9 @@ function getScrollOffset() {
   return nav.offsetHeight - SCROLL_EXTRA_OFFSET;
 }
 
-/* ─────────────────────────────────────────
-   Publie la vraie hauteur de la navbar en CSS
-───────────────────────────────────────── */
 function syncNavHeight() {
   document.documentElement.style.setProperty("--nav-height", `${nav.offsetHeight}px`);
 }
-
 syncNavHeight();
 
 if ("ResizeObserver" in window) {
@@ -29,18 +25,12 @@ if ("ResizeObserver" in window) {
   window.addEventListener("orientationchange", syncNavHeight);
 }
 
-/* ─────────────────────────────────────────
-   Crochets seuls : suivent la section visible
-───────────────────────────────────────── */
 function setCurrentLink(id) {
   navLinks.forEach(link => {
     link.classList.toggle("current", link.getAttribute("href") === `#${id}`);
   });
 }
 
-/* ─────────────────────────────────────────
-   Vert plein : uniquement sur le lien cliqué
-───────────────────────────────────────── */
 function setSelectedLink(id) {
   navLinks.forEach(link => {
     link.classList.toggle("selected", link.getAttribute("href") === `#${id}`);
@@ -51,10 +41,6 @@ function clearSelected() {
   navLinks.forEach(link => link.classList.remove("selected"));
 }
 
-/* ─────────────────────────────────────────
-   Section actuellement visible
-   (fiable en montant ET en descendant)
-───────────────────────────────────────── */
 function getCurrentSection() {
   const refLine = getScrollOffset() + 1;
   let current = sections[0]?.id ?? "";
@@ -71,11 +57,6 @@ function getCurrentSection() {
   return current;
 }
 
-/* ─────────────────────────────────────────
-   Clic : vert plein immédiat + scroll fluide
-   (le scroll auto du clic ne déclenche pas
-   la disparition du vert)
-───────────────────────────────────────── */
 let suppressScrollUpdate = false;
 let suppressTimer = null;
 
@@ -92,6 +73,7 @@ navLinks.forEach(link => {
     const id = href.slice(1);
     setSelectedLink(id);
     setCurrentLink(id);
+    link.blur();
 
     suppressScrollUpdate = true;
     clearTimeout(suppressTimer);
@@ -110,10 +92,6 @@ navLinks.forEach(link => {
   });
 });
 
-/* ─────────────────────────────────────────
-   Scroll manuel : le vert plein disparaît,
-   les crochets prennent le relais
-───────────────────────────────────────── */
 let ticking = false;
 
 window.addEventListener("scroll", () => {
