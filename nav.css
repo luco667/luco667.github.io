@@ -3,9 +3,8 @@
 ───────────────────────────────────────── */
 
 nav{
-  position:fixed;
+  position:sticky;
   top:0;
-  left:0;
   z-index:10000;
 
   display:flex;
@@ -30,7 +29,6 @@ nav{
 
   -webkit-overflow-scrolling:touch;
 }
-
 
 nav::-webkit-scrollbar{
   display:none;
@@ -89,7 +87,7 @@ nav a:hover{
   transform:translateY(-1px);
 }
 
-/* crochets visibles uniquement au hover ou sur le lien actif */
+/* crochets visibles au hover ou sur le lien actif (clic + scroll) */
 nav a:hover::before,
 nav a:hover::after,
 nav a.active::before,
