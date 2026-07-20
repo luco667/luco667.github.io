@@ -152,7 +152,7 @@ body {
 }
 #contact {
   /* Marge basse fluide au lieu d'un vh fixe qui prenait trop de place sur mobile */
-  margin-bottom: clamp(40px, 10vh, 43.5vh);
+  margin-bottom: clamp(40px, 10vh, 400px);
 }
 /* ─────────────────────────────────────────
    HEADER
