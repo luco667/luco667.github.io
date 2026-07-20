@@ -81,8 +81,8 @@
 .projects-scroll::-webkit-scrollbar { display:none; }
 
 .cat-card {
-  min-width:clamp(150px, 45vw, 250px);
-  max-width:clamp(150px, 45vw, 250px);
+  min-width:clamp(150px, 60vw, 250px);
+  max-width:clamp(150px, 60vw, 250px);
   border:1px solid rgba(0,255,65,0.2);
   background:rgba(0,10,0,0.75);
   padding:clamp(14px, 4vw, 20px);
