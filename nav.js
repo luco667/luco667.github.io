@@ -1,8 +1,6 @@
-/* ═══════════════════════════════════════════
-   NAV — vert plein au clic, crochets au scroll
-   Cibles résolues depuis les href des liens (pas <section> en dur)
-   Fin d'auto-scroll détectée via 'scrollend' (pas de timer arbitraire)
-═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════
+   NAV — vert plein au clic, crochets au scroll (Version Optimisée)
+═══════════════════════════════════════════════════════════════════ */
 
 const nav = document.querySelector("nav");
 const navLinks = Array.from(document.querySelectorAll("nav a"));
@@ -40,7 +38,13 @@ function setCurrentLink(id) {
 
 function setSelectedLink(id) {
   navLinks.forEach(link => {
-    link.classList.toggle("selected", link.getAttribute("href") === `#${id}`);
+    const isSelected = link.getAttribute("href") === `#${id}`;
+    link.classList.toggle("selected", isSelected);
+    
+    // UX Amélioration : Centrer automatiquement le lien actif dans la barre horizontale
+    if (isSelected) {
+      link.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
   });
 }
 
@@ -54,7 +58,9 @@ function buildObserver() {
   if (observer) observer.disconnect();
 
   const offset = getScrollOffset();
-  const bandBottom = Math.max(window.innerHeight - offset - 2, 0);
+  // Utilisation d'une zone centrale plus robuste pour l'IntersectionObserver
+  const topMargin = -offset;
+  const bottomMargin = -(window.innerHeight - offset - 100);
 
   observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -64,8 +70,8 @@ function buildObserver() {
     });
   }, {
     root: null,
-    rootMargin: `-${offset}px 0px -${bandBottom}px 0px`,
-    threshold: 0
+    rootMargin: `${topMargin}px 0px ${bottomMargin}px 0px`,
+    threshold: 0.1
   });
 
   targets.forEach(t => observer.observe(t.el));
@@ -101,10 +107,17 @@ navLinks.forEach(link => {
   });
 });
 
-if ("onscrollend" in window) {
-  window.addEventListener("scrollend", () => {
+// Fin d'auto-scroll propre
+const endAutoScroll = () => {
+  if (isAutoScrolling) {
     isAutoScrolling = false;
-  });
+    // Optionnel : on peut enlever le .selected à la fin pour laisser place aux crochets (.current)
+    // clearSelected(); 
+  }
+};
+
+if ("onscrollend" in window) {
+  window.addEventListener("scrollend", endAutoScroll);
 } else {
   let lastY = window.scrollY;
   let stableFrames = 0;
@@ -115,8 +128,8 @@ if ("onscrollend" in window) {
       stableFrames = 0;
       lastY = window.scrollY;
     }
-    if (isAutoScrolling && stableFrames > 3) {
-      isAutoScrolling = false;
+    if (isAutoScrolling && stableFrames > 5) {
+      endAutoScroll();
     }
     requestAnimationFrame(watchStop);
   })();
@@ -124,6 +137,8 @@ if ("onscrollend" in window) {
 
 window.addEventListener("scroll", () => {
   if (isAutoScrolling) return;
+  // Si l'utilisateur scroll manuellement, on nettoie le style plein "selected" 
+  // pour laisser les crochets indiquer la section courante.
   clearSelected();
 }, { passive: true });
 
