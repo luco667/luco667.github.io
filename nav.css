@@ -2,119 +2,157 @@
    NAVBAR
 ───────────────────────────────────────── */
 
-nav{
-  position:sticky;
-  top:0;
-  z-index:10000;
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 10000;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
 
-  width:100%;
-  padding:14px 18px;
+  width: 100%;
+  padding: 14px 18px;
 
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 
-  background:rgba(0,0,0,.78);
-  backdrop-filter:blur(10px);
+  background: rgba(0, 0, 0, .78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Sécurité Safari */
 
-  overflow-x:auto;
-  overflow-y:hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 
-  white-space:nowrap;
-  scrollbar-width:none;
-
-  -webkit-overflow-scrolling:touch;
+  white-space: nowrap;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  -webkit-overflow-scrolling: touch;
 }
 
-nav::-webkit-scrollbar{
-  display:none;
+nav::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Opera */
 }
 
+nav a {
+  position: relative;
 
-nav a{
-  position:relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
+  padding: 10px 16px;
+  border: 1px solid transparent;
 
-  padding:10px 16px;
+  color: var(--green-dim);
+  text-decoration: none;
+  text-transform: lowercase;
 
-  border:1px solid transparent;
+  font-size: .82rem;
+  letter-spacing: .12em;
 
-  color:var(--green-dim);
-
-  text-decoration:none;
-  text-transform:lowercase;
-
-  font-size:.82rem;
-  letter-spacing:.12em;
-
-  transition:
-    color .2s,
-    border-color .2s,
-    background .2s,
-    box-shadow .2s,
-    transform .2s;
+  transition: 
+    color .2s ease,
+    border-color .2s ease,
+    background .2s ease,
+    box-shadow .2s ease,
+    transform .2s ease;
 }
 
-
-nav a::before{
-  content:"[ ";
-  opacity:0;
+nav a::before {
+  content: "[ ";
+  opacity: 0;
+  transition: opacity .2s ease, color .2s ease;
 }
 
-
-nav a::after{
-  content:" ]";
-  opacity:0;
+nav a::after {
+  content: " ]";
+  opacity: 0;
+  transition: opacity .2s ease, color .2s ease;
 }
 
-
-/* Hover uniquement sur appareils avec souris — crochets seuls, transition douce */
-@media (hover:hover) and (pointer:fine){
+/* Hover uniquement sur appareils avec souris */
+@media (hover: hover) and (pointer: fine) {
   nav a:hover::before,
-  nav a:hover::after{
-    opacity:1;
-    color:var(--green);
-    transition:opacity .2s, color .2s;
+  nav a:hover::after {
+    opacity: 1;
+    color: var(--green);
   }
 }
 
-
 /* ─────────────────────────────────────────
    CROCHETS SEULS — suivent la section visible
-   au scroll (pas de couleur/bordure pleine,
-   pas de transition = pas de traînée sur iPhone)
 ───────────────────────────────────────── */
 nav a.current::before,
-nav a.current::after{
-  opacity:1;
-  color:var(--green);
+nav a.current::after {
+  opacity: 1;
+  color: var(--green);
 }
-
 
 /* ─────────────────────────────────────────
    VERT PLEIN — uniquement sur le lien cliqué
 ───────────────────────────────────────── */
-nav a.selected{
-  color:var(--green);
-  border-color:var(--green);
-  text-shadow:0 0 10px var(--green);
+nav a.selected {
+  color: var(--green);
+  border-color: var(--green);
+  text-shadow: 0 0 10px var(--green);
 }
 
 nav a.selected::before,
-nav a.selected::after{
-  opacity:1;
-  color:var(--green);
+nav a.selected::after {
+  opacity: 1;
+  color: var(--green);
 }
-
 
 /* ─────────────────────────────────────────
    RESPONSIVE
 ───────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  nav {
+    justify-content: flex-start;
+    padding: 18px 14px;
+  }
+  nav a {
+    padding: 17px 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    gap: 6px;
+    padding: 9px 12px;
+  }
+  nav a {
+    padding: 6px 8px;
+    font-size: .75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  nav {
+    gap: 4px;
+    padding: 6px;
+  }
+  nav a {
+    font-size: .65rem;
+    padding: 5px 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  nav a,
+  nav a::before,
+  nav a::after {
+    transition: none !important;
+  }
+}
