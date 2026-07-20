@@ -1,7 +1,6 @@
 /* ─────────────────────────────────────────
-   NAVBAR
+   NAVBAR (Harmonisée avec l'univers Matrix/Terminal)
 ───────────────────────────────────────── */
-
 nav {
   position: sticky;
   top: 0;
@@ -18,21 +17,21 @@ nav {
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 
-  background: rgba(0, 0, 0, .78);
+  background: rgba(0, 0, 0, .85);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* Sécurité Safari */
+  -webkit-backdrop-filter: blur(10px);
 
   overflow-x: auto;
   overflow-y: hidden;
 
   white-space: nowrap;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
 }
 
 nav::-webkit-scrollbar {
-  display: none; /* Chrome/Safari/Opera */
+  display: none;
 }
 
 nav a {
@@ -45,6 +44,7 @@ nav a {
 
   padding: 10px 16px;
   border: 1px solid transparent;
+  border-radius: 2px; /* Cohérence globale avec vos .card et .skills */
 
   color: var(--green-dim);
   text-decoration: none;
@@ -75,6 +75,10 @@ nav a::after {
 
 /* Hover uniquement sur appareils avec souris */
 @media (hover: hover) and (pointer: fine) {
+  nav a:hover {
+    color: var(--green);
+    background: rgba(0, 255, 65, 0.05);
+  }
   nav a:hover::before,
   nav a:hover::after {
     opacity: 1;
@@ -83,7 +87,7 @@ nav a::after {
 }
 
 /* ─────────────────────────────────────────
-   CROCHETS SEULS — suivent la section visible
+   CROCHETS SEULS — suivent la section visible au scroll
 ───────────────────────────────────────── */
 nav a.current::before,
 nav a.current::after {
@@ -97,7 +101,9 @@ nav a.current::after {
 nav a.selected {
   color: var(--green);
   border-color: var(--green);
-  text-shadow: 0 0 10px var(--green);
+  background: rgba(0, 255, 65, 0.08);
+  text-shadow: 0 0 8px var(--green);
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.15);
 }
 
 nav a.selected::before,
@@ -107,9 +113,8 @@ nav a.selected::after {
 }
 
 /* ─────────────────────────────────────────
-   RESPONSIVE
+   RESPONSIVE NAVBAR
 ───────────────────────────────────────── */
-
 @media (max-width: 860px) {
   nav {
     justify-content: flex-start;
