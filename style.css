@@ -152,7 +152,7 @@ body {
 }
 #contact {
   /* Marge basse fluide valide (minimum 60px, idéal 20vh, maximum 350px) */
-  margin-bottom: clamp(60px, 20vh, 350px);
+  margin-bottom: clamp(220px, 20vh, 400px);
 }
 
 
