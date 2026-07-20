@@ -20,7 +20,8 @@ nav{
 
   background:rgba(0,0,0,.78);
   backdrop-filter:blur(10px);
-
+  
+  overflow-x:auto;
   overflow-y:hidden;
 
   white-space:nowrap;
