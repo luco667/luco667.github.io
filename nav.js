@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════
-   NAV — vert plein au clic, crochets au scroll (Version Optimisée)
+   NAV — vert plein au clic, crochets au scroll (Version Finale)
 ═══════════════════════════════════════════════════════════════════ */
 
 const nav = document.querySelector("nav");
@@ -41,7 +41,7 @@ function setSelectedLink(id) {
     const isSelected = link.getAttribute("href") === `#${id}`;
     link.classList.toggle("selected", isSelected);
     
-    // UX Amélioration : Centrer automatiquement le lien actif dans la barre horizontale
+    // Centrage automatique du lien actif dans la barre de navigation horizontale (mobile/desktop)
     if (isSelected) {
       link.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     }
@@ -58,7 +58,6 @@ function buildObserver() {
   if (observer) observer.disconnect();
 
   const offset = getScrollOffset();
-  // Utilisation d'une zone centrale plus robuste pour l'IntersectionObserver
   const topMargin = -offset;
   const bottomMargin = -(window.innerHeight - offset - 100);
 
@@ -107,12 +106,9 @@ navLinks.forEach(link => {
   });
 });
 
-// Fin d'auto-scroll propre
 const endAutoScroll = () => {
   if (isAutoScrolling) {
     isAutoScrolling = false;
-    // Optionnel : on peut enlever le .selected à la fin pour laisser place aux crochets (.current)
-    // clearSelected(); 
   }
 };
 
@@ -137,8 +133,6 @@ if ("onscrollend" in window) {
 
 window.addEventListener("scroll", () => {
   if (isAutoScrolling) return;
-  // Si l'utilisateur scroll manuellement, on nettoie le style plein "selected" 
-  // pour laisser les crochets indiquer la section courante.
   clearSelected();
 }, { passive: true });
 
