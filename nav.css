@@ -67,48 +67,57 @@ nav a{
 nav a::before{
   content:"[ ";
   opacity:0;
-  transition:opacity .2s;
+  transition:opacity .2s, color .2s;
 }
 
 
 nav a::after{
   content:" ]";
   opacity:0;
-  transition:opacity .2s;
+  transition:opacity .2s, color .2s;
 }
 
 
-nav a:hover{
-  color:var(--green);
-  border-color:var(--green);
+/* Hover uniquement sur appareils avec souris — évite le hover "collant" au tactile */
+@media (hover:hover) and (pointer:fine){
+  nav a:hover{
+    color:var(--green);
+    border-color:var(--green);
+    text-shadow:0 0 10px var(--green);
+    transform:translateY(-1px);
+  }
 
-  text-shadow:0 0 10px var(--green);
-
-  transform:translateY(-1px);
+  nav a:hover::before,
+  nav a:hover::after{
+    opacity:1;
+  }
 }
 
-/* crochets visibles : hover, section courante (scroll), ou lien cliqué */
-nav a:hover::before,
-nav a:hover::after,
-nav a.current::before,
-nav a.current::after,
-nav a.selected::before,
-nav a.selected::after{
-  opacity:1;
-}
 
-/* crochets seuls en vert vif pour le suivi scroll (texte reste terne) */
+/* ─────────────────────────────────────────
+   CROCHETS SEULS — suivent la section visible
+   pendant le scroll (pas de couleur/bordure pleine)
+───────────────────────────────────────── */
 nav a.current::before,
 nav a.current::after{
+  opacity:1;
   color:var(--green);
 }
 
 
-/* vert plein (couleur + bordure + glow) : uniquement au clic */
+/* ─────────────────────────────────────────
+   VERT PLEIN — uniquement sur le lien cliqué
+───────────────────────────────────────── */
 nav a.selected{
   color:var(--green);
   border-color:var(--green);
   text-shadow:0 0 10px var(--green);
+}
+
+nav a.selected::before,
+nav a.selected::after{
+  opacity:1;
+  color:var(--green);
 }
 
 
@@ -116,70 +125,47 @@ nav a.selected{
    RESPONSIVE
 ───────────────────────────────────────── */
 
-
-/* Tablettes */
 @media (max-width:860px){
-
   nav{
     justify-content:flex-start;
     padding:18px 14px;
   }
-
   nav a{
     padding:17px 15px;
   }
-
 }
 
-
-/* Mobile */
 @media (max-width:768px){
-
   nav{
     justify-content:flex-start;
     gap:8px;
   }
-
 }
 
-
-/* Petit mobile */
 @media (max-width:480px){
-
   nav{
     gap:6px;
     padding:9px 12px;
   }
-
   nav a{
     padding:6px 8px;
     font-size:.75rem;
   }
-
 }
 
-
-/* Très petit mobile */
 @media (max-width:360px){
-
   nav{
     gap:4px;
     padding:6px;
   }
-
   nav a{
     font-size:.65rem;
     padding:5px 6px;
   }
-
 }
 
-
-/* Accessibilité */
 @media (prefers-reduced-motion:reduce){
-
   nav a{
     transition:none;
   }
-
 }
