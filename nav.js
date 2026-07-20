@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
    NAV SCROLL — offset dynamique vers les ancres
-   + active nav on scroll
+   + active nav via IntersectionObserver
    + synchronisation --nav-height avec le CSS
 ═══════════════════════════════════════════ */
 
@@ -8,8 +8,6 @@ const nav = document.querySelector("nav");
 const sections = document.querySelectorAll("section");
 const navLinks = document.querySelectorAll("nav a");
 
-/* Marge supplémentaire retirée à la hauteur de la navbar.
-   → change juste cette valeur pour ajuster la distance globale. */
 const SCROLL_EXTRA_OFFSET = 15;
 
 function getScrollOffset() {
@@ -33,8 +31,30 @@ if ("ResizeObserver" in window) {
 }
 
 /* ─────────────────────────────────────────
+   Applique la classe active à un seul lien
+───────────────────────────────────────── */
+function setActiveLink(id) {
+  navLinks.forEach(link => {
+    const isCurrent = link.getAttribute("href") === `#${id}`;
+    link.classList.toggle("active", isCurrent);
+  });
+
+  // fait défiler la navbar horizontalement pour garder le lien actif visible (mobile)
+  const activeLink = document.querySelector(`nav a[href="#${id}"]`);
+  if (activeLink) {
+    activeLink.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center"
+    });
+  }
+}
+
+/* ─────────────────────────────────────────
    Clic sur un lien : scroll fluide avec offset
 ───────────────────────────────────────── */
+let isClicking = false;
+
 navLinks.forEach(link => {
   link.addEventListener("click", (e) => {
     const href = link.getAttribute("href");
@@ -45,9 +65,8 @@ navLinks.forEach(link => {
 
     e.preventDefault();
 
-    // un seul lien actif à la fois, appliqué immédiatement au clic
-    navLinks.forEach(l => l.classList.remove("active"));
-    link.classList.add("active");
+    isClicking = true;
+    setActiveLink(href.slice(1));
 
     const targetY = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
 
@@ -57,27 +76,39 @@ navLinks.forEach(link => {
     });
 
     history.pushState(null, "", href);
+
+    // laisse le temps au scroll fluide de finir avant de redonner
+    // la main à l'observer (évite un flicker pendant l'animation)
+    window.clearTimeout(isClicking._t);
+    isClicking._t = setTimeout(() => { isClicking = false; }, 800);
   });
 });
 
 /* ─────────────────────────────────────────
-   ACTIVE NAV ON SCROLL
+   ACTIVE NAV via IntersectionObserver
+   (fiable, ne rate jamais une section, pas de trou)
 ───────────────────────────────────────── */
-window.addEventListener("scroll", () => {
-  const offset = getScrollOffset();
-  let current = "";
+const observer = new IntersectionObserver((entries) => {
+  if (isClicking) return; // n'écrase pas le clic pendant le scroll animé
 
-  sections.forEach(sec => {
-    const top = sec.offsetTop - offset - sec.offsetHeight / 8;
-    const bottom = sec.offsetTop + sec.offsetHeight - offset;
+  // on prend la section la plus visible actuellement
+  let mostVisible = null;
 
-    if (window.scrollY >= top && window.scrollY < bottom) {
-      current = sec.id;
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      if (!mostVisible || entry.intersectionRatio > mostVisible.intersectionRatio) {
+        mostVisible = entry;
+      }
     }
   });
 
-  navLinks.forEach(link => {
-    const isCurrent = link.getAttribute("href") === `#${current}`;
-    link.classList.toggle("active", isCurrent);
-  });
-}, { passive: true });
+  if (mostVisible) {
+    setActiveLink(mostVisible.target.id);
+  }
+}, {
+  root: null,
+  rootMargin: `-${getScrollOffset()}px 0px -50% 0px`,
+  threshold: [0, 0.1, 0.25, 0.5, 0.75, 1]
+});
+
+sections.forEach(sec => observer.observe(sec));
