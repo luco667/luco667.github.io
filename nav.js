@@ -1,6 +1,5 @@
 /* ═══════════════════════════════════════════
-   NAV SCROLL — offset dynamique vers les ancres
-   + active nav (fiable montée/descente)
+   NAV — clic immédiat + suivi actif au scroll
    + synchronisation --nav-height avec le CSS
 ═══════════════════════════════════════════ */
 
@@ -35,60 +34,38 @@ if ("ResizeObserver" in window) {
 ───────────────────────────────────────── */
 function setActiveLink(id) {
   navLinks.forEach(link => {
-    const isCurrent = link.getAttribute("href") === `#${id}`;
-    link.classList.toggle("active", isCurrent);
+    link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
   });
-
-  const activeLink = document.querySelector(`nav a[href="#${id}"]`);
-  if (activeLink) {
-    activeLink.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "center"
-    });
-  }
 }
 
 /* ─────────────────────────────────────────
-   Détermine la section actuellement en vue
-   (fiable dans les deux sens de scroll)
+   Section actuellement visible
+   (fiable en montant ET en descendant)
 ───────────────────────────────────────── */
 function getCurrentSection() {
-  const offset = getScrollOffset();
-  const refLine = offset + 1; // ligne de référence juste sous la navbar
-
+  const refLine = getScrollOffset() + 1;
   let current = sections[0]?.id ?? "";
 
   sections.forEach(sec => {
-    const rect = sec.getBoundingClientRect();
-    // la section est "courante" si son haut a déjà passé la ligne de référence
-    if (rect.top <= refLine) {
+    if (sec.getBoundingClientRect().top <= refLine) {
       current = sec.id;
     }
   });
 
-  // cas particulier : tout en bas de page → force la dernière section
   const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-  if (atBottom) {
-    current = sections[sections.length - 1].id;
-  }
+  if (atBottom) current = sections[sections.length - 1].id;
 
   return current;
 }
 
-let ticking = false;
-function updateActiveOnScroll() {
-  if (ticking) return;
-  ticking = true;
-  requestAnimationFrame(() => {
-    setActiveLink(getCurrentSection());
-    ticking = false;
-  });
-}
-
 /* ─────────────────────────────────────────
-   Clic sur un lien : scroll fluide avec offset
+   Clic : actif immédiat + scroll fluide
+   (suppression temporaire du suivi scroll
+   pour éviter le clignotement pendant l'animation)
 ───────────────────────────────────────── */
+let suppressScrollUpdate = false;
+let suppressTimer = null;
+
 navLinks.forEach(link => {
   link.addEventListener("click", (e) => {
     const href = link.getAttribute("href");
@@ -100,6 +77,10 @@ navLinks.forEach(link => {
     e.preventDefault();
 
     setActiveLink(href.slice(1));
+
+    suppressScrollUpdate = true;
+    clearTimeout(suppressTimer);
+    suppressTimer = setTimeout(() => { suppressScrollUpdate = false; }, 700);
 
     const targetY = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
 
@@ -113,8 +94,19 @@ navLinks.forEach(link => {
 });
 
 /* ─────────────────────────────────────────
-   ACTIVE NAV ON SCROLL — marche montée et descente
+   Suivi actif pendant le scroll libre
 ───────────────────────────────────────── */
-window.addEventListener("scroll", updateActiveOnScroll, { passive: true });
-window.addEventListener("load", updateActiveOnScroll);
-updateActiveOnScroll();
+let ticking = false;
+
+window.addEventListener("scroll", () => {
+  if (suppressScrollUpdate) return;
+  if (ticking) return;
+
+  ticking = true;
+  requestAnimationFrame(() => {
+    setActiveLink(getCurrentSection());
+    ticking = false;
+  });
+}, { passive: true });
+
+window.addEventListener("load", () => setActiveLink(getCurrentSection()));
