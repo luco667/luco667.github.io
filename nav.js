@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════
    NAV SCROLL — offset dynamique vers les ancres
-   + active nav via IntersectionObserver
+   + active nav (fiable montée/descente)
    + synchronisation --nav-height avec le CSS
 ═══════════════════════════════════════════ */
 
@@ -39,7 +39,6 @@ function setActiveLink(id) {
     link.classList.toggle("active", isCurrent);
   });
 
-  // fait défiler la navbar horizontalement pour garder le lien actif visible (mobile)
   const activeLink = document.querySelector(`nav a[href="#${id}"]`);
   if (activeLink) {
     activeLink.scrollIntoView({
@@ -51,10 +50,45 @@ function setActiveLink(id) {
 }
 
 /* ─────────────────────────────────────────
+   Détermine la section actuellement en vue
+   (fiable dans les deux sens de scroll)
+───────────────────────────────────────── */
+function getCurrentSection() {
+  const offset = getScrollOffset();
+  const refLine = offset + 1; // ligne de référence juste sous la navbar
+
+  let current = sections[0]?.id ?? "";
+
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    // la section est "courante" si son haut a déjà passé la ligne de référence
+    if (rect.top <= refLine) {
+      current = sec.id;
+    }
+  });
+
+  // cas particulier : tout en bas de page → force la dernière section
+  const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+  if (atBottom) {
+    current = sections[sections.length - 1].id;
+  }
+
+  return current;
+}
+
+let ticking = false;
+function updateActiveOnScroll() {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    setActiveLink(getCurrentSection());
+    ticking = false;
+  });
+}
+
+/* ─────────────────────────────────────────
    Clic sur un lien : scroll fluide avec offset
 ───────────────────────────────────────── */
-let isClicking = false;
-
 navLinks.forEach(link => {
   link.addEventListener("click", (e) => {
     const href = link.getAttribute("href");
@@ -65,7 +99,6 @@ navLinks.forEach(link => {
 
     e.preventDefault();
 
-    isClicking = true;
     setActiveLink(href.slice(1));
 
     const targetY = target.getBoundingClientRect().top + window.scrollY - getScrollOffset();
@@ -76,39 +109,12 @@ navLinks.forEach(link => {
     });
 
     history.pushState(null, "", href);
-
-    // laisse le temps au scroll fluide de finir avant de redonner
-    // la main à l'observer (évite un flicker pendant l'animation)
-    window.clearTimeout(isClicking._t);
-    isClicking._t = setTimeout(() => { isClicking = false; }, 800);
   });
 });
 
 /* ─────────────────────────────────────────
-   ACTIVE NAV via IntersectionObserver
-   (fiable, ne rate jamais une section, pas de trou)
+   ACTIVE NAV ON SCROLL — marche montée et descente
 ───────────────────────────────────────── */
-const observer = new IntersectionObserver((entries) => {
-  if (isClicking) return; // n'écrase pas le clic pendant le scroll animé
-
-  // on prend la section la plus visible actuellement
-  let mostVisible = null;
-
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      if (!mostVisible || entry.intersectionRatio > mostVisible.intersectionRatio) {
-        mostVisible = entry;
-      }
-    }
-  });
-
-  if (mostVisible) {
-    setActiveLink(mostVisible.target.id);
-  }
-}, {
-  root: null,
-  rootMargin: `-${getScrollOffset()}px 0px -50% 0px`,
-  threshold: [0, 0.1, 0.25, 0.5, 0.75, 1]
-});
-
-sections.forEach(sec => observer.observe(sec));
+window.addEventListener("scroll", updateActiveOnScroll, { passive: true });
+window.addEventListener("load", updateActiveOnScroll);
+updateActiveOnScroll();
