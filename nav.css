@@ -3,8 +3,9 @@
 ───────────────────────────────────────── */
 
 nav{
-  position:sticky;
+  position:fixed;
   top:0;
+  left:0;
   z-index:10000;
 
   display:flex;
@@ -29,6 +30,7 @@ nav{
 
   -webkit-overflow-scrolling:touch;
 }
+
 
 nav::-webkit-scrollbar{
   display:none;
