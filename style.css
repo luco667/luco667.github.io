@@ -165,7 +165,7 @@ header {
 }
 header h1 {
   font-family: 'VT323', monospace;
-  font-size: clamp(2rem, 9vw, 5rem);
+  font-size: clamp(2rem, 9vw, 7rem);
   color: var(--green);
   letter-spacing: 0.08em;
   text-shadow:
