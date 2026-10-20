@@ -1,70 +1,81 @@
-<!DOCTYPE html><!--Define the document type-->
-<html><!--Define the HTML document-->
-<head><!--Contains metadata/information for document-->
-  <meta charset="UTF-8"><!--Define charset for CSS-->
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!--Define viewport for CSS-->
-  <meta name="referrer" content="strict-origin-when-cross-origin"><!--Security improvment for URL-->
-  <meta name="theme-color" content="#000000"><!--Set Browser color-->
-  <title>Portfolio in HTML5</title><!--Page title in Browser-->
-  <link rel="icon" href="../icons/icon.ico" type="image/x-icon"><!--Icon Browser-->
-  <link rel="stylesheet" href="style.css"><!--Link the stylesheet-->
+<!DOCTYPE html><!-- Define the document type -->
+<html><!-- Define the HTML document -->
+<head><!-- Contains metadata and information about the document -->
+  <meta charset="UTF-8"><!-- Define character encoding -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Define the viewport for responsive design -->
+  <meta name="referrer" content="strict-origin-when-cross-origin"><!-- Improve URL privacy and security -->
+  <meta name="theme-color" content="#000000"><!-- Set the browser theme color -->
+  <title>HTML5 Portfolio</title><!-- Set the browser tab title -->
+  <link rel="icon" href="../icons/icon.ico" type="image/x-icon"><!-- Set the browser tab icon -->
+  <link rel="stylesheet" href="style.css"><!-- Link the stylesheet -->
 </head>
-<body><!--Define the document's body-->
-  <header><!--Define the document's header-->
-    <div class="left-header-content"><!--Define the left content-->
-      <h1>Portfolio in HTML5</h1><!--Title's body-->
-      <p>On GitHub Pages</p><!--Subtitle's body-->
+
+<body><!-- Define the document body -->
+
+  <header><!-- Define the document header -->
+
+    <div class="left-header-content"><!-- Define the left header content -->
+      <h1>HTML5 Portfolio</h1><!-- Main page heading -->
+      <p>Hosted on GitHub Pages</p><!-- Page subtitle -->
     </div>
-    <div class="right-header-content"><!--Define the right content-->
-      <nav><!--Define the navbar-->
-        <ul><!--Define the navbar-->
-          <li><a href="#devel">Developpement</a></li>
-          <li><a href="#res">Network</a></li>
-          <li><a href="#ele">Electronic</a></li>
+
+    <div class="right-header-content"><!-- Define the right header content -->
+      <nav><!-- Define the navigation bar -->
+        <ul><!-- Define the navigation list -->
+          <li><a href="#devel">Development</a></li>
+          <li><a href="#res">Networking</a></li>
+          <li><a href="#ele">Electronics</a></li>
           <li><a href="#cyb">Cybersecurity</a></li>
-          <li><a href="#misc">Electronique</a></li>
+          <li><a href="#misc">Miscellaneous</a></li>
         </ul>
       </nav>
     </div>
+
   </header>
 
-  <main id="projects">
+  <main id="projects"><!-- Define the main content -->
 
     <section id="devel" class="project-category">
-      <h2>Developpement</h2>
+      <h2>Development</h2>
 
       <div class="project-grid">
 
-        <!-- PROJET : duplique cet article pour en ajouter un -->
+        <!-- PROJECT: Duplicate this article to add a new project -->
         <article class="project-card">
-          <span class="project-status">EN COURS</span>
-          <h3>Mon projet HTML</h3>
+          <span class="project-status">IN PROGRESS</span>
+          <h3>Web Application</h3>
           <p>
-            Description de mon projet, de ses fonctionnalités
-            et de son objectif.
+            Dynamic website without PHP (HTML, CSS, JavaScript).
           </p>
-          <div class="project-tags">
-            <span>HTML</span>
-            <span>CSS</span>
-          </div>
-          <a href="https://github.com/" target="_blank"
-             rel="noopener noreferrer">Voir le projet ↗</a>
-        </article>
 
-        <article class="project-card">
-          <span class="project-status completed">TERMINÉ</span>
-          <h3>Mon portfolio</h3>
-          <p>
-            Présentation de mon portfolio personnel
-            et de sa conception.
-          </p>
           <div class="project-tags">
             <span>HTML</span>
             <span>CSS</span>
             <span>JavaScript</span>
           </div>
-          <a href="https://github.com/" target="_blank"
-             rel="noopener noreferrer">Voir le projet ↗</a>
+
+          <a href="../Web_Language/Web.html"
+             target="_blank"
+             rel="noopener noreferrer">View Project ↗</a>
+        </article>
+
+        <article class="project-card">
+          <span class="project-status completed">COMPLETED</span>
+          <h3>My Portfolio</h3>
+          <p>
+            An overview of my personal portfolio
+            and its development process.
+          </p>
+
+          <div class="project-tags">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+          </div>
+
+          <a href="https://github.com/"
+             target="_blank"
+             rel="noopener noreferrer">View Project ↗</a>
         </article>
 
       </div>
@@ -74,31 +85,27 @@
       <h2>Design</h2>
 
       <div class="project-grid">
-        <!-- Ajoute tes projets de design ici -->
+        <!-- Add your design projects here -->
       </div>
     </section>
 
     <section id="autres" class="project-category">
-      <h2>Autres</h2>
+      <h2>Other Projects</h2>
 
       <div class="project-grid">
-        <!-- Ajoute tes autres projets ici -->
+        <!-- Add your other projects here -->
       </div>
     </section>
 
   </main>
 
-  <footer>
+  <footer><!-- Define the document footer -->
     <a href="https://starboost.fr"
        target="_blank"
        rel="noopener noreferrer">
-      © 2026 — Starboost instance
+      © 2026 — Starboost Instance
     </a>
   </footer>
-
-  <script type="module" src="matrix.js"></script>
-  <script type="module" src="javascript.js"></script>
-  <script type="module" src="cursor.js"></script>
 
 </body>
 </html>
