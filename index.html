@@ -1,111 +1,780 @@
-<!DOCTYPE html><!-- Define the document type -->
-<html><!-- Define the HTML document -->
-<head><!-- Contains metadata and information about the document -->
-  <meta charset="UTF-8"><!-- Define character encoding -->
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Define the viewport for responsive design -->
-  <meta name="referrer" content="strict-origin-when-cross-origin"><!-- Improve URL privacy and security -->
-  <meta name="theme-color" content="#000000"><!-- Set the browser theme color -->
-  <title>HTML5 Portfolio</title><!-- Set the browser tab title -->
-  <link rel="icon" href="../icons/icon.ico" type="image/x-icon"><!-- Set the browser tab icon -->
-  <link rel="stylesheet" href="style.css"><!-- Link the stylesheet -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#000000">
+
+  <title>Portfolio</title>
+  <link rel="icon" href="../icons/icon.ico" type="image/x-icon">
+
+  <style>
+    /* RESET */
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    :root {
+      --green: #00ff41;
+      --green-dark: #145c26;
+      --background: #050805;
+      --panel: #090f0a;
+      --text: #d5ffd9;
+      --muted: #72a77b;
+      --header-height: 100px;
+      --footer-height: 42px;
+      --gap: 12px;
+    }
+
+    html {
+      height: 100%;
+      background: var(--background);
+    }
+
+    body {
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      margin: 0;
+      overflow: hidden;
+      background: var(--background);
+      color: var(--text);
+      font-family: "Share Tech Mono", monospace;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* MAIN LAYOUT */
+
+    .app {
+      display: grid;
+      grid-template-rows:
+        var(--header-height)
+        minmax(0, 1fr)
+        var(--footer-height);
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* HEADER */
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 20px;
+      background: #000;
+      border-bottom: 1px solid var(--green);
+    }
+
+    .identity {
+      overflow: hidden;
+    }
+
+    .identity h1 {
+      margin: 0;
+      color: var(--green);
+      font-size: clamp(1rem, 2.5vw, 2rem);
+      text-transform: uppercase;
+      text-shadow: 0 0 12px #00ff4180;
+    }
+
+    .identity p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+    }
+
+    /* NAVIGATION */
+
+    nav {
+      justify-self: end;
+    }
+
+    nav ul {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    nav a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid var(--green-dark);
+      color: var(--green);
+      font-size: clamp(0.65rem, 1.1vw, 0.9rem);
+      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    nav a:hover,
+    nav a:focus-visible,
+    nav a[aria-current="page"] {
+      color: #000;
+      background: var(--green);
+      outline: none;
+    }
+
+    .short-label {
+      display: none;
+    }
+
+    /* CONTENT */
+
+    main {
+      position: relative;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .page {
+      display: none;
+      width: 100%;
+      height: 100%;
+      padding: 16px;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-color: var(--green-dark) var(--background);
+    }
+
+    .page.active {
+      display: flex;
+      flex-direction: column;
+      animation: appear 0.18s ease-out;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0.4;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .page > h2 {
+      flex: 0 0 auto;
+      margin: 0 0 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--green-dark);
+      color: var(--green);
+      font-size: clamp(1.2rem, 2.5vw, 2rem);
+      text-transform: uppercase;
+    }
+
+    /* PROJECT GRID */
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: minmax(180px, 1fr);
+      align-content: stretch;
+      align-items: stretch;
+      gap: var(--gap);
+      flex: 1 0 auto;
+      width: 100%;
+      min-width: 0;
+    }
+
+    /* PROJECT CARD */
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      width: 100%;
+      min-width: 0;
+      min-height: 180px;
+      padding: 16px;
+      overflow-wrap: anywhere;
+
+      background: var(--panel);
+      border: 1px solid #1d592b;
+      transition: border-color 0.2s;
+    }
+
+    .project-card:hover {
+      border-color: var(--green);
+    }
+
+    .project-status {
+      display: inline-block;
+      flex: 0 0 auto;
+      max-width: 100%;
+      padding: 4px 7px;
+      border: 1px solid var(--green);
+      color: var(--green);
+      font-size: 0.7rem;
+      line-height: 1.3;
+    }
+
+    .project-status.completed {
+      color: #8ba890;
+      border-color: #46664b;
+    }
+
+    .project-card h3 {
+      flex: 0 0 auto;
+      margin: 14px 0 6px;
+      color: #fff;
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+    }
+
+    .project-card p {
+      flex: 0 0 auto;
+      margin: 0 0 10px;
+      color: #9eb5a2;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .project-card ul {
+      flex: 0 0 auto;
+      margin: 0 0 10px;
+      padding-left: 18px;
+      color: #9eb5a2;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .project-card li {
+      overflow-wrap: anywhere;
+    }
+
+    /* TAGS */
+
+    .project-tags {
+      display: flex;
+      flex: 0 0 auto;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: auto;
+      padding-top: 8px;
+    }
+
+    .project-tags span {
+      padding: 4px 6px;
+      background: #102416;
+      color: #a6ffb5;
+      font-size: 0.7rem;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+    }
+
+    /* PROJECT LINKS */
+
+    .project-card > a {
+      flex: 0 0 auto;
+      margin-top: 12px;
+      color: var(--green);
+      font-size: 0.85rem;
+      line-height: 1.4;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    .project-card > a:hover,
+    .project-card > a:focus-visible {
+      text-decoration: underline;
+    }
+
+    /* EMPTY CATEGORIES */
+
+    .empty-message {
+      grid-column: 1 / -1;
+      align-self: start;
+      margin: 0;
+      padding: 16px;
+      background: var(--panel);
+      border: 1px solid #1d592b;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* FOOTER */
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 16px;
+      overflow: hidden;
+      background: #000;
+      border-top: 1px solid var(--green);
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    footer a:hover,
+    footer a:focus-visible {
+      color: var(--green);
+    }
+
+    /* TABLETS */
+
+    @media (max-width: 850px) {
+      :root {
+        --header-height: 90px;
+      }
+
+      header {
+        grid-template-columns: minmax(120px, 1fr) auto;
+        gap: 8px;
+        padding: 10px 12px;
+      }
+
+      nav ul {
+        gap: 4px;
+      }
+
+      nav a {
+        min-height: 36px;
+        padding: 7px;
+        font-size: 0.7rem;
+      }
+
+      .project-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: minmax(160px, 1fr);
+      }
+
+      .project-card {
+        padding: 12px;
+      }
+    }
+
+    /* PHONES */
+
+    @media (max-width: 600px) {
+      :root {
+        --header-height: 112px;
+        --footer-height: 36px;
+        --gap: 8px;
+      }
+
+      header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: 1fr auto;
+        align-content: stretch;
+        gap: 7px;
+        padding: 8px 10px;
+      }
+
+      .identity h1 {
+        font-size: clamp(0.95rem, 4.5vw, 1.3rem);
+      }
+
+      .identity p {
+        margin-top: 2px;
+        font-size: 0.65rem;
+      }
+
+      nav {
+        width: 100%;
+        justify-self: stretch;
+      }
+
+      nav ul {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 4px;
+        width: 100%;
+      }
+
+      nav li {
+        min-width: 0;
+      }
+
+      nav a {
+        width: 100%;
+        min-height: 34px;
+        padding: 4px 1px;
+        font-size: clamp(0.48rem, 2.1vw, 0.7rem);
+        letter-spacing: -0.04em;
+        white-space: nowrap;
+      }
+
+      .full-label {
+        display: none;
+      }
+
+      .short-label {
+        display: inline;
+      }
+
+      .page {
+        padding: 10px;
+      }
+
+      .page > h2 {
+        margin-bottom: 10px;
+        padding-bottom: 7px;
+        font-size: 1.2rem;
+      }
+
+      .project-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: minmax(140px, 1fr);
+        gap: 8px;
+      }
+
+      .project-card {
+        min-height: 140px;
+        padding: 9px;
+      }
+
+      .project-status {
+        padding: 3px 4px;
+        font-size: 0.62rem;
+      }
+
+      .project-card h3 {
+        margin: 8px 0 5px;
+        font-size: 0.95rem;
+      }
+
+      .project-card p {
+        margin-bottom: 6px;
+        font-size: 0.75rem;
+        line-height: 1.35;
+      }
+
+      .project-card ul {
+        margin-bottom: 6px;
+        padding-left: 15px;
+        font-size: 0.72rem;
+      }
+
+      .project-tags {
+        gap: 4px;
+        padding-top: 5px;
+      }
+
+      .project-tags span {
+        padding: 3px 4px;
+        font-size: 0.6rem;
+      }
+
+      .project-card > a {
+        margin-top: 8px;
+        font-size: 0.7rem;
+      }
+
+      .empty-message {
+        padding: 10px;
+        font-size: 0.8rem;
+      }
+
+      footer {
+        padding: 0 10px;
+        font-size: 0.65rem;
+      }
+    }
+
+    /* VERY SMALL PHONES */
+
+    @media (max-width: 360px) {
+      :root {
+        --header-height: 105px;
+        --footer-height: 32px;
+      }
+
+      header {
+        padding: 6px;
+      }
+
+      nav ul {
+        gap: 3px;
+      }
+
+      nav a {
+        min-height: 32px;
+        font-size: 0.45rem;
+        letter-spacing: -0.06em;
+      }
+
+      .page {
+        padding: 7px;
+      }
+
+      .project-grid {
+        grid-template-columns: minmax(0, 1fr);
+        grid-auto-rows: minmax(130px, 1fr);
+      }
+
+      .project-card {
+        min-height: 130px;
+        padding: 8px;
+      }
+
+      .project-card h3 {
+        font-size: 0.9rem;
+      }
+
+      .project-card p {
+        font-size: 0.7rem;
+      }
+    }
+
+    /* SHORT DESKTOP SCREENS */
+
+    @media (max-height: 650px) and (min-width: 601px) {
+      :root {
+        --header-height: 64px;
+        --footer-height: 30px;
+      }
+
+      .page {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+
+      .page > h2 {
+        margin-bottom: 8px;
+        padding-bottom: 5px;
+      }
+
+      .project-grid {
+        grid-auto-rows: minmax(130px, 1fr);
+      }
+
+      .project-card {
+        min-height: 130px;
+        padding: 9px;
+      }
+
+      .project-card h3 {
+        margin-top: 7px;
+      }
+
+      .project-card p,
+      .project-card ul {
+        line-height: 1.3;
+      }
+    }
+
+    /* ACCESSIBILITY */
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
 </head>
 
-<body><!-- Define the document body -->
+<body>
+  <div class="app">
 
-  <header><!-- Define the document header -->
+    <header>
+      <div class="identity">
+        <h1>HTML5 Portfolio</h1>
+        <p>Hosted on Github pages</p>
+      </div>
 
-    <div class="left-header-content"><!-- Define the left header content -->
-      <h1>HTML5 Portfolio</h1><!-- Main page heading -->
-      <p>Hosted on GitHub Pages</p><!-- Page subtitle -->
-    </div>
-
-    <div class="right-header-content"><!-- Define the right header content -->
-      <nav><!-- Define the navigation bar -->
-        <ul><!-- Define the navigation list -->
-          <li><a href="#devel">Development</a></li>
-          <li><a href="#res">Networking</a></li>
-          <li><a href="#ele">Electronics</a></li>
-          <li><a href="#cyb">Cybersecurity</a></li>
-          <li><a href="#misc">Miscellaneous</a></li>
+      <nav aria-label="Project categories">
+        <ul>
+          <li>
+            <a href="#devel" data-page="devel" aria-current="page">
+              <span class="full-label">Development</span>
+              <span class="short-label">DEV</span>
+            </a>
+          </li>
+          <li>
+            <a href="#res" data-page="res">
+              <span class="full-label">Networking</span>
+              <span class="short-label">NET</span>
+            </a>
+          </li>
+          <li>
+            <a href="#ele" data-page="ele">
+              <span class="full-label">Electronics</span>
+              <span class="short-label">ELEC</span>
+            </a>
+          </li>
+          <li>
+            <a href="#cyb" data-page="cyb">
+              <span class="full-label">Cybersecurity</span>
+              <span class="short-label">CYBER</span>
+            </a>
+          </li>
+          <li>
+            <a href="#misc" data-page="misc">
+              <span class="full-label">Miscellaneous</span>
+              <span class="short-label">MISC</span>
+            </a>
+          </li>
         </ul>
       </nav>
-    </div>
+    </header>
 
-  </header>
+    <main id="viewport">
 
-  <main id="projects"><!-- Define the main content -->
+      <!-- DEVELOPMENT -->
+      <section id="devel" class="page active">
+        <h2>Development</h2>
 
-    <section id="devel" class="project-category">
-      <h2>Development</h2>
+        <div class="project-grid">
 
-      <div class="project-grid">
+          <article class="project-card">
+            <span class="project-status">IN PROGRESS</span>
+            <h3>Static Web App</h3>
+            <p>Website built without PHP.</p>
 
-        <!-- PROJECT: Duplicate this article to add a new project -->
-        <article class="project-card">
-          <span class="project-status">IN PROGRESS</span>
-          <h3>Web Application</h3>
-          <p>
-            Dynamic website without PHP (HTML, CSS, JavaScript).
-          </p>
+            <ul>
+              <li>Portfolio.</li>
+              <li>Snake.</li>
+              <li>QR-code generator.</li>
+            </ul>
 
-          <div class="project-tags">
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>JavaScript</span>
-          </div>
+            <div class="project-tags">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+              <span>Python</span>
+            </div>
 
-          <a href="../Web_Language/Web.html"
-             target="_blank"
-             rel="noopener noreferrer">View Project ↗</a>
-        </article>
+            <a href="/Devel/SWA/simwebapps.html">
+              View Project ↗
+            </a>
+          </article>
 
-        <article class="project-card">
-          <span class="project-status completed">COMPLETED</span>
-          <h3>My Portfolio</h3>
-          <p>
-            An overview of my personal portfolio
-            and its development process.
-          </p>
+          <article class="project-card">
+            <span class="project-status completed">COMPLETED</span>
+            <h3>C and C++ App</h3>
+            <p>Personal development with MinGW and web deployment.</p>
 
-          <div class="project-tags">
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>JavaScript</span>
-          </div>
+            <ul>
+              <li>Pixelnote.</li>
+            </ul>
 
-          <a href="https://github.com/"
-             target="_blank"
-             rel="noopener noreferrer">View Project ↗</a>
-        </article>
+            <div class="project-tags">
+              <span>C</span>
+              <span>C++</span>
+              <span>MinGW</span>
+            </div>
 
-      </div>
-    </section>
+            <a href="/Devel/Clanguage/Clanguage.html">
+              View Project ↗
+            </a>
+          </article>
 
-    <section id="design" class="project-category">
-      <h2>Design</h2>
+        </div>
+      </section>
 
-      <div class="project-grid">
-        <!-- Add your design projects here -->
-      </div>
-    </section>
+      <!-- NETWORKING -->
+      <section id="res" class="page">
+        <h2>Networking</h2>
+        <div class="project-grid">
+          <p class="empty-message">No networking projects yet.</p>
+        </div>
+      </section>
 
-    <section id="autres" class="project-category">
-      <h2>Other Projects</h2>
+      <!-- ELECTRONICS -->
+      <section id="ele" class="page">
+        <h2>Electronics</h2>
+        <div class="project-grid">
+          <p class="empty-message">No electronics projects yet.</p>
+        </div>
+      </section>
 
-      <div class="project-grid">
-        <!-- Add your other projects here -->
-      </div>
-    </section>
+      <!-- CYBERSECURITY -->
+      <section id="cyb" class="page">
+        <h2>Cybersecurity</h2>
+        <div class="project-grid">
+          <p class="empty-message">No cybersecurity projects yet.</p>
+        </div>
+      </section>
 
-  </main>
+      <!-- MISCELLANEOUS -->
+      <section id="misc" class="page">
+        <h2>Miscellaneous</h2>
+        <div class="project-grid">
+          <p class="empty-message">No other projects yet.</p>
+        </div>
+      </section>
 
-  <footer><!-- Define the document footer -->
-    <a href="https://starboost.fr"
-       target="_blank"
-       rel="noopener noreferrer">
-      © 2026 — Starboost Instance
-    </a>
-  </footer>
+    </main>
 
+    <footer>
+      <span><a href="https://github.com/Luco667" target="_blank" rel="noopener noreferrer">© 2026 — Luco667</a></span>
+      <a href="https://starboost.fr" target="_blank" rel="noopener noreferrer"> Starboost ↗</a>
+    </footer>
+
+  </div>
+
+  <script>
+    /* SINGLE-PAGE NAVIGATION */
+
+    const navigationLinks = document.querySelectorAll("[data-page]");
+    const pages = document.querySelectorAll(".page");
+
+    function showPage(pageId) {
+      const targetPage = document.getElementById(pageId);
+
+      if (!targetPage || !targetPage.classList.contains("page")) {
+        return;
+      }
+
+      pages.forEach((page) => {
+        const isActive = page.id === pageId;
+
+        page.classList.toggle("active", isActive);
+
+        if (isActive) {
+          page.scrollTop = 0;
+        }
+      });
+
+      navigationLinks.forEach((link) => {
+        if (link.dataset.page === pageId) {
+          link.setAttribute("aria-current", "page");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    }
+
+    function navigateToHash() {
+      const pageId = window.location.hash.slice(1) || "devel";
+      showPage(pageId);
+    }
+
+    window.addEventListener("hashchange", navigateToHash);
+    navigateToHash();
+  </script>
 </body>
 </html>
