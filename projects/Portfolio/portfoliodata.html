@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#050805">
+
+  <title>Technical Datasheet | Portfolio</title>
+
+  <style>
+    @font-face {
+      font-family: "Minecraft";
+      src: url("Minecraft.ttf") format("truetype");
+      font-display: swap;
+    }
+
+    :root {
+      --green: #00ff41;
+      --dark-green: #145c26;
+      --background: #050805;
+      --panel: #090f0a;
+      --text: #d5ffd9;
+      --muted: #72a77b;
+      --header-height: 64px;
+      --footer-height: 36px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 12px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: "Minecraft", monospace;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* FIXED HEADER */
+
+    header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 10;
+      height: var(--header-height);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6px 16px;
+      overflow: hidden;
+      background: #000;
+      border-bottom: 1px solid var(--green);
+    }
+
+    header h1 {
+      margin: 0;
+      color: var(--green);
+      font-size: clamp(0.8rem, 2.5vw, 1.15rem);
+      line-height: 1.5;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.65rem;
+    }
+
+    /* SCROLLABLE CONTENT */
+
+    main {
+      position: fixed;
+      top: var(--header-height);
+      right: 0;
+      bottom: var(--footer-height);
+      left: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 16px;
+      overscroll-behavior: contain;
+      scrollbar-color: var(--dark-green) var(--background);
+    }
+
+    .content {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* TABLE OF CONTENTS */
+
+    .toc,
+    section {
+      margin-bottom: 16px;
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--dark-green);
+    }
+
+    .toc h2,
+    section h2 {
+      margin: 0 0 10px;
+      padding-bottom: 7px;
+      color: var(--green);
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--dark-green);
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 24px;
+    }
+
+    .toc li {
+      margin: 4px 0;
+    }
+
+    a {
+      color: var(--green);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    a:hover,
+    a:focus-visible {
+      text-decoration: underline;
+    }
+
+    /* DOCUMENTATION */
+
+    section {
+      scroll-margin-top: 12px;
+    }
+
+    section h3 {
+      margin: 14px 0 5px;
+      color: var(--green);
+      font-size: 0.8rem;
+    }
+
+    section p {
+      margin: 6px 0;
+    }
+
+    section ul {
+      margin: 6px 0;
+      padding-left: 20px;
+    }
+
+    section li {
+      margin-bottom: 4px;
+    }
+
+    strong {
+      color: var(--text);
+    }
+
+    code {
+      color: var(--green);
+      overflow-wrap: anywhere;
+    }
+
+    pre {
+      margin: 10px 0;
+      padding: 12px;
+      overflow-x: auto;
+      background: #000;
+      border-left: 2px solid var(--green);
+      color: var(--green);
+      font: inherit;
+      font-size: 0.75rem;
+      line-height: 1.7;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* FIXED FOOTER */
+
+    footer {
+      position: fixed;
+      inset: auto 0 0;
+      z-index: 10;
+      height: var(--footer-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 0 14px;
+      overflow: hidden;
+      background: #000;
+      border-top: 1px solid var(--green);
+      color: var(--muted);
+      font-size: 0.65rem;
+    }
+
+    footer a {
+      flex-shrink: 0;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+      :root {
+        --header-height: 60px;
+        --footer-height: 34px;
+      }
+
+      header {
+        padding: 5px 10px;
+      }
+
+      header h1 {
+        font-size: 0.8rem;
+      }
+
+      header p {
+        font-size: 0.55rem;
+      }
+
+      main {
+        padding: 10px;
+      }
+
+      .toc,
+      section {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      footer {
+        padding: 0 8px;
+        font-size: 0.55rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1><a href="/Devel/SWA/simwebapps.html">TECHNICAL DATASHEET // HTML5 PORTFOLIO</a></h1>
+    <p><a href="/Devel/SWA/simwebapps.html" style="color: inherit; text-decoration: none;"> ← Back to home</a></p>
+  </header>
+
+  <main>
+    <div class="content">
+
+      <!-- TABLE OF CONTENTS -->
+
+      <nav class="toc" aria-label="Table of contents">
+        <h2>00 / TABLE OF CONTENTS</h2>
+        <ol>
+          <li><a href="#identification">Project Identification</a></li>
+          <li><a href="#overview">Project Overview</a></li>
+          <li><a href="#architecture">System Architecture</a></li>
+          <li><a href="#technologies">Technologies</a></li>
+          <li><a href="#design">Design System</a></li>
+          <li><a href="#responsive">Responsive Design</a></li>
+          <li><a href="#navigation">Navigation and Interaction</a></li>
+          <li><a href="#security">Security and Accessibility</a></li>
+          <li><a href="#deployment">Hosting and Deployment</a></li>
+          <li><a href="#maintenance">Maintenance and Development</a></li>
+          <li><a href="#resources">Source Code and Resources</a></li>
+        </ol>
+      </nav>
+
+      <!-- 01 -->
+
+      <section id="identification">
+        <h2>01 / PROJECT IDENTIFICATION</h2>
+
+        <p><strong>Project:</strong> Personal Portfolio Website</p>
+        <p><strong>Author:</strong> Lucas Le Gueut</p>
+        <p><strong>Project type:</strong> Static website</p>
+        <p><strong>Primary technologies:</strong> HTML5, CSS3, JavaScript</p>
+        <p><strong>Hosting platform:</strong> GitHub Pages</p>
+        <p><strong>Interface:</strong> Responsive web application</p>
+        <p><strong>Visual identity:</strong> Matrix / Terminal</p>
+        <p><strong>Document type:</strong> Technical documentation</p>
+      </section>
+
+      <!-- 02 -->
+
+      <section id="overview">
+        <h2>02 / PROJECT OVERVIEW</h2>
+
+        <p>
+          The portfolio is a personal website designed to present technical
+          skills, development projects, professional experience and contact
+          information in a structured interface.
+        </p>
+
+        <p>
+          Its visual identity is inspired by terminal interfaces and the
+          Matrix aesthetic. A dark background, green accents and technical
+          typography establish a consistent visual language.
+        </p>
+
+        <h3>Primary objectives</h3>
+        <ul>
+          <li>Present projects and technical skills.</li>
+          <li>Organize information into clearly identifiable sections.</li>
+          <li>Provide a responsive interface across devices.</li>
+          <li>Keep the website lightweight and easy to maintain.</li>
+          <li>Publish the source through a version-controlled repository.</li>
+        </ul>
+      </section>
+
+      <!-- 03 -->
+
+      <section id="architecture">
+        <h2>03 / SYSTEM ARCHITECTURE</h2>
+
+        <p>
+          The website relies on standard browser technologies. HTML defines
+          the document structure, CSS handles presentation and layout, and
+          JavaScript provides client-side behavior where necessary.
+        </p>
+
+        <h3>Logical document structure</h3>
+
+        <pre>index.html
+├── HEAD
+│   ├── Metadata
+│   ├── Page title
+│   └── CSS / font declarations
+├── BODY
+│   ├── Header
+│   ├── Navigation
+│   ├── Main content
+│   │   ├── About
+│   │   ├── Skills
+│   │   ├── Projects
+│   │   ├── Contact
+│   │   └── Technical documentation
+│   └── Footer
+└── JavaScript</pre>
+
+        <p class="muted">
+          This diagram represents a logical overview. The actual file
+          structure may differ depending on the page implementation.
+        </p>
+
+        <h3>Rendering process</h3>
+        <p>
+          The browser loads the HTML document, resolves linked assets,
+          applies the CSS rules and executes any JavaScript required
+          by the page.
+        </p>
+      </section>
+
+      <!-- 04 -->
+
+      <section id="technologies">
+        <h2>04 / TECHNOLOGIES</h2>
+
+        <h3>HTML5 — Document structure</h3>
+        <p>
+          HTML provides the semantic organization of the interface.
+          Elements such as <code>header</code>, <code>nav</code>,
+          <code>main</code>, <code>section</code> and <code>footer</code>
+          identify the roles of individual content areas.
+        </p>
+
+        <h3>CSS3 — Presentation</h3>
+        <p>
+          CSS defines colors, typography, spacing, borders and responsive
+          layouts. Custom properties centralize recurring design values.
+          Flexbox and Grid can be used to organize interface components.
+        </p>
+
+        <h3>JavaScript — Client-side logic</h3>
+        <p>
+          JavaScript can manage interactive navigation, expandable project
+          categories and other dynamic interface elements. It executes
+          in the visitor's browser.
+        </p>
+
+        <h3>Custom fonts</h3>
+        <p>
+          The local font file <code>Minecraft.ttf</code> can be loaded
+          using <code>@font-face</code>. If unavailable, the browser
+          falls back to the configured generic font.
+        </p>
+      </section>
+
+      <!-- 05 -->
+
+      <section id="design">
+        <h2>05 / DESIGN SYSTEM</h2>
+
+        <p><strong>Style:</strong> Matrix / Terminal</p>
+        <p><strong>Primary accent:</strong> <code>#00FF41</code></p>
+        <p><strong>Background:</strong> <code>#050805</code></p>
+        <p><strong>Panel:</strong> <code>#090F0A</code></p>
+        <p><strong>Primary text:</strong> <code>#D5FFD9</code></p>
+        <p><strong>Secondary text:</strong> <code>#72A77B</code></p>
+        <p><strong>Typography:</strong> Minecraft.ttf</p>
+
+        <h3>Design principles</h3>
+        <ul>
+          <li>High contrast between text and background.</li>
+          <li>Consistent green accent colors.</li>
+          <li>Clear heading hierarchy.</li>
+          <li>Minimal decorative elements.</li>
+          <li>Reusable CSS rules and design variables.</li>
+        </ul>
+      </section>
+
+      <!-- 06 -->
+
+      <section id="responsive">
+        <h2>06 / RESPONSIVE DESIGN</h2>
+
+        <p>
+          Responsive behavior allows the interface to adapt to different
+          screen widths without requiring a separate mobile website.
+        </p>
+
+        <h3>Implementation principles</h3>
+        <ul>
+          <li>Flexible widths instead of fixed page dimensions.</li>
+          <li>Media queries for narrow screens.</li>
+          <li>Fluid typography where appropriate.</li>
+          <li>Controlled overflow for long technical content.</li>
+          <li>Touch-friendly navigation and links.</li>
+        </ul>
+
+        <h3>Documentation viewport</h3>
+        <p>
+          The technical datasheet uses a fixed header and footer.
+          The central content area scrolls independently, keeping
+          navigation landmarks visible on desktop and mobile.
+        </p>
+      </section>
+
+      <!-- 07 -->
+
+      <section id="navigation">
+        <h2>07 / NAVIGATION AND INTERACTION</h2>
+
+        <p>
+          Navigation links connect the different sections of the website.
+          Internal anchor links can direct visitors to specific content
+          without loading another document.
+        </p>
+
+        <h3>Project presentation</h3>
+        <p>
+          Project entries can contain a title, description, status,
+          technologies and links to a live demonstration or source code.
+        </p>
+
+        <h3>Embedded content</h3>
+        <p>
+          An iframe can display another web page within a project entry.
+          Its dimensions, loading behavior and interaction permissions
+          must be configured according to the intended use.
+        </p>
+      </section>
+
+      <!-- 08 -->
+
+      <section id="security">
+        <h2>08 / SECURITY AND ACCESSIBILITY</h2>
+
+        <h3>Security</h3>
+        <ul>
+          <li>Use HTTPS for published resources.</li>
+          <li>Use appropriate link attributes for external tabs.</li>
+          <li>Load third-party resources only when required.</li>
+          <li>Do not expose passwords, API keys or private credentials.</li>
+          <li>Validate external links and embedded content.</li>
+        </ul>
+
+        <h3>Accessibility</h3>
+        <ul>
+          <li>Use semantic HTML elements.</li>
+          <li>Provide meaningful page titles and link labels.</li>
+          <li>Maintain sufficient text contrast.</li>
+          <li>Support keyboard navigation and visible focus states.</li>
+          <li>Respect reduced-motion preferences.</li>
+        </ul>
+      </section>
+
+      <!-- 09 -->
+
+      <section id="deployment">
+        <h2>09 / HOSTING AND DEPLOYMENT</h2>
+
+        <p>
+          GitHub Pages can serve the portfolio as a static website
+          directly from a configured repository and branch.
+        </p>
+
+        <h3>Deployment workflow</h3>
+        <pre>1. Edit the source files
+2. Test locally in a browser
+3. Validate HTML and CSS
+4. Commit changes with Git
+5. Push changes to GitHub
+6. Verify the published website</pre>
+
+        <p>
+          A server-side runtime or database is not required for static
+          pages. Features requiring server-side processing or persistent
+          user data need an additional service.
+        </p>
+      </section>
+
+      <!-- 10 -->
+
+      <section id="maintenance">
+        <h2>10 / MAINTENANCE AND DEVELOPMENT</h2>
+
+        <h3>Code maintenance</h3>
+        <ul>
+          <li>Keep HTML semantic and correctly nested.</li>
+          <li>Centralize recurring styles in CSS variables.</li>
+          <li>Remove unused styles and obsolete components.</li>
+          <li>Use consistent naming for classes and identifiers.</li>
+          <li>Test layouts after significant changes.</li>
+        </ul>
+
+        <h3>Validation</h3>
+        <p>
+          HTML validation, responsive testing, keyboard checks and
+          browser-console inspection help identify implementation
+          problems before deployment.
+        </p>
+
+        <h3>Future improvements</h3>
+        <p>
+          Potential extensions include project-specific datasheets,
+          source-code examples, performance improvements and automated
+          deployment checks.
+        </p>
+      </section>
+
+      <!-- 11 -->
+
+      <section id="resources">
+        <h2>11 / SOURCE CODE AND RESOURCES</h2>
+
+        <p>
+          <strong>GitHub profile:</strong>
+          <a href="https://github.com/Luco667"
+             target="_blank"
+             rel="noopener noreferrer">github.com/Luco667</a>
+        </p>
+
+        <p>
+          <strong>Published website:</strong>
+          <a href="https://lucaslg.fr"
+             target="_blank"
+             rel="noopener noreferrer">lucaslg.fr</a>
+        </p>
+
+        <p><strong>Source management:</strong> Git</p>
+        <p><strong>Documentation format:</strong> HTML</p>
+        <p><strong>Hosting model:</strong> Static web hosting</p>
+
+        <p class="muted">
+          This document describes the project's general architecture
+          and development principles. Implementation-specific details
+          should be verified against the actual source code.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <span>TECHNICAL DATASHEET</span>
+    <a href="#top" onclick="window.scrollTo(0, 0); return false;">
+      BACK TO TOP ↑
+    </a>
+  </footer>
+
+</body>
+</html>qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
