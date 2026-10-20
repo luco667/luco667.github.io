@@ -189,31 +189,44 @@ footer a {
 footer a:hover {
   color: #00ff41;
 }
-
 /* RESPONSIVE */
+
+/* TABLETS */
 @media (max-width: 900px) {
   .project-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .left-header-content {
-    width: 45%;
+    width: 40%;
   }
 
   .right-header-content {
-    width: 55%;
+    width: 60%;
+    padding: 1rem;
+  }
+
+  nav ul {
+    gap: 0.5rem;
+  }
+
+  nav a {
+    padding: 0.7rem;
+    font-size: clamp(0.65rem, 1.5vw, 0.9rem);
   }
 }
 
+/* MOBILE */
 @media (max-width: 600px) {
   header {
     flex-direction: column;
+    min-height: auto;
   }
 
   .left-header-content,
   .right-header-content {
     width: 100%;
-    padding: 1.5rem;
+    padding: 1rem;
   }
 
   .left-header-content {
@@ -221,24 +234,99 @@ footer a:hover {
     border-bottom: 1px solid #145c26;
   }
 
+  .left-header-content h1 {
+    font-size: clamp(1.3rem, 6vw, 2rem);
+    overflow-wrap: anywhere;
+  }
+
   .right-header-content {
-    justify-content: flex-start;
+    justify-content: center;
+  }
+
+  /* Keep all navigation categories on one horizontal line */
+  nav {
+    width: 100%;
+    min-width: 0;
   }
 
   nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 0.25rem;
     width: 100%;
-    flex-direction: column;
+    min-width: 0;
+  }
+
+  nav li {
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 44px;
+    padding: 0.4rem 0.1rem;
+    font-size: clamp(0.48rem, 2.2vw, 0.75rem);
+    line-height: 1.2;
     text-align: center;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+
+  /* Project categories */
+  .project-category {
+    padding: 1rem;
+    scroll-margin-top: 0.5rem;
+  }
+
+  .project-category h2 {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+  }
+
+  /* One project card per row */
+  .project-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .project-card {
+    padding: 1rem;
+  }
+
+  .project-card h3 {
+    font-size: 1.25rem;
+  }
+
+  footer {
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* VERY SMALL PHONES */
+@media (max-width: 360px) {
+  nav ul {
+    gap: 0.15rem;
+  }
+
+  nav a {
+    padding: 0.3rem 0.05rem;
+    font-size: 0.48rem;
+    letter-spacing: -0.04em;
+  }
+
+  .left-header-content,
+  .right-header-content {
+    padding: 0.75rem;
   }
 
   .project-category {
-    padding: 1.5rem;
-  }
-
-  .project-grid {
-    grid-template-columns: 1fr;
+    padding: 0.75rem;
   }
 }
