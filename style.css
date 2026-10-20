@@ -212,7 +212,7 @@ footer a:hover {
 
   nav a {
     padding: 0.7rem;
-    font-size: clamp(0.65rem, 1.5vw, 0.9rem);
+    font-size: clamp(0.50rem, 1.5vw, 0.9rem);
   }
 }
 
