@@ -1,0 +1,109 @@
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#000000">
+
+  <title>Portfolio in HTML5</title>
+
+  <link rel="icon" href="../icons/icon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <div class="left-header-content">
+      <h1>Portfolio in HTML5</h1>
+      <p>On GitHub Pages</p>
+    </div>
+
+    <div class="right-header-content">
+      <nav aria-label="Catégories de projets">
+        <ul>
+          <li><a href="#developpement">Développement</a></li>
+          <li><a href="#design">Design</a></li>
+          <li><a href="#autres">Autres</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="projects">
+
+    <section id="developpement" class="project-category">
+      <h2>Développement</h2>
+
+      <div class="project-grid">
+
+        <!-- PROJET : duplique cet article pour en ajouter un -->
+        <article class="project-card">
+          <span class="project-status">EN COURS</span>
+          <h3>Mon projet HTML</h3>
+          <p>
+            Description de mon projet, de ses fonctionnalités
+            et de son objectif.
+          </p>
+          <div class="project-tags">
+            <span>HTML</span>
+            <span>CSS</span>
+          </div>
+          <a href="https://github.com/" target="_blank"
+             rel="noopener noreferrer">Voir le projet ↗</a>
+        </article>
+
+        <article class="project-card">
+          <span class="project-status completed">TERMINÉ</span>
+          <h3>Mon portfolio</h3>
+          <p>
+            Présentation de mon portfolio personnel
+            et de sa conception.
+          </p>
+          <div class="project-tags">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+          </div>
+          <a href="https://github.com/" target="_blank"
+             rel="noopener noreferrer">Voir le projet ↗</a>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="design" class="project-category">
+      <h2>Design</h2>
+
+      <div class="project-grid">
+        <!-- Ajoute tes projets de design ici -->
+      </div>
+    </section>
+
+    <section id="autres" class="project-category">
+      <h2>Autres</h2>
+
+      <div class="project-grid">
+        <!-- Ajoute tes autres projets ici -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <a href="https://starboost.fr"
+       target="_blank"
+       rel="noopener noreferrer">
+      © 2026 — Starboost instance
+    </a>
+  </footer>
+
+  <script type="module" src="matrix.js"></script>
+  <script type="module" src="javascript.js"></script>
+  <script type="module" src="cursor.js"></script>
+
+</body>
+</html>
+```
