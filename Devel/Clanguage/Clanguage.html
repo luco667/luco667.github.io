@@ -683,13 +683,22 @@
           </p>
 
             <!-- LIVE GAME PREVIEW -->
-        <div class="iframe-container">
+          <div class="iframe-container">
             <iframe
-            src="/projects/Pixelnote/index.html"
-            title="Pixelnote"
-            allowfullscreen>
+              src="/projects/Pixelnote/index.html"
+              title="Pixelnote"
+              loading="lazy"
+              tabindex="-1">
             </iframe>
-        </div>
+            <div class="iframe-overlay"
+                role="button"
+                tabindex="0"
+                aria-label="Activate interaction with Personal Portfolio preview"
+                onclick="this.parentElement.classList.add('active')"
+                onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.parentElement.classList.add('active'); }">
+              CLICK TO INTERACT
+            </div>
+          </div>
           <div class="project-tags">
             <span>HTML</span>
             <span>CSS</span>
@@ -720,13 +729,22 @@
           </p>
 
             <!-- LIVE GAME PREVIEW -->
-        <div class="iframe-container">
+          <div class="iframe-container">
             <iframe
-            src="/projects/Pixelnote/index.html"
-            title="Pixelnote"
-            allowfullscreen>
+              src="/projects/Pixelnote/index.html"
+              title="Pixelnote"
+              loading="lazy"
+              tabindex="-1">
             </iframe>
-        </div>
+            <div class="iframe-overlay"
+                role="button"
+                tabindex="0"
+                aria-label="Activate interaction with Personal Portfolio preview"
+                onclick="this.parentElement.classList.add('active')"
+                onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.parentElement.classList.add('active'); }">
+              CLICK TO INTERACT
+            </div>
+          </div>
           <div class="project-tags">
             <span>HTML</span>
             <span>CSS</span>
@@ -740,9 +758,7 @@
               Open Application ↗
             </a>
 
-            <a href="https://github.com/"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a href="/projects/Pixelnote/Pixelnotedata.html">
               Source Code ↗
             </a>
           </div>

@@ -30,6 +30,7 @@
 
     * {
       box-sizing: border-box;
+      min-width: 0;
     }
 
     html {
@@ -44,7 +45,7 @@
       font-family: "Share Tech Mono", monospace;
     }
 
-    /* FIXED HEADER */
+    /* FIXED HEADER (identique à la page SWA) */
 
     header {
       position: fixed;
@@ -52,8 +53,7 @@
       z-index: 10;
       height: var(--header-height);
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      align-items: center;
       padding: 12px 20px;
       overflow: hidden;
       background: #000;
@@ -80,10 +80,10 @@
     }
 
     .header-links {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     .identity p a {
@@ -144,10 +144,6 @@
 
     .toc li {
       margin: 4px 0;
-    }
-
-    footer a {
-    color: inherit;
     }
 
     main a {
@@ -211,7 +207,7 @@
       color: var(--muted);
     }
 
-    /* FIXED FOOTER */
+    /* FIXED FOOTER (identique à la page SWA) */
 
     footer {
       position: fixed;
@@ -222,6 +218,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+      min-width: 0;
       padding: 0 16px;
       overflow: hidden;
       background: #000;
@@ -231,6 +228,7 @@
     }
 
     footer a {
+      flex-shrink: 0;
       color: var(--muted);
       text-decoration: none;
     }
@@ -240,24 +238,37 @@
       color: var(--green);
     }
 
-    /* MOBILE */
+    /* TABLETS */
 
-    @media (max-width: 600px) {
+    @media (max-width: 850px) {
       :root {
-        --header-height: 60px;
-        --footer-height: 34px;
+        --header-height: 72px;
       }
 
       header {
-        padding: 5px 10px;
+        padding: 8px 12px;
+      }
+    }
+
+    /* PHONES */
+
+    @media (max-width: 600px) {
+      :root {
+        --header-height: 62px;
+        --footer-height: 36px;
       }
 
-      header h1 {
-        font-size: 0.8rem;
+      header {
+        padding: 6px 10px;
       }
 
-      header p {
-        font-size: 0.55rem;
+      .identity h1 {
+        font-size: clamp(0.9rem, 4vw, 1.2rem);
+      }
+
+      .identity p {
+        margin-top: 3px;
+        font-size: 0.65rem;
       }
 
       main {
@@ -272,7 +283,51 @@
 
       footer {
         padding: 0 8px;
+        font-size: 0.6rem;
+      }
+    }
+
+    /* SMALL PHONES */
+
+    @media (max-width: 380px) {
+      :root {
+        --header-height: 56px;
+        --footer-height: 28px;
+      }
+
+      header {
+        padding: 5px 8px;
+      }
+
+      .identity h1 {
+        font-size: 0.88rem;
+      }
+
+      .identity p {
+        margin-top: 2px;
+        font-size: 0.6rem;
+      }
+
+      footer {
         font-size: 0.55rem;
+      }
+    }
+
+    /* VERY SHORT SCREENS */
+
+    @media (max-height: 650px) {
+      :root {
+        --header-height: 54px;
+        --footer-height: 26px;
+      }
+
+      header {
+        padding-top: 4px;
+        padding-bottom: 4px;
+      }
+
+      .identity p {
+        margin-top: 2px;
       }
     }
 
@@ -288,7 +343,7 @@
 
 <header>
   <div class="identity">
-    <h1>HTML5 PORTFOLIO // TECHNICAL DATASHEET // Snake game</h1>
+    <h1>HTML5 PORTFOLIO // Snake game</h1>
     <p class="header-links">
       <a href="/Devel/SWA/simwebapps.html">← Back to home</a>
       <a href="#" id="back-to-top">Back to top ↑</a>

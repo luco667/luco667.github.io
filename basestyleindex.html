@@ -15,6 +15,10 @@
       --header-height: 100px;
       --footer-height: 42px;
       --gap: 12px;
+
+      /* Hauteur entre header et footer, et moitié de cette hauteur pour chaque carte */
+      --main-height: calc(100dvh - var(--header-height) - var(--footer-height));
+      --card-height: calc(var(--main-height) / 2);
     }
 
     html,
@@ -24,14 +28,6 @@
       margin: 0;
       background: var(--background);
     }
-    /*
-    @font-face {
-      font-family: "Minecraft";
-      src: url("Minecraft.ttf") format("truetype");
-      font-weight: 100px;
-      font-style: normal;
-      font-display: swap;
-    }*/
 
     body {
       height: 100vh;
@@ -172,16 +168,16 @@
       text-transform: uppercase;
     }
 
-    /* RESPONSIVE PROJECT GRID */
+    /* RESPONSIVE PROJECT GRID
+       Chaque ligne = moitié de l'espace entre header et footer */
 
     .project-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-auto-rows: 100%;/*change rows article heigh on Laptop*/
+      grid-auto-rows: var(--card-height);
       align-items: stretch;
       align-content: start;
       gap: var(--gap);
-      width: 100%;
     }
 
     /* PROJECT CARD */
@@ -348,7 +344,6 @@
     @media (max-width: 1400px) {
       .project-grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        grid-auto-rows: 340px;
       }
     }
 
@@ -376,7 +371,6 @@
 
       .project-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        grid-auto-rows: 320px;
       }
     }
 
@@ -385,7 +379,6 @@
     @media (max-width: 850px) {
       .project-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-auto-rows: 320px;
       }
 
       .project-card {
@@ -463,7 +456,6 @@
 
       .project-grid {
         grid-template-columns: repeat(1, minmax(0, 1fr));
-        grid-auto-rows: 40%;/*change rows article heigh on iphone*/
         gap: 8px;
       }
 
@@ -514,7 +506,7 @@
         grid-column: 1 / -1;
         padding: 16px;
         font-size: 0.8rem;
-        line-height: 0.1;
+        line-height: 1.5;
       }
 
       footer {
@@ -551,7 +543,6 @@
 
       .project-grid {
         grid-template-columns: minmax(0, 1fr);
-        grid-auto-rows: 300px;
       }
 
       .project-card {
@@ -571,14 +562,6 @@
       }
     }
 
-    /* SHORT SCREENS */
-
-    @media (max-height: 650px) {
-      .project-grid {
-        grid-auto-rows: 280px;
-      }
-    }
-
     /* ACCESSIBILITY */
 
     @media (prefers-reduced-motion: reduce) {
@@ -589,4 +572,4 @@
         transition: none !important;
       }
     }
-</style>
+  </style>

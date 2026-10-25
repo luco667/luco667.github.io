@@ -9,6 +9,12 @@
   <title>Technical Datasheet | Portfolio</title>
 
   <style>
+    /*@font-face {
+      font-family: "Minecraft";
+      src: url("Minecraft.ttf") format("truetype");
+      font-display: swap;
+    }*/
+
     :root {
       --green: #00ff41;
       --dark-green: #145c26;
@@ -16,12 +22,15 @@
       --panel: #090f0a;
       --text: #d5ffd9;
       --muted: #72a77b;
-      --header-height: 64px;
-      --footer-height: 36px;
+      --header-height: 100px;
+      --footer-height: 42px;
+      --gap: 12px;
+      --content-padding: 14px;
     }
 
     * {
       box-sizing: border-box;
+      min-width: 0;
     }
 
     html {
@@ -33,58 +42,59 @@
       margin: 0;
       background: var(--background);
       color: var(--text);
-      font-family: "Minecraft", monospace;
-      font-size: 13px;
-      line-height: 1.7;
+      font-family: "Share Tech Mono", monospace;
     }
 
-    /* FIXED HEADER */
+    /* FIXED HEADER (identique à la page SWA) */
 
     header {
-    display: flex;
-    align-items: center;
-    padding: 10px 18px;
-    overflow: hidden;
-    background: #000;
-    border-bottom: 1px solid var(--green);
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 10;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      overflow: hidden;
+      background: #000;
+      border-bottom: 1px solid var(--green);
     }
 
     .identity {
-    width: 100%;
-    overflow: hidden;
+      width: 100%;
+      overflow: hidden;
     }
 
     .identity h1 {
-    margin: 0;
-    color: var(--green);
-    font-size: clamp(1rem, 2.5vw, 2rem);
-    line-height: 1.15;
-    text-transform: uppercase;
-    text-shadow: 0 0 12px #00ff4180;
-    }
-
-    .identity h1 a {
-    text-decoration: none;
-    }
-
-    .identity h1 a:hover,
-    .identity h1 a:focus-visible {
-    text-shadow: 0 0 18px var(--green);
+      margin: 0;
+      color: var(--green);
+      font-size: clamp(1rem, 2.5vw, 2rem);
+      text-transform: uppercase;
+      text-shadow: 0 0 12px #00ff4180;
     }
 
     .identity p {
-    margin: 5px 0 0;
-    color: var(--muted);
-    font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+    }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
     }
 
     .identity p a {
-    text-decoration: none;
+      color: inherit;
+      text-decoration: none;
+      white-space: nowrap;
     }
 
     .identity p a:hover,
     .identity p a:focus-visible {
-    color: var(--green);
+      color: var(--green);
     }
 
     /* SCROLLABLE CONTENT */
@@ -136,14 +146,14 @@
       margin: 4px 0;
     }
 
-    a {
+    main a {
       color: var(--green);
       text-decoration: none;
       overflow-wrap: anywhere;
     }
 
-    a:hover,
-    a:focus-visible {
+    main a:hover,
+    main a:focus-visible {
       text-decoration: underline;
     }
 
@@ -197,7 +207,7 @@
       color: var(--muted);
     }
 
-    /* FIXED FOOTER */
+    /* FIXED FOOTER (identique à la page SWA) */
 
     footer {
       position: fixed;
@@ -207,37 +217,58 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      padding: 0 14px;
+      gap: 10px;
+      min-width: 0;
+      padding: 0 16px;
       overflow: hidden;
       background: #000;
       border-top: 1px solid var(--green);
       color: var(--muted);
-      font-size: 0.65rem;
+      font-size: 0.75rem;
     }
 
     footer a {
       flex-shrink: 0;
+      color: var(--muted);
+      text-decoration: none;
     }
 
-    /* MOBILE */
+    footer a:hover,
+    footer a:focus-visible {
+      color: var(--green);
+    }
 
-    @media (max-width: 600px) {
+    /* TABLETS */
+
+    @media (max-width: 850px) {
       :root {
-        --header-height: 60px;
-        --footer-height: 34px;
+        --header-height: 72px;
       }
 
       header {
-        padding: 5px 10px;
+        padding: 8px 12px;
+      }
+    }
+
+    /* PHONES */
+
+    @media (max-width: 600px) {
+      :root {
+        --header-height: 62px;
+        --footer-height: 36px;
       }
 
-      header h1 {
-        font-size: 0.8rem;
+      header {
+        padding: 6px 10px;
       }
 
-      header p {
-        font-size: 0.55rem;
+      .identity h1 {
+        font-size: clamp(0.9rem, 4vw, 1.2rem);
+      }
+
+      .identity p {
+        margin-top: 3px;
+        font-size: 0.65rem;
       }
 
       main {
@@ -252,7 +283,51 @@
 
       footer {
         padding: 0 8px;
+        font-size: 0.6rem;
+      }
+    }
+
+    /* SMALL PHONES */
+
+    @media (max-width: 380px) {
+      :root {
+        --header-height: 56px;
+        --footer-height: 28px;
+      }
+
+      header {
+        padding: 5px 8px;
+      }
+
+      .identity h1 {
+        font-size: 0.88rem;
+      }
+
+      .identity p {
+        margin-top: 2px;
+        font-size: 0.6rem;
+      }
+
+      footer {
         font-size: 0.55rem;
+      }
+    }
+
+    /* VERY SHORT SCREENS */
+
+    @media (max-height: 650px) {
+      :root {
+        --header-height: 54px;
+        --footer-height: 26px;
+      }
+
+      header {
+        padding-top: 4px;
+        padding-bottom: 4px;
+      }
+
+      .identity p {
+        margin-top: 2px;
       }
     }
 
@@ -267,8 +342,13 @@
 <body>
 
   <header>
-    <h1><a href="/Devel/Clanguage/Clanguage.html">HTML5 PORTFOLIO // TECHNICAL DATASHEET // C Language </a></h1>
-    <p><a href="/Devel/Clanguage/Clanguage.html" style="color: inherit; text-decoration: none;"> ← Back to home</a></p>
+    <div class="identity">
+      <h1>HTML5 PORTFOLIO // C Applications</h1>
+      <p class="header-links">
+        <a href="/Devel/SWA/simwebapps.html">← Back to home</a>
+        <a href="#" id="back-to-top">Back to top ↑</a>
+      </p>
+    </div>
   </header>
 
   <main>
@@ -661,11 +741,20 @@ C:\Program Files\CMake\bin</pre>
     </div>
   </main>
   <footer>
-    <span>TECHNICAL DATASHEET</span>
-    <a href="#top" onclick="window.scrollTo(0, 0); return false;">
-      BACK TO TOP ↑
-    </a>
+    <span>
+      <a href="https://github.com/Luco667"
+          target="_blank"
+          rel="noopener noreferrer">© 2026 — Luco667</a>
+    </span>
+    <a href="https://starboost.fr"
+        target="_blank"
+        rel="noopener noreferrer">Starboost ↗</a>
   </footer>
-
+  <script>
+  document.getElementById('back-to-top').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  </script>
 </body>
 </html>
