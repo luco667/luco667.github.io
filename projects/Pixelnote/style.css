@@ -7,9 +7,3 @@
   -webkit-tap-highlight-color: transparent;
   background:#000;
 }
-
-
-/* ── SMALL PHONES ── */
-@media screen and (max-width: 480px) and (hover: none) {
-  * { user-select: none;}
-}

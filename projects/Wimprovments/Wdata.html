@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#050805">
+
+  <title>Technical Datasheet | Portfolio</title>
+
+  <style>
+    /*@font-face {
+      font-family: "Minecraft";
+      src: url("Minecraft.ttf") format("truetype");
+      font-display: swap;
+    }*/
+
+    :root {
+      --green: #00ff41;
+      --dark-green: #145c26;
+      --background: #050805;
+      --panel: #090f0a;
+      --text: #d5ffd9;
+      --muted: #72a77b;
+      --header-height: 100px;
+      --footer-height: 42px;
+      --gap: 12px;
+      --content-padding: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 12px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: "Share Tech Mono", monospace;
+    }
+
+    /* FIXED HEADER */
+
+    header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 10;
+      height: var(--header-height);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 12px 20px;
+      overflow: hidden;
+      background: #000;
+      border-bottom: 1px solid var(--green);
+    }
+
+    .identity {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .identity h1 {
+      margin: 0;
+      color: var(--green);
+      font-size: clamp(1rem, 2.5vw, 2rem);
+      text-transform: uppercase;
+      text-shadow: 0 0 12px #00ff4180;
+    }
+
+    .identity p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+    }
+
+    .header-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    }
+
+    .identity p a {
+      color: inherit;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .identity p a:hover,
+    .identity p a:focus-visible {
+      color: var(--green);
+    }
+
+    /* SCROLLABLE CONTENT */
+
+    main {
+      position: fixed;
+      top: var(--header-height);
+      right: 0;
+      bottom: var(--footer-height);
+      left: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 16px;
+      overscroll-behavior: contain;
+      scrollbar-color: var(--dark-green) var(--background);
+    }
+
+    .content {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* TABLE OF CONTENTS */
+
+    .toc,
+    section {
+      margin-bottom: 16px;
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--dark-green);
+    }
+
+    .toc h2,
+    section h2 {
+      margin: 0 0 10px;
+      padding-bottom: 7px;
+      color: var(--green);
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--dark-green);
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 24px;
+    }
+
+    .toc li {
+      margin: 4px 0;
+    }
+
+    footer a {
+    color: inherit;
+    }
+
+    main a {
+      color: var(--green);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    main a:hover,
+    main a:focus-visible {
+      text-decoration: underline;
+    }
+
+    /* DOCUMENTATION */
+
+    section {
+      scroll-margin-top: 12px;
+    }
+
+    section h3 {
+      margin: 14px 0 5px;
+      color: var(--green);
+      font-size: 0.8rem;
+    }
+
+    section p {
+      margin: 6px 0;
+    }
+
+    section ul {
+      margin: 6px 0;
+      padding-left: 20px;
+    }
+
+    section li {
+      margin-bottom: 4px;
+    }
+
+    strong {
+      color: var(--text);
+    }
+
+    code {
+      color: var(--green);
+      overflow-wrap: anywhere;
+    }
+
+    pre {
+      margin: 10px 0;
+      padding: 12px;
+      overflow-x: auto;
+      background: #000;
+      border-left: 2px solid var(--green);
+      color: var(--green);
+      font: inherit;
+      font-size: 0.75rem;
+      line-height: 1.7;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* FIXED FOOTER */
+
+    footer {
+      position: fixed;
+      inset: auto 0 0;
+      z-index: 10;
+      height: var(--footer-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 16px;
+      overflow: hidden;
+      background: #000;
+      border-top: 1px solid var(--green);
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    footer a:hover,
+    footer a:focus-visible {
+      color: var(--green);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+      :root {
+        --header-height: 60px;
+        --footer-height: 34px;
+      }
+
+      header {
+        padding: 5px 10px;
+      }
+
+      header h1 {
+        font-size: 0.8rem;
+      }
+
+      header p {
+        font-size: 0.55rem;
+      }
+
+      main {
+        padding: 10px;
+      }
+
+      .toc,
+      section {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      footer {
+        padding: 0 8px;
+        font-size: 0.55rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="identity">
+      <h1>HTML5 PORTFOLIO // TECHNICAL DATASHEET // Windows customization</h1>
+      <p class="header-links">
+        <a href="/index.html">← Back to home</a>
+        <a href="#" id="back-to-top">Back to top ↑</a>
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <div class="content">
+
+      <!-- TABLE OF CONTENTS -->
+
+      <nav class="toc" aria-label="Table of contents">
+        <h2>00 / TABLE OF CONTENTS</h2>
+        <ol>
+          <li><a href="#identification">Document Identification</a></li>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#architecture">Registry Architecture</a></li>
+          <li><a href="#values">Color Values</a></li>
+          <li><a href="#backup">Prerequisites and Backup</a></li>
+          <li><a href="#procedure">Procedure</a></li>
+          <li><a href="#apply">Applying the Changes</a></li>
+          <li><a href="#rgb">RGB Color Codes</a></li>
+          <li><a href="#example">Practical Example</a></li>
+          <li><a href="#notes">Notes and Precautions</a></li>
+          <li><a href="#resources">Resources</a></li>
+        </ol>
+      </nav>
+
+      <!-- 01 -->
+
+      <section id="identification">
+        <h2>01 / DOCUMENT IDENTIFICATION</h2>
+
+        <p><strong>Topic:</strong> Changing the Windows selection color</p>
+        <p><strong>Method:</strong> Windows Registry edit</p>
+        <p><strong>Tool:</strong> Registry Editor (<code>regedit</code>)</p>
+        <p><strong>Registry key:</strong> <code>HKEY_CURRENT_USER\Control Panel\Colors</code></p>
+        <p><strong>Values modified:</strong> <code>Hilight</code>, <code>HilightText</code></p>
+        <p><strong>Risk level:</strong> Moderate (backup required)</p>
+        <p><strong>Document type:</strong> Technical documentation</p>
+      </section>
+
+      <!-- 02 -->
+
+      <section id="overview">
+        <h2>02 / OVERVIEW</h2>
+
+        <p>
+          The selection color is the color displayed when text or items
+          are selected in Windows interface windows. It can be customized
+          by editing two values stored in the Windows Registry.
+        </p>
+
+        <p>
+          Editing the registry gives more precise and advanced control
+          over the interface than the standard settings. However, manual
+          changes can be risky, so a backup must be made beforehand.
+        </p>
+
+        <h3>Primary objectives</h3>
+        <ul>
+          <li>Open the Registry Editor safely.</li>
+          <li>Locate the key that stores interface colors.</li>
+          <li>Change the selection background and text colors.</li>
+          <li>Apply the changes to the current session.</li>
+        </ul>
+      </section>
+
+      <!-- 03 -->
+
+      <section id="architecture">
+        <h2>03 / REGISTRY ARCHITECTURE</h2>
+
+        <p>
+          The color settings of the Windows interface are stored in the
+          current user's registry hive. The <code>Colors</code> key
+          contains the parameters for the colors used across the interface.
+        </p>
+
+        <h3>Key path</h3>
+
+        <pre>HKEY_CURRENT_USER
+└── Control Panel
+    └── Colors
+        ├── Hilight        (selection background)
+        └── HilightText    (selected text color)</pre>
+
+        <p class="muted">
+          This diagram shows only the values relevant to this procedure.
+          The Colors key contains many other interface color settings.
+        </p>
+      </section>
+
+      <!-- 04 -->
+
+      <section id="values">
+        <h2>04 / COLOR VALUES</h2>
+
+        <h3>Hilight — Selection background</h3>
+        <p>
+          Defines the background color of a selected element. Double-click
+          this value to edit it. The color is entered as an RGB code,
+          for example <code>0 0 255</code> for blue.
+        </p>
+
+        <h3>HilightText — Selected text</h3>
+        <p>
+          Defines the color of the text inside a selected element.
+          For example, <code>255 255 255</code> produces white text.
+        </p>
+
+        <h3>Value format</h3>
+        <p>
+          Each value is three numbers between 0 and 255, separated by
+          spaces, representing red, green and blue in that order.
+        </p>
+      </section>
+
+      <!-- 05 -->
+
+      <section id="backup">
+        <h2>05 / PREREQUISITES AND BACKUP</h2>
+
+        <p>
+          Editing the registry can be risky. A mistake may affect the
+          behavior of the system, so always back up before making changes.
+        </p>
+
+        <h3>Recommended precautions</h3>
+        <ul>
+          <li>Export the <code>Colors</code> key to a <code>.reg</code> file.</li>
+          <li>Note the original <code>Hilight</code> and <code>HilightText</code> values.</li>
+          <li>Modify only the values described in this document.</li>
+          <li>Create a system restore point if needed.</li>
+        </ul>
+      </section>
+
+      <!-- 06 -->
+
+      <section id="procedure">
+        <h2>06 / PROCEDURE</h2>
+
+        <h3>Step 1 — Open the Registry Editor</h3>
+        <pre>1. Press Win + R to open the Run dialog
+2. Type regedit
+3. Press Enter</pre>
+
+        <h3>Step 2 — Navigate to the key</h3>
+        <pre>HKEY_CURRENT_USER\Control Panel\Colors</pre>
+        <p>This key contains the settings for the colors used in the Windows interface.</p>
+
+        <h3>Step 3 — Edit the color values</h3>
+        <ul>
+          <li>In the right pane, locate <code>Hilight</code> and <code>HilightText</code>.</li>
+          <li>Double-click <code>Hilight</code> to change the selection background color.</li>
+          <li>Double-click <code>HilightText</code> to change the selected text color.</li>
+          <li>Enter each color as an RGB code (for example <code>0 0 255</code>).</li>
+        </ul>
+      </section>
+
+      <!-- 07 -->
+
+      <section id="apply">
+        <h2>07 / APPLYING THE CHANGES</h2>
+
+        <p>
+          Once the values are modified, close the Registry Editor.
+          The new colors may not appear immediately.
+        </p>
+
+        <h3>Options to apply the changes</h3>
+        <pre>Option A: Restart the PC
+Option B: Restart Windows Explorer
+  1. Press Ctrl + Shift + Esc (Task Manager)
+  2. Right-click "Windows Explorer"
+  3. Select "Restart"</pre>
+      </section>
+
+      <!-- 08 -->
+
+      <section id="rgb">
+        <h2>08 / RGB COLOR CODES</h2>
+
+        <p>
+          RGB values are three numbers between 0 and 255, representing
+          the amount of red, green and blue in the color.
+        </p>
+
+        <h3>Reference values</h3>
+        <pre>0 0 255      pure blue
+255 0 0      pure red
+0 255 0      pure green
+255 255 0    pure yellow
+0 0 0        black
+255 255 255  white</pre>
+      </section>
+
+      <!-- 09 -->
+
+      <section id="example">
+        <h2>09 / PRACTICAL EXAMPLE</h2>
+
+        <p>
+          To get a light blue selection with white text, enter the
+          following values:
+        </p>
+
+        <pre>Hilight      : 173 216 230   (light blue)
+HilightText  : 255 255 255   (white text)</pre>
+      </section>
+
+      <!-- 10 -->
+
+      <section id="notes">
+        <h2>10 / NOTES AND PRECAUTIONS</h2>
+
+        <h3>Alternative method</h3>
+        <p>
+          The selection color can also be changed through the Windows
+          "Colors and window appearance" settings. Editing the registry
+          offers more precise and advanced control over the interface.
+        </p>
+
+        <h3>Best practices</h3>
+        <ul>
+          <li>Always back up the registry before editing.</li>
+          <li>Keep sufficient contrast between background and text.</li>
+          <li>Restart Explorer or the PC to apply changes.</li>
+          <li>Restore the original values if the result is unsatisfactory.</li>
+        </ul>
+      </section>
+
+      <!-- 11 -->
+
+      <section id="resources">
+        <h2>11 / RESOURCES</h2>
+
+        <p><strong>Tool:</strong> Registry Editor (<code>regedit</code>)</p>
+        <p><strong>Key:</strong> <code>HKEY_CURRENT_USER\Control Panel\Colors</code></p>
+        <p><strong>Values:</strong> <code>Hilight</code>, <code>HilightText</code></p>
+        <p><strong>Documentation format:</strong> HTML</p>
+
+        <p class="muted">
+          This document describes a general procedure. Always verify
+          the values on your own system before and after making changes.
+        </p>
+      </section>
+
+    </div>
+  </main>
+  
+  <footer>
+    <span>
+      <a href="https://github.com/Luco667"
+          target="_blank"
+          rel="noopener noreferrer">© 2026 — Luco667</a>
+    </span>
+    <a href="https://starboost.fr"
+        target="_blank"
+        rel="noopener noreferrer">Starboost ↗</a>
+  </footer>
+  <script>
+  document.getElementById('back-to-top').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  </script>
+</body>
+</html>

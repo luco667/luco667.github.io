@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#050805">
+
+  <title>Technical Datasheet | Portfolio</title>
+
+  <style>
+    /*@font-face {
+      font-family: "Minecraft";
+      src: url("Minecraft.ttf") format("truetype");
+      font-display: swap;
+    }*/
+
+    :root {
+      --green: #00ff41;
+      --dark-green: #145c26;
+      --background: #050805;
+      --panel: #090f0a;
+      --text: #d5ffd9;
+      --muted: #72a77b;
+      --header-height: 100px;
+      --footer-height: 42px;
+      --gap: 12px;
+      --content-padding: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 12px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: "Share Tech Mono", monospace;
+    }
+
+    /* FIXED HEADER */
+
+    header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 10;
+      height: var(--header-height);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 12px 20px;
+      overflow: hidden;
+      background: #000;
+      border-bottom: 1px solid var(--green);
+    }
+
+    .identity {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .identity h1 {
+      margin: 0;
+      color: var(--green);
+      font-size: clamp(1rem, 2.5vw, 2rem);
+      text-transform: uppercase;
+      text-shadow: 0 0 12px #00ff4180;
+    }
+
+    .identity p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+    }
+
+    .header-links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    }
+
+    .identity p a {
+      color: inherit;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .identity p a:hover,
+    .identity p a:focus-visible {
+      color: var(--green);
+    }
+
+    /* SCROLLABLE CONTENT */
+
+    main {
+      position: fixed;
+      top: var(--header-height);
+      right: 0;
+      bottom: var(--footer-height);
+      left: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 16px;
+      overscroll-behavior: contain;
+      scrollbar-color: var(--dark-green) var(--background);
+    }
+
+    .content {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* TABLE OF CONTENTS */
+
+    .toc,
+    section {
+      margin-bottom: 16px;
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--dark-green);
+    }
+
+    .toc h2,
+    section h2 {
+      margin: 0 0 10px;
+      padding-bottom: 7px;
+      color: var(--green);
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--dark-green);
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 24px;
+    }
+
+    .toc li {
+      margin: 4px 0;
+    }
+
+    footer a {
+    color: inherit;
+    }
+
+    main a {
+      color: var(--green);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    main a:hover,
+    main a:focus-visible {
+      text-decoration: underline;
+    }
+
+    /* DOCUMENTATION */
+
+    section {
+      scroll-margin-top: 12px;
+    }
+
+    section h3 {
+      margin: 14px 0 5px;
+      color: var(--green);
+      font-size: 0.8rem;
+    }
+
+    section p {
+      margin: 6px 0;
+    }
+
+    section ul {
+      margin: 6px 0;
+      padding-left: 20px;
+    }
+
+    section li {
+      margin-bottom: 4px;
+    }
+
+    strong {
+      color: var(--text);
+    }
+
+    code {
+      color: var(--green);
+      overflow-wrap: anywhere;
+    }
+
+    pre {
+      margin: 10px 0;
+      padding: 12px;
+      overflow-x: auto;
+      background: #000;
+      border-left: 2px solid var(--green);
+      color: var(--green);
+      font: inherit;
+      font-size: 0.75rem;
+      line-height: 1.7;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* FIXED FOOTER */
+
+    footer {
+      position: fixed;
+      inset: auto 0 0;
+      z-index: 10;
+      height: var(--footer-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0 16px;
+      overflow: hidden;
+      background: #000;
+      border-top: 1px solid var(--green);
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    footer a:hover,
+    footer a:focus-visible {
+      color: var(--green);
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+      :root {
+        --header-height: 60px;
+        --footer-height: 34px;
+      }
+
+      header {
+        padding: 5px 10px;
+      }
+
+      header h1 {
+        font-size: 0.8rem;
+      }
+
+      header p {
+        font-size: 0.55rem;
+      }
+
+      main {
+        padding: 10px;
+      }
+
+      .toc,
+      section {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      footer {
+        padding: 0 8px;
+        font-size: 0.55rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="identity">
+    <h1>HTML5 PORTFOLIO // TECHNICAL DATASHEET // Snake game</h1>
+    <p class="header-links">
+      <a href="/Devel/SWA/simwebapps.html">← Back to home</a>
+      <a href="#" id="back-to-top">Back to top ↑</a>
+    </p>
+  </div>
+</header>
+
+  <main>
+    <div class="content">
+
+      <!-- TABLE OF CONTENTS -->
+
+      <nav class="toc" aria-label="Table of contents">
+        <h2>00 / TABLE OF CONTENTS</h2>
+        <ol>
+          <li><a href="#identification">Project Identification</a></li>
+          <li><a href="#overview">Project Overview</a></li>
+          <li><a href="#architecture">File Architecture</a></li>
+          <li><a href="#gameplay">Gameplay and Rules</a></li>
+          <li><a href="#controls">Controls</a></li>
+          <li><a href="#engine">Game Engine</a></li>
+          <li><a href="#rendering">Rendering</a></li>
+          <li><a href="#interface">Interface and Landing Page</a></li>
+          <li><a href="#config">Configuration</a></li>
+          <li><a href="#limits">Known Limitations</a></li>
+          <li><a href="#resources">Source Code and Resources</a></li>
+        </ol>
+      </nav>
+
+      <!-- 01 -->
+
+      <section id="identification">
+        <h2>01 / PROJECT IDENTIFICATION</h2>
+
+        <p><strong>Project:</strong> Snake game</p>
+        <p><strong>Authors:</strong> Lucas, Jephte and Ilhem</p>
+        <p><strong>Project type:</strong> Static browser game</p>
+        <p><strong>Primary technologies:</strong> HTML5, CSS3, JavaScript, Canvas 2D</p>
+        <p><strong>Context:</strong> School project (CC Simone Veil High School)</p>
+        <p><strong>Visual identity:</strong> Retro handheld console</p>
+        <p><strong>Document type:</strong> Technical documentation</p>
+      </section>
+
+      <!-- 02 -->
+
+      <section id="overview">
+        <h2>02 / PROJECT OVERVIEW</h2>
+
+        <p>
+          Snake is a browser version of the classic arcade game. The player
+          moves a snake around a grid and eats randomly placed fruit to
+          score points. The game is drawn on an HTML canvas displayed inside
+          a handheld console illustration.
+        </p>
+
+        <h3>Primary objectives</h3>
+        <ul>
+          <li>Reproduce the classic Snake gameplay in the browser.</li>
+          <li>Offer keyboard and on-screen button controls.</li>
+          <li>Present the game inside a console-style interface.</li>
+          <li>Provide a landing page with a sign-up form.</li>
+          <li>Run without a server or external library.</li>
+        </ul>
+      </section>
+
+      <!-- 03 -->
+
+      <section id="architecture">
+        <h2>03 / FILE ARCHITECTURE</h2>
+
+        <p>
+          The project is made of two pages and a folder of image assets.
+          The game script is embedded directly in the game page.
+        </p>
+
+        <h3>Logical structure</h3>
+
+        <pre>projects/snake
+├── enregistrement
+│   └── snake.html        (landing page + sign-up form)
+├── jeu
+│   └── snakegame.html    (console + canvas + game script)
+└── object
+    ├── gameboydisk.png   (landing page background)
+    ├── portable-retro-game-console-...jpg  (console background)
+    ├── Couleurs_Cadre_transparents.png     (school logo)
+    └── 427533.ico        (favicon)</pre>
+
+        <p class="muted">
+          Navigation: the landing page opens the game with the Play button,
+          and the Select button of the game returns to the landing page.
+        </p>
+      </section>
+
+      <!-- 04 -->
+
+      <section id="gameplay">
+        <h2>04 / GAMEPLAY AND RULES</h2>
+
+        <h3>Objective</h3>
+        <p>
+          Eat the colored fruit to increase the score. The current score
+          and the best score of the session are displayed on the canvas.
+        </p>
+
+        <h3>Rules</h3>
+        <ul>
+          <li>The grid is 10 × 10 tiles.</li>
+          <li>The snake starts in the center, motionless, with a short tail.</li>
+          <li>Eating a fruit adds one point and makes the tail grow.</li>
+          <li>Touching the snake's own body resets the game.</li>
+          <li>The walls are not solid: leaving one side of the grid brings the snake back on the opposite side.</li>
+          <li>The snake cannot reverse directly into itself.</li>
+          <li>The best score is kept until the page is reloaded.</li>
+        </ul>
+      </section>
+
+      <!-- 05 -->
+
+      <section id="controls">
+        <h2>05 / CONTROLS</h2>
+
+        <h3>Keyboard</h3>
+        <pre>Arrow keys   move the snake (also starts the game)
+Space        pause (stops the snake)
+Esc          reset the game</pre>
+
+        <h3>On-screen console buttons</h3>
+        <pre>D-pad arrows   move the snake
+Center key     change the fruit color
+Red button B   pause
+Red button A   reset
+Start          change the snake color
+Select         return to the sign-up page</pre>
+      </section>
+
+      <!-- 06 -->
+
+      <section id="engine">
+        <h2>06 / GAME ENGINE</h2>
+
+        <p>
+          The engine is a single <code>Snake</code> object created by an
+          immediately invoked function. It keeps its state private and
+          exposes only the methods used by the interface.
+        </p>
+
+        <h3>State</h3>
+        <ul>
+          <li><code>player</code>: current head position on the grid.</li>
+          <li><code>velocity</code>: direction of movement (x, y).</li>
+          <li><code>trail</code>: list of tiles occupied by the snake.</li>
+          <li><code>tail</code>: current length of the snake.</li>
+          <li><code>fruit</code>: position of the fruit.</li>
+          <li><code>points</code> and <code>pointsMax</code>: score and best score.</li>
+        </ul>
+
+        <h3>Game loop</h3>
+        <pre>Every tick (8 per second):
+  1. Move the head according to the velocity
+  2. Wrap the head around the grid edges
+  3. Add the new position to the trail
+  4. Trim the trail to the tail length
+  5. Detect collision with the body
+  6. Detect fruit and place a new one
+  7. Redraw the canvas</pre>
+
+        <h3>Public methods</h3>
+        <p>
+          <code>start</code>, <code>reset</code>, <code>pause</code>,
+          <code>action</code>, <code>startbut</code>, <code>middlebut</code>
+          and the <code>setup</code> helpers (<code>keyboard</code>,
+          <code>wall</code>, <code>tileCount</code>, <code>fixedTail</code>).
+        </p>
+      </section>
+
+      <!-- 07 -->
+
+      <section id="rendering">
+        <h2>07 / RENDERING</h2>
+
+        <p>
+          The game is drawn on a <code>canvas</code> of 400 × 400 pixels
+          with the 2D context. Each tile measures 40 × 40 pixels
+          (canvas size divided by the tile count).
+        </p>
+
+        <h3>Drawing order</h3>
+        <ul>
+          <li>Semi-transparent green background.</li>
+          <li>Snake tiles, one pixel smaller than the tile for a grid effect.</li>
+          <li>Fruit tile.</li>
+          <li>Help text and score in small-caps text.</li>
+        </ul>
+
+        <h3>Colors</h3>
+        <p>
+          The snake and fruit colors are generated randomly at load time
+          and can be changed with the Start and center buttons.
+        </p>
+      </section>
+
+      <!-- 08 -->
+
+      <section id="interface">
+        <h2>08 / INTERFACE AND LANDING PAGE</h2>
+
+        <h3>Console layout</h3>
+        <p>
+          The console is a fixed-size container (600 × 1000 pixels) with an
+          image background. The canvas, the D-pad, the two red buttons and the
+          Select / Start buttons are positioned inside it with CSS.
+        </p>
+
+        <h3>Landing page</h3>
+        <p>
+          The landing page displays the title, the school logo, the credits
+          and a form with a username and an email field. A small script
+          scales the console image so that it always fits the window,
+          from the smallest screens up to desktop.
+        </p>
+
+        <p class="muted">
+          The sign-up form is a visual element only: the entered values
+          are not sent or stored.
+        </p>
+      </section>
+
+      <!-- 09 -->
+
+      <section id="config">
+        <h2>09 / CONFIGURATION</h2>
+
+        <p>
+          The game is started at the end of the game page with the
+          following lines:
+        </p>
+
+        <pre>Snake.start(8);                 // 8 frames per second
+Snake.setup.keyboard(true);     // enable keyboard controls
+Snake.setup.fixedTail(false);   // the tail grows with each fruit</pre>
+
+        <h3>Adjustable options</h3>
+        <ul>
+          <li><code>Snake.start(fps)</code>: game speed.</li>
+          <li><code>Snake.setup.wall(true)</code>: solid walls, touching them resets the game.</li>
+          <li><code>Snake.setup.tileCount(n)</code>: grid size.</li>
+          <li><code>Snake.setup.fixedTail(true)</code>: the tail does not grow.</li>
+        </ul>
+      </section>
+
+      <!-- 10 -->
+
+      <section id="limits">
+        <h2>10 / KNOWN LIMITATIONS</h2>
+
+        <ul>
+          <li>The console layout has a fixed size and is not responsive on small screens.</li>
+          <li>The on-screen buttons use click events and the layout relies on a table.</li>
+          <li>The best score is not saved between sessions.</li>
+          <li>The sign-up form does not store any data.</li>
+        </ul>
+
+        <h3>Possible improvements</h3>
+        <p>
+          Responsive scaling of the game page, local storage of the best
+          score, touch swipe controls, difficulty levels and a sound effect
+          when eating a fruit.
+        </p>
+      </section>
+
+      <!-- 11 -->
+
+      <section id="resources">
+        <h2>11 / SOURCE CODE AND RESOURCES</h2>
+
+        <p>
+          <strong>GitHub profile:</strong>
+          <a href="https://github.com/Luco667"
+             target="_blank"
+             rel="noopener noreferrer">github.com/Luco667</a>
+        </p>
+
+        <p><strong>Game page:</strong> <code>/projects/snake/jeu/snakegame.html</code></p>
+        <p><strong>Landing page:</strong> <code>/projects/snake/enregistrement/snake.html</code></p>
+        <p><strong>Hosting model:</strong> Static web hosting</p>
+        <p><strong>Documentation format:</strong> HTML</p>
+
+        <p class="muted">
+          This document describes the project's general behavior.
+          Implementation-specific details should be verified against
+          the actual source code.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <span>
+      <a href="https://github.com/Luco667"
+          target="_blank"
+          rel="noopener noreferrer">© 2026 — Luco667</a>
+    </span>
+    <a href="https://starboost.fr"
+        target="_blank"
+        rel="noopener noreferrer">Starboost ↗</a>
+  </footer>
+  <script>
+  document.getElementById('back-to-top').addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  </script>
+</body>
+</html>

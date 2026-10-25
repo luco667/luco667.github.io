@@ -14,226 +14,226 @@
   <title>Snake Game</title>
 
   <style>
-html {
-  background: black;
-} /* stylize html tag*/
+  html {
+    background: black;
+  } /* stylize html tag*/
 
-body {
-  margin: 0;
-} /* stylize and place body html tag*/
+  body {
+    margin: 0;
+  } /* stylize and place body html tag*/
 
-br {
-  border: 2px solid white;
-}
+  br {
+    border: 2px solid white;
+  }
 
-.fondgameboy {
-  background-image: url("../object/portable-retro-game-console-90s-260nw-2155515871.jpg");
-  background-repeat: no-repeat; /* only display the image once */
-  background-position: center; /* center the background image*/
-  background-size: cover; /* cover everything with the image*/
-  background-attachment: relative; /*you can scrolls the background*/
-  border: 10px solid grey;
-  width: 600px;
-  height: 1000px;
-  margin-top: 20px;
-  margin-right: auto;
-  margin-left: auto; /*place the image in the web page*/
-  border-radius: 150px; /*rounded the edges*/
-} /* stylize and place .fondgameboy class*/
+  .fondgameboy {
+    background-image: url("../object/portable-retro-game-console-90s-260nw-2155515871.jpg");
+    background-repeat: no-repeat; /* only display the image once */
+    background-position: center; /* center the background image*/
+    background-size: cover; /* cover everything with the image*/
+    background-attachment: relative; /*you can scrolls the background*/
+    border: 10px solid grey;
+    width: 600px;
+    height: 1000px;
+    margin-top: 20px;
+    margin-right: auto;
+    margin-left: auto; /*place the image in the web page*/
+    border-radius: 150px; /*rounded the edges*/
+  } /* stylize and place .fondgameboy class*/
 
-.game-canvas {
-  /* this is the box contain the game*/
-  width: 100%;
-  height: 100vw;
-  max-width: 360px;
-  max-height: 330px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 120px;
-  margin-bottom: 155px;
-  border-radius: 5px;
-} /* stylize and place .game-canvas class*/
+  .game-canvas {
+    /* this is the box contain the game*/
+    width: 100%;
+    height: 100vw;
+    max-width: 360px;
+    max-height: 330px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 120px;
+    margin-bottom: 155px;
+    border-radius: 5px;
+  } /* stylize and place .game-canvas class*/
 
-.redbut {
-  border-style: solid;
-  width: 75px;
-  content: "";
-  height: 75px;
-  background: rgb(197, 0, 0);
-  border-radius: 70px;
-  border-style: solid;
-  display: block;
-  border-color: #2c2b2b75;
-  margin-top: 20px;
-  cursor: pointer;
-} /* stylize and place .game-canvas class*/
+  .redbut {
+    border-style: solid;
+    width: 75px;
+    content: "";
+    height: 75px;
+    background: rgb(197, 0, 0);
+    border-radius: 70px;
+    border-style: solid;
+    display: block;
+    border-color: #2c2b2b75;
+    margin-top: 20px;
+    cursor: pointer;
+  } /* stylize and place .game-canvas class*/
 
-.redbut:active {
-  background: #492222;
-  border-color: #966969;
-  box-shadow: rgba(0, 0, 218, 0.25) 0px 30px 60px -12px inset,
-    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-} /*give a texture to redbutton when they're clicked*/
+  .redbut:active {
+    background: #492222;
+    border-color: #966969;
+    box-shadow: rgba(0, 0, 218, 0.25) 0px 30px 60px -12px inset,
+      rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  } /*give a texture to redbutton when they're clicked*/
 
-.keys {
-  width: 210px;
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .keys {
+    width: 210;
+    height: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.keysplace {
-  display: grid;
-  grid-template-columns: repeat(3, 40px);
-  grid-template-rows: repeat(3, 40px);
-  gap: 0;
-  padding: 0;
-}
+  .keysplace {
+    display: grid;
+    grid-template-columns: repeat(3, 40px);
+    grid-template-rows: repeat(3, 40px);
+    gap: 0;
+    padding: 0;
+  }
 
-.box {
-  width: 40px;
-  height: 40px;
-  background: rgb(24, 23, 23);
-  border-right: 5px solid #181616;
-  border-bottom: 5px solid #131212;
-  border-left: 5px solid #161515;
-  border-top: 5px solid #161515;
+  .box {
+    width: 40px;
+    height: 40px;
+    background: rgb(24, 23, 23);
+    border-right: 5px solid #181616;
+    border-bottom: 5px solid #131212;
+    border-left: 5px solid #161515;
+    border-top: 5px solid #161515;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  cursor: pointer;
-  user-select: none;
-  transition: all 0.1s linear;
-}
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.1s linear;
+  }
 
-.box:active {
-  background: #555;
-}
+  .box:active {
+    background: #555;
+  }
 
-/* Positionnement fixe */
-.up {
-  grid-column: 2;
-  grid-row: 1;
-}
+  /* Positionnement fixe */
+  .up {
+    grid-column: 2;
+    grid-row: 1;
+  }
 
-.left {
-  grid-column: 1;
-  grid-row: 2;
-}
+  .left {
+    grid-column: 1;
+    grid-row: 2;
+  }
 
-.middle {
-  grid-column: 2;
-  grid-row: 2;
-}
+  .middle {
+    grid-column: 2;
+    grid-row: 2;
+  }
 
-.right {
-  grid-column: 3;
-  grid-row: 2;
-}
+  .right {
+    grid-column: 3;
+    grid-row: 2;
+  }
 
-.down {
-  grid-column: 2;
-  grid-row: 3;
-}
+  .down {
+    grid-column: 2;
+    grid-row: 3;
+  }
 
-/* Chevron parfaitement centré */
-.chevron::before {
-  content: "";
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-style: solid;
-  border-width: 4px 4px 0 0;
-}
+  /* Chevron parfaitement centré */
+  .chevron::before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-style: solid;
+    border-width: 4px 4px 0 0;
+  }
 
-.chevron.up::before {
-  transform: rotate(-45deg);
-}
+  .chevron.up::before {
+    transform: rotate(-45deg);
+  }
 
-.chevron.right::before {
-  transform: rotate(45deg);
-}
+  .chevron.right::before {
+    transform: rotate(45deg);
+  }
 
-.chevron.down::before {
-  transform: rotate(135deg);
-}
+  .chevron.down::before {
+    transform: rotate(135deg);
+  }
 
-.chevron.left::before {
-  transform: rotate(225deg);
-}
+  .chevron.left::before {
+    transform: rotate(225deg);
+  }
 
-/* Losange central */
-.color::before {
-  content: "";
-  display: block;
-  width: 12px;
-  height: 12px;
-  background: rgb(77, 70, 70);
-  transform: rotate(45deg);
-}
+  /* Losange central */
+  .color::before {
+    content: "";
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: rgb(77, 70, 70);
+    transform: rotate(45deg);
+  }
 
-#game-container {
-  display: flex;
-  flex-direction: column;
-  width:600;
-  heigh:400;
+  #game-container {
+    display: flex;
+    flex-direction: column;
+    width:600px;
+    height:400px;
 
-}/* place the display of game*/
+  }/* place the display of game*/
 
-.Bbutton {
-  margin-top: 10px;
-  margin-left: 127px;
-}/*place the B button*/
+  .Bbutton {
+    margin-top: 10px;
+    margin-left: 127px;
+  }/*place the B button*/
 
-.Abutton {
-  margin-bottom: 100px;
-  margin-left: 10px;
-}/*place the A button*/
+  .Abutton {
+    margin-bottom: 100px;
+    margin-left: 10px;
+  }/*place the A button*/
 
-/*td {
-  /*TABLEAU TOUCHE*/
- /* border: 2px solid white;*/
-
-
-.SelectBut {/*stylize and place select and start menu*/
-  background-color: rgb(99, 99, 99);
-  height: 25px;
-  width: 75px;
-  border-radius: 13em/3em;
-  margin-left: 175px;
-  margin-top: 15px;
-  transform: rotate(335deg);
-  border: 2px solid grey;
-  border-style: solid;
-  cursor: pointer;
-  display: block;
-}
-.SelectBut:hover {
-  background-color: rgb(20, 20, 31);
-}/*give a texture when clicked*/
+  /*td {
+    /*TABLEAU TOUCHE*/
+  /* border: 2px solid white;*/
 
 
-.Startbut {
-  background-color: rgb(99, 99, 99);
-  height: 25px;
-  width: 75px;
-  border-radius: 13em/3em;
-  transform: rotate(330deg);
-  border: 2px solid grey;
-  border-style: solid;
-  cursor: pointer;
-  display: block;
-  margin-top: 10px;
-  margin-left: 29px;
-}
+  .SelectBut {/*stylize and place select and start menu*/
+    background-color: rgb(99, 99, 99);
+    height: 25px;
+    width: 75px;
+    border-radius: 13em/3em;
+    margin-left: 175px;
+    margin-top: 15px;
+    transform: rotate(335deg);
+    border: 2px solid grey;
+    border-style: solid;
+    cursor: pointer;
+    display: block;
+  }
+  .SelectBut:hover {
+    background-color: rgb(20, 20, 31);
+  }/*give a texture when clicked*/
 
-.Startbut:hover {
-  background-color: rgb(43, 39, 39);
-}/*give a texture when clicked*/
-    
+
+  .Startbut {
+    background-color: rgb(99, 99, 99);
+    height: 25px;
+    width: 75px;
+    border-radius: 13em/3em;
+    transform: rotate(330deg);
+    border: 2px solid grey;
+    border-style: solid;
+    cursor: pointer;
+    display: block;
+    margin-top: 10px;
+    margin-left: 29px;
+  }
+
+  .Startbut:hover {
+    background-color: rgb(43, 39, 39);
+  }/*give a texture when clicked*/
+      
   </style>
 </head>
 

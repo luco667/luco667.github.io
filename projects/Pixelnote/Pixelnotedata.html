@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#050805">
+
+  <title>Technical Datasheet | Portfolio</title>
+
+  <style>
+    :root {
+      --green: #00ff41;
+      --dark-green: #145c26;
+      --background: #050805;
+      --panel: #090f0a;
+      --text: #d5ffd9;
+      --muted: #72a77b;
+      --header-height: 64px;
+      --footer-height: 36px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 12px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: "Minecraft", monospace;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    /* FIXED HEADER */
+
+    header {
+    display: flex;
+    align-items: center;
+    padding: 10px 18px;
+    overflow: hidden;
+    background: #000;
+    border-bottom: 1px solid var(--green);
+    }
+
+    .identity {
+    width: 100%;
+    overflow: hidden;
+    }
+
+    .identity h1 {
+    margin: 0;
+    color: var(--green);
+    font-size: clamp(1rem, 2.5vw, 2rem);
+    line-height: 1.15;
+    text-transform: uppercase;
+    text-shadow: 0 0 12px #00ff4180;
+    }
+
+    .identity h1 a {
+    text-decoration: none;
+    }
+
+    .identity h1 a:hover,
+    .identity h1 a:focus-visible {
+    text-shadow: 0 0 18px var(--green);
+    }
+
+    .identity p {
+    margin: 5px 0 0;
+    color: var(--muted);
+    font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+    }
+
+    .identity p a {
+    text-decoration: none;
+    }
+
+    .identity p a:hover,
+    .identity p a:focus-visible {
+    color: var(--green);
+    }
+
+    /* SCROLLABLE CONTENT */
+
+    main {
+      position: fixed;
+      top: var(--header-height);
+      right: 0;
+      bottom: var(--footer-height);
+      left: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 16px;
+      overscroll-behavior: contain;
+      scrollbar-color: var(--dark-green) var(--background);
+    }
+
+    .content {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* TABLE OF CONTENTS */
+
+    .toc,
+    section {
+      margin-bottom: 16px;
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--dark-green);
+    }
+
+    .toc h2,
+    section h2 {
+      margin: 0 0 10px;
+      padding-bottom: 7px;
+      color: var(--green);
+      font-size: 0.9rem;
+      border-bottom: 1px solid var(--dark-green);
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 24px;
+    }
+
+    .toc li {
+      margin: 4px 0;
+    }
+
+    a {
+      color: var(--green);
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    a:hover,
+    a:focus-visible {
+      text-decoration: underline;
+    }
+
+    /* DOCUMENTATION */
+
+    section {
+      scroll-margin-top: 12px;
+    }
+
+    section h3 {
+      margin: 14px 0 5px;
+      color: var(--green);
+      font-size: 0.8rem;
+    }
+
+    section p {
+      margin: 6px 0;
+    }
+
+    section ul {
+      margin: 6px 0;
+      padding-left: 20px;
+    }
+
+    section li {
+      margin-bottom: 4px;
+    }
+
+    strong {
+      color: var(--text);
+    }
+
+    code {
+      color: var(--green);
+      overflow-wrap: anywhere;
+    }
+
+    pre {
+      margin: 10px 0;
+      padding: 12px;
+      overflow-x: auto;
+      background: #000;
+      border-left: 2px solid var(--green);
+      color: var(--green);
+      font: inherit;
+      font-size: 0.75rem;
+      line-height: 1.7;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* FIXED FOOTER */
+
+    footer {
+      position: fixed;
+      inset: auto 0 0;
+      z-index: 10;
+      height: var(--footer-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 0 14px;
+      overflow: hidden;
+      background: #000;
+      border-top: 1px solid var(--green);
+      color: var(--muted);
+      font-size: 0.65rem;
+    }
+
+    footer a {
+      flex-shrink: 0;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+      :root {
+        --header-height: 60px;
+        --footer-height: 34px;
+      }
+
+      header {
+        padding: 5px 10px;
+      }
+
+      header h1 {
+        font-size: 0.8rem;
+      }
+
+      header p {
+        font-size: 0.55rem;
+      }
+
+      main {
+        padding: 10px;
+      }
+
+      .toc,
+      section {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      footer {
+        padding: 0 8px;
+        font-size: 0.55rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1><a href="/Devel/Clanguage/Clanguage.html">HTML5 PORTFOLIO // TECHNICAL DATASHEET // C Language </a></h1>
+    <p><a href="/Devel/Clanguage/Clanguage.html" style="color: inherit; text-decoration: none;"> ← Back to home</a></p>
+  </header>
+
+  <main>
+    <div class="content">
+
+      <!-- TABLE OF CONTENTS -->
+
+      <nav class="toc" aria-label="Table of contents">
+        <h2>00 / TABLE OF CONTENTS</h2>
+        <ol>
+          <li><a href="#identification">Project Identification</a></li>
+          <li><a href="#overview">Project Overview</a></li>
+          <li><a href="#structure">Repository Structure</a></li>
+          <li><a href="#shell">Emscripten Shell Template</a></li>
+          <li><a href="#makefile">Makefile</a></li>
+          <li><a href="#gitignore">Git Ignore Rules</a></li>
+          <li><a href="#libs">Library Management</a></li>
+          <li><a href="#pipeline">Build and Deployment Flow</a></li>
+          <li><a href="#windows">Windows Setup (emsdk)</a></li>
+          <li><a href="#troubleshooting">Troubleshooting</a></li>
+          <li><a href="#resources">Source Code and Resources</a></li>
+        </ol>
+      </nav>
+
+      <!-- 01 -->
+
+      <section id="identification">
+        <h2>01 / PROJECT IDENTIFICATION</h2>
+
+        <p><strong>Project:</strong> C / SDL3 application compiled to WebAssembly</p>
+        <p><strong>Project type:</strong> Static website (GitHub Pages)</p>
+        <p><strong>Primary technologies:</strong> C, SDL3, SDL_ttf, FreeType, Emscripten</p>
+        <p><strong>Build system:</strong> Makefile + GitHub Actions</p>
+        <p><strong>Hosting platform:</strong> GitHub Pages (<code>gh-pages</code> branch)</p>
+        <p><strong>Output:</strong> HTML, JavaScript, WASM and packaged data</p>
+        <p><strong>Document type:</strong> Technical documentation</p>
+      </section>
+
+      <!-- 02 -->
+
+      <section id="overview">
+        <h2>02 / PROJECT OVERVIEW</h2>
+
+        <p>
+          This project compiles a C application that uses SDL3 into
+          WebAssembly with Emscripten, so it can run in a browser. The
+          result is published as a static website on GitHub Pages.
+        </p>
+
+        <h3>Primary objectives</h3>
+        <ul>
+          <li>Compile C source code to WebAssembly with <code>emcc</code>.</li>
+          <li>Embed the application in a custom HTML page.</li>
+          <li>Package fonts, images and sounds with the build.</li>
+          <li>Automate the build and deployment with CI/CD.</li>
+          <li>Keep dependencies reproducible through Git submodules.</li>
+        </ul>
+      </section>
+
+      <!-- 03 -->
+
+      <section id="structure">
+        <h2>03 / REPOSITORY STRUCTURE</h2>
+
+        <p>
+          The repository separates source code, assets, libraries, the
+          web template and generated output.
+        </p>
+
+        <h3>Recommended layout</h3>
+
+        <pre>my-project/
+│
+├── .github/
+│   └── workflows/
+│       └── build.yml          ← automatic CI/CD
+│
+├── src/                       ← C source code
+│   ├── main.c
+│   ├── game.c / game.h
+│   ├── render.c / render.h
+│   └── ...
+│
+├── assets/                    ← resources
+│   ├── fonts/
+│   │   └── font.ttf
+│   ├── images/
+│   └── sounds/
+│
+├── libs/                      ← libraries (gitignore or submodules)
+│   ├── SDL3/
+│   ├── SDL_ttf/
+│   └── freetype/
+│
+├── web/                       ← website HTML template
+│   ├── index.html             ← main page
+│   ├── style.css
+│   └── shell.html             ← Emscripten template
+│
+├── dist/                      ← generated by the build (gitignored)
+│   ├── index.html
+│   ├── index.js
+│   ├── index.wasm
+│   └── index.data             ← packaged assets
+│
+├── Makefile
+└── README.md</pre>
+      </section>
+
+      <!-- 04 -->
+
+      <section id="shell">
+        <h2>04 / EMSCRIPTEN SHELL TEMPLATE</h2>
+
+        <p>
+          The <code>shell.html</code> file wraps the WASM application
+          in a web page. Emscripten replaces the
+          <code>{{{ SCRIPT }}}</code> placeholder with the generated
+          loader script.
+        </p>
+
+        <h3>web/shell.html</h3>
+
+        <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;My SDL3 App&lt;/title&gt;
+  &lt;style&gt;
+    body { margin: 0; background: #1a1a2e; display: flex;
+           justify-content: center; align-items: center; height: 100vh; }
+    canvas { border: 2px solid #444; }
+    #loading { color: white; font-family: monospace; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="loading"&gt;Loading...&lt;/div&gt;
+  &lt;canvas id="canvas" oncontextmenu="event.preventDefault()"&gt;&lt;/canvas&gt;
+
+  &lt;script&gt;
+    var Module = {
+      canvas: document.getElementById('canvas'),
+      onRuntimeInitialized: function() {
+        document.getElementById('loading').style.display = 'none';
+      }
+    };
+  &lt;/script&gt;
+  {{{ SCRIPT }}}  &lt;!-- Emscripten injects here --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+      </section>
+
+      <!-- 05 -->
+
+      <section id="makefile">
+        <h2>05 / MAKEFILE</h2>
+
+        <p>
+          The Makefile compiles the sources with <code>emcc</code>,
+          links the WASM builds of the libraries, preloads the assets
+          and outputs everything into <code>dist/</code>. The
+          <code>libs</code> target builds the dependencies with CMake.
+        </p>
+
+        <h3>Makefile</h3>
+
+        <pre>CC = emcc
+SRC = src/main.c src/game.c src/render.c
+OUT = dist/index.html
+
+INCLUDES = \
+  -I./libs/SDL3/include \
+  -I./libs/SDL_ttf \
+  -I./libs/freetype/include
+
+LIBS = \
+  -L./libs/SDL3/build-wasm \
+  -L./libs/SDL_ttf/build-wasm \
+  -L./libs/freetype/build-wasm \
+  -lSDL3 -lSDL3_ttf -lfreetype
+
+FLAGS = \
+  -s USE_WEBGL2=1 \
+  -s ASYNCIFY=1 \
+  -s ALLOW_MEMORY_GROWTH=1 \
+  -O2
+
+all: $(OUT)
+
+$(OUT): $(SRC)
+	mkdir -p dist
+	$(CC) $(SRC) $(INCLUDES) $(LIBS) $(FLAGS) \
+	  --shell-file web/shell.html \
+	  --preload-file assets/ \
+	  -o $(OUT)
+
+libs:
+	cd libs/freetype &amp;&amp; mkdir -p build-wasm &amp;&amp; cd build-wasm &amp;&amp; \
+	  emcmake cmake .. -DBUILD_SHARED_LIBS=OFF &amp;&amp; emmake make -j4
+	cd libs/SDL3 &amp;&amp; mkdir -p build-wasm &amp;&amp; cd build-wasm &amp;&amp; \
+	  emcmake cmake .. -DBUILD_SHARED_LIBS=OFF -DSDL_STATIC=ON &amp;&amp; emmake make -j4
+	cd libs/SDL_ttf &amp;&amp; mkdir -p build-wasm &amp;&amp; cd build-wasm &amp;&amp; \
+	  emcmake cmake .. -DBUILD_SHARED_LIBS=OFF &amp;&amp; emmake make -j4
+
+clean:
+	rm -rf dist/
+
+.PHONY: all libs clean</pre>
+
+        <p class="muted">
+          Makefile recipe lines must be indented with a tab character,
+          not spaces.
+        </p>
+      </section>
+
+      <!-- 06 -->
+
+      <section id="gitignore">
+        <h2>06 / GIT IGNORE RULES</h2>
+
+        <p>
+          Generated output and compiled library builds are excluded
+          from version control.
+        </p>
+
+        <h3>.gitignore</h3>
+
+        <pre># Build
+dist/
+libs/SDL3/build-wasm/
+libs/SDL_ttf/build-wasm/
+libs/freetype/build-wasm/
+
+# If libs are submodules, otherwise ignore everything
+# libs/
+
+*.o
+*.a</pre>
+      </section>
+
+      <!-- 07 -->
+
+      <section id="libs">
+        <h2>07 / LIBRARY MANAGEMENT</h2>
+
+        <p>
+          Git submodules are the recommended way to track SDL3,
+          SDL_ttf and FreeType at a fixed revision.
+        </p>
+
+        <h3>Adding the submodules</h3>
+
+        <pre>git submodule add https://github.com/libsdl-org/SDL.git libs/SDL3
+git submodule add https://github.com/libsdl-org/SDL_ttf.git libs/SDL_ttf
+git submodule add https://gitlab.freedesktop.org/freetype/freetype.git libs/freetype</pre>
+
+        <h3>CI configuration</h3>
+        <p>
+          In the workflow, the checkout step must also clone the libraries:
+        </p>
+
+        <pre>- uses: actions/checkout@v3
+  with:
+    submodules: recursive   # also clones the libs</pre>
+
+        <h3>Local clone (alternative)</h3>
+
+        <pre>cd C:\Users\killu
+mkdir my-project
+cd my-project
+mkdir libs
+cd libs
+
+git clone https://github.com/libsdl-org/SDL.git SDL3
+git clone https://github.com/libsdl-org/SDL_ttf.git SDL_ttf
+git clone https://gitlab.freedesktop.org/freetype/freetype.git freetype</pre>
+      </section>
+
+      <!-- 08 -->
+
+      <section id="pipeline">
+        <h2>08 / BUILD AND DEPLOYMENT FLOW</h2>
+
+        <p>
+          Every push triggers GitHub Actions, which builds the
+          dependencies and the application, then publishes the result.
+        </p>
+
+        <h3>Pipeline</h3>
+
+        <pre>push code
+    ↓
+GitHub Actions
+    ↓
+compile FreeType → SDL3 → SDL3_ttf → app
+    ↓
+generate dist/ (html + js + wasm + data)
+    ↓
+deploy to gh-pages
+    ↓
+https://youruser.github.io/my-project/</pre>
+      </section>
+
+      <!-- 09 -->
+
+      <section id="windows">
+        <h2>09 / WINDOWS SETUP (EMSDK)</h2>
+
+        <p>
+          On Windows, Emscripten is installed through <code>emsdk</code>.
+          Using <code>cmd.exe</code> or Git Bash is recommended instead
+          of PowerShell for Emscripten tasks.
+        </p>
+
+        <h3>Activating the SDK</h3>
+
+        <pre>cd C:\Users\killu\emsdk
+emsdk activate latest --permanent</pre>
+
+        <h3>Verifying the installation</h3>
+
+        <pre>emcc --version
+git --version
+cmake --version</pre>
+
+        <p>
+          Expected output for the first command is an
+          <code>emcc</code> version banner (Emscripten gcc/clang-like
+          replacement + linker).
+        </p>
+      </section>
+
+      <!-- 10 -->
+
+      <section id="troubleshooting">
+        <h2>10 / TROUBLESHOOTING</h2>
+
+        <h3>PowerShell PATH parse error</h3>
+        <p>
+          Running <code>emsdk activate latest</code> in PowerShell can
+          fail with an "unexpected token" error in
+          <code>emsdk_set_env.ps1</code>, caused by malformed quotes in
+          the PATH. Use <code>cmd.exe</code> instead, or run the
+          environment script through it:
+        </p>
+
+        <pre>cmd /k "C:\Users\killu\emsdk\emsdk_env.bat"</pre>
+
+        <h3>Truncated PATH after --permanent</h3>
+        <p>
+          The permanent activation can overwrite the PATH and drop
+          existing entries. If Git or CMake are no longer found, add the
+          missing entries back in the system environment variables
+          (Path):
+        </p>
+
+        <pre>C:\Windows\system32
+C:\Windows
+C:\Program Files\Git\cmd
+C:\Program Files\CMake\bin</pre>
+
+        <h3>Best practices</h3>
+        <ul>
+          <li>Back up the PATH variable before running <code>--permanent</code>.</li>
+          <li>Open a new terminal after changing environment variables.</li>
+          <li>Run all Emscripten commands from the same shell.</li>
+          <li>Check <code>emcc --version</code> before building the libraries.</li>
+        </ul>
+      </section>
+
+      <!-- 11 -->
+
+      <section id="resources">
+        <h2>11 / SOURCE CODE AND RESOURCES</h2>
+
+        <p><strong>SDL3:</strong> <a href="https://github.com/libsdl-org/SDL" target="_blank" rel="noopener noreferrer">github.com/libsdl-org/SDL</a></p>
+        <p><strong>SDL_ttf:</strong> <a href="https://github.com/libsdl-org/SDL_ttf" target="_blank" rel="noopener noreferrer">github.com/libsdl-org/SDL_ttf</a></p>
+        <p><strong>FreeType:</strong> <a href="https://gitlab.freedesktop.org/freetype/freetype" target="_blank" rel="noopener noreferrer">gitlab.freedesktop.org/freetype/freetype</a></p>
+        <p><strong>Source management:</strong> Git (submodules)</p>
+        <p><strong>Hosting model:</strong> Static web hosting (GitHub Pages)</p>
+        <p><strong>Documentation format:</strong> HTML</p>
+
+        <p class="muted">
+          This document describes the project's general architecture
+          and build process. Implementation-specific details should be
+          verified against the actual source code.
+        </p>
+      </section>
+
+    </div>
+  </main>
+  <footer>
+    <span>TECHNICAL DATASHEET</span>
+    <a href="#top" onclick="window.scrollTo(0, 0); return false;">
+      BACK TO TOP ↑
+    </a>
+  </footer>
+
+</body>
+</html>

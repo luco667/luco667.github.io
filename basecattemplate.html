@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#000000">
+
+  <title>Web Applications | Lucas Le Gueut</title>
+
+  <link rel="icon" href="/icons/icon.ico" type="image/x-icon">
+
+  <style>
+
+  /* ================================
+    RESET
+  ================================ */
+
+  * {
+    box-sizing: border-box;
+    min-width: 0;
+  }
+
+  :root {
+    --green: #00ff41;
+    --green-dark: #145c26;
+    --background: #050805;
+    --panel: #090f0a;
+    --text: #d5ffd9;
+    --muted: #72a77b;
+
+    --header-height: 100px;
+    --footer-height: 42px;
+    --gap: 12px;
+    --content-padding: 14px;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: var(--background);
+  }
+
+  body {
+    height: 100dvh;
+    overflow: hidden;
+    color: var(--text);
+    font-family: "Share Tech Mono", monospace;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  /* ================================
+    APPLICATION
+  ================================ */
+
+  .app {
+    display: grid;
+    grid-template-rows:
+      var(--header-height)
+      minmax(0, 1fr)
+      var(--footer-height);
+
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  /* ================================
+    HEADER
+  ================================ */
+
+  header {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    overflow: hidden;
+    background: #000;
+    border-bottom: 1px solid var(--green);
+  }
+
+  .identity {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .identity h1 {
+    margin: 0;
+    color: var(--green);
+    font-size: clamp(1rem, 2.5vw, 2rem);
+    text-transform: uppercase;
+    text-shadow: 0 0 12px #00ff4180;
+  }
+
+  .identity p {
+    margin: 5px 0 0;
+    color: var(--muted);
+    font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+  }
+
+  .identity p a {
+    text-decoration: none;
+  }
+
+  .identity p a:hover,
+  .identity p a:focus-visible {
+    color: var(--green);
+  }
+
+  /* ================================
+    MAIN VIEWPORT
+  ================================ */
+
+  main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    padding: var(--content-padding);
+  }
+
+  /* ================================
+    PAGE HEADING
+  ================================ */
+
+  .page-heading {
+    flex: 0 0 auto;
+    margin-bottom: 12px;
+  }
+
+  .page-heading h2 {
+    margin: 0 0 7px;
+    padding-bottom: 8px;
+    color: var(--green);
+    font-size: clamp(1.1rem, 2.5vw, 2rem);
+    line-height: 1.2;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--green-dark);
+  }
+
+  .page-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  /* ================================
+    PROJECT GRID
+    One full-height article at a time
+  ================================ */
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: 100%;
+    row-gap: 0;
+
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    width: 100%;
+
+    align-content: start;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    overscroll-behavior: contain;
+    scroll-snap-type: y mandatory;
+    scroll-padding: 0;
+    scrollbar-color: var(--green-dark) var(--background);
+  }
+
+  /* ================================
+    PROJECT CARDS
+  ================================ */
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 100%;
+    /* 1px de moins que la ligne : la bordure du bas ne peut plus être rognée par les arrondis */
+    height: calc(100% - 1px);
+    min-width: 0;
+    min-height: 0;
+
+    padding: 14px;
+    overflow: hidden;
+
+    background: var(--panel);
+    border: 1px solid #2f8f45;          /* plus clair qu'avant : visible sans hover */
+    transition: border-color 0.2s, box-shadow 0.2s;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .project-card:hover,
+  .project-card:focus-within {
+    border-color: var(--green);
+    box-shadow: 0 0 8px #00ff4140;
+  }
+
+  .project-status {
+    display: inline-block;
+    flex: 0 0 auto;
+    max-width: 100%;
+    padding: 4px 6px;
+    border: 1px solid var(--green);
+    color: var(--green);
+    font-size: 0.68rem;
+    line-height: 1.2;
+  }
+
+  .project-status.completed {
+    color: #8ba890;
+    border-color: #46664b;
+  }
+
+  .project-card h3 {
+    flex: 0 0 auto;
+    margin: 10px 0 6px;
+    color: #fff;
+    font-size: clamp(0.95rem, 1.5vw, 1.3rem);
+    line-height: 1.25;
+  }
+
+  .project-card p {
+    flex: 0 0 auto;
+    margin: 0 0 8px;
+    color: #9eb5a2;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  /* ================================
+    IFRAME PREVIEWS — 50% ZOOM
+  ================================ */
+
+  .iframe-container {
+    position: relative;
+    width: 100%;
+    flex: 1 1 0;
+    min-height: 0;
+    margin: 5px 0 8px;
+    overflow: hidden;
+    border: 1px solid var(--green-dark);
+    background: #000;
+  }
+
+  /* Réduit visuellement la page cible à 50 % */
+  .iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border: 0;
+    background: #000;
+    transform: scale(0.5);
+    transform-origin: top left;
+
+    /* Bloque les clics et le défilement avant activation */
+    pointer-events: none;
+  }
+
+  /* Autorise l'interaction après un clic sur le calque */
+  .iframe-container.active iframe {
+    pointer-events: auto;
+  }
+
+  .iframe-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    color: var(--green);
+    background: rgb(0 0 0 / 35%);
+    font-family: "Share Tech Mono", monospace;
+    font-size: clamp(0.65rem, 1.5vw, 1rem);
+    letter-spacing: 2px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .iframe-overlay:hover,
+  .iframe-overlay:focus-visible {
+    background: rgb(0 0 0 / 55%);
+    outline: 1px solid var(--green);
+    outline-offset: -4px;
+  }
+
+  .iframe-container.active .iframe-overlay {
+    display: none;
+  }
+
+
+  /* ================================
+    TAGS
+  ================================ */
+
+  .project-tags {
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: auto;
+    padding-top: 7px;
+  }
+
+  .project-tags span {
+    padding: 3px 5px;
+    background: #102416;
+    color: #a6ffb5;
+    font-size: 0.68rem;
+  }
+
+  /* ================================
+    LINKS
+  ================================ */
+
+  .project-actions {
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    margin-top: 10px;
+  }
+
+  .project-actions a {
+    color: var(--green);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+
+  .project-actions a:hover,
+  .project-actions a:focus-visible {
+    text-decoration: underline;
+  }
+
+  /* ================================
+    FOOTER
+  ================================ */
+
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-width: 0;
+    padding: 0 16px;
+    overflow: hidden;
+    background: #000;
+    border-top: 1px solid var(--green);
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  footer a {
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+
+  footer a:hover,
+  footer a:focus-visible {
+    color: var(--green);
+  }
+
+  /* ================================
+    TABLETS
+  ================================ */
+
+  @media (max-width: 850px) {
+    :root {
+      --header-height: 72px;
+      --content-padding: 12px;
+      --gap: 10px;
+    }
+
+    header {
+      padding: 8px 12px;
+    }
+
+    .project-card {
+      padding: 12px;
+    }
+
+  }
+
+  /* ================================
+    PHONES
+  ================================ */
+
+  @media (max-width: 600px) {
+    :root {
+      --header-height: 62px;
+      --footer-height: 30px;
+      --content-padding: 8px;
+      --gap: 8px;
+    }
+
+    header {
+      padding: 6px 10px;
+    }
+
+    .identity h1 {
+      font-size: clamp(0.9rem, 4vw, 1.2rem);
+    }
+
+    .identity p {
+      margin-top: 3px;
+      font-size: 0.65rem;
+    }
+
+    main {
+      padding: var(--content-padding);
+    }
+
+    .page-heading {
+      margin-bottom: 8px;
+    }
+
+    .page-heading h2 {
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+      font-size: clamp(1rem, 4vw, 1.2rem);
+    }
+
+    .page-heading p {
+      font-size: 0.72rem;
+      line-height: 1.3;
+    }
+
+    .project-grid {
+      grid-template-columns: minmax(0, 1fr);
+      grid-auto-rows: 100%;
+      row-gap: 0;
+    }
+
+    .project-card {
+      padding: 8px;
+    }
+
+    .project-status {
+      padding: 3px 4px;
+      font-size: 0.62rem;
+    }
+
+    .project-card h3 {
+      margin: 7px 0 4px;
+      font-size: 0.95rem;
+    }
+
+    .project-card p {
+      margin-bottom: 5px;
+      font-size: 0.72rem;
+      line-height: 1.3;
+    }
+
+    .iframe-container {
+      margin: 4px 0 6px;
+    }
+
+    .project-tags {
+      gap: 3px;
+      padding-top: 5px;
+    }
+
+    .project-tags span {
+      padding: 3px 4px;
+      font-size: 0.6rem;
+    }
+
+    .project-actions {
+      gap: 5px 8px;
+      margin-top: 7px;
+    }
+
+    .project-actions a {
+      font-size: 0.68rem;
+    }
+
+    footer {
+      padding: 0 8px;
+      font-size: 0.6rem;
+    }
+  }
+
+  /* ================================
+    SMALL PHONES
+  ================================ */
+
+  @media (max-width: 380px) {
+    :root {
+      --header-height: 56px;
+      --footer-height: 28px;
+      --content-padding: 6px;
+      --gap: 6px;
+    }
+
+    header {
+      padding: 5px 8px;
+    }
+
+    .identity h1 {
+      font-size: 0.88rem;
+    }
+
+    .identity p {
+      margin-top: 2px;
+      font-size: 0.6rem;
+    }
+
+    .page-heading h2 {
+      font-size: 0.95rem;
+    }
+
+    .page-heading p {
+      font-size: 0.68rem;
+    }
+
+    .project-grid {
+      gap: 6px;
+    }
+
+    .project-card {
+      padding: 6px;
+    }
+
+    .project-card h3 {
+      font-size: 0.82rem;
+    }
+
+    .project-card p {
+      font-size: 0.65rem;
+    }
+
+
+    .project-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+
+    .project-actions a {
+      font-size: 0.62rem;
+    }
+
+    .project-tags {
+      gap: 3px;
+    }
+
+    .project-tags span {
+      font-size: 0.52rem;
+    }
+
+    footer {
+      font-size: 0.55rem;
+    }
+  }
+
+  /* ================================
+    VERY SHORT SCREENS
+  ================================ */
+
+  @media (max-height: 650px) {
+    :root {
+      --header-height: 54px;
+      --footer-height: 26px;
+    }
+
+    header {
+      padding-top: 4px;
+      padding-bottom: 4px;
+    }
+
+    .identity p {
+      margin-top: 2px;
+    }
+
+    main {
+      padding-top: 6px;
+      padding-bottom: 6px;
+    }
+
+    .page-heading {
+      margin-bottom: 6px;
+    }
+
+    .page-heading h2 {
+      margin-bottom: 4px;
+      padding-bottom: 4px;
+    }
+
+    .page-heading p {
+      line-height: 1.2;
+    }
+
+    .project-card {
+      padding: 7px;
+    }
+
+    .project-card h3 {
+      margin-top: 5px;
+    }
+
+    .project-card p {
+      line-height: 1.2;
+    }
+
+    .iframe-container {
+      margin: 3px 0 5px;
+    }
+
+    .project-actions {
+      margin-top: 5px;
+    }
+  }
+
+  /* ================================
+    ACCESSIBILITY
+  ================================ */
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- CLICKABLE TITLE / HOME LINK -->
+
+    <header>
+      <div class="identity">
+        <h1>HTML5 Portfolio</h1>
+        <p><a href="/index.html" style="color: inherit; text-decoration: none;"> ← Back to home </a></p>
+      </div>
+    </header>
+
+    <!-- WEB APPLICATIONS -->
+
+    <main>
+
+      <div class="page-heading">
+        <h2>Static Web Applications</h2>
+        <p>
+          Interactive web projects built with HTML, CSS and JavaScript.
+        </p>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card">
+          <span class="project-status completed">COMPLETED</span>
+
+          <h3>Personal Portfolio</h3>
+
+          <p>
+            A responsive portfolio.
+          </p>
+            <!-- LIVE GAME PREVIEW -->
+        <div class="iframe-container">
+          <iframe
+            src="/index.html"
+            title="Personal Portfolio preview"
+            loading="lazy"
+            tabindex="-1">
+          </iframe>
+          <div class="iframe-overlay"
+              role="button"
+              tabindex="0"
+              aria-label="Activate interaction with Personal Portfolio preview"
+              onclick="this.parentElement.classList.add('active')"
+              onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.parentElement.classList.add('active'); }">
+            CLICK TO INTERACT
+          </div>
+        </div>
+          <div class="project-tags">
+            <span>HTML5</span>
+            <span>CSS3</span>
+            <span>JavaScript</span>
+          </div>
+
+          <div class="project-actions">
+            <a href="/index.html">
+              View Portfolio ↗
+            </a>
+
+            <a href="/projects/Portfolio/portfoliodata.html"
+              target="_blank"
+              rel="noopener noreferrer">
+              Source Code ↗
+            </a>
+          </div>
+        </article>
+        <!-- WEB APP 1 -->
+
+        <article class="project-card">
+          <span class="project-status">IN PROGRESS</span>
+
+          <h3>Snake's game</h3>
+
+          <p>
+            A dynamic website built without PHP, using client-side
+            technologies and interactive components.
+          </p>
+
+            <!-- LIVE GAME PREVIEW -->
+        <div class="iframe-container">
+          <iframe
+            src="/projects/snake/jeu/snakegame.html"
+            title="Snake's Game preview"
+            loading="lazy"
+            tabindex="-1">
+          </iframe>
+          <div class="iframe-overlay"
+              role="button"
+              tabindex="0"
+              aria-label="Activate interaction with Snake's Game preview"
+              onclick="this.parentElement.classList.add('active')"
+              onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); this.parentElement.classList.add('active'); }">
+            CLICK TO INTERACT
+          </div>
+        </div>
+          <div class="project-tags">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+          </div>
+
+          <div class="project-actions">
+            <a href="/projects/snake/jeu/snakegame.html"
+              target="_blank"
+              rel="noopener noreferrer">
+              Open Application ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- WEB APP 2 -->
+
+
+
+        <!-- DUPLICATE THIS ARTICLE TO ADD MORE WEB APPS -->
+
+      </div>
+
+    </main>
+
+    <!-- FIXED FOOTER -->
+
+    <footer>
+      <span><a href="https://github.com/Luco667" target="_blank" rel="noopener noreferrer">© 2026 — Luco667</a></span>
+      <a href="https://starboost.fr" target="_blank" rel="noopener noreferrer"> Starboost ↗</a>
+    </footer>
+
+  </div>
+
+</body>
+</html>

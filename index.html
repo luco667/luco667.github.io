@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@
   <link rel="icon" href="../icons/icon.ico" type="image/x-icon">
 
   <style>
-    /* RESET */
+  /* RESET */
     * {
       box-sizing: border-box;
       min-width: 0;
@@ -36,21 +35,21 @@
       margin: 0;
       background: var(--background);
     }
-
+    /*
     @font-face {
       font-family: "Minecraft";
       src: url("Minecraft.ttf") format("truetype");
       font-weight: 100px;
       font-style: normal;
       font-display: swap;
-    }
+    }*/
 
     body {
       height: 100vh;
       height: 100dvh;
       overflow: hidden;
       color: var(--text);
-      font-family: "Minecraft", monospace;
+      font-family: "Share Tech Mono", monospace;
     }
 
     a {
@@ -475,7 +474,7 @@
 
       .project-grid {
         grid-template-columns: repeat(1, minmax(0, 1fr));
-        grid-auto-rows: 60%;/*change rows article heigh on iphone*/
+        grid-auto-rows: 40%;/*change rows article heigh on iphone*/
         gap: 8px;
       }
 
@@ -523,8 +522,10 @@
       }
 
       .empty-message {
-        padding: 10px;
+        grid-column: 1 / -1;
+        padding: 16px;
         font-size: 0.8rem;
+        line-height: 0.1;
       }
 
       footer {
@@ -665,13 +666,6 @@
                 <li>Portfolio.</li>
                 <li>Snake.</li>
                 <li>QR-code generator.</li>
-                <li>More web applications.</li>
-                <li>Responsive layouts.</li>
-                <li>Interactive projects.</li>
-                <li>HTML documentation.</li>
-                <li>CSS experiments.</li>
-                <li>JavaScript tools.</li>
-                <li>Additional projects.</li>
               </ul>
             </div>
 
@@ -686,11 +680,33 @@
           </article>
 
           <article class="project-card">
+            <span class="project-status">IN PROGRESS</span>
+            <h3>Dynamic Web App</h3>
+
+            <div class="project-content">
+              <p>Website built with PHP.</p>
+              <ul>
+                <li>lucaslg.fr</li>
+              </ul>
+            </div>
+
+            <div class="project-tags">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+              <span>Python</span>
+              <span>PHP</span>
+            </div>
+
+            <a href="/Devel/SWA/simwebapps.html">View Project ↗</a>
+          </article>
+
+          <article class="project-card">
             <span class="project-status completed">COMPLETED</span>
             <h3>C and C++ App</h3>
 
             <div class="project-content">
-              <p>Personal development with MinGW and web deployment.</p>
+              <p>Personal development with MinGW and WebAssembly.</p>
               <ul>
                 <li>Pixelnote.</li>
               </ul>
@@ -700,6 +716,8 @@
               <span>C</span>
               <span>C++</span>
               <span>MinGW</span>
+              <span>WebAssembly</span>
+              <span>Emscripten</span>
             </div>
 
             <a href="/Devel/Clanguage/Clanguage.html">View Project ↗</a>
@@ -723,7 +741,7 @@
               <span>Python</span>
             </div>
 
-            <a href="/Devel/SWA/simwebapps.html">View Project ↗</a>
+            <a href="/projects/Wimprovments/Wdata.html">View Project ↗</a>
           </article>
 
         </div>
