@@ -410,12 +410,18 @@
     }
 
     header {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: 1fr auto;
+      gap: 8px;
       padding: 6px 10px;
+      
     }
 
     .identity h1 {
       font-size: clamp(0.9rem, 4vw, 1.2rem);
-    }
+          font-size: clamp(1rem, 2.5vw, 2rem);
+      text-transform: uppercase;
+      text-shadow: 0 0 12px #00ff4180;}
 
     .identity p {
       margin-top: 3px;
@@ -725,7 +731,7 @@
             <!-- LIVE GAME PREVIEW -->
         <div class="iframe-container">
           <iframe
-            src="/projects/snake/jeu/snakegame.html"
+            src="/projects/snake/snakegame.html"
             title="Snake's Game preview"
             loading="lazy"
             tabindex="-1">
@@ -746,7 +752,7 @@
           </div>
 
           <div class="project-actions">
-            <a href="/projects/snake/jeu/snakegame.html"
+            <a href="/projects/snake/snakegame.html"
               target="_blank"
               rel="noopener noreferrer">
               Open Application ↗

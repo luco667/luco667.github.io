@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="creator" content="lucas, jephte" />
+    <meta name="description" content="online game of the snake that eats apples" />
+    <link rel="icon" href="/icons/427533.ico" type="image/x-icon" />
+    <link rel="next" href="/snakegame.html" />
+    <title>Snake</title>
+
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* ─────────────────────────────────────────
+     Wrapper centré — s'adapte à la taille écran
+     ───────────────────────────────────────── */
+  .scale-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: 50vh;
+  }
+
+  /* ─────────────────────────────────────────
+     La cartouche Gameboy — taille fixe desktop
+     ───────────────────────────────────────── */
+  .diskcontent {
+    background-image: url(/icons/gameboydisk.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    width: 1000px;
+    height: 600px;
+    position: relative;
+    flex-shrink: 0;
+
+    /* Centrage via transform — origin au centre */
+    transform-origin: center center;
+  }
+
+  /* ─────────────────────────────────────────
+     Zone de contenu calée sur le carré gris
+     ───────────────────────────────────────── */
+  .inner {
+    position: absolute;
+    top: 28px;
+    left: 310px;
+    width: 380px;
+    height: 350px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 130px;
+  }
+
+  /* ── Titre ── */
+  .titre {
+    background: rgba(172, 255, 47, 0.692);
+    width: 320px;
+    border-radius: 20px;
+    text-align: center;
+    padding: 4px 0;
+    margin: 0;
+    font-size: 1.4rem;
+  }
+
+  h1 { margin: 0;
+    margin-top: 200px; }
+
+  /* ── Logo école ── */
+  .image {
+    height: 80px;
+    display: block;
+  }
+
+  /* ── Textes ── */
+  p {
+    text-align: center;
+    margin: 0;
+    font-size: 0.85rem;
+  }
+
+  label {
+    display: block;
+    text-align: center;
+    margin: 0;
+    font-size: 0.85rem;
+  }
+
+  /* ── Inputs ── */
+  input[type="text"],
+  input[type="email"] {
+    display: block;
+    margin: 2px auto;
+    padding: 3px 10px;
+    border-radius: 6px;
+    border: 1px solid #888;
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    font-size: 0.85rem;
+    width: 220px;
+  }
+
+  input[type="text"]::placeholder,
+  input[type="email"]::placeholder { color: #aaa; }
+
+  /* ── Bouton Play ── */
+  .centre {
+    display: block;
+    margin: 4px auto 0;
+    border: 0;
+    line-height: 2.2;
+    padding: 0 20px;
+    font-size: 0.95rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    border-radius: 10px;
+    background-color: rgba(220, 0, 0, 1);
+    background-image: linear-gradient(
+      to top left,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2) 30%,
+      rgba(0, 0, 0, 0)
+    );
+    box-shadow:
+      inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+      inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+  }
+  .centre:hover { background-color: rgba(255, 0, 0, 1); }
+  .centre:active {
+    box-shadow:
+      inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+      inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+  }
+
+  /* ══════════════════════════════════════════
+     RESPONSIVE MOBILE
+     On scale depuis le centre → reste centré
+     ══════════════════════════════════════════ */
+  @media (max-width: 1020px) {
+    html, body {
+      overflow: hidden;
+    }
+
+    .scale-wrapper {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .diskcontent {
+      /*
+        Calcule le scale selon la dimension limitante :
+        - en largeur  : 100vw / 1000
+        - en hauteur  : 100vh / 600
+        On prend le plus petit pour que tout rentre.
+        JavaScript injecte la bonne valeur via --s.
+      */
+      transform: scale(var(--s, 0.37));
+      transform-origin: center center;
+    }
+  }
+</style>
+
+  </head>
+
+  <body>
+    <div class="scale-wrapper">
+      <div class="diskcontent" id="disk">
+        <div class="inner">
+
+
+      <!-- Titre -->
+      <a href="/index.html" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" ><h1 class="titre">S N A K E</h1></a>
+
+      <!-- Logo école -->
+      <img
+        class="image"
+        src="/icons/Couleurs_Cadre_transparents.png"
+        alt="CC Simone Veil High School"
+      />
+
+      <!-- Crédits -->
+      <p>Created by Lucas, Jephte and Ilhem</p>
+
+      <!-- Inscription -->
+      <label>--Sign up--</label>
+
+      <label for="pseudo">Your username:</label>
+      <input id="pseudo" type="text" required placeholder="username" />
+
+      <label for="email">Your email:</label>
+      <input id="email" type="email" required placeholder="email@example.com" />
+
+      <!-- Bouton Play -->
+      <a href="/projects/snake/snakegame.html" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" >
+        <input class="centre" type="button" value="Play" />
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function fitDisk() {
+    const W = 1000, H = 600;
+    const scaleX = window.innerWidth  / W;
+    const scaleY = window.innerHeight / H;
+    const s = Math.min(scaleX, scaleY);
+    document.getElementById('disk').style.setProperty('--s', s);
+  }
+  fitDisk();
+  window.addEventListener('resize', fitDisk);
+</script>
+
+  </body>
+</html>
